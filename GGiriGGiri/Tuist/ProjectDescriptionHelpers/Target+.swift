@@ -1,0 +1,40 @@
+//
+//  Target+.swift
+//  ProjectDescriptionHelpers
+//
+//  Created by AhnSangHoon on 2022/06/19.
+//
+
+import ProjectDescription
+
+extension Target {
+    public static func appTarget(name: String) -> Target {
+        Target(name: name,
+               platform: .iOS,
+               product: .app,
+               bundleId: "com.sz.mashup.\(name)",
+               deploymentTarget: .iOS(targetVersion: "13.0", devices: .iphone),
+               infoPlist: .file(path: "SupportingFiles/\(name)-Info.plist"),
+               sources: [
+                "Sources/**"
+               ],
+               resources: [
+                "Resources/**"
+               ])
+    }
+    
+    public static func frameworkTarget(name: String) -> Target {
+        Target(
+            name: name,
+            platform: .iOS,
+            product: .framework,
+            bundleId: "com.sz.mashup.GGiriGGiri.DesignSystem",
+            infoPlist: .file(path: "SupportingFiles/\(name)-Info.plist"),
+            sources: [
+                "Sources/**"
+            ],
+            resources: [
+                "Resources/**"
+            ])
+    }
+}
