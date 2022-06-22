@@ -20,6 +20,15 @@ extension Target {
                ],
                resources: [
                 "Resources/**"
+               ],
+               dependencies: [
+                .project(target: "DesignSystem", path: "../DesignSystem"),
+                .external(name: "Alamofire"),
+                .external(name: "RxSwift"),
+                .external(name: "Kingfisher"),
+                .external(name: "PinLayout"),
+                .external(name: "FlexLayout"),
+                .external(name: "Lottie")
                ])
     }
     
