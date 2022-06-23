@@ -6,7 +6,9 @@
 # https://github.com/actions/labeler
 
 name: PR Review Labeler
-on: [pull_request]
+on:
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   label:
@@ -20,6 +22,6 @@ jobs:
     - uses: jsryudev/pr-review-labeler@v0.1.4
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        target-approved-count: 1
+        target-approved-count: 2
         label-to-be-added: "✅ Accepted" 
         label-to-be-removed: "⏰ In Review" 
