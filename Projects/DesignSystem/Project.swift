@@ -8,7 +8,7 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let proejct = Project.framework(name: "DesignSysytem",
+let proejct = Project.framework(name: "DesignSystem",
                                 targets: [
                                     Target.frameworkTarget(name: "DesignSystem")
                                 ])
