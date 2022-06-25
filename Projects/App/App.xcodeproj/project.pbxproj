@@ -29,7 +29,11 @@
 		D054F4992867891000CBE5F7 /* TempButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4982867891000CBE5F7 /* TempButton.swift */; };
 		D054F49D286789A400CBE5F7 /* TempBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F49C286789A400CBE5F7 /* TempBarButton.swift */; };
 		D054F4AF2867966F00CBE5F7 /* Gifticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4AE2867966F00CBE5F7 /* Gifticon.swift */; };
-		D054F4B12867968300CBE5F7 /* GifticonApplyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4B02867968300CBE5F7 /* GifticonApplyItem.swift */; };
+		D054F4B12867968300CBE5F7 /* GifticonListCardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4B02867968300CBE5F7 /* GifticonListCardItem.swift */; };
+		D054F4B32867975500CBE5F7 /* MainSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4B22867975500CBE5F7 /* MainSection.swift */; };
+		D054F4B52867979900CBE5F7 /* MainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4B42867979900CBE5F7 /* MainItem.swift */; };
+		D054F4B72867980800CBE5F7 /* MainCollectionViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4B62867980800CBE5F7 /* MainCollectionViewDiffableDataSource.swift */; };
+		D054F4BB2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4BA2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift */; };
 		E0133A61426E198CB88C4FA2 /* FlexLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBD38965FFB67BCCFCA44130 /* FlexLayout.framework */; platformFilter = ios; };
 /* End PBXBuildFile section */
 
@@ -68,7 +72,11 @@
 		D054F4982867891000CBE5F7 /* TempButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempButton.swift; sourceTree = "<group>"; };
 		D054F49C286789A400CBE5F7 /* TempBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempBarButton.swift; sourceTree = "<group>"; };
 		D054F4AE2867966F00CBE5F7 /* Gifticon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gifticon.swift; sourceTree = "<group>"; };
-		D054F4B02867968300CBE5F7 /* GifticonApplyItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifticonApplyItem.swift; sourceTree = "<group>"; };
+		D054F4B02867968300CBE5F7 /* GifticonListCardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifticonListCardItem.swift; sourceTree = "<group>"; };
+		D054F4B22867975500CBE5F7 /* MainSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSection.swift; sourceTree = "<group>"; };
+		D054F4B42867979900CBE5F7 /* MainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainItem.swift; sourceTree = "<group>"; };
+		D054F4B62867980800CBE5F7 /* MainCollectionViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewDiffableDataSource.swift; sourceTree = "<group>"; };
+		D054F4BA2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifticonListCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBD38965FFB67BCCFCA44130 /* FlexLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlexLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9369BFA2C65412102538303 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB0A222DDA6228DF9BA72C1B /* GGiriGGiri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GGiriGGiri.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +174,7 @@
 			children = (
 				D054F4982867891000CBE5F7 /* TempButton.swift */,
 				D054F496286788E000CBE5F7 /* TempLabel.swift */,
+				D054F4BA2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -173,8 +182,9 @@
 		D054F49A2867897E00CBE5F7 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				D054F4A3286790F200CBE5F7 /* Model */,
+				D054F4B62867980800CBE5F7 /* MainCollectionViewDiffableDataSource.swift */,
 				EE48B94517C4F8C2B9AC74C4 /* MainViewController.swift */,
+				D054F4A3286790F200CBE5F7 /* Model */,
 				D054F49B2867898800CBE5F7 /* View */,
 			);
 			path = Main;
@@ -191,6 +201,8 @@
 		D054F4A3286790F200CBE5F7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D054F4B22867975500CBE5F7 /* MainSection.swift */,
+				D054F4B42867979900CBE5F7 /* MainItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -199,7 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				D054F4AE2867966F00CBE5F7 /* Gifticon.swift */,
-				D054F4B02867968300CBE5F7 /* GifticonApplyItem.swift */,
+				D054F4B02867968300CBE5F7 /* GifticonListCardItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -287,13 +299,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				D054F497286788E000CBE5F7 /* TempLabel.swift in Sources */,
+				D054F4B52867979900CBE5F7 /* MainItem.swift in Sources */,
 				D054F4992867891000CBE5F7 /* TempButton.swift in Sources */,
+				D054F4B72867980800CBE5F7 /* MainCollectionViewDiffableDataSource.swift in Sources */,
 				C6718E3AA383C51845C04872 /* AppDelegate.swift in Sources */,
 				5C365493AF6E4EDA83652D7C /* SceneDelegate.swift in Sources */,
-				D054F4B12867968300CBE5F7 /* GifticonApplyItem.swift in Sources */,
+				D054F4B32867975500CBE5F7 /* MainSection.swift in Sources */,
+				D054F4B12867968300CBE5F7 /* GifticonListCardItem.swift in Sources */,
 				32272630B2DDB3F49682FA63 /* MainViewController.swift in Sources */,
 				D054F49D286789A400CBE5F7 /* TempBarButton.swift in Sources */,
 				D054F4AF2867966F00CBE5F7 /* Gifticon.swift in Sources */,
+				D054F4BB2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

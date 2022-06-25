@@ -1,5 +1,5 @@
 //
-//  GifticonApplyItem.swift
+//  GifticonListCardItem.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/06/25.
@@ -9,7 +9,7 @@
 import Foundation
 
 /// 기프티콘 응모에 사용되는 기프티콘 정보들
-struct GifticonApplyItem {
+struct GifticonListCardItem {
     let remainingTime: String
     let gifticonInfo: Gifticon
     let numberOfParticipants: Int
