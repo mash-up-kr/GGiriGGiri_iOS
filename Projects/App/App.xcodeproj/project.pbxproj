@@ -28,6 +28,8 @@
 		D054F497286788E000CBE5F7 /* TempLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F496286788E000CBE5F7 /* TempLabel.swift */; };
 		D054F4992867891000CBE5F7 /* TempButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4982867891000CBE5F7 /* TempButton.swift */; };
 		D054F49D286789A400CBE5F7 /* TempBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F49C286789A400CBE5F7 /* TempBarButton.swift */; };
+		D054F4AF2867966F00CBE5F7 /* Gifticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4AE2867966F00CBE5F7 /* Gifticon.swift */; };
+		D054F4B12867968300CBE5F7 /* GifticonApplyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4B02867968300CBE5F7 /* GifticonApplyItem.swift */; };
 		E0133A61426E198CB88C4FA2 /* FlexLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBD38965FFB67BCCFCA44130 /* FlexLayout.framework */; platformFilter = ios; };
 /* End PBXBuildFile section */
 
@@ -65,6 +67,8 @@
 		D054F496286788E000CBE5F7 /* TempLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempLabel.swift; sourceTree = "<group>"; };
 		D054F4982867891000CBE5F7 /* TempButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempButton.swift; sourceTree = "<group>"; };
 		D054F49C286789A400CBE5F7 /* TempBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempBarButton.swift; sourceTree = "<group>"; };
+		D054F4AE2867966F00CBE5F7 /* Gifticon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gifticon.swift; sourceTree = "<group>"; };
+		D054F4B02867968300CBE5F7 /* GifticonApplyItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifticonApplyItem.swift; sourceTree = "<group>"; };
 		DBD38965FFB67BCCFCA44130 /* FlexLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlexLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9369BFA2C65412102538303 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB0A222DDA6228DF9BA72C1B /* GGiriGGiri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GGiriGGiri.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +155,7 @@
 		D054F494286788C900CBE5F7 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D054F4AD2867966500CBE5F7 /* Model */,
 				D054F495286788D600CBE5F7 /* View */,
 			);
 			path = Common;
@@ -168,6 +173,7 @@
 		D054F49A2867897E00CBE5F7 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				D054F4A3286790F200CBE5F7 /* Model */,
 				EE48B94517C4F8C2B9AC74C4 /* MainViewController.swift */,
 				D054F49B2867898800CBE5F7 /* View */,
 			);
@@ -180,6 +186,22 @@
 				D054F49C286789A400CBE5F7 /* TempBarButton.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D054F4A3286790F200CBE5F7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D054F4AD2867966500CBE5F7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D054F4AE2867966F00CBE5F7 /* Gifticon.swift */,
+				D054F4B02867968300CBE5F7 /* GifticonApplyItem.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		E9C3DB3EC6D7655028A9C0D3 /* Products */ = {
@@ -268,8 +290,10 @@
 				D054F4992867891000CBE5F7 /* TempButton.swift in Sources */,
 				C6718E3AA383C51845C04872 /* AppDelegate.swift in Sources */,
 				5C365493AF6E4EDA83652D7C /* SceneDelegate.swift in Sources */,
+				D054F4B12867968300CBE5F7 /* GifticonApplyItem.swift in Sources */,
 				32272630B2DDB3F49682FA63 /* MainViewController.swift in Sources */,
 				D054F49D286789A400CBE5F7 /* TempBarButton.swift in Sources */,
+				D054F4AF2867966F00CBE5F7 /* Gifticon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
