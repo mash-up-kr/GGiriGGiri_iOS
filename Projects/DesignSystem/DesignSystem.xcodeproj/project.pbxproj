@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		92ABCEFC95058B571C357593 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975656224153401C19975579 /* Font.swift */; };
-		ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */; };
 		D2E21543F5B3B63472BE98A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */; };
 		F53DEC236588E320F14A2F8B /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D804B3E14C8B39CA7C6F9A7 /* Color.xcassets */; };
-		F6018B5F7748E322214C52D6 /* TuistBundle+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,8 +30,6 @@
 		4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		975656224153401C19975579 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+DesignSystem.swift"; sourceTree = "<group>"; };
-		BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+DesignSystem.swift"; sourceTree = "<group>"; };
 		DF0536A2A81CD87958E2AD85 /* DesignSystem-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DesignSystem-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,7 +55,6 @@
 		2BB59E843B58BD9FFF395FEA /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				8753C5EB21B15584438290E8 /* Derived */,
 				9C29548CCBEAF62FB7951500 /* Resources */,
 				0E1288659896D0CFF98DA5AA /* Sources */,
 				71BF1964642ACCC421D9DE57 /* SupportingFiles */,
@@ -90,14 +85,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8753C5EB21B15584438290E8 /* Derived */ = {
-			isa = PBXGroup;
-			children = (
-				D5FD3537E28AE857DC09D214 /* Sources */,
-			);
-			path = Derived;
-			sourceTree = "<group>";
-		};
 		9C29548CCBEAF62FB7951500 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,15 +92,6 @@
 				3D804B3E14C8B39CA7C6F9A7 /* Color.xcassets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		D5FD3537E28AE857DC09D214 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */,
-				BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */,
-			);
-			path = Sources;
 			sourceTree = "<group>";
 		};
 		EC9821EEC8CC800276475F6C = {
@@ -152,6 +130,7 @@
 		F639F9585E77B0BBBB642E14 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				ORGANIZATIONNAME = dvHuni;
 				TargetAttributes = {
 				};
 			};
@@ -190,8 +169,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */,
-				F6018B5F7748E322214C52D6 /* TuistBundle+DesignSystem.swift in Sources */,
 				92ABCEFC95058B571C357593 /* Font.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

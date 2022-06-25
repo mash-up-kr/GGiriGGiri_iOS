@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B1A38C97C090ECBBD1B7AFB8"
+               BlueprintIdentifier = "83C9B5D1938C22907FF6E247"
                BuildableName = "DesignSystem.framework"
                BlueprintName = "DesignSystem"
-               ReferencedContainer = "container:Projects/DesignSystem/DesignSysytem.xcodeproj">
+               ReferencedContainer = "container:Projects/DesignSystem/DesignSystem.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
