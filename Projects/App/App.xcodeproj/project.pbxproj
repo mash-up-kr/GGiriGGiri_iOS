@@ -25,6 +25,9 @@
 		BB071029835CCC7201E033DC /* FlexLayoutYogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC623CDA99458F6A4E3198A /* FlexLayoutYogaKit.framework */; platformFilter = ios; };
 		C16393E88B854B2E032F772E /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B54B3510C2F7504878DEAF6 /* Lottie.framework */; platformFilter = ios; };
 		C6718E3AA383C51845C04872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7210F22777D23AD1713BCADE /* AppDelegate.swift */; };
+		D054F497286788E000CBE5F7 /* TempLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F496286788E000CBE5F7 /* TempLabel.swift */; };
+		D054F4992867891000CBE5F7 /* TempButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4982867891000CBE5F7 /* TempButton.swift */; };
+		D054F49D286789A400CBE5F7 /* TempBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F49C286789A400CBE5F7 /* TempBarButton.swift */; };
 		E0133A61426E198CB88C4FA2 /* FlexLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBD38965FFB67BCCFCA44130 /* FlexLayout.framework */; platformFilter = ios; };
 /* End PBXBuildFile section */
 
@@ -59,6 +62,9 @@
 		BCC623CDA99458F6A4E3198A /* FlexLayoutYogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlexLayoutYogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C86E6E6BCDFAB61BBD09E06F /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB3EAE67978A66FA286CE4C7 /* GGiriGGiri-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GGiriGGiri-Info.plist"; sourceTree = "<group>"; };
+		D054F496286788E000CBE5F7 /* TempLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempLabel.swift; sourceTree = "<group>"; };
+		D054F4982867891000CBE5F7 /* TempButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempButton.swift; sourceTree = "<group>"; };
+		D054F49C286789A400CBE5F7 /* TempBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempBarButton.swift; sourceTree = "<group>"; };
 		DBD38965FFB67BCCFCA44130 /* FlexLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlexLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9369BFA2C65412102538303 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB0A222DDA6228DF9BA72C1B /* GGiriGGiri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GGiriGGiri.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +127,8 @@
 				7210F22777D23AD1713BCADE /* AppDelegate.swift */,
 				1ED69542D699D2104EE8BFC4 /* SceneDelegate.swift */,
 				EE48B94517C4F8C2B9AC74C4 /* MainViewController.swift */,
+				D054F494286788C900CBE5F7 /* Common */,
+				D054F49A2867897E00CBE5F7 /* Main */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -139,6 +147,39 @@
 				38CF270A852662493E247DA6 /* CFNetwork.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D054F494286788C900CBE5F7 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D054F495286788D600CBE5F7 /* View */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		D054F495286788D600CBE5F7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D054F4982867891000CBE5F7 /* TempButton.swift */,
+				D054F496286788E000CBE5F7 /* TempLabel.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D054F49A2867897E00CBE5F7 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				D054F49B2867898800CBE5F7 /* View */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		D054F49B2867898800CBE5F7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D054F49C286789A400CBE5F7 /* TempBarButton.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		E9C3DB3EC6D7655028A9C0D3 /* Products */ = {
@@ -223,9 +264,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D054F497286788E000CBE5F7 /* TempLabel.swift in Sources */,
+				D054F4992867891000CBE5F7 /* TempButton.swift in Sources */,
 				C6718E3AA383C51845C04872 /* AppDelegate.swift in Sources */,
 				5C365493AF6E4EDA83652D7C /* SceneDelegate.swift in Sources */,
 				32272630B2DDB3F49682FA63 /* MainViewController.swift in Sources */,
+				D054F49D286789A400CBE5F7 /* TempBarButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
