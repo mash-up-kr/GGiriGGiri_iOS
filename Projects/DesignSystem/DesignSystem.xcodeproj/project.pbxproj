@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		64346BBE2867864A0090952A /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64346BBB2867864A0090952A /* CommonButton.swift */; };
 		64346BBF2867864A0090952A /* CoButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64346BBC2867864A0090952A /* CoButtonStyle.swift */; };
 		92ABCEFC95058B571C357593 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975656224153401C19975579 /* Font.swift */; };
 		D2E21543F5B3B63472BE98A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		3D804B3E14C8B39CA7C6F9A7 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		64346BBB2867864A0090952A /* CommonButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
 		64346BBC2867864A0090952A /* CoButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoButtonStyle.swift; sourceTree = "<group>"; };
 		69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		975656224153401C19975579 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 		64346BBA2867864A0090952A /* Button */ = {
 			isa = PBXGroup;
 			children = (
+				64346BBB2867864A0090952A /* CommonButton.swift */,
 				64346BBC2867864A0090952A /* CoButtonStyle.swift */,
 			);
 			path = Button;
@@ -188,6 +191,7 @@
 			files = (
 				92ABCEFC95058B571C357593 /* Font.swift in Sources */,
 				64346BBF2867864A0090952A /* CoButtonStyle.swift in Sources */,
+				64346BBE2867864A0090952A /* CommonButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
