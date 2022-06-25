@@ -25,6 +25,7 @@ extension Target {
                 .project(target: "DesignSystem", path: "../DesignSystem"),
                 .external(name: "Alamofire"),
                 .external(name: "RxSwift"),
+                .external(name: "RxCocoa"),
                 .external(name: "Kingfisher"),
                 .external(name: "PinLayout"),
                 .external(name: "FlexLayout"),
@@ -39,6 +40,7 @@ extension Target {
             platform: .iOS,
             product: .framework,
             bundleId: "com.sz.mashup.GGiriGGiri.DesignSystem",
+            deploymentTarget: .iOS(targetVersion: "13.0", devices: .iphone),
             infoPlist: .file(path: "SupportingFiles/\(name)-Info.plist"),
             sources: [
                 "Sources/**"
