@@ -8,7 +8,7 @@
          location = "group:App/App.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:DesignSystem/DesignSysytem.xcodeproj">
+         location = "group:DesignSystem/DesignSystem.xcodeproj">
       </FileRef>
    </Group>
    <Group
