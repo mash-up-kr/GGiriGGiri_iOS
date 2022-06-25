@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,7 +26,6 @@
 		82F2FD5DDBEEEEED11CF6D91 /* PinLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A421285A2A82FF2D1649658 /* PinLayout.framework */; platformFilter = ios; };
 		936770BD81F4F6E50628B438 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 057A3CD8D734F9C1B4948C18 /* LaunchScreen.storyboard */; };
 		B980DE9E5A61F730C8EFB85D /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E9369BFA2C65412102538303 /* DesignSystem.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BAB94588A2138028966BFCDB /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0965A9EC226EF1C3EE032C87 /* Networking.swift */; };
 		BB071029835CCC7201E033DC /* FlexLayoutYogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC623CDA99458F6A4E3198A /* FlexLayoutYogaKit.framework */; platformFilter = ios; };
 		C16393E88B854B2E032F772E /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B54B3510C2F7504878DEAF6 /* Lottie.framework */; platformFilter = ios; };
 		C6718E3AA383C51845C04872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7210F22777D23AD1713BCADE /* AppDelegate.swift */; };
@@ -54,7 +53,6 @@
 
 /* Begin PBXFileReference section */
 		057A3CD8D734F9C1B4948C18 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		0965A9EC226EF1C3EE032C87 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		0DE442BA1C87E9CF5D190ED8 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		13A421115315736B26FAF60E /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED69542D699D2104EE8BFC4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,7 +129,6 @@
 		858C4E433DBF0294DFED1B0C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A401DD3A28963C3D70C5A20C /* Driver */,
 				7210F22777D23AD1713BCADE /* AppDelegate.swift */,
 				1ED69542D699D2104EE8BFC4 /* SceneDelegate.swift */,
 				EE48B94517C4F8C2B9AC74C4 /* ViewController.swift */,
@@ -145,22 +142,6 @@
 				CB3EAE67978A66FA286CE4C7 /* GGiriGGiri-Info.plist */,
 			);
 			path = SupportingFiles;
-			sourceTree = "<group>";
-		};
-		A401DD3A28963C3D70C5A20C /* Driver */ = {
-			isa = PBXGroup;
-			children = (
-				A8CC90DDEE324103013D55F7 /* Networking */,
-			);
-			path = Driver;
-			sourceTree = "<group>";
-		};
-		A8CC90DDEE324103013D55F7 /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				0965A9EC226EF1C3EE032C87 /* Networking.swift */,
-			);
-			path = Networking;
 			sourceTree = "<group>";
 		};
 		BDD1182E50DC622819F25364 /* Frameworks */ = {
@@ -220,8 +201,6 @@
 			isa = PBXProject;
 			attributes = {
 				ORGANIZATIONNAME = dvHuni;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = B3FD05C59F197F398A0B04AB /* Build configuration list for PBXProject "App" */;
 			compatibilityVersion = "Xcode 13.0";
@@ -259,7 +238,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6718E3AA383C51845C04872 /* AppDelegate.swift in Sources */,
-				BAB94588A2138028966BFCDB /* Networking.swift in Sources */,
 				5C365493AF6E4EDA83652D7C /* SceneDelegate.swift in Sources */,
 				32272630B2DDB3F49682FA63 /* ViewController.swift in Sources */,
 			);
@@ -285,13 +263,7 @@
 					"-fmodule-map-file=$(SRCROOT)/../../Tuist/Dependencies/SwiftPackageManager/.build/checkouts/FlexLayout/Sources/YogaKit/include/FlexLayoutYogaKit.modulemap",
 					"-fmodule-map-file=$(SRCROOT)/../../Tuist/Dependencies/SwiftPackageManager/.build/checkouts/FlexLayout/Sources/yoga/include/FlexLayoutYoga.modulemap",
 				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../Tuist/Dependencies/SwiftPackageManager/.build/checkouts/FlexLayout/Sources/YogaKit/include/FlexLayoutYogaKit.modulemap",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../Tuist/Dependencies/SwiftPackageManager/.build/checkouts/FlexLayout/Sources/yoga/include/FlexLayoutYoga.modulemap",
-				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/Dependencies/SwiftPackageManager/.build/checkouts/FlexLayout/Sources/YogaKit/include/FlexLayoutYogaKit.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/Dependencies/SwiftPackageManager/.build/checkouts/FlexLayout/Sources/yoga/include/FlexLayoutYoga.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sz.mashup.GGiriGGiri;
 				PRODUCT_NAME = GGiriGGiri;
 				SDKROOT = iphoneos;
@@ -372,13 +344,7 @@
 					"-fmodule-map-file=$(SRCROOT)/../../Tuist/Dependencies/SwiftPackageManager/.build/checkouts/FlexLayout/Sources/YogaKit/include/FlexLayoutYogaKit.modulemap",
 					"-fmodule-map-file=$(SRCROOT)/../../Tuist/Dependencies/SwiftPackageManager/.build/checkouts/FlexLayout/Sources/yoga/include/FlexLayoutYoga.modulemap",
 				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../Tuist/Dependencies/SwiftPackageManager/.build/checkouts/FlexLayout/Sources/YogaKit/include/FlexLayoutYogaKit.modulemap",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../Tuist/Dependencies/SwiftPackageManager/.build/checkouts/FlexLayout/Sources/yoga/include/FlexLayoutYoga.modulemap",
-				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/Dependencies/SwiftPackageManager/.build/checkouts/FlexLayout/Sources/YogaKit/include/FlexLayoutYogaKit.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/Dependencies/SwiftPackageManager/.build/checkouts/FlexLayout/Sources/yoga/include/FlexLayoutYoga.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sz.mashup.GGiriGGiri;
 				PRODUCT_NAME = GGiriGGiri;
 				SDKROOT = iphoneos;
