@@ -34,6 +34,7 @@
 		D054F4B52867979900CBE5F7 /* MainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4B42867979900CBE5F7 /* MainItem.swift */; };
 		D054F4B72867980800CBE5F7 /* MainCollectionViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4B62867980800CBE5F7 /* MainCollectionViewDiffableDataSource.swift */; };
 		D054F4BB2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4BA2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift */; };
+		D054F4BD28679A0200CBE5F7 /* CommonHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4BC28679A0200CBE5F7 /* CommonHeaderView.swift */; };
 		E0133A61426E198CB88C4FA2 /* FlexLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBD38965FFB67BCCFCA44130 /* FlexLayout.framework */; platformFilter = ios; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		D054F4B42867979900CBE5F7 /* MainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainItem.swift; sourceTree = "<group>"; };
 		D054F4B62867980800CBE5F7 /* MainCollectionViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewDiffableDataSource.swift; sourceTree = "<group>"; };
 		D054F4BA2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifticonListCardCollectionViewCell.swift; sourceTree = "<group>"; };
+		D054F4BC28679A0200CBE5F7 /* CommonHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHeaderView.swift; sourceTree = "<group>"; };
 		DBD38965FFB67BCCFCA44130 /* FlexLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlexLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9369BFA2C65412102538303 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB0A222DDA6228DF9BA72C1B /* GGiriGGiri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GGiriGGiri.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +177,7 @@
 				D054F4982867891000CBE5F7 /* TempButton.swift */,
 				D054F496286788E000CBE5F7 /* TempLabel.swift */,
 				D054F4BA2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift */,
+				D054F4BC28679A0200CBE5F7 /* CommonHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D054F497286788E000CBE5F7 /* TempLabel.swift in Sources */,
+				D054F4BD28679A0200CBE5F7 /* CommonHeaderView.swift in Sources */,
 				D054F4B52867979900CBE5F7 /* MainItem.swift in Sources */,
 				D054F4992867891000CBE5F7 /* TempButton.swift in Sources */,
 				D054F4B72867980800CBE5F7 /* MainCollectionViewDiffableDataSource.swift in Sources */,

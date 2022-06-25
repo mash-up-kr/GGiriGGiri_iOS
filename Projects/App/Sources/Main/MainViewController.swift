@@ -49,6 +49,10 @@ class MainViewController: UIViewController {
         collectionView.register(
             GifticonListCardCollectionViewCell.self,
             forCellWithReuseIdentifier: String(describing: GifticonListCardCollectionViewCell.self))
+        collectionView.register(
+            CommonHeaderView.self,
+            forSupplementaryViewOfKind: MainViewController.sectionHeaderElementKind,
+            withReuseIdentifier: String(describing: CommonHeaderView.self))
         mainCollectionView = collectionView
     }
     
@@ -120,7 +124,15 @@ class MainViewController: UIViewController {
         
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging
+        let headerSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .estimated(1))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+              layoutSize: headerSize,
+              elementKind: MainViewController.sectionHeaderElementKind,
+              alignment: .top)
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20)
+        section.boundarySupplementaryItems = [sectionHeader]
         return section
     }
 }
