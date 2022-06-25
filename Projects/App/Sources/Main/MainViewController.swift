@@ -20,5 +20,16 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let button = TempBarButton()
+        let myButtonItem = UIBarButtonItem(customView: button.myButton)
+        let notiButton = UIBarButtonItem(customView: button.notiButton)
+        self.navigationItem.rightBarButtonItems = [notiButton, myButtonItem]
+        self.navigationItem.hidesSearchBarWhenScrolling = true
+        self.navigationItem.title = "DDIP"
     }
 }

@@ -126,7 +126,6 @@
 			children = (
 				7210F22777D23AD1713BCADE /* AppDelegate.swift */,
 				1ED69542D699D2104EE8BFC4 /* SceneDelegate.swift */,
-				EE48B94517C4F8C2B9AC74C4 /* MainViewController.swift */,
 				D054F494286788C900CBE5F7 /* Common */,
 				D054F49A2867897E00CBE5F7 /* Main */,
 			);
@@ -169,6 +168,7 @@
 		D054F49A2867897E00CBE5F7 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				EE48B94517C4F8C2B9AC74C4 /* MainViewController.swift */,
 				D054F49B2867898800CBE5F7 /* View */,
 			);
 			path = Main;
