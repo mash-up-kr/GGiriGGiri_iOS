@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		64346BBF2867864A0090952A /* CoButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64346BBC2867864A0090952A /* CoButtonStyle.swift */; };
 		92ABCEFC95058B571C357593 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975656224153401C19975579 /* Font.swift */; };
 		D2E21543F5B3B63472BE98A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */; };
 		F53DEC236588E320F14A2F8B /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D804B3E14C8B39CA7C6F9A7 /* Color.xcassets */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		3D804B3E14C8B39CA7C6F9A7 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		64346BBC2867864A0090952A /* CoButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoButtonStyle.swift; sourceTree = "<group>"; };
 		69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		975656224153401C19975579 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		DF0536A2A81CD87958E2AD85 /* DesignSystem-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DesignSystem-Info.plist"; sourceTree = "<group>"; };
@@ -47,6 +49,7 @@
 		0E1288659896D0CFF98DA5AA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				64346BB82867864A0090952A /* Component */,
 				975656224153401C19975579 /* Font.swift */,
 			);
 			path = Sources;
@@ -60,6 +63,22 @@
 				71BF1964642ACCC421D9DE57 /* SupportingFiles */,
 			);
 			name = Project;
+			sourceTree = "<group>";
+		};
+		64346BB82867864A0090952A /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				64346BBA2867864A0090952A /* Button */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		64346BBA2867864A0090952A /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				64346BBC2867864A0090952A /* CoButtonStyle.swift */,
+			);
+			path = Button;
 			sourceTree = "<group>";
 		};
 		71BF1964642ACCC421D9DE57 /* SupportingFiles */ = {
@@ -131,8 +150,6 @@
 			isa = PBXProject;
 			attributes = {
 				ORGANIZATIONNAME = dvHuni;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 5C0CBBA2BFE0CEE21375AF0A /* Build configuration list for PBXProject "DesignSystem" */;
 			compatibilityVersion = "Xcode 13.0";
@@ -170,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92ABCEFC95058B571C357593 /* Font.swift in Sources */,
+				64346BBF2867864A0090952A /* CoButtonStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
