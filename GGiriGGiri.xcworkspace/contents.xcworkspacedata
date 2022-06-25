@@ -42,6 +42,9 @@
                      location = "group:RxSwift/RxSwift.xcodeproj">
                   </FileRef>
                   <FileRef
+                     location = "group:SnapKit/SnapKit.xcodeproj">
+                  </FileRef>
+                  <FileRef
                      location = "group:lottie-ios/Lottie.xcodeproj">
                   </FileRef>
                </Group>
