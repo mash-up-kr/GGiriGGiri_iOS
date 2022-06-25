@@ -13,6 +13,8 @@
 		32272630B2DDB3F49682FA63 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE48B94517C4F8C2B9AC74C4 /* ViewController.swift */; };
 		54D113521C0E628FCEC5910F /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A421115315736B26FAF60E /* RxSwift.framework */; platformFilter = ios; };
 		56F48BB4FD9A4139303ACEFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F7F83A194E1D17030DCA033 /* Assets.xcassets */; };
+		5989042D3C3298190B7A0606 /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE442BA1C87E9CF5D190ED8 /* SnapKit.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5ABFF752D07D21A4D37861B8 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE442BA1C87E9CF5D190ED8 /* SnapKit.framework */; platformFilter = ios; };
 		5C365493AF6E4EDA83652D7C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED69542D699D2104EE8BFC4 /* SceneDelegate.swift */; };
 		61C66A8C0C39081B52CD65CF /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D69EAF942AA87F8A9468BF /* Kingfisher.framework */; platformFilter = ios; };
 		6A1A266061B65CF00A9A4FD8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CF270A852662493E247DA6 /* CFNetwork.framework */; };
@@ -35,6 +37,7 @@
 			files = (
 				B980DE9E5A61F730C8EFB85D /* DesignSystem.framework in Embed Frameworks */,
 				265008491A0DD8E76BC0E8AB /* RxSwift.framework in Embed Frameworks */,
+				5989042D3C3298190B7A0606 /* SnapKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -43,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		057A3CD8D734F9C1B4948C18 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0DE442BA1C87E9CF5D190ED8 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		13A421115315736B26FAF60E /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED69542D699D2104EE8BFC4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		38CF270A852662493E247DA6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
@@ -76,6 +80,7 @@
 				C16393E88B854B2E032F772E /* Lottie.framework in Frameworks */,
 				82F2FD5DDBEEEEED11CF6D91 /* PinLayout.framework in Frameworks */,
 				54D113521C0E628FCEC5910F /* RxSwift.framework in Frameworks */,
+				5ABFF752D07D21A4D37861B8 /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +154,7 @@
 				9B54B3510C2F7504878DEAF6 /* Lottie.framework */,
 				4A421285A2A82FF2D1649658 /* PinLayout.framework */,
 				13A421115315736B26FAF60E /* RxSwift.framework */,
+				0DE442BA1C87E9CF5D190ED8 /* SnapKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";

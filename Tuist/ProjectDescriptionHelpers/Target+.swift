@@ -28,7 +28,8 @@ extension Target {
                 .external(name: "Kingfisher"),
                 .external(name: "PinLayout"),
                 .external(name: "FlexLayout"),
-                .external(name: "Lottie")
+                .external(name: "Lottie"),
+                .external(name: "SnapKit")
                ])
     }
     
