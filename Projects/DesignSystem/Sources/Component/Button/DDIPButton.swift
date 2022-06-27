@@ -1,5 +1,5 @@
 //
-//  CommonButton.swift
+//  DDIPButton.swift
 //  DesignSystem
 //
 //  Created by Eddy on 2022/06/25.
@@ -9,10 +9,10 @@
 import UIKit
 import PinLayout
 
-public class CommonButton: UIButton {
-    public let style: CoButtonStyle
+public class DDIPButton: UIButton {
+    public let style: DDIPButtonStyle
     
-    public init(frame: CGRect = .zero, style: CoButtonStyle) {
+    public init(frame: CGRect = .zero, style: DDIPButtonStyle) {
         self.style = style
         super.init(frame: frame)
         setUI()

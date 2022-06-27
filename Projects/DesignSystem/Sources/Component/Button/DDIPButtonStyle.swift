@@ -1,5 +1,5 @@
 //
-//  ButtonStyle.swift
+//  DDIPButtonStyle.swift
 //  DesignSystem
 //
 //  Created by Eddy on 2022/06/25.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-public struct CoButtonStyle {
+public struct DDIPButtonStyle {
     
-    public enum buttonHeight: CGFloat {
+    public enum ButtonHeight: CGFloat {
         case height_34 = 34
         case height_36 = 36
     }
@@ -20,7 +20,7 @@ public struct CoButtonStyle {
     public let buttonFont: UIFont
     public let title: String?
     public let radius: CGFloat
-    public let height: buttonHeight
+    public let height: ButtonHeight
     public let topInset: CGFloat
     public let leftInset: CGFloat
     public let rightInset: CGFloat
@@ -32,7 +32,7 @@ public struct CoButtonStyle {
         buttonFont: UIFont,
         title: String?,
         radius: CGFloat,
-        height: buttonHeight,
+        height: ButtonHeight,
         topInset: CGFloat,
         leftInset: CGFloat,
         rightInset: CGFloat,
