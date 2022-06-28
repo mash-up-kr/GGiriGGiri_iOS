@@ -3,12 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		92ABCEFC95058B571C357593 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975656224153401C19975579 /* Font.swift */; };
+		C1A2AAAB82252682B349F867 /* DDIPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AA17A7CC0F3637B5F38595 /* DDIPButton.swift */; };
 		D2E21543F5B3B63472BE98A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */; };
+		E98EB6847C55E564FBBE6FB7 /* DDIPButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A1817D9010BBC79B30C4 /* DDIPButtonStyle.swift */; };
 		F53DEC236588E320F14A2F8B /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D804B3E14C8B39CA7C6F9A7 /* Color.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -26,11 +28,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		17AA17A7CC0F3637B5F38595 /* DDIPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDIPButton.swift; sourceTree = "<group>"; };
 		3D804B3E14C8B39CA7C6F9A7 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		975656224153401C19975579 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		DF0536A2A81CD87958E2AD85 /* DesignSystem-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DesignSystem-Info.plist"; sourceTree = "<group>"; };
+		E516A1817D9010BBC79B30C4 /* DDIPButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDIPButtonStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,9 +51,18 @@
 		0E1288659896D0CFF98DA5AA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				1D7DAFC035EC8A7E2AAE52AE /* Component */,
 				975656224153401C19975579 /* Font.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		1D7DAFC035EC8A7E2AAE52AE /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				6AA99E0D2C804D693023948D /* Button */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		2BB59E843B58BD9FFF395FEA /* Project */ = {
@@ -60,6 +73,15 @@
 				71BF1964642ACCC421D9DE57 /* SupportingFiles */,
 			);
 			name = Project;
+			sourceTree = "<group>";
+		};
+		6AA99E0D2C804D693023948D /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				E516A1817D9010BBC79B30C4 /* DDIPButtonStyle.swift */,
+				17AA17A7CC0F3637B5F38595 /* DDIPButton.swift */,
+			);
+			path = Button;
 			sourceTree = "<group>";
 		};
 		71BF1964642ACCC421D9DE57 /* SupportingFiles */ = {
@@ -131,8 +153,6 @@
 			isa = PBXProject;
 			attributes = {
 				ORGANIZATIONNAME = dvHuni;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 5C0CBBA2BFE0CEE21375AF0A /* Build configuration list for PBXProject "DesignSystem" */;
 			compatibilityVersion = "Xcode 13.0";
@@ -169,6 +189,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E98EB6847C55E564FBBE6FB7 /* DDIPButtonStyle.swift in Sources */,
+				C1A2AAAB82252682B349F867 /* DDIPButton.swift in Sources */,
 				92ABCEFC95058B571C357593 /* Font.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
