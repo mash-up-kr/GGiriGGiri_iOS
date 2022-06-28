@@ -33,6 +33,7 @@ final class CommonHeaderView: UICollectionReusableView {
         
         titleLabel.snp.makeConstraints {
             $0.leading.equalTo(inset)
+            $0.trailing.equalTo(-inset)
             $0.top.equalTo(self.snp.top).inset(inset * 1.1)
             $0.bottom.equalTo(self.snp.bottom).inset(inset * 0.4)
         }

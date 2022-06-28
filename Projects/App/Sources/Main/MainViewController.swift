@@ -86,7 +86,7 @@ class MainViewController: UIViewController {
     private func snapshotForCurrentState() -> NSDiffableDataSourceSnapshot<MainSection, MainItem> {
         var snapshot = NSDiffableDataSourceSnapshot<MainSection, MainItem>()
         snapshot.appendSections([MainSection.deadLine])
-        snapshot.appendItems(Array(itemsForDeadLineSection().prefix(3)))
+        snapshot.appendItems(itemsForDeadLineSection())
         return snapshot
     }
     
@@ -131,7 +131,7 @@ class MainViewController: UIViewController {
               layoutSize: headerSize,
               elementKind: MainViewController.sectionHeaderElementKind,
               alignment: .top)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         section.boundarySupplementaryItems = [sectionHeader]
         return section
     }
