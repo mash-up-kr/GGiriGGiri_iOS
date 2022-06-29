@@ -25,6 +25,7 @@
 		BB071029835CCC7201E033DC /* FlexLayoutYogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC623CDA99458F6A4E3198A /* FlexLayoutYogaKit.framework */; platformFilter = ios; };
 		C16393E88B854B2E032F772E /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B54B3510C2F7504878DEAF6 /* Lottie.framework */; platformFilter = ios; };
 		C6718E3AA383C51845C04872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7210F22777D23AD1713BCADE /* AppDelegate.swift */; };
+		D051D765286AB4F500C13378 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051D764286AB4F500C13378 /* CategoryCollectionViewCell.swift */; };
 		D054F497286788E000CBE5F7 /* TempLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F496286788E000CBE5F7 /* TempLabel.swift */; };
 		D054F4992867891000CBE5F7 /* TempButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4982867891000CBE5F7 /* TempButton.swift */; };
 		D054F49D286789A400CBE5F7 /* TempBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F49C286789A400CBE5F7 /* TempBarButton.swift */; };
@@ -69,6 +70,7 @@
 		BCC623CDA99458F6A4E3198A /* FlexLayoutYogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlexLayoutYogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C86E6E6BCDFAB61BBD09E06F /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB3EAE67978A66FA286CE4C7 /* GGiriGGiri-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GGiriGGiri-Info.plist"; sourceTree = "<group>"; };
+		D051D764286AB4F500C13378 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		D054F496286788E000CBE5F7 /* TempLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempLabel.swift; sourceTree = "<group>"; };
 		D054F4982867891000CBE5F7 /* TempButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempButton.swift; sourceTree = "<group>"; };
 		D054F49C286789A400CBE5F7 /* TempBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempBarButton.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				D054F49C286789A400CBE5F7 /* TempBarButton.swift */,
+				D051D764286AB4F500C13378 /* CategoryCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				32272630B2DDB3F49682FA63 /* MainViewController.swift in Sources */,
 				D054F49D286789A400CBE5F7 /* TempBarButton.swift in Sources */,
 				D054F4AF2867966F00CBE5F7 /* Gifticon.swift in Sources */,
+				D051D765286AB4F500C13378 /* CategoryCollectionViewCell.swift in Sources */,
 				D054F4BB2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

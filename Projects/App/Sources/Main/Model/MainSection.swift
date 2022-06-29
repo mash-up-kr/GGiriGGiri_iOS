@@ -10,4 +10,5 @@ import Foundation
 
 enum MainSection: String, CaseIterable {
     case deadLine = "🔥 마감 임박 10분 전! 혹시 내가 될 수 있잖아"
+    case category = "👀 무료이니 응모하세요!"
 }

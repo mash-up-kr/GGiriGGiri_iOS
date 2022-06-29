@@ -50,6 +50,9 @@ class MainViewController: UIViewController {
             GifticonListCardCollectionViewCell.self,
             forCellWithReuseIdentifier: String(describing: GifticonListCardCollectionViewCell.self))
         collectionView.register(
+            CategoryCollectionViewCell.self,
+            forCellWithReuseIdentifier: String(describing: CategoryCollectionViewCell.self))
+        collectionView.register(
             CommonHeaderView.self,
             forSupplementaryViewOfKind: MainViewController.sectionHeaderElementKind,
             withReuseIdentifier: String(describing: CommonHeaderView.self))
@@ -76,6 +79,12 @@ class MainViewController: UIViewController {
                                                           numberOfParticipants: 5,
                                                           isParticipating: false))
                 return cell
+            case .category:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CategoryCollectionViewCell.self), for: indexPath) as? CategoryCollectionViewCell else {
+                    return UICollectionViewCell()
+                }
+                cell.configure(with: indexPath.row)
+                return cell
             }
         })
         
@@ -87,11 +96,17 @@ class MainViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<MainSection, MainItem>()
         snapshot.appendSections([MainSection.deadLine])
         snapshot.appendItems(itemsForDeadLineSection())
+        snapshot.appendSections([MainSection.category])
+        snapshot.appendItems(itemsForCategorySection())
         return snapshot
     }
     
     private func itemsForDeadLineSection() -> [MainItem] {
         return [MainItem(title: "하하"), MainItem(title: "호호"), MainItem(title: "헤헤")]
+    }
+    
+    private func itemsForCategorySection() -> [MainItem] {
+        return [MainItem(title: "커피/디저트"), MainItem(title: "치킨/배달음식"), MainItem(title: "아이스크림"), MainItem(title: "기타"), MainItem(title: "또다른무언가"), MainItem(title: "또다른무언가")]
     }
     
     private func generateLayout() -> UICollectionViewLayout {
@@ -101,6 +116,8 @@ class MainViewController: UIViewController {
             switch sectionLayoutKind {
             case .deadLine:
                 return self.generateDeadLineSection()
+            case .category:
+                return self.generateCategorySection()
             }
         }
         return layout
@@ -116,6 +133,36 @@ class MainViewController: UIViewController {
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalWidth(2/3))
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitem: item,
+            count: 1)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .groupPaging
+        let headerSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .estimated(1))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+              layoutSize: headerSize,
+              elementKind: MainViewController.sectionHeaderElementKind,
+              alignment: .top)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        section.boundarySupplementaryItems = [sectionHeader]
+        return section
+    }
+    
+    private func generateCategorySection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.3),
+            heightDimension: .fractionalWidth(1/5))
+        
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.3),
+            heightDimension: .fractionalWidth(1/5))
         
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
