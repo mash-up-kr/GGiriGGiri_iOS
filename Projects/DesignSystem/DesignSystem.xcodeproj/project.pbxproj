@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6437199728701C3F00F78AAA /* DDIPToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6437199628701C3F00F78AAA /* DDIPToastView.swift */; };
 		643719992870376D00F78AAA /* DDIPToastViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643719982870376D00F78AAA /* DDIPToastViewStyle.swift */; };
 		92ABCEFC95058B571C357593 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975656224153401C19975579 /* Font.swift */; };
 		C1A2AAAB82252682B349F867 /* DDIPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AA17A7CC0F3637B5F38595 /* DDIPButton.swift */; };
@@ -32,6 +33,7 @@
 		17AA17A7CC0F3637B5F38595 /* DDIPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDIPButton.swift; sourceTree = "<group>"; };
 		3D804B3E14C8B39CA7C6F9A7 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6437199628701C3F00F78AAA /* DDIPToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDIPToastView.swift; sourceTree = "<group>"; };
 		643719982870376D00F78AAA /* DDIPToastViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDIPToastViewStyle.swift; sourceTree = "<group>"; };
 		69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		975656224153401C19975579 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		6437199528701BB500F78AAA /* ToastView */ = {
 			isa = PBXGroup;
 			children = (
+				6437199628701C3F00F78AAA /* DDIPToastView.swift */,
 				643719982870376D00F78AAA /* DDIPToastViewStyle.swift */,
 			);
 			path = ToastView;
@@ -203,6 +206,7 @@
 				E98EB6847C55E564FBBE6FB7 /* DDIPButtonStyle.swift in Sources */,
 				C1A2AAAB82252682B349F867 /* DDIPButton.swift in Sources */,
 				643719992870376D00F78AAA /* DDIPToastViewStyle.swift in Sources */,
+				6437199728701C3F00F78AAA /* DDIPToastView.swift in Sources */,
 				92ABCEFC95058B571C357593 /* Font.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
