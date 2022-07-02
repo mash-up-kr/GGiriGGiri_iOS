@@ -19,9 +19,6 @@ class MainViewController: UIViewController {
         super.init(coder: coder)
     }
     
-    private var mainCollectionView: UICollectionView! = nil
-    private var dataSource: MainCollectionViewDiffableDataSource!
-    
     private var mainView = MainView()
     
     override func viewDidLoad() {
