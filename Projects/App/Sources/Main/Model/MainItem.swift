@@ -9,11 +9,6 @@
 import Foundation
 
 struct MainItem: Hashable {
-    let title: String
-
-    init(title: String) {
-        self.title = title
-    }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(identifier)

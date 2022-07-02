@@ -1,0 +1,59 @@
+//
+//  LayoutManager.swift
+//  GGiriGGiri
+//
+//  Created by 안상희 on 2022/06/30.
+//  Copyright © 2022 dvHuni. All rights reserved.
+//
+
+import UIKit
+
+struct LayoutManager {
+    
+    static func configureItem(with itemSize: Size, inset: NSDirectionalEdgeInsets = .zero) -> NSCollectionLayoutItem {
+        let itemSize = NSCollectionLayoutSize(widthDimension: itemSize.widthDimension,
+                                              heightDimension: itemSize.heightDimension)
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = inset
+        return item
+    }
+
+    static func configureGroup(with groupSize: Size,
+                        inset: NSDirectionalEdgeInsets = .zero,
+                        isDirectionVertical: Bool = false,
+                        item: NSCollectionLayoutItem, itemCount: Int) -> NSCollectionLayoutGroup {
+        let groupSize = NSCollectionLayoutSize(widthDimension: groupSize.widthDimension,
+                                               heightDimension: groupSize.heightDimension)
+        let group: NSCollectionLayoutGroup
+        
+        if isDirectionVertical {
+            group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: itemCount)
+            return group
+        }
+        group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: itemCount)
+        return group
+    }
+    
+    static func configureHeader(with headerSize: Size, elementKind: String) -> NSCollectionLayoutBoundarySupplementaryItem {
+        let headerSize = NSCollectionLayoutSize(widthDimension: headerSize.widthDimension,
+                                                heightDimension: headerSize.heightDimension)
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
+                                                                 elementKind: elementKind,
+                                                                 alignment: .top)
+        return header
+    }
+    
+    static func configureSection(with group: NSCollectionLayoutGroup,
+                                 contentInsets: NSDirectionalEdgeInsets = .zero,
+                                 scrollingBehavior: UICollectionLayoutSectionOrthogonalScrollingBehavior = .groupPaging,
+                                 header: NSCollectionLayoutBoundarySupplementaryItem?) -> NSCollectionLayoutSection {
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = contentInsets
+        section.orthogonalScrollingBehavior = scrollingBehavior
+        
+        if let header = header {
+            section.boundarySupplementaryItems = [header]
+        }
+        return section
+    }
+}

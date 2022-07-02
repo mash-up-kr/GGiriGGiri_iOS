@@ -10,8 +10,6 @@ import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
     
-    private let categoryList = ["전체", "커피/디저트", "치킨/배달음식", "아이스크림", "무언가", "또다른무언가"]
-    
     private let nameLabel = TempLabel(color: .black)
     
     func configure(with index: Int) {
@@ -19,7 +17,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         nameLabel.backgroundColor = .yellow
         nameLabel.clipsToBounds = true
         nameLabel.layer.cornerRadius = 20
-        nameLabel.text = categoryList[index]
+        nameLabel.text = CategoryList.allCases[index].rawValue
     }
     
     override init(frame: CGRect) {
