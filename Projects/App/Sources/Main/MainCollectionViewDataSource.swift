@@ -10,119 +10,12 @@ import UIKit
 
 final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
-    var mainData: [MainSection] = [
-        .deadLine([GifticonListCardItem(remainingTime: "123초",
-                                        gifticonInfo:
-                                          Gifticon(brand: "스타벅스",
-                                                   name: "아메리카노",
-                                                   expirationDate: "20220626",
-                                                   imageUrl: ""),
-                                        numberOfParticipants: 5,
-                                        isParticipating: false),
-                   GifticonListCardItem(remainingTime: "123초",
-                                                             gifticonInfo:
-                                                               Gifticon(brand: "스타벅스",
-                                                                        name: "아메리카노",
-                                                                        expirationDate: "20220626",
-                                                                        imageUrl: ""),
-                                                             numberOfParticipants: 5,
-                                                             isParticipating: false),
-                   GifticonListCardItem(remainingTime: "123초",
-                                                             gifticonInfo:
-                                                               Gifticon(brand: "스타벅스",
-                                                                        name: "아메리카노",
-                                                                        expirationDate: "20220626",
-                                                                        imageUrl: ""),
-                                                             numberOfParticipants: 5,
-                                                             isParticipating: false)]),
-        .category(CategoryList.allCases),
-        .deadLine([GifticonListCardItem(remainingTime: "123초",
-                                        gifticonInfo:
-                                          Gifticon(brand: "스타벅스",
-                                                   name: "아메리카노",
-                                                   expirationDate: "20220626",
-                                                   imageUrl: ""),
-                                        numberOfParticipants: 5,
-                                        isParticipating: false),
-                   GifticonListCardItem(remainingTime: "123초",
-                                                             gifticonInfo:
-                                                               Gifticon(brand: "스타벅스",
-                                                                        name: "아메리카노",
-                                                                        expirationDate: "20220626",
-                                                                        imageUrl: ""),
-                                                             numberOfParticipants: 5,
-                                                             isParticipating: false),
-                   GifticonListCardItem(remainingTime: "123초",
-                                                             gifticonInfo:
-                                                               Gifticon(brand: "스타벅스",
-                                                                        name: "아메리카노",
-                                                                        expirationDate: "20220626",
-                                                                        imageUrl: ""),
-                                                             numberOfParticipants: 5,
-                                                             isParticipating: false),
-                   GifticonListCardItem(remainingTime: "123초",
-                                                             gifticonInfo:
-                                                               Gifticon(brand: "스타벅스",
-                                                                        name: "아메리카노",
-                                                                        expirationDate: "20220626",
-                                                                        imageUrl: ""),
-                                                             numberOfParticipants: 5,
-                                                             isParticipating: false),
-                   GifticonListCardItem(remainingTime: "123초",
-                                                             gifticonInfo:
-                                                               Gifticon(brand: "스타벅스",
-                                                                        name: "아메리카노",
-                                                                        expirationDate: "20220626",
-                                                                        imageUrl: ""),
-                                                             numberOfParticipants: 5,
-                                                             isParticipating: false),
-                   GifticonListCardItem(remainingTime: "123초",
-                                                             gifticonInfo:
-                                                               Gifticon(brand: "스타벅스",
-                                                                        name: "아메리카노",
-                                                                        expirationDate: "20220626",
-                                                                        imageUrl: ""),
-                                                             numberOfParticipants: 5,
-                                                             isParticipating: false),
-                   GifticonListCardItem(remainingTime: "123초",
-                                                             gifticonInfo:
-                                                               Gifticon(brand: "스타벅스",
-                                                                        name: "아메리카노",
-                                                                        expirationDate: "20220626",
-                                                                        imageUrl: ""),
-                                                             numberOfParticipants: 5,
-                                                             isParticipating: false),
-                   GifticonListCardItem(remainingTime: "123초",
-                                                             gifticonInfo:
-                                                               Gifticon(brand: "스타벅스",
-                                                                        name: "아메리카노",
-                                                                        expirationDate: "20220626",
-                                                                        imageUrl: ""),
-                                                             numberOfParticipants: 5,
-                                                             isParticipating: false),GifticonListCardItem(remainingTime: "123초",
-                                                                                                          gifticonInfo:
-                                                                                                            Gifticon(brand: "스타벅스",
-                                                                                                                     name: "아메리카노",
-                                                                                                                     expirationDate: "20220626",
-                                                                                                                     imageUrl: ""),
-                                                                                                          numberOfParticipants: 5,
-                                                                                                          isParticipating: false),
-                   GifticonListCardItem(remainingTime: "123초",
-                                                             gifticonInfo:
-                                                               Gifticon(brand: "스타벅스",
-                                                                        name: "아메리카노",
-                                                                        expirationDate: "20220626",
-                                                                        imageUrl: ""),
-                                                             numberOfParticipants: 5,
-                                                             isParticipating: false)])
-    ]
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return mainData.count
+        return MockData.main.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch mainData[section] {
+        switch MockData.main[section] {
         case .deadLine(let items):
             return items.count
         case .category(let items):
@@ -133,7 +26,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch mainData[indexPath.section] {
+        switch MockData.main[indexPath.section] {
         case .deadLine(let items):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: GifticonDeadLineCollectionViewCell.self), for: indexPath) as? GifticonDeadLineCollectionViewCell else {
                 return UICollectionViewCell()
@@ -147,7 +40,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             cell.configure(with: indexPath.item)
             return cell
         case .gifticonList(let items):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: GifticonDeadLineCollectionViewCell.self), for: indexPath) as? GifticonDeadLineCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: GitfticonCardCollectionViewCell.self), for: indexPath) as? GitfticonCardCollectionViewCell else {
                 return UICollectionViewCell()
             }
             cell.configure(with: items[indexPath.item])

@@ -35,9 +35,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(nameLabel)
         
         nameLabel.snp.makeConstraints {
-//            $0.top.bottom.equalTo(7)
-//            $0.leading.equalTo(16)
-//            $0.trailing.equalTo(-16)
+            $0.height.equalTo(34)
             $0.edges.equalToSuperview()
         }
     }

@@ -41,8 +41,8 @@ final class MainView: UIView {
             CategoryCollectionViewCell.self,
             forCellWithReuseIdentifier: String(describing: CategoryCollectionViewCell.self))
         collectionView.register(
-            GifticonDeadLineCollectionViewCell.self,
-            forCellWithReuseIdentifier: String(describing: GifticonDeadLineCollectionViewCell.self))
+            GitfticonCardCollectionViewCell.self,
+            forCellWithReuseIdentifier: String(describing: GitfticonCardCollectionViewCell.self))
         collectionView.register(
             CommonHeaderView.self,
             forSupplementaryViewOfKind: MainViewController.sectionHeaderElementKind,
@@ -94,9 +94,9 @@ final class MainView: UIView {
     private func generateCategorySection() -> NSCollectionLayoutSection {
         let item = LayoutManager.configureItem(with: Size(widthDimension: .fractionalWidth(0.3),
                                                           heightDimension: .fractionalWidth(0.2)),
-                                               inset: NSDirectionalEdgeInsets(top: 0,
+                                               inset: NSDirectionalEdgeInsets(top: 16,
                                                                               leading: 16,
-                                                                              bottom: 0,
+                                                                              bottom: -30,
                                                                               trailing: 16))
         
         let group = LayoutManager.configureGroup(with: Size(widthDimension: item.layoutSize.widthDimension,
@@ -115,23 +115,21 @@ final class MainView: UIView {
     
     private func generateGifticonListSection() -> NSCollectionLayoutSection {
         let item = LayoutManager.configureItem(with: Size(widthDimension: .absolute(343),
-                                                          heightDimension: .absolute(250)),
-                                               inset: NSDirectionalEdgeInsets(top: 0,
+                                                          heightDimension: .absolute(180)),
+                                               inset: NSDirectionalEdgeInsets(top: 10,
                                                                               leading: 16,
                                                                               bottom: 0,
                                                                               trailing: 0))
         
         let group = LayoutManager.configureGroup(with: Size(widthDimension: .fractionalWidth(1.0),
                                                             heightDimension: .fractionalHeight(1.0)),
-                                                 inset: NSDirectionalEdgeInsets(top: 0,
-                                                                                leading: 0,
-                                                                                bottom: 0,
-                                                                                trailing: 0),
                                                  isDirectionVertical: true,
                                                  item: item,
-                                                 itemCount: 10)
+                                                 itemCount: 5)
         
-        let section = LayoutManager.configureSection(with: group, header: nil)
+        let section = LayoutManager.configureSection(with: group,
+                                                     scrollingBehavior: .continuousGroupLeadingBoundary,
+                                                     header: nil)
         return section
     }
 }
