@@ -12,9 +12,9 @@ import Alamofire
 import RxSwift
 
 final class Networking {
-    typealias Response<T: Decodable> = Result<T, AFError>
+    typealias Response = Result<Data, AFError>
     
-    static func request<T: Decodable>(type: T.Type) -> Single<Result<T, AFError>> {
+    static func request() -> Single<Response> {
         .create { single in
             AF.request("https://m.naver.com").response { [single] response in
                 if let error = response.error {
@@ -24,22 +24,13 @@ final class Networking {
                 guard let data = response.data else {
                     single(
                         .failure(
-                            AFError.responseSerializationFailed(reason: .inputFileNil)
+                            AFError.responseValidationFailed(reason: .dataFileNil)
                         )
                     )
                     return
                 }
                 
-                do {
-                    let deocodedData = try JSONDecoder().decode(T.self, from: data)
-                    single(.success(.success(deocodedData)))
-                } catch {
-                    single(
-                        .failure(
-                            AFError.responseSerializationFailed(reason: .decodingFailed(error: error))
-                        )
-                    )
-                }
+                single(.success(.success(data)))
             }
             
             return Disposables.create()
