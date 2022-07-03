@@ -48,7 +48,7 @@ public class DDIPToastView: UIView {
     private func setUI() {
         self.titleLabel.text = self.style.titleOption.info.title
         self.iconImageView.image = UIImage(systemName: self.style.imageIcon)
-        setDescriptionLabel()
+        self.descriptionLabel.text = self.style.titleOption.info.description
         
         self.backgroundColor = .gray
         self.layer.cornerRadius = 12
@@ -58,18 +58,6 @@ public class DDIPToastView: UIView {
         self.addSubview(descriptionLabel)
         
         setToastViewLayout()
-    }
-    
-    private func setDescriptionLabel() {
-        let text = self.style.descriptionOption.info.description.components(separatedBy: "\n")
-        var descriptionText: String
-        if text.count == 2 {
-            descriptionText = text[0] + "\n" + text[1]
-            descriptionLabel.text = descriptionText
-        } else {
-            descriptionText = text[0]
-            descriptionLabel.text = descriptionText
-        }
     }
     
     private func setToastViewLayout() {
