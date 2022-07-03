@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class DDIPToastView: UIView {
+public class DDIPToastView: UIView, addViewsAble {
     public let style: DDIPToastViewStyle
     
     public let titleLabel: UILabel = {
@@ -53,9 +53,7 @@ public class DDIPToastView: UIView {
         self.backgroundColor = .gray
         self.layer.cornerRadius = 12
         
-        self.addSubview(titleLabel)
-        self.addSubview(iconImageView)
-        self.addSubview(descriptionLabel)
+        self.addSubViews([titleLabel, iconImageView, descriptionLabel])
         
         setToastViewLayout()
     }
