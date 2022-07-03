@@ -46,7 +46,7 @@ public class DDIPToastView: UIView {
     }
     
     private func setUI() {
-        self.titleLabel.text = self.style.title.rawValue
+        self.titleLabel.text = self.style.titleOption.info.title
         self.iconImageView.image = UIImage(systemName: self.style.imageIcon)
         setDescriptionLabel()
         
@@ -61,7 +61,7 @@ public class DDIPToastView: UIView {
     }
     
     private func setDescriptionLabel() {
-        let text = self.style.description.rawValue.components(separatedBy: "\n")
+        let text = self.style.descriptionOption.info.description.components(separatedBy: "\n")
         var descriptionText: String
         if text.count == 2 {
             descriptionText = text[0] + "\n" + text[1]
