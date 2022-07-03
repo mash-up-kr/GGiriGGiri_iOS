@@ -90,3 +90,8 @@ iOSInjectionProject/
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# tuist
+*.xcodeproj
+*.xcworkspace
+**/Derived/
