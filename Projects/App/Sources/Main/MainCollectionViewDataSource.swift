@@ -135,7 +135,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch mainData[indexPath.section] {
         case .deadLine(let items):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: GifticonListCardCollectionViewCell.self), for: indexPath) as? GifticonListCardCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: GifticonDeadLineCollectionViewCell.self), for: indexPath) as? GifticonDeadLineCollectionViewCell else {
                 return UICollectionViewCell()
             }
             cell.configure(with: items[indexPath.item])
@@ -147,7 +147,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             cell.configure(with: indexPath.item)
             return cell
         case .gifticonList(let items):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: GifticonListCardCollectionViewCell.self), for: indexPath) as? GifticonListCardCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: GifticonDeadLineCollectionViewCell.self), for: indexPath) as? GifticonDeadLineCollectionViewCell else {
                 return UICollectionViewCell()
             }
             cell.configure(with: items[indexPath.item])

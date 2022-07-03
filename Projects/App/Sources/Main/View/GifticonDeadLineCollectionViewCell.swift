@@ -1,5 +1,5 @@
 //
-//  GifticonListCardCollectionViewCell.swift
+//  GifticonDeadLineCollectionViewCell.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/06/26.
@@ -9,7 +9,7 @@
 import SnapKit
 import UIKit
 
-class GifticonListCardCollectionViewCell: UICollectionViewCell {
+class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     
     private let brandLabel = TempLabel(color: .black)
     private let nameLabel = TempLabel(color: .black)
@@ -39,7 +39,7 @@ class GifticonListCardCollectionViewCell: UICollectionViewCell {
         nameLabel.text = data.gifticonInfo.name
         expirationDateLabel.text = data.gifticonInfo.expirationDate
         
-        let imageUrl = data.gifticonInfo.imageUrl ?? ""
+        let imageUrl = data.gifticonInfo.imageUrl 
         
         if imageUrl.count > 0 {
             DispatchQueue.global().async {

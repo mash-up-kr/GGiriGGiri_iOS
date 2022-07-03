@@ -35,14 +35,14 @@ final class MainView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: generateLayout())
         collectionView.backgroundColor = .white
         collectionView.register(
-            GifticonListCardCollectionViewCell.self,
-            forCellWithReuseIdentifier: String(describing: GifticonListCardCollectionViewCell.self))
+            GifticonDeadLineCollectionViewCell.self,
+            forCellWithReuseIdentifier: String(describing: GifticonDeadLineCollectionViewCell.self))
         collectionView.register(
             CategoryCollectionViewCell.self,
             forCellWithReuseIdentifier: String(describing: CategoryCollectionViewCell.self))
         collectionView.register(
-            GifticonListCardCollectionViewCell.self,
-            forCellWithReuseIdentifier: String(describing: GifticonListCardCollectionViewCell.self))
+            GifticonDeadLineCollectionViewCell.self,
+            forCellWithReuseIdentifier: String(describing: GifticonDeadLineCollectionViewCell.self))
         collectionView.register(
             CommonHeaderView.self,
             forSupplementaryViewOfKind: MainViewController.sectionHeaderElementKind,

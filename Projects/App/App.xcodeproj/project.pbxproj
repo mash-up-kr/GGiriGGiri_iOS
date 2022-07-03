@@ -32,7 +32,7 @@
 		D054F4AF2867966F00CBE5F7 /* Gifticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4AE2867966F00CBE5F7 /* Gifticon.swift */; };
 		D054F4B12867968300CBE5F7 /* GifticonListCardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4B02867968300CBE5F7 /* GifticonListCardItem.swift */; };
 		D054F4B32867975500CBE5F7 /* MainSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4B22867975500CBE5F7 /* MainSection.swift */; };
-		D054F4BB2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4BA2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift */; };
+		D054F4BB2867989400CBE5F7 /* GifticonDeadLineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4BA2867989400CBE5F7 /* GifticonDeadLineCollectionViewCell.swift */; };
 		D054F4BD28679A0200CBE5F7 /* CommonHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4BC28679A0200CBE5F7 /* CommonHeaderView.swift */; };
 		D0D17E24287086C00091E319 /* CategoryListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D17E23287086C00091E319 /* CategoryListItem.swift */; };
 		D0D17E2628708A7D0091E319 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D17E2528708A7D0091E319 /* MainView.swift */; };
@@ -81,7 +81,7 @@
 		D054F4AE2867966F00CBE5F7 /* Gifticon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gifticon.swift; sourceTree = "<group>"; };
 		D054F4B02867968300CBE5F7 /* GifticonListCardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifticonListCardItem.swift; sourceTree = "<group>"; };
 		D054F4B22867975500CBE5F7 /* MainSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSection.swift; sourceTree = "<group>"; };
-		D054F4BA2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifticonListCardCollectionViewCell.swift; sourceTree = "<group>"; };
+		D054F4BA2867989400CBE5F7 /* GifticonDeadLineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifticonDeadLineCollectionViewCell.swift; sourceTree = "<group>"; };
 		D054F4BC28679A0200CBE5F7 /* CommonHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHeaderView.swift; sourceTree = "<group>"; };
 		D0D17E23287086C00091E319 /* CategoryListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListItem.swift; sourceTree = "<group>"; };
 		D0D17E2528708A7D0091E319 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -186,7 +186,6 @@
 			children = (
 				D054F4982867891000CBE5F7 /* TempButton.swift */,
 				D054F496286788E000CBE5F7 /* TempLabel.swift */,
-				D054F4BA2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift */,
 				D054F4BC28679A0200CBE5F7 /* CommonHeaderView.swift */,
 			);
 			path = View;
@@ -207,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				D051D764286AB4F500C13378 /* CategoryCollectionViewCell.swift */,
+				D054F4BA2867989400CBE5F7 /* GifticonDeadLineCollectionViewCell.swift */,
 				D0D17E2528708A7D0091E319 /* MainView.swift */,
 				D054F49C286789A400CBE5F7 /* TempBarButton.swift */,
 			);
@@ -333,7 +333,7 @@
 				D054F49D286789A400CBE5F7 /* TempBarButton.swift in Sources */,
 				D054F4AF2867966F00CBE5F7 /* Gifticon.swift in Sources */,
 				D051D765286AB4F500C13378 /* CategoryCollectionViewCell.swift in Sources */,
-				D054F4BB2867989400CBE5F7 /* GifticonListCardCollectionViewCell.swift in Sources */,
+				D054F4BB2867989400CBE5F7 /* GifticonDeadLineCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
