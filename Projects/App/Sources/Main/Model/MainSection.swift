@@ -14,20 +14,27 @@ enum MainSection: CaseIterable {
                                                 gifticonInfo: Gifticon(brand: "", name: "", expirationDate: "", imageUrl: ""),
                                                 numberOfParticipants: 0,
                                                 isParticipating: true)]),
-                .category(CategoryList.allCases)]
+                .category(CategoryList.allCases),
+                .gifticonList([GifticonListCardItem(remainingTime: "",
+                                                    gifticonInfo: Gifticon(brand: "", name: "", expirationDate: "", imageUrl: ""),
+                                                    numberOfParticipants: 0,
+                                                    isParticipating: true)])]
     }
     
     case deadLine([GifticonListCardItem])
     case category([CategoryList])
+    case gifticonList([GifticonListCardItem])
 }
 
 extension MainSection {
-    var headerTitle: String {
+    var headerTitle: String? {
         switch self {
         case .deadLine:
             return "🔥 마감 임박 10분 전! 혹시 내가 될 수 있잖아"
         case .category:
             return "👀 무료이니 응모하세요!"
+        case .gifticonList:
+            return nil
         }
     }
 }

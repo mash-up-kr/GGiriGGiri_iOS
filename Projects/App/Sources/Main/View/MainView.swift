@@ -41,6 +41,9 @@ final class MainView: UIView {
             CategoryCollectionViewCell.self,
             forCellWithReuseIdentifier: String(describing: CategoryCollectionViewCell.self))
         collectionView.register(
+            GifticonListCardCollectionViewCell.self,
+            forCellWithReuseIdentifier: String(describing: GifticonListCardCollectionViewCell.self))
+        collectionView.register(
             CommonHeaderView.self,
             forSupplementaryViewOfKind: MainViewController.sectionHeaderElementKind,
             withReuseIdentifier: String(describing: CommonHeaderView.self))
@@ -60,6 +63,8 @@ final class MainView: UIView {
                 return self.generateDeadLineSection()
             case .category:
                 return self.generateCategorySection()
+            case .gifticonList:
+                return self.generateGifticonListSection()
             }
         }
         return layout
@@ -97,6 +102,24 @@ final class MainView: UIView {
         
         let section = LayoutManager.configureSection(with: group,
                                                      header: header)
+        return section
+    }
+    
+    private func generateGifticonListSection() -> NSCollectionLayoutSection {
+        let item = LayoutManager.configureItem(with: Size(widthDimension: .absolute(343),
+                                                          heightDimension: .absolute(180)),
+                                               inset: NSDirectionalEdgeInsets(top: 10,
+                                                                                     leading: 10,
+                                                                                     bottom: 0,
+                                                                                     trailing: 0))
+        
+        let group = LayoutManager.configureGroup(with: Size(widthDimension: .fractionalWidth(1.0),
+                                                            heightDimension: .fractionalHeight(1.0)),
+                                                 isDirectionVertical: true,
+                                                 item: item,
+                                                 itemCount: 10)
+        
+        let section = LayoutManager.configureSection(with: group, header: nil)
         return section
     }
 }
