@@ -31,10 +31,13 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     }
     
     private func configure() {
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .gray
         contentView.addSubview(nameLabel)
         
         nameLabel.snp.makeConstraints {
+//            $0.top.bottom.equalTo(7)
+//            $0.leading.equalTo(16)
+//            $0.trailing.equalTo(-16)
             $0.edges.equalToSuperview()
         }
     }

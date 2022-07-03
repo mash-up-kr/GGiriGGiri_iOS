@@ -28,9 +28,11 @@ struct LayoutManager {
         
         if isDirectionVertical {
             group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: itemCount)
+            group.contentInsets = inset
             return group
         }
         group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: itemCount)
+        group.contentInsets = inset
         return group
     }
     

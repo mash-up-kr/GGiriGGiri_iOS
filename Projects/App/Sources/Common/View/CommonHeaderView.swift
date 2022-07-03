@@ -11,8 +11,8 @@ import UIKit
 final class CommonHeaderView: UICollectionReusableView {
     
     let titleLabel = TempLabel(color: .black,
-                               font: .systemFont(ofSize: 22,
-                                                 weight: .medium))
+                               font: .systemFont(ofSize: 16,
+                                                 weight: .bold))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,17 +25,15 @@ final class CommonHeaderView: UICollectionReusableView {
     }
     
     private func configure() {
-        backgroundColor = .white
+        backgroundColor = .cyan
         
         addSubview(titleLabel)
         
-        let inset = CGFloat(16)
-        
         titleLabel.snp.makeConstraints {
-            $0.leading.equalTo(inset)
-            $0.trailing.equalTo(-inset)
-            $0.top.equalTo(self.snp.top).inset(inset * 1.1)
-            $0.bottom.equalTo(self.snp.bottom).inset(inset * 0.4)
+            $0.leading.equalTo(16)
+            $0.trailing.equalTo(-16)
+            $0.top.equalTo(self.snp.top).offset(14)
+            $0.bottom.equalTo(self.snp.bottom).offset(-24)
         }
     }
 }
