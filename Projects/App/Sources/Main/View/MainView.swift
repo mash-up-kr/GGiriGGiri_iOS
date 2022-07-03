@@ -29,8 +29,6 @@ final class MainView: UIView {
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
-        configureDataSource()
     }
     
     private lazy var collectionView: UICollectionView = {
@@ -49,7 +47,9 @@ final class MainView: UIView {
         return collectionView
     }()
     
-    private var dataSource: MainCollectionViewDiffableDataSource!
+    func configureDataSource(_ dataSource: UICollectionViewDataSource) {
+        collectionView.dataSource = dataSource
+    }
     
     private func generateLayout() -> UICollectionViewLayout {
         let layout =
@@ -98,54 +98,5 @@ final class MainView: UIView {
         let section = LayoutManager.configureSection(with: group,
                                                      header: header)
         return section
-    }
-    
-    private func configureDataSource() {
-        dataSource = MainCollectionViewDiffableDataSource(collectionView: collectionView,
-                                                          cellProvider: { collectionView, indexPath, itemIdentifier in
-            let sectionType = MainSection.allCases[indexPath.section]
-            
-            switch sectionType {
-            case .deadLine:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: GifticonListCardCollectionViewCell.self), for: indexPath) as? GifticonListCardCollectionViewCell else {
-                    return UICollectionViewCell()
-                }
-                
-                cell.configure(with: GifticonListCardItem(remainingTime: "123초",
-                                                          gifticonInfo:
-                                                            Gifticon(brand: "스타벅스",
-                                                                     name: "아메리카노",
-                                                                     expirationDate: "20220626",
-                                                                     imageUrl: ""),
-                                                          numberOfParticipants: 5,
-                                                          isParticipating: false))
-                return cell
-            case .category:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CategoryCollectionViewCell.self), for: indexPath) as? CategoryCollectionViewCell else {
-                    return UICollectionViewCell()
-                }
-                cell.configure(with: indexPath.row)
-                return cell
-            }
-        })
-        
-        let snapshot = snapshotForCurrentState()
-        dataSource.apply(snapshot, animatingDifferences: false)
-    }
-    
-    private func snapshotForCurrentState() -> NSDiffableDataSourceSnapshot<MainSection, MainItem> {
-        var snapshot = NSDiffableDataSourceSnapshot<MainSection, MainItem>()
-        snapshot.appendSections([.deadLine, .category])
-        snapshot.appendItems(itemsForDeadLineSection(), toSection: .deadLine)
-        snapshot.appendItems(itemsForCategorySection(), toSection: .category)
-        return snapshot
-    }
-    
-    private func itemsForDeadLineSection() -> [MainItem] {
-        return [MainItem(), MainItem(), MainItem()]
-    }
-    
-    private func itemsForCategorySection() -> [MainItem] {
-        return [MainItem(), MainItem(), MainItem(), MainItem(), MainItem(), MainItem()]
     }
 }

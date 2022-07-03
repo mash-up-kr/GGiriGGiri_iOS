@@ -19,12 +19,15 @@ class MainViewController: UIViewController {
         super.init(coder: coder)
     }
     
-    private var mainView = MainView()
+    private let mainView = MainView()
+    private let dataSource = MainCollectionViewDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureNavigationBar()
+        
+        mainView.configureDataSource(dataSource)
         self.view = mainView
     }
     
