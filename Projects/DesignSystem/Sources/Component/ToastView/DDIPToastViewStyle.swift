@@ -24,9 +24,21 @@ public struct DDIPToastViewStyle {
         }
     }
     
-    public let titleOption: ToastViewOptions
-    public let descriptionOption: ToastViewOptions
-    public let imageIcon: String
+    private let titleOption: ToastViewOptions
+    private let descriptionOption: ToastViewOptions
+    private let imageIcon: String
+    
+    public var title: String {
+        return titleOption.info.title
+    }
+    
+    public var description: String {
+        return titleOption.info.description
+    }
+    
+    public var image: String {
+        return self.imageIcon
+    }
     
     public init(
         titleOption: ToastViewOptions,

@@ -46,9 +46,9 @@ public class DDIPToastView: UIView {
     }
     
     private func setUI() {
-        self.titleLabel.text = self.style.titleOption.info.title
-        self.iconImageView.image = UIImage(systemName: self.style.imageIcon)
-        self.descriptionLabel.text = self.style.titleOption.info.description
+        self.titleLabel.text = self.style.title
+        self.iconImageView.image = UIImage(systemName: self.style.image)
+        self.descriptionLabel.text = self.style.description
         
         self.backgroundColor = .gray
         self.layer.cornerRadius = 12
