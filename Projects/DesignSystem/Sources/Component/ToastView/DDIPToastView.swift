@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PinLayout
 
 public class DDIPToastView: UIView {
     public let style: DDIPToastViewStyle
@@ -62,8 +61,12 @@ public class DDIPToastView: UIView {
     }
     
     public func setDescriptionLabel() -> String {
-        let text = self.style.description.rawValue.components(separatedBy: "!")
-            return text[0] + "!" + "\n" + text[1]
+        let text = self.style.description.rawValue.components(separatedBy: "\n")
+        if text.count == 2 {
+            return text[0] + "\n" + text[1]
+        } else {
+            return text[0]
+        }
     }
     
     private func setToastViewLayout() {
