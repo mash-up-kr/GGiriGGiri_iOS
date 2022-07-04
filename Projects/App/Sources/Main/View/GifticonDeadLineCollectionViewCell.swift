@@ -19,6 +19,7 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     private let isParticipatingButtonLabel = TempLabel(color: .black)
     private let numberOfParticipantsViewLabel = TempLabel(color: .black)
     private let remainingTimeLabel = TempLabel(color: .black)
+    private(set) var imageURL: String = ""
     
     private let gifticonImageView: UIImageView = {
         let imageView = UIImageView()
@@ -40,26 +41,16 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
         brandLabel.text = data.gifticonInfo.brand
         nameLabel.text = data.gifticonInfo.name
         expirationDateLabel.text = data.gifticonInfo.expirationDate
-        
-        let imageUrl = data.gifticonInfo.imageUrl 
-        
-        if imageUrl.count > 0 {
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: URL(string: imageUrl)!) {
-                    let image = UIImage(data: data)
-                    
-                    DispatchQueue.main.async {
-                        self.gifticonImageView.image = image
-                    }
-                }
-            }
-        } else {
-            self.gifticonImageView.image = UIImage(named: "pencil.circle.fill")
-        }
-        
+        imageURL = data.gifticonInfo.imageUrl
         isParticipatingButtonLabel.text = "응모하기"
         numberOfParticipantsViewLabel.text = "\(data.numberOfParticipants)"
         remainingTimeLabel.text = data.remainingTime
+    }
+    
+    func configureImage(with image: UIImage) {
+        DispatchQueue.main.async {
+            self.gifticonImageView.image = image
+        }
     }
     
     override init(frame: CGRect) {
@@ -80,7 +71,8 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
             $0.edges.equalToSuperview()
         }
         
-        verticalStackView.addArrangedSubviews(with: [brandLabel,
+        verticalStackView.addArrangedSubviews(with: [gifticonImageView,
+                                                     brandLabel,
                                                      nameLabel,
                                                      expirationDateLabel,
                                                      isParticipatingButtonLabel,
