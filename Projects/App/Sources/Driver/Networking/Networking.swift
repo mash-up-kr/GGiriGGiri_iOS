@@ -34,7 +34,6 @@ final class Networking {
                         )
                         return
                     }
-                    
                     single(.success(.success(data)))
                 }
                 return Disposables.create()
