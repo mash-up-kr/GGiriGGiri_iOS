@@ -57,7 +57,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let supplementaryView = collectionView
             .dequeueReusableSupplementaryView(ofKind: kind,
-                                              withReuseIdentifier: String(describing: CommonHeaderView.self),
+                                              withReuseIdentifier: CommonHeaderView.reuseIdentifier,
                                               for: indexPath) as? CommonHeaderView else {
             return UICollectionReusableView()
         }

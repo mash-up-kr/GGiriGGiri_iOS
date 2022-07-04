@@ -11,6 +11,8 @@ import UIKit
 
 final class CommonHeaderView: UICollectionReusableView {
     
+    static let reuseIdentifier = "CommonHeaderView"
+    
     let titleLabel = TempLabel(color: .black,
                                font: .systemFont(ofSize: 16,
                                                  weight: .bold))
