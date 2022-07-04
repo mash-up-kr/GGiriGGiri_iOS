@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GitfticonCardCollectionViewCell: UICollectionViewCell {
+final class GitfticonCardCollectionViewCell: UICollectionViewCell {
     
     private let brandLabel = TempLabel(color: .black)
     private let nameLabel = TempLabel(color: .black)

@@ -9,7 +9,7 @@
 import SnapKit
 import UIKit
 
-class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
+final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     
     private let brandLabel = TempLabel(color: .black)
     private let nameLabel = TempLabel(color: .black)
