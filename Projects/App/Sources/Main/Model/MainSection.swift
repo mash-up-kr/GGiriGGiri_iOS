@@ -10,20 +10,20 @@ import Foundation
 
 enum MainSection: CaseIterable {
     static var allCases: [MainSection] {
-        return [.deadLine([GifticonListCardItem(remainingTime: "",
+        return [.deadLine([GifticonCard(remainingTime: "",
                                                 gifticonInfo: Gifticon(brand: "", name: "", expirationDate: "", imageUrl: ""),
                                                 numberOfParticipants: 0,
                                                 isParticipating: true)]),
                 .category(CategoryList.allCases),
-                .gifticonList([GifticonListCardItem(remainingTime: "",
+                .gifticonList([GifticonCard(remainingTime: "",
                                                     gifticonInfo: Gifticon(brand: "", name: "", expirationDate: "", imageUrl: ""),
                                                     numberOfParticipants: 0,
                                                     isParticipating: true)])]
     }
     
-    case deadLine([GifticonListCardItem])
+    case deadLine([GifticonCard])
     case category([CategoryList])
-    case gifticonList([GifticonListCardItem])
+    case gifticonList([GifticonCard])
 }
 
 extension MainSection {

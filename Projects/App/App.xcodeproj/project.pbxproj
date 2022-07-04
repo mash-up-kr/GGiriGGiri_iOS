@@ -30,7 +30,7 @@
 		D054F4992867891000CBE5F7 /* TempButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4982867891000CBE5F7 /* TempButton.swift */; };
 		D054F49D286789A400CBE5F7 /* TempBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F49C286789A400CBE5F7 /* TempBarButton.swift */; };
 		D054F4AF2867966F00CBE5F7 /* Gifticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4AE2867966F00CBE5F7 /* Gifticon.swift */; };
-		D054F4B12867968300CBE5F7 /* GifticonListCardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4B02867968300CBE5F7 /* GifticonListCardItem.swift */; };
+		D054F4B12867968300CBE5F7 /* GifticonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4B02867968300CBE5F7 /* GifticonCard.swift */; };
 		D054F4B32867975500CBE5F7 /* MainSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4B22867975500CBE5F7 /* MainSection.swift */; };
 		D054F4BB2867989400CBE5F7 /* GifticonDeadLineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4BA2867989400CBE5F7 /* GifticonDeadLineCollectionViewCell.swift */; };
 		D054F4BD28679A0200CBE5F7 /* CommonHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054F4BC28679A0200CBE5F7 /* CommonHeaderView.swift */; };
@@ -81,7 +81,7 @@
 		D054F4982867891000CBE5F7 /* TempButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempButton.swift; sourceTree = "<group>"; };
 		D054F49C286789A400CBE5F7 /* TempBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempBarButton.swift; sourceTree = "<group>"; };
 		D054F4AE2867966F00CBE5F7 /* Gifticon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gifticon.swift; sourceTree = "<group>"; };
-		D054F4B02867968300CBE5F7 /* GifticonListCardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifticonListCardItem.swift; sourceTree = "<group>"; };
+		D054F4B02867968300CBE5F7 /* GifticonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifticonCard.swift; sourceTree = "<group>"; };
 		D054F4B22867975500CBE5F7 /* MainSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSection.swift; sourceTree = "<group>"; };
 		D054F4BA2867989400CBE5F7 /* GifticonDeadLineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifticonDeadLineCollectionViewCell.swift; sourceTree = "<group>"; };
 		D054F4BC28679A0200CBE5F7 /* CommonHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHeaderView.swift; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				D054F4AE2867966F00CBE5F7 /* Gifticon.swift */,
-				D054F4B02867968300CBE5F7 /* GifticonListCardItem.swift */,
+				D054F4B02867968300CBE5F7 /* GifticonCard.swift */,
 				D0EF2AF5286CC77300FC4CB1 /* LayoutManager.swift */,
 				D0FAC9CC286D3E4E0069426E /* Size.swift */,
 			);
@@ -333,7 +333,7 @@
 				C6718E3AA383C51845C04872 /* AppDelegate.swift in Sources */,
 				5C365493AF6E4EDA83652D7C /* SceneDelegate.swift in Sources */,
 				D054F4B32867975500CBE5F7 /* MainSection.swift in Sources */,
-				D054F4B12867968300CBE5F7 /* GifticonListCardItem.swift in Sources */,
+				D054F4B12867968300CBE5F7 /* GifticonCard.swift in Sources */,
 				D0D17E2628708A7D0091E319 /* MainView.swift in Sources */,
 				32272630B2DDB3F49682FA63 /* MainViewController.swift in Sources */,
 				D0D17E24287086C00091E319 /* CategoryListItem.swift in Sources */,

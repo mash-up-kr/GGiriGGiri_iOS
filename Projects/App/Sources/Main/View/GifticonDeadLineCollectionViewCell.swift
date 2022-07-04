@@ -34,7 +34,7 @@ class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
-    func configure(with data: GifticonListCardItem) {
+    func configure(with data: GifticonCard) {
         brandLabel.text = data.gifticonInfo.brand
         nameLabel.text = data.gifticonInfo.name
         expirationDateLabel.text = data.gifticonInfo.expirationDate

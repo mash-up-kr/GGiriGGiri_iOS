@@ -10,7 +10,7 @@ import Foundation
 
 struct MockData {
     static let main: [MainSection] = [
-        .deadLine([GifticonListCardItem(remainingTime: "123초",
+        .deadLine([GifticonCard(remainingTime: "123초",
                                         gifticonInfo:
                                             Gifticon(brand: "스타벅스",
                                                      name: "아메리카노",
@@ -18,7 +18,7 @@ struct MockData {
                                                      imageUrl: ""),
                                         numberOfParticipants: 5,
                                         isParticipating: false),
-                   GifticonListCardItem(remainingTime: "123초",
+                   GifticonCard(remainingTime: "123초",
                                         gifticonInfo:
                                             Gifticon(brand: "스타벅스",
                                                      name: "아메리카노",
@@ -26,7 +26,7 @@ struct MockData {
                                                      imageUrl: ""),
                                         numberOfParticipants: 5,
                                         isParticipating: false),
-                   GifticonListCardItem(remainingTime: "123초",
+                   GifticonCard(remainingTime: "123초",
                                         gifticonInfo:
                                             Gifticon(brand: "스타벅스",
                                                      name: "아메리카노",
@@ -35,7 +35,7 @@ struct MockData {
                                         numberOfParticipants: 5,
                                         isParticipating: false)]),
         .category(CategoryList.allCases),
-        .gifticonList([GifticonListCardItem(remainingTime: "123초",
+        .gifticonList([GifticonCard(remainingTime: "123초",
                                             gifticonInfo:
                                                 Gifticon(brand: "스타벅스",
                                                          name: "아메리카노",
@@ -43,7 +43,7 @@ struct MockData {
                                                          imageUrl: ""),
                                             numberOfParticipants: 5,
                                             isParticipating: false),
-                       GifticonListCardItem(remainingTime: "123초",
+                       GifticonCard(remainingTime: "123초",
                                             gifticonInfo:
                                                 Gifticon(brand: "스타벅스",
                                                          name: "아메리카노",
@@ -51,7 +51,7 @@ struct MockData {
                                                          imageUrl: ""),
                                             numberOfParticipants: 5,
                                             isParticipating: false),
-                       GifticonListCardItem(remainingTime: "123초",
+                       GifticonCard(remainingTime: "123초",
                                             gifticonInfo:
                                                 Gifticon(brand: "스타벅스",
                                                          name: "아메리카노",
@@ -59,7 +59,7 @@ struct MockData {
                                                          imageUrl: ""),
                                             numberOfParticipants: 5,
                                             isParticipating: false),
-                       GifticonListCardItem(remainingTime: "123초",
+                       GifticonCard(remainingTime: "123초",
                                             gifticonInfo:
                                                 Gifticon(brand: "스타벅스",
                                                          name: "아메리카노",
@@ -67,7 +67,7 @@ struct MockData {
                                                          imageUrl: ""),
                                             numberOfParticipants: 5,
                                             isParticipating: false),
-                       GifticonListCardItem(remainingTime: "123초",
+                       GifticonCard(remainingTime: "123초",
                                             gifticonInfo:
                                                 Gifticon(brand: "스타벅스",
                                                          name: "아메리카노",
