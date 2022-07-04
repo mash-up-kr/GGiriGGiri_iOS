@@ -1,5 +1,5 @@
 //
-//  LayoutManager.swift
+//  CollectionViewLayoutManager.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/06/30.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct LayoutManager {
+struct CollectionViewLayoutManager {
     
     static func configureItem(with itemSize: Size, inset: NSDirectionalEdgeInsets = .zero) -> NSCollectionLayoutItem {
         let itemSize = NSCollectionLayoutSize(widthDimension: itemSize.widthDimension,
