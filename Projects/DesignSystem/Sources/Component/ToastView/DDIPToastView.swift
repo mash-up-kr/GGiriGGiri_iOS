@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class DDIPToastView: UIView, addViewsAble {
+public class DDIPToastView: UIView, AddViewsable {
     public let style: DDIPToastViewStyle
     
     public let titleLabel: UILabel = {

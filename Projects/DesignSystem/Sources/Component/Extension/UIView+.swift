@@ -8,9 +8,9 @@
 
 import UIKit
 
-protocol addViewsAble {}
+protocol AddViewsable {}
 
-extension addViewsAble where Self: UIView {
+extension AddViewsable where Self: UIView {
     func addSubViews(_ views: [UIView]) {
         for view in views {
             self.addSubview(view)
