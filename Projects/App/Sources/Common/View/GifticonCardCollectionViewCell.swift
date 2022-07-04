@@ -10,6 +10,8 @@ import SnapKit
 import UIKit
 
 final class GifticonCardCollectionViewCell: UICollectionViewCell {
+   
+    static let reuseIdentifier = "GifticonCardCollectionViewCell"
     
     private let brandLabel = TempLabel(color: .black)
     private let nameLabel = TempLabel(color: .black)

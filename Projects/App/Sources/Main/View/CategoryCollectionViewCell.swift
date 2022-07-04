@@ -11,6 +11,8 @@ import UIKit
 
 final class CategoryCollectionViewCell: UICollectionViewCell {
     
+    static let reuseIdentifier = "CategoryCollectionViewCell"
+    
     private let nameLabel = TempLabel(color: .black)
     
     func configure(with index: Int) {

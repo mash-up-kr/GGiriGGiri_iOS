@@ -28,19 +28,25 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch MockData.main[indexPath.section] {
         case .deadLine(let items):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: GifticonDeadLineCollectionViewCell.self), for: indexPath) as? GifticonDeadLineCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: GifticonDeadLineCollectionViewCell.reuseIdentifier,
+                for: indexPath) as? GifticonDeadLineCollectionViewCell else {
                 return UICollectionViewCell()
             }
             cell.configure(with: items[indexPath.item])
             return cell
         case .category(_):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CategoryCollectionViewCell.self), for: indexPath) as? CategoryCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CategoryCollectionViewCell.reuseIdentifier,
+                for: indexPath) as? CategoryCollectionViewCell else {
                 return UICollectionViewCell()
             }
             cell.configure(with: indexPath.item)
             return cell
         case .gifticonList(let items):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: GifticonCardCollectionViewCell.self), for: indexPath) as? GifticonCardCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: GifticonCardCollectionViewCell.reuseIdentifier,
+                for: indexPath) as? GifticonCardCollectionViewCell else {
                 return UICollectionViewCell()
             }
             cell.configure(with: items[indexPath.item])

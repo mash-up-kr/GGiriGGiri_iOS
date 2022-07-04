@@ -11,6 +11,8 @@ import UIKit
 
 final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     
+    static let reuseIdentifier = "GifticonDeadLineCollectionViewCell"
+    
     private let brandLabel = TempLabel(color: .black)
     private let nameLabel = TempLabel(color: .black)
     private let expirationDateLabel = TempLabel(color: .black)
