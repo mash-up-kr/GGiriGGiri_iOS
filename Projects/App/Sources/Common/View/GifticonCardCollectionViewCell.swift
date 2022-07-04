@@ -1,5 +1,5 @@
 //
-//  GitfticonCardCollectionViewCell.swift
+//  GifticonCardCollectionViewCell.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/07/03.
@@ -9,7 +9,7 @@
 import SnapKit
 import UIKit
 
-final class GitfticonCardCollectionViewCell: UICollectionViewCell {
+final class GifticonCardCollectionViewCell: UICollectionViewCell {
     
     private let brandLabel = TempLabel(color: .black)
     private let nameLabel = TempLabel(color: .black)

@@ -36,7 +36,6 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(nameLabel)
         
         nameLabel.snp.makeConstraints {
-            $0.height.equalTo(34)
             $0.edges.equalToSuperview()
         }
     }

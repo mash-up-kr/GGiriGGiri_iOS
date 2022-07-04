@@ -41,8 +41,8 @@ final class MainView: UIView {
             CategoryCollectionViewCell.self,
             forCellWithReuseIdentifier: String(describing: CategoryCollectionViewCell.self))
         collectionView.register(
-            GitfticonCardCollectionViewCell.self,
-            forCellWithReuseIdentifier: String(describing: GitfticonCardCollectionViewCell.self))
+            GifticonCardCollectionViewCell.self,
+            forCellWithReuseIdentifier: String(describing: GifticonCardCollectionViewCell.self))
         collectionView.register(
             CommonHeaderView.self,
             forSupplementaryViewOfKind: MainViewController.sectionHeaderElementKind,

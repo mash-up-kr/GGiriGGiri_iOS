@@ -40,7 +40,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             cell.configure(with: indexPath.item)
             return cell
         case .gifticonList(let items):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: GitfticonCardCollectionViewCell.self), for: indexPath) as? GitfticonCardCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: GifticonCardCollectionViewCell.self), for: indexPath) as? GifticonCardCollectionViewCell else {
                 return UICollectionViewCell()
             }
             cell.configure(with: items[indexPath.item])

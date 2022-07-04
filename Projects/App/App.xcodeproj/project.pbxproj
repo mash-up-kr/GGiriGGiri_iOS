@@ -43,7 +43,7 @@
 		C16393E88B854B2E032F772E /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B54B3510C2F7504878DEAF6 /* Lottie.framework */; platformFilter = ios; };
 		C6718E3AA383C51845C04872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7210F22777D23AD1713BCADE /* AppDelegate.swift */; };
 		E0133A61426E198CB88C4FA2 /* FlexLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBD38965FFB67BCCFCA44130 /* FlexLayout.framework */; platformFilter = ios; };
-		F039D4A0F8A36E7FA4DA94FA /* GitfticonCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4020FB202F718740376D028F /* GitfticonCardCollectionViewCell.swift */; };
+		F039D4A0F8A36E7FA4DA94FA /* GifticonCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4020FB202F718740376D028F /* GifticonCardCollectionViewCell.swift */; };
 		F0C64306634BCA1DD6128382 /* MainCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D071A0BF404DEFFDC6BF16D /* MainCollectionViewDataSource.swift */; };
 		FC66E6B6705A01FBA59CA677 /* GifticonDeadLineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43485BA4D895C13F9C3C87 /* GifticonDeadLineCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -77,7 +77,7 @@
 		35E358818651AC11C9416DE7 /* MainSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSection.swift; sourceTree = "<group>"; };
 		38CF270A852662493E247DA6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		3D43485BA4D895C13F9C3C87 /* GifticonDeadLineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifticonDeadLineCollectionViewCell.swift; sourceTree = "<group>"; };
-		4020FB202F718740376D028F /* GitfticonCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitfticonCardCollectionViewCell.swift; sourceTree = "<group>"; };
+		4020FB202F718740376D028F /* GifticonCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifticonCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		4521975D809E6C486B68AA0F /* RxCocoaRuntime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxCocoaRuntime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A421285A2A82FF2D1649658 /* PinLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PinLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D071A0BF404DEFFDC6BF16D /* MainCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				07333AF715D8627C66BD12E7 /* CommonHeaderView.swift */,
-				4020FB202F718740376D028F /* GitfticonCardCollectionViewCell.swift */,
+				4020FB202F718740376D028F /* GifticonCardCollectionViewCell.swift */,
 				DD458F6CCA90698E155A8D0C /* TempButton.swift */,
 				FB2ABF2B52544E12C31F8578 /* TempLabel.swift */,
 			);
@@ -339,7 +339,7 @@
 				218607FB667FDC397F93C6CD /* CollectionViewLayoutManager.swift in Sources */,
 				04A7AD14E21A584661F680BB /* CollectionViewConfigureSize.swift in Sources */,
 				280F830EEE6A0F575BD81605 /* CommonHeaderView.swift in Sources */,
-				F039D4A0F8A36E7FA4DA94FA /* GitfticonCardCollectionViewCell.swift in Sources */,
+				F039D4A0F8A36E7FA4DA94FA /* GifticonCardCollectionViewCell.swift in Sources */,
 				0B595737A0E7A0339CA7E4EA /* TempButton.swift in Sources */,
 				0E2988E4A45A52E1ADD9F1CE /* TempLabel.swift in Sources */,
 				F0C64306634BCA1DD6128382 /* MainCollectionViewDataSource.swift in Sources */,
