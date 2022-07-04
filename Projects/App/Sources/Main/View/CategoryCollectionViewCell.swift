@@ -17,7 +17,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         nameLabel.backgroundColor = .yellow
         nameLabel.clipsToBounds = true
         nameLabel.layer.cornerRadius = 20
-        nameLabel.text = CategoryList.allCases[index].rawValue
+        nameLabel.text = Category.allCases[index].rawValue
     }
     
     override init(frame: CGRect) {

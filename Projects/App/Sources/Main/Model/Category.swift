@@ -1,5 +1,5 @@
 //
-//  CategoryList.swift
+//  Category.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/07/01.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum CategoryList: String, CaseIterable {
+enum Category: String, CaseIterable {
     case all = "전체"
     case cafe = "카페/디저트"
     case delivery = "치킨/배달음식"

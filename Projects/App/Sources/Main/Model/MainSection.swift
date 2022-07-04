@@ -14,7 +14,7 @@ enum MainSection: CaseIterable {
                                                 gifticonInfo: Gifticon(brand: "", name: "", expirationDate: "", imageUrl: ""),
                                                 numberOfParticipants: 0,
                                                 isParticipating: true)]),
-                .category(CategoryList.allCases),
+                .category(Category.allCases),
                 .gifticonList([GifticonCard(remainingTime: "",
                                                     gifticonInfo: Gifticon(brand: "", name: "", expirationDate: "", imageUrl: ""),
                                                     numberOfParticipants: 0,
@@ -22,7 +22,7 @@ enum MainSection: CaseIterable {
     }
     
     case deadLine([GifticonCard])
-    case category([CategoryList])
+    case category([Category])
     case gifticonList([GifticonCard])
 }
 

@@ -1,5 +1,5 @@
 //
-//  CategoryListItem.swift
+//  CategoryItem.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/07/02.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct CategoryListItem {
+struct CategoryItem {
     let title: String
 }

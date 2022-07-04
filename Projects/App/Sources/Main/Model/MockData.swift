@@ -34,7 +34,7 @@ struct MockData {
                                                      imageUrl: ""),
                                         numberOfParticipants: 5,
                                         isParticipating: false)]),
-        .category(CategoryList.allCases),
+        .category(Category.allCases),
         .gifticonList([GifticonCard(remainingTime: "123초",
                                             gifticonInfo:
                                                 Gifticon(brand: "스타벅스",
