@@ -6,6 +6,7 @@
 //  Copyright © 2022 dvHuni. All rights reserved.
 //
 
+import SnapKit
 import UIKit
 
 final class GitfticonCardCollectionViewCell: UICollectionViewCell {
