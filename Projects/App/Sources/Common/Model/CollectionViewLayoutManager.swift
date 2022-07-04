@@ -10,7 +10,7 @@ import UIKit
 
 struct CollectionViewLayoutManager {
     
-    static func configureItem(with itemSize: Size, inset: NSDirectionalEdgeInsets = .zero) -> NSCollectionLayoutItem {
+    static func configureItem(with itemSize: CollectionViewConfigureSize, inset: NSDirectionalEdgeInsets = .zero) -> NSCollectionLayoutItem {
         let itemSize = NSCollectionLayoutSize(widthDimension: itemSize.widthDimension,
                                               heightDimension: itemSize.heightDimension)
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -18,7 +18,7 @@ struct CollectionViewLayoutManager {
         return item
     }
 
-    static func configureGroup(with groupSize: Size,
+    static func configureGroup(with groupSize: CollectionViewConfigureSize,
                         inset: NSDirectionalEdgeInsets = .zero,
                         isDirectionVertical: Bool = false,
                         item: NSCollectionLayoutItem, itemCount: Int) -> NSCollectionLayoutGroup {
@@ -36,7 +36,7 @@ struct CollectionViewLayoutManager {
         return group
     }
     
-    static func configureHeader(with headerSize: Size, elementKind: String) -> NSCollectionLayoutBoundarySupplementaryItem {
+    static func configureHeader(with headerSize: CollectionViewConfigureSize, elementKind: String) -> NSCollectionLayoutBoundarySupplementaryItem {
         let headerSize = NSCollectionLayoutSize(widthDimension: headerSize.widthDimension,
                                                 heightDimension: headerSize.heightDimension)
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,

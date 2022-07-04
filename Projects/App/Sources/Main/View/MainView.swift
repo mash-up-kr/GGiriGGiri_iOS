@@ -71,65 +71,83 @@ final class MainView: UIView {
     }
     
     private func generateDeadLineSection() -> NSCollectionLayoutSection {
-        let item = CollectionViewLayoutManager.configureItem(with: Size(widthDimension: .absolute(310),
-                                                          heightDimension: .absolute(380)),
-                                               inset: NSDirectionalEdgeInsets(top: 0,
-                                                                              leading: 16,
-                                                                              bottom: 26,
-                                                                              trailing: 16))
+        let item = CollectionViewLayoutManager.configureItem(with:
+                                                                CollectionViewConfigureSize(
+                                                                    widthDimension: .absolute(310),
+                                                                    heightDimension: .absolute(380)),
+                                                             inset: NSDirectionalEdgeInsets(top: 0,
+                                                                                            leading: 16,
+                                                                                            bottom: 26,
+                                                                                            trailing: 16))
         
-        let group = CollectionViewLayoutManager.configureGroup(with: Size(widthDimension: item.layoutSize.widthDimension,
-                                                            heightDimension: item.layoutSize.heightDimension),
-                                                 item: item, itemCount: 1)
+        let group = CollectionViewLayoutManager.configureGroup(with:
+                                                                CollectionViewConfigureSize(
+                                                                    widthDimension: item.layoutSize.widthDimension,
+                                                                    heightDimension: item.layoutSize.heightDimension),
+                                                               item: item,
+                                                               itemCount: 1)
         
-        let header = CollectionViewLayoutManager.configureHeader(with: Size(widthDimension: .fractionalWidth(1.0),
-                                                              heightDimension: .estimated(1)),
-                                                   elementKind: MainViewController.sectionHeaderElementKind)
+        let header = CollectionViewLayoutManager.configureHeader(with:
+                                                                    CollectionViewConfigureSize(
+                                                                        widthDimension: .fractionalWidth(1.0),
+                                                                        heightDimension: .estimated(1)),
+                                                                 elementKind: MainViewController.sectionHeaderElementKind)
         
         let section = CollectionViewLayoutManager.configureSection(with: group,
-                                                     header: header)
+                                                                   header: header)
         return section
     }
     
     private func generateCategorySection() -> NSCollectionLayoutSection {
-        let item = CollectionViewLayoutManager.configureItem(with: Size(widthDimension: .fractionalWidth(0.3),
-                                                          heightDimension: .fractionalWidth(0.2)),
-                                               inset: NSDirectionalEdgeInsets(top: 16,
-                                                                              leading: 16,
-                                                                              bottom: -30,
-                                                                              trailing: 16))
+        let item = CollectionViewLayoutManager.configureItem(with:
+                                                                CollectionViewConfigureSize(
+                                                                    widthDimension: .fractionalWidth(0.3),
+                                                                    heightDimension: .fractionalWidth(0.2)),
+                                                             inset: NSDirectionalEdgeInsets(top: 16,
+                                                                                            leading: 16,
+                                                                                            bottom: -30,
+                                                                                            trailing: 16))
         
-        let group = CollectionViewLayoutManager.configureGroup(with: Size(widthDimension: item.layoutSize.widthDimension,
-                                                            heightDimension: item.layoutSize.heightDimension),
-                                                 item: item, itemCount: 1)
+        let group = CollectionViewLayoutManager.configureGroup(with:
+                                                                CollectionViewConfigureSize(
+                                                                    widthDimension: item.layoutSize.widthDimension,
+                                                                    heightDimension: item.layoutSize.heightDimension),
+                                                               item: item,
+                                                               itemCount: 1)
 
         
-        let header = CollectionViewLayoutManager.configureHeader(with: Size(widthDimension: .fractionalWidth(1.0),
-                                                              heightDimension: .estimated(1)),
-                                                   elementKind: MainViewController.sectionHeaderElementKind)
+        let header = CollectionViewLayoutManager.configureHeader(with:
+                                                                    CollectionViewConfigureSize(
+                                                                        widthDimension: .fractionalWidth(1.0),
+                                                                        heightDimension: .estimated(1)),
+                                                                 elementKind: MainViewController.sectionHeaderElementKind)
         
         let section = CollectionViewLayoutManager.configureSection(with: group,
-                                                     header: header)
+                                                                   header: header)
         return section
     }
     
     private func generateGifticonListSection() -> NSCollectionLayoutSection {
-        let item = CollectionViewLayoutManager.configureItem(with: Size(widthDimension: .absolute(343),
-                                                          heightDimension: .absolute(180)),
-                                               inset: NSDirectionalEdgeInsets(top: 10,
-                                                                              leading: 16,
-                                                                              bottom: 0,
-                                                                              trailing: 0))
+        let item = CollectionViewLayoutManager.configureItem(with:
+                                                                CollectionViewConfigureSize(
+                                                                    widthDimension: .absolute(343),
+                                                                    heightDimension: .absolute(180)),
+                                                             inset: NSDirectionalEdgeInsets(top: 10,
+                                                                                            leading: 16,
+                                                                                            bottom: 0,
+                                                                                            trailing: 0))
         
-        let group = CollectionViewLayoutManager.configureGroup(with: Size(widthDimension: .fractionalWidth(1.0),
-                                                            heightDimension: .fractionalHeight(1.0)),
-                                                 isDirectionVertical: true,
-                                                 item: item,
-                                                 itemCount: 5)
+        let group = CollectionViewLayoutManager.configureGroup(with:
+                                                                CollectionViewConfigureSize(
+                                                                    widthDimension: .fractionalWidth(1.0),
+                                                                    heightDimension: .fractionalHeight(1.0)),
+                                                               isDirectionVertical: true,
+                                                               item: item,
+                                                               itemCount: 5)
         
         let section = CollectionViewLayoutManager.configureSection(with: group,
-                                                     scrollingBehavior: .continuousGroupLeadingBoundary,
-                                                     header: nil)
+                                                                   scrollingBehavior: .continuousGroupLeadingBoundary,
+                                                                   header: nil)
         return section
     }
 }

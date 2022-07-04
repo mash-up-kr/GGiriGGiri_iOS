@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0181EF7855E58FDF10232281 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633F868A10C5F0668BD3FA84 /* CategoryCollectionViewCell.swift */; };
-		04A7AD14E21A584661F680BB /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1C19F734B552EB080BAC77 /* Size.swift */; };
+		04A7AD14E21A584661F680BB /* CollectionViewConfigureSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1C19F734B552EB080BAC77 /* CollectionViewConfigureSize.swift */; };
 		08FC5B230EF2758D54C4D889 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9369BFA2C65412102538303 /* DesignSystem.framework */; platformFilter = ios; };
 		0B595737A0E7A0339CA7E4EA /* TempButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD458F6CCA90698E155A8D0C /* TempButton.swift */; };
 		0E2988E4A45A52E1ADD9F1CE /* TempLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABF2B52544E12C31F8578 /* TempLabel.swift */; };
@@ -83,7 +83,7 @@
 		4521975D809E6C486B68AA0F /* RxCocoaRuntime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxCocoaRuntime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A421285A2A82FF2D1649658 /* PinLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PinLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D071A0BF404DEFFDC6BF16D /* MainCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewDataSource.swift; sourceTree = "<group>"; };
-		5C1C19F734B552EB080BAC77 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		5C1C19F734B552EB080BAC77 /* CollectionViewConfigureSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewConfigureSize.swift; sourceTree = "<group>"; };
 		633F868A10C5F0668BD3FA84 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A3FEA5C70919A9BAB855C1B /* CollectionViewLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLayoutManager.swift; sourceTree = "<group>"; };
 		7210F22777D23AD1713BCADE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -208,7 +208,7 @@
 				DB36D1F4394910C8967D5069 /* Gifticon.swift */,
 				72F32618D16BF5086438AEE1 /* GifticonCard.swift */,
 				6A3FEA5C70919A9BAB855C1B /* CollectionViewLayoutManager.swift */,
-				5C1C19F734B552EB080BAC77 /* Size.swift */,
+				5C1C19F734B552EB080BAC77 /* CollectionViewConfigureSize.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -340,7 +340,7 @@
 				70FFD8135FFFC63C7D97CC9A /* Gifticon.swift in Sources */,
 				5EAB3EE8F34F63391E40EF53 /* GifticonCard.swift in Sources */,
 				218607FB667FDC397F93C6CD /* CollectionViewLayoutManager.swift in Sources */,
-				04A7AD14E21A584661F680BB /* Size.swift in Sources */,
+				04A7AD14E21A584661F680BB /* CollectionViewConfigureSize.swift in Sources */,
 				280F830EEE6A0F575BD81605 /* CommonHeaderView.swift in Sources */,
 				F039D4A0F8A36E7FA4DA94FA /* GitfticonCardCollectionViewCell.swift in Sources */,
 				0B595737A0E7A0339CA7E4EA /* TempButton.swift in Sources */,

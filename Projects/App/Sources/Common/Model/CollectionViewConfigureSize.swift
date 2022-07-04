@@ -1,5 +1,5 @@
 //
-//  Size.swift
+//  CollectionViewConfigureSize.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/06/30.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Size {
+struct CollectionViewConfigureSize {
     let widthDimension: NSCollectionLayoutDimension
     let heightDimension: NSCollectionLayoutDimension
 }
