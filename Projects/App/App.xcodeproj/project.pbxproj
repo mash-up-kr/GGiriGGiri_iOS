@@ -42,6 +42,7 @@
 		BB071029835CCC7201E033DC /* FlexLayoutYogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC623CDA99458F6A4E3198A /* FlexLayoutYogaKit.framework */; platformFilter = ios; };
 		C16393E88B854B2E032F772E /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B54B3510C2F7504878DEAF6 /* Lottie.framework */; platformFilter = ios; };
 		C6718E3AA383C51845C04872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7210F22777D23AD1713BCADE /* AppDelegate.swift */; };
+		D0851D89287356C500763526 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0851D88287356C500763526 /* UIStackView+Extension.swift */; };
 		E0133A61426E198CB88C4FA2 /* FlexLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBD38965FFB67BCCFCA44130 /* FlexLayout.framework */; platformFilter = ios; };
 		F039D4A0F8A36E7FA4DA94FA /* GifticonCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4020FB202F718740376D028F /* GifticonCardCollectionViewCell.swift */; };
 		F0C64306634BCA1DD6128382 /* MainCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D071A0BF404DEFFDC6BF16D /* MainCollectionViewDataSource.swift */; };
@@ -96,6 +97,7 @@
 		C86E6E6BCDFAB61BBD09E06F /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB3EAE67978A66FA286CE4C7 /* GGiriGGiri-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GGiriGGiri-Info.plist"; sourceTree = "<group>"; };
 		CEAF5C3B739EA54D1797F0A5 /* TempBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempBarButton.swift; sourceTree = "<group>"; };
+		D0851D88287356C500763526 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		D6988BDF4FC64E3D3D8E39EF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		DB36D1F4394910C8967D5069 /* Gifticon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gifticon.swift; sourceTree = "<group>"; };
 		DBD38965FFB67BCCFCA44130 /* FlexLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlexLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,6 +172,7 @@
 		71E3B54D5B64195FAD81413E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D0851D87287356B900763526 /* Extension */,
 				89B86ABE2C530429A982512D /* Model */,
 				87468FDC20D8D5F9D8A9EBAC /* View */,
 			);
@@ -246,6 +249,14 @@
 				38CF270A852662493E247DA6 /* CFNetwork.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D0851D87287356B900763526 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D0851D88287356C500763526 /* UIStackView+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		E9C3DB3EC6D7655028A9C0D3 /* Products */ = {
@@ -346,6 +357,7 @@
 				89C41978674897DCFF02C8DA /* MainViewController.swift in Sources */,
 				3D1D7B3D6A7121D4FD274073 /* Category.swift in Sources */,
 				B8D75B1EE4BEDDB05463BB3B /* MainSection.swift in Sources */,
+				D0851D89287356C500763526 /* UIStackView+Extension.swift in Sources */,
 				2C293F52963DC2A6B2AE6C27 /* MockData.swift in Sources */,
 				0181EF7855E58FDF10232281 /* CategoryCollectionViewCell.swift in Sources */,
 				FC66E6B6705A01FBA59CA677 /* GifticonDeadLineCollectionViewCell.swift in Sources */,

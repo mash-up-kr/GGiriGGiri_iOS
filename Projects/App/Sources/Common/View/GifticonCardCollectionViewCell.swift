@@ -80,11 +80,11 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
             $0.edges.equalToSuperview()
         }
         
-        verticalStackView.addArrangedSubview(brandLabel)
-        verticalStackView.addArrangedSubview(nameLabel)
-        verticalStackView.addArrangedSubview(expirationDateLabel)
-        verticalStackView.addArrangedSubview(isParticipatingButtonLabel)
-        verticalStackView.addArrangedSubview(numberOfParticipantsViewLabel)
-        verticalStackView.addArrangedSubview(remainingTimeLabel)
+        verticalStackView.addArrangedSubviews(with: [brandLabel,
+                                                     nameLabel,
+                                                     expirationDateLabel,
+                                                     isParticipatingButtonLabel,
+                                                     numberOfParticipantsViewLabel,
+                                                     remainingTimeLabel])
     }
 }
