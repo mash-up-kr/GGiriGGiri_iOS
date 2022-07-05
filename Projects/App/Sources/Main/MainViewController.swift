@@ -33,10 +33,11 @@ final class MainViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        floatingButton.frame = CGRect(x: view.frame.size.width - 48 - 16,
-                                      y: view.frame.size.height - 48 - 48,
-                                      width: 48,
-                                      height: 48)
+        let floatingButtonWidth: CGFloat = 48
+        floatingButton.frame = CGRect(x: view.frame.size.width - floatingButtonWidth - 16,
+                                      y: view.frame.size.height - floatingButtonWidth - 48,
+                                      width: floatingButtonWidth,
+                                      height: floatingButtonWidth)
     }
     
     private func configure() {
