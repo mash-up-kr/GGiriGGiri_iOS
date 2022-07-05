@@ -22,6 +22,12 @@ final class TempButton: UIButton {
         configure()
     }
     
+    convenience init(title: String) {
+        self.init()
+        
+        configureFloatingButton(with: title)
+    }
+    
     private func configure() {
         self.frame = CGRect(x: 0, y: 0, width: 48, height: 48)
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -32,9 +38,7 @@ final class TempButton: UIButton {
         self.tintColor = .white
     }
     
-    convenience init(title: String) {
-        self.init()
-        
+    private func configureFloatingButton(with title: String) {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.masksToBounds = false
         self.layer.cornerRadius = self.layer.frame.size.width / 2
