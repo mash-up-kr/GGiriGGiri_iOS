@@ -37,11 +37,6 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             cell.isParticipatingButton.addTarget(self,
                                                  action: #selector(applyDeadLineButtonTapped(_:)),
                                                  for: .touchUpInside)
-            configureImage(with: cell.imageURL) { image in
-                if let image = image {
-                    cell.configureImage(with: image)
-                }
-            }
             return cell
         case .category(_):
             guard let cell = collectionView.dequeueReusableCell(
@@ -61,11 +56,6 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             cell.isParticipatingButton.addTarget(self,
                                                  action: #selector(applyButtonTapped(_:)),
                                                  for: .touchUpInside)
-            configureImage(with: cell.imageURL) { image in
-                if let image = image {
-                    cell.configureImage(with: image)
-                }
-            }
             return cell
         }
     }
@@ -79,19 +69,6 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         }
         supplementaryView.titleLabel.text = MainSection.allCases[indexPath.section].headerTitle
         return supplementaryView
-    }
-    
-    private func configureImage(with imageUrl: String, completion: @escaping (UIImage?) -> Void) {
-        if imageUrl.count > 0 {
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: URL(string: imageUrl)!) {
-                    let image = UIImage(data: data)
-                    completion(image)
-                }
-            }
-        } else {
-            completion(UIImage(systemName: "pencil"))
-        }
     }
     
     @objc private func applyDeadLineButtonTapped(_ sender: UIButton) {
