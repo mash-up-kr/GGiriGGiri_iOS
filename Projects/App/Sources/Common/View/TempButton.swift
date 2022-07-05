@@ -31,4 +31,16 @@ final class TempButton: UIButton {
         self.setImage(UIImage(systemName: "plus"), for: .normal)
         self.tintColor = .white
     }
+    
+    convenience init(title: String) {
+        self.init()
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.masksToBounds = false
+        self.layer.cornerRadius = self.layer.frame.size.width / 2
+        self.backgroundColor = .black
+        self.setImage(nil, for: .normal)
+        self.setTitle(title, for: .normal)
+        self.tintColor = .white
+    }
 }

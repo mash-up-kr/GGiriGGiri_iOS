@@ -43,6 +43,7 @@
 		C16393E88B854B2E032F772E /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B54B3510C2F7504878DEAF6 /* Lottie.framework */; platformFilter = ios; };
 		C6718E3AA383C51845C04872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7210F22777D23AD1713BCADE /* AppDelegate.swift */; };
 		D0AA9BB728749E06007A9681 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA9BB628749E06007A9681 /* Logger.swift */; };
+		D0AA9BB928749E66007A9681 /* MainCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA9BB828749E66007A9681 /* MainCollectionViewDelegate.swift */; };
 		D1695F69111E2B834336CA98 /* GifticonCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6EA3CDC3F172B21EBFDA94 /* GifticonCardCollectionViewCell.swift */; };
 		DA9C54EFB8A73A6969282D4D /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF961BE3D0D3817468C3B9AA /* UIStackView+Extension.swift */; };
 		E0133A61426E198CB88C4FA2 /* FlexLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBD38965FFB67BCCFCA44130 /* FlexLayout.framework */; platformFilter = ios; };
@@ -97,6 +98,7 @@
 		CB3EAE67978A66FA286CE4C7 /* GGiriGGiri-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GGiriGGiri-Info.plist"; sourceTree = "<group>"; };
 		CEAF5C3B739EA54D1797F0A5 /* TempBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempBarButton.swift; sourceTree = "<group>"; };
 		D0AA9BB628749E06007A9681 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		D0AA9BB828749E66007A9681 /* MainCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		D6988BDF4FC64E3D3D8E39EF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		DB36D1F4394910C8967D5069 /* Gifticon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gifticon.swift; sourceTree = "<group>"; };
 		DBD38965FFB67BCCFCA44130 /* FlexLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlexLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -239,6 +241,7 @@
 				D6988BDF4FC64E3D3D8E39EF /* MainViewController.swift */,
 				2B6AF83C5264EFBBA1BA79C0 /* Model */,
 				A9260D6C27EE392357053517 /* View */,
+				D0AA9BB828749E66007A9681 /* MainCollectionViewDelegate.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				89C41978674897DCFF02C8DA /* MainViewController.swift in Sources */,
 				B8D75B1EE4BEDDB05463BB3B /* MainSection.swift in Sources */,
 				2C293F52963DC2A6B2AE6C27 /* MockData.swift in Sources */,
+				D0AA9BB928749E66007A9681 /* MainCollectionViewDelegate.swift in Sources */,
 				0181EF7855E58FDF10232281 /* CategoryCollectionViewCell.swift in Sources */,
 				FC66E6B6705A01FBA59CA677 /* GifticonDeadLineCollectionViewCell.swift in Sources */,
 				65B12D6C7031D1BAF870C46B /* MainView.swift in Sources */,

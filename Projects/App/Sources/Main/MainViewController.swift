@@ -20,6 +20,7 @@ final class MainViewController: UIViewController {
     }
     
     private let mainView = MainView()
+    private let delegate = MainCollectionViewDelegate()
     private let dataSource = MainCollectionViewDataSource()
     private let floatingButton = TempButton()
 
@@ -44,6 +45,7 @@ final class MainViewController: UIViewController {
         floatingButton.addTarget(self, action: #selector(addButtonDidTapped), for: .touchUpInside)
         
         mainView.configureDataSource(dataSource)
+        mainView.configureDelegate(delegate)
         mainView.addSubview(floatingButton)
         self.view = mainView
     }

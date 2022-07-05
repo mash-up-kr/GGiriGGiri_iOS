@@ -54,6 +54,10 @@ final class MainView: UIView {
         collectionView.dataSource = dataSource
     }
     
+    func configureDelegate(_ delegate: UICollectionViewDelegate) {
+        collectionView.delegate = delegate
+    }
+    
     private func generateLayout() -> UICollectionViewLayout {
         let layout =
         UICollectionViewCompositionalLayout { (sectionIndex: Int, _) -> NSCollectionLayoutSection? in
