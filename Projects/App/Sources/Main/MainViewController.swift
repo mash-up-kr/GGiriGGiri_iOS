@@ -59,7 +59,7 @@ final class MainViewController: UIViewController {
         self.navigationItem.title = "DDIP"
     }
     
-    @objc func addButtonDidTapped() {
+    @objc private func addButtonDidTapped() {
         // TODO: + 버튼 탭 되었을 때의 액션 구현
     }
 }
