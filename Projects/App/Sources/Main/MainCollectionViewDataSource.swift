@@ -94,12 +94,12 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         }
     }
     
-    @objc func applyDeadLineButtonTapped(_ sender: UIButton) {
+    @objc private func applyDeadLineButtonTapped(_ sender: UIButton) {
         sender.currentTitle == "지금 당장 응모할게요!" ?
         sender.setTitle("응모완료", for: .normal) : sender.setTitle("지금 당장 응모할게요!", for: .normal)
     }
     
-    @objc func applyButtonTapped(_ sender: UIButton) {
+    @objc private func applyButtonTapped(_ sender: UIButton) {
         sender.currentTitle == "응모하기" ?
         sender.setTitle("응모완료", for: .normal) : sender.setTitle("응모하기", for: .normal)
     }
