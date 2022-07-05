@@ -35,7 +35,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             }
             cell.configure(with: items[indexPath.item])
             cell.isParticipatingButton.addTarget(self,
-                                                 action: #selector(applyButtonTapped(_:)),
+                                                 action: #selector(applyDeadLineButtonTapped(_:)),
                                                  for: .touchUpInside)
             configureImage(with: cell.imageURL) { image in
                 if let image = image {
@@ -58,6 +58,9 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             cell.configure(with: items[indexPath.item])
+            cell.isParticipatingButton.addTarget(self,
+                                                 action: #selector(applyButtonTapped(_:)),
+                                                 for: .touchUpInside)
             configureImage(with: cell.imageURL) { image in
                 if let image = image {
                     cell.configureImage(with: image)
@@ -91,8 +94,13 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         }
     }
     
-    @objc func applyButtonTapped(_ sender: UIButton) {
+    @objc func applyDeadLineButtonTapped(_ sender: UIButton) {
         sender.currentTitle == "지금 당장 응모할게요!" ?
         sender.setTitle("응모완료", for: .normal) : sender.setTitle("지금 당장 응모할게요!", for: .normal)
+    }
+    
+    @objc func applyButtonTapped(_ sender: UIButton) {
+        sender.currentTitle == "응모하기" ?
+        sender.setTitle("응모완료", for: .normal) : sender.setTitle("응모하기", for: .normal)
     }
 }
