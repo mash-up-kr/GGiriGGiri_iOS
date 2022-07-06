@@ -12,11 +12,11 @@ final class MainCollectionViewDelegate: NSObject, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            Log.info(String(indexPath.section) + String(indexPath.item))
+            debugPrint(String(indexPath.section) + String(indexPath.item))
         case 1:
-            Log.info(String(indexPath.section) + String(indexPath.item))
+            debugPrint(String(indexPath.section) + String(indexPath.item))
         default:
-            Log.info(String(indexPath.section) + String(indexPath.item))
+            debugPrint(String(indexPath.section) + String(indexPath.item))
         }
     }
 }
