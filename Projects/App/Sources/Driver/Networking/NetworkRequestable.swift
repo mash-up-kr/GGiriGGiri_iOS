@@ -30,7 +30,7 @@ protocol NetworkRequestable {
 extension NetworkRequestable {
     func endpoint() throws -> URL {
         guard let endpoint = URL(string: baseURL + path) else {
-            throw Networking.NetworkingError.wrongEndpoint
+            throw Network.NetworkingError.wrongEndpoint
         }
         return endpoint
     }

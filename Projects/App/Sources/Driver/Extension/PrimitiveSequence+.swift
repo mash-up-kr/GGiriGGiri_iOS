@@ -10,7 +10,7 @@ import Foundation
 
 import RxSwift
 
-extension PrimitiveSequence where Trait == SingleTrait, Element == Networking.Response {
+extension PrimitiveSequence where Trait == SingleTrait, Element == Network.Response {
     func map<T: Decodable>() -> Single<T> {
         return flatMap { result in
             switch result {

@@ -15,7 +15,13 @@ import RxSwift
 struct CouponService {
     typealias CouponListResponse = Single<[CouponEntity]>
     
+    private let network: Networking
+    
+    init(network: Networking) {
+        self.network = network
+    }
+    
     func list() -> CouponListResponse {
-        Networking.request(CouponAPI.list).map()
+        network.request(CouponAPI.list).map()
     }
 }

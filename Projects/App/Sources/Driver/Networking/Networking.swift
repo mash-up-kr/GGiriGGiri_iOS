@@ -11,7 +11,11 @@ import Foundation
 import Alamofire
 import RxSwift
 
-final class Networking {
+protocol Networking {
+    func request(_ model: NetworkRequestable) -> Single<Network.Response>
+}
+
+final class Network: Networking {
     typealias Response = Result<Data, NetworkingError>
     
     enum NetworkingError: Error {
@@ -21,8 +25,8 @@ final class Networking {
         case response(AFError)
     }
     
-    static func request(_ model: NetworkRequestable) -> Single<Response> {
-        .create { single in
+    func request(_ model: NetworkRequestable) -> Single<Response> {
+        .create { [weak self] single in
             do {
                 let endpoint = try model.endpoint()
                 AF.request(endpoint).response { [single] response in
@@ -37,7 +41,7 @@ final class Networking {
                 }
                 return Disposables.create()
             } catch {
-                requestErrorHandling(error)
+                self?.requestErrorHandling(error)
                 single(.failure(NetworkingError.wrongRequest))
                 return Disposables.create()
             }
@@ -47,8 +51,8 @@ final class Networking {
 
 // MARK: - Error Handling
 
-extension Networking {
-    private static func requestErrorHandling(_ error: Error) {
+extension Network {
+    private func requestErrorHandling(_ error: Error) {
         guard let error = error as? NetworkingError else {
             debugPrint("** Unhandled error occurs \(error.localizedDescription)")
             return
