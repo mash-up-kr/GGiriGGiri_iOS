@@ -34,8 +34,10 @@ final class MainViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         let floatingButtonWidth: CGFloat = 48
-        floatingButton.frame = CGRect(x: view.frame.size.width - floatingButtonWidth - 16,
-                                      y: view.frame.size.height - floatingButtonWidth - 48,
+        let offsetOfX: CGFloat = 16
+        let offsetOfY: CGFloat = 48
+        floatingButton.frame = CGRect(x: view.frame.size.width - floatingButtonWidth - offsetOfX,
+                                      y: view.frame.size.height - floatingButtonWidth - offsetOfY,
                                       width: floatingButtonWidth,
                                       height: floatingButtonWidth)
     }
