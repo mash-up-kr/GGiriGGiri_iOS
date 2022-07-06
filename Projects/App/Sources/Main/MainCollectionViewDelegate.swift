@@ -10,12 +10,12 @@ import UIKit
 
 final class MainCollectionViewDelegate: NSObject, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 0:
+        switch MainSection.allCases[indexPath.section] {
+        case .deadLine:
             debugPrint(String(indexPath.section) + String(indexPath.item))
-        case 1:
+        case .category:
             debugPrint(String(indexPath.section) + String(indexPath.item))
-        default:
+        case .gifticonList:
             debugPrint(String(indexPath.section) + String(indexPath.item))
         }
     }
