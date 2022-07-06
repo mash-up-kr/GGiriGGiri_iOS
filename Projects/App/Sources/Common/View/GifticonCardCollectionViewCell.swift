@@ -16,7 +16,7 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
     private let brandLabel = TempLabel(color: .black)
     private let nameLabel = TempLabel(color: .black)
     private let expirationDateLabel = TempLabel(color: .black)
-    private let isParticipatingButtonLabel = TempLabel(color: .black)
+    private(set) var isParticipatingButton = TempButton(title: "응모하기")
     private let numberOfParticipantsViewLabel = TempLabel(color: .black)
     private let remainingTimeLabel = TempLabel(color: .black)
     private(set) var imageURL: String = ""
@@ -42,7 +42,6 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
         nameLabel.text = data.gifticonInfo.name
         expirationDateLabel.text = data.gifticonInfo.expirationDate
         imageURL = data.gifticonInfo.imageUrl
-        isParticipatingButtonLabel.text = "응모하기"
         numberOfParticipantsViewLabel.text = "\(data.numberOfParticipants)"
         remainingTimeLabel.text = data.remainingTime
     }
@@ -75,8 +74,8 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
                                                      brandLabel,
                                                      nameLabel,
                                                      expirationDateLabel,
-                                                     isParticipatingButtonLabel,
                                                      numberOfParticipantsViewLabel,
-                                                     remainingTimeLabel])
+                                                     remainingTimeLabel,
+                                                     isParticipatingButton])
     }
 }
