@@ -26,7 +26,7 @@ public class DDIPNavigationBar: UIView {
     }
     
     private let titleLabel: UILabel? = UILabel()
-    private var rightButtonsItem: [UIBarButtonItem]?
+    private var rightButtonsItems: [UIBarButtonItem]?
     private var leftButtonItem: UIBarButtonItem?
     
     private let disposeBag = DisposeBag()
@@ -41,7 +41,7 @@ public class DDIPNavigationBar: UIView {
     ) {
         self.leftBarItem = leftBarItem
         self.title = title
-        self.rightButtonsItem = rightButtonsItem
+        self.rightButtonsItems = rightButtonsItem
     
         super.init(frame: frame)
         
@@ -81,7 +81,7 @@ public class DDIPNavigationBar: UIView {
         let navigationItem = UINavigationItem(title: self.title ?? "")
         
         navigationItem.leftBarButtonItem = leftButtonItem
-        navigationItem.rightBarButtonItems = rightButtonsItem
+        navigationItem.rightBarButtonItems = rightButtonsItems
         navigationBar.setItems([navigationItem], animated: false)
         
         self.addSubview(navigationBar)
