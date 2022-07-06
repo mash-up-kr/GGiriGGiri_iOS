@@ -113,17 +113,17 @@ public class DDIPNavigationBar: UIView {
     }
     
     private func setNavigationBar() {
-        var rigtBarButtons: [UIBarButtonItem] = []
+        var rightBarButtons: [UIBarButtonItem] = []
         
         let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 56, width: UIScreen.main.bounds.size.width, height: 38))
         let navigationItem = UINavigationItem(title: self.title ?? "")
         
         if let alarm = alarm, let mybox = mybox {
-            rigtBarButtons.append(alarm)
-            rigtBarButtons.append(mybox)
+            rightBarButtons.append(alarm)
+            rightBarButtons.append(mybox)
         }
         
-        navigationItem.rightBarButtonItems = rigtBarButtons
+        navigationItem.rightBarButtonItems = rightBarButtons
         navigationItem.leftBarButtonItem = back
         navigationBar.setItems([navigationItem], animated: false)
         
