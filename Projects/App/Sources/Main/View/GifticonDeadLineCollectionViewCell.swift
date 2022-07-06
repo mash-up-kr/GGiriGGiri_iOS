@@ -43,7 +43,6 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
         brandLabel.text = data.gifticonInfo.brand
         nameLabel.text = data.gifticonInfo.name
         expirationDateLabel.text = data.gifticonInfo.expirationDate
-        isParticipatingButtonLabel.text = "응모하기"
         numberOfParticipantsViewLabel.text = "\(data.numberOfParticipants)"
         remainingTimeLabel.text = data.remainingTime
         gifticonImageView.kf.setImage(with: data.gifticonInfo.url)

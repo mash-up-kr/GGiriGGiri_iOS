@@ -15,7 +15,7 @@ struct Gifticon {
     let expirationDate: String
     let imageUrl: String
     
-    var url: URL {
-        URL(string: imageUrl)!
+    var url: URL? {
+        URL(string: imageUrl)
     }
 }
