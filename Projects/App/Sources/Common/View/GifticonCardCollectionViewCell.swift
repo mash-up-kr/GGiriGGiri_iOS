@@ -6,8 +6,10 @@
 //  Copyright © 2022 dvHuni. All rights reserved.
 //
 
-import SnapKit
 import UIKit
+
+import Kingfisher
+import SnapKit
 
 final class GifticonCardCollectionViewCell: UICollectionViewCell {
    
@@ -19,10 +21,10 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
     private(set) var isParticipatingButton = TempButton(title: "응모하기")
     private let numberOfParticipantsViewLabel = TempLabel(color: .black)
     private let remainingTimeLabel = TempLabel(color: .black)
-    private(set) var imageURL: String = ""
     
     private let gifticonImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
         return imageView
@@ -41,15 +43,9 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
         brandLabel.text = data.gifticonInfo.brand
         nameLabel.text = data.gifticonInfo.name
         expirationDateLabel.text = data.gifticonInfo.expirationDate
-        imageURL = data.gifticonInfo.imageUrl
         numberOfParticipantsViewLabel.text = "\(data.numberOfParticipants)"
         remainingTimeLabel.text = data.remainingTime
-    }
-    
-    func configureImage(with image: UIImage) {
-        DispatchQueue.main.async {
-            self.gifticonImageView.image = image
-        }
+        gifticonImageView.kf.setImage(with: data.gifticonInfo.url)
     }
     
     override init(frame: CGRect) {
