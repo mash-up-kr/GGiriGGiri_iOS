@@ -12,10 +12,16 @@ extension UIViewController {
     func alert(title: String = "알림",
                message: String,
                okTitle: String = "확인",
-               handler: ((UIAlertAction) -> Void)? = nil) {
+               cancelHander: ((UIAlertAction) -> Void)? = nil,
+               okHandler: ((UIAlertAction) -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: okTitle, style: .default, handler: handler)
+        if let _ = cancelHander {
+            let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+            alert.addAction(cancelAction)
+        }
+        
+        let okAction = UIAlertAction(title: okTitle, style: .default, handler: okHandler)
         alert.addAction(okAction)
         
         present(alert, animated: true, completion: nil)
