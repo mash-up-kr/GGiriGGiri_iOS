@@ -65,72 +65,66 @@ final class MainViewController: UIViewController {
     
     @objc private func addButtonDidTapped() {
         // TODO: + 버튼 탭 되었을 때의 액션 구현
-        requestPHPhotoLibraryAuthorization {
+        // 현재 접근 권한 상태를 확인하고, 권한 상태에 따라 분기하는 handleAuthorizationStatus 메서드 호출.
+        let authorizationStatus: PHAuthorizationStatus
+        
+        if #available(iOS 14, *) {
+            authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+        } else {
+            // Fallback on earlier versions
+            authorizationStatus = PHPhotoLibrary.authorizationStatus()
+        }
+        
+        handleAuthorizationStatus(with: authorizationStatus) {
         }
     }
     
+    /// 사용자에게 접근 권한을 요청하는 메서드
     private func requestPHPhotoLibraryAuthorization(completion: @escaping () -> Void) {
         if #available(iOS 14, *) {
             PHPhotoLibrary.requestAuthorization(for: .readWrite) { authorizationStatus in
-                switch authorizationStatus {
-                case .notDetermined:
-                    DispatchQueue.main.async {
-                        self.alert(message: "갤러리 접근 권한이 설정되지 않았습니다.")
-                        completion()
-                    }
-                case .restricted:
-                    DispatchQueue.main.async {
-                        self.alert(message: "라이브러리 권한에 제한이 생겼습니다.")
-                        completion()
-                    }
-                case .denied:
-                    DispatchQueue.main.async {
-                        self.alert(message: "갤러리 접근 권한이 거부되었습니다.")
-                        completion()
-                    }
-                case .authorized:
-                    debugPrint("authorized")
+                self.handleAuthorizationStatus(with: authorizationStatus) {
                     completion()
-                case .limited:
-                    debugPrint("limited")
-                    completion()
-                @unknown default:
-                    DispatchQueue.main.async {
-                        self.alert(message: "관리자에게 문의하세요.")
-                        completion()
-                    }
                 }
             }
         } else {
             PHPhotoLibrary.requestAuthorization { authorizationStatus in
-                switch authorizationStatus {
-                case .notDetermined:
-                    DispatchQueue.main.async {
-                        self.alert(message: "갤러리 접근 권한이 설정되지 않았습니다.")
-                        completion()
-                    }
-                case .restricted:
-                    DispatchQueue.main.async {
-                        self.alert(message: "라이브러리 권한에 제한이 생겼습니다.")
-                        completion()
-                    }
-                case .denied:
-                    DispatchQueue.main.async {
-                        self.alert(message: "갤러리 접근 권한이 거부되었습니다.")
-                        completion()
-                    }
-                case .authorized:
-                    debugPrint("authorized")
+                self.handleAuthorizationStatus(with: authorizationStatus) {
                     completion()
-                case .limited:
-                    debugPrint("limited")
-                    completion()
-                @unknown default:
-                    DispatchQueue.main.async {
-                        self.alert(message: "관리자에게 문의하세요.")
-                        completion()
-                    }
                 }
+            }
+        }
+    }
+    
+    /// 현재 PHAuthorizationStatus에 따라 분기해서 처리하는 메서드
+    private func handleAuthorizationStatus(with authorizationStatus: PHAuthorizationStatus,
+                                           completion: @escaping () -> Void) {
+        switch authorizationStatus {
+        case .notDetermined:
+            // 최초 실행 시에만 호출되므로, 이 때 접근 권한을 요청하면 된다.
+            requestPHPhotoLibraryAuthorization {
+                completion()
+            }
+        case .restricted:
+            DispatchQueue.main.async {
+                self.alert(message: "라이브러리 권한이 제한되어있습니다.")
+                completion()
+            }
+        case .denied:
+            DispatchQueue.main.async {
+                self.alert(message: "갤러리 접근 권한이 거부되었습니다.")
+                completion()
+            }
+        case .authorized:
+            debugPrint("authorized")
+            completion()
+        case .limited:
+            debugPrint("limited")
+            completion()
+        @unknown default:
+            DispatchQueue.main.async {
+                self.alert(message: "관리자에게 문의하세요.")
+                completion()
             }
         }
     }
