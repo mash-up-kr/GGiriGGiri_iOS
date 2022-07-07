@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PinLayout
 
 public class DDIPButton: UIButton {
     public let style: DDIPButtonStyle
@@ -23,12 +22,15 @@ public class DDIPButton: UIButton {
     }
     
     public func setUI() {
-        self.layer.cornerRadius = self.style.radius
+        self.layer.cornerRadius = 20
         self.setTitleColor(self.style.titleColor, for: .normal)
         self.backgroundColor = self.style.buttonColor
-        self.titleLabel?.font = self.style.buttonFont
+        self.titleLabel?.font = .systemFont(ofSize: 14)
         self.setTitle(self.style.title, for: .normal)
         self.contentEdgeInsets = UIEdgeInsets(top: self.style.topInset, left: self.style.leftInset, bottom: self.style.bottomInset, right: self.style.rightInset)
-        self.titleLabel?.pin.height(self.style.height.rawValue)
+        
+        NSLayoutConstraint.activate([
+            self.heightAnchor.constraint(equalToConstant: self.style.height.rawValue),
+        ])
     }
 }
