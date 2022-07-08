@@ -32,15 +32,13 @@ final class ImagePickerViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = "사진 선택"
-        
         let closeButton = UIBarButtonItem(title: "닫기", style: .plain, target: self, action: #selector(closeButtonDidTapped))
         let nextButton = UIBarButtonItem(title: "다음", style: .plain, target: self, action: #selector(nextButtonDidTapped))
         
         self.navigationItem.leftBarButtonItem = closeButton
         self.navigationItem.rightBarButtonItem = nextButton
         self.navigationItem.hidesSearchBarWhenScrolling = true
-        self.navigationItem.title = "DDIP"
+        self.navigationItem.title = "사진 선택"
     }
     
     @objc private func closeButtonDidTapped() {
