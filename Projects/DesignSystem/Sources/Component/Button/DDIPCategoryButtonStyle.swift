@@ -1,5 +1,5 @@
 //
-//  DDIPButtonStyle.swift
+//  DDIPCategoryButtonStyle.swift
 //  DesignSystem
 //
 //  Created by Eddy on 2022/06/25.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-public struct DDIPButtonStyle {
+public struct DDIPCategoryButtonStyle {
     public enum ButtonHeight: CGFloat {
         case height_34 = 34
         case height_36 = 36

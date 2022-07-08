@@ -1,5 +1,5 @@
 //
-//  DDIPButton.swift
+//  DDIPCategoryButton.swift
 //  DesignSystem
 //
 //  Created by Eddy on 2022/06/25.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-public class DDIPButton: UIButton {
-    public let style: DDIPButtonStyle
+public class DDIPCategoryButton: UIButton {
+    public let style: DDIPCategoryButtonStyle
     
-    public init(frame: CGRect = .zero, style: DDIPButtonStyle) {
+    public init(frame: CGRect = .zero, style: DDIPCategoryButtonStyle) {
         self.style = style
         super.init(frame: frame)
         setUI()
