@@ -23,7 +23,7 @@ public class DDIPCategoryButton: UIButton {
     
     public func setUI() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.layer.cornerRadius = 20
+        self.layer.cornerRadius = 17
         self.setTitleColor(self.style.titleColor, for: .normal)
         self.backgroundColor = self.style.buttonColor
         self.titleLabel?.font = .systemFont(ofSize: 14)
