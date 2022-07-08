@@ -29,8 +29,6 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         configure()
-        
-        view.heightAnchor.constraint(equalToConstant: 34).isActive = true
     }
     
     override func viewDidLayoutSubviews() {
