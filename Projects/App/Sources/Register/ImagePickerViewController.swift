@@ -6,16 +6,29 @@
 //  Copyright © 2022 dvHuni. All rights reserved.
 //
 
+import Photos
 import UIKit
 
 final class ImagePickerViewController: UIViewController {
 
+    private let imagePickerView = ImagePickerView()
+    private let dataSource = ImageCollectionViewDataSource()
+    private let delegate = ImageCollectionViewDelegate()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configure()
+    }
+    
+    private func configure() {
         view.backgroundColor = .white
         
         configureNavigationBar()
+        
+        imagePickerView.configureDataSource(dataSource)
+        imagePickerView.configureDelegate(delegate)
+        self.view = imagePickerView
     }
     
     private func configureNavigationBar() {

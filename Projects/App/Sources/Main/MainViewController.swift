@@ -114,9 +114,11 @@ final class MainViewController: UIViewController {
                 }
             }
         case .authorized:
-            let imagePickerViewController = ImagePickerViewController()
-            let navigationController = UINavigationController(rootViewController: imagePickerViewController)
-            present(navigationController, animated: true)
+            DispatchQueue.main.async {
+                let imagePickerViewController = ImagePickerViewController()
+                let navigationController = UINavigationController(rootViewController: imagePickerViewController)
+                self.present(navigationController, animated: true)
+            }
             debugPrint("authorized")
         case .limited:
             debugPrint("limited")
