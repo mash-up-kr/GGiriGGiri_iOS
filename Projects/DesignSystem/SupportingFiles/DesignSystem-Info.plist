@@ -37,5 +37,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Pretendard-Regular.ttf</string>
+		<string>Pretendard-Bold.ttf</string>
+		<string>Pretendard-Semibold.ttf</string>
+		<string>ChakraPetch-Bold.ttf</string>
+	</array>
 </dict>
 </plist>
