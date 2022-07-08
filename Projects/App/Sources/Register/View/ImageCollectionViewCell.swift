@@ -40,6 +40,8 @@ final class ImageCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
+        configure()
     }
     
     override var isSelected: Bool {
@@ -54,6 +56,7 @@ final class ImageCollectionViewCell: UICollectionViewCell {
     
     private func configure() {
         imageView.addSubview(checkmarkImageView)
+        
         checkmarkImageView.isHidden = true
         checkmarkImageView.snp.makeConstraints {
             $0.center.equalToSuperview()
