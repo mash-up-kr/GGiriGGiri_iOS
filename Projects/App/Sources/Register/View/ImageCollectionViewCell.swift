@@ -22,6 +22,12 @@ final class ImageCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    private let checkmarkImageView: UIImageView = {
+        let image = UIImage(systemName: "checkmark.circle.fill")
+        let imageView = UIImageView(image: image)
+        return imageView
+    }()
+    
     func configure(with image: UIImage?) {
         imageView.image = image
     }
@@ -36,7 +42,23 @@ final class ImageCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
     
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                checkmarkImageView.isHidden = false
+            } else {
+                checkmarkImageView.isHidden = true
+            }
+        }
+    }
+    
     private func configure() {
+        imageView.addSubview(checkmarkImageView)
+        checkmarkImageView.isHidden = true
+        checkmarkImageView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+        
         contentView.addSubview(imageView)
         
         imageView.snp.makeConstraints {
