@@ -12,6 +12,26 @@ final class RegisterGifticonTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        configure()
+    }
+    
+    private func configure() {
+        view.backgroundColor = .white
+        
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let closeButton = UIBarButtonItem(title: "뒤로", style: .plain, target: self, action: #selector(closeButtonDidTapped))
+        
+        self.navigationItem.leftBarButtonItem = closeButton
+        self.navigationItem.hidesSearchBarWhenScrolling = true
+        self.navigationItem.title = "기프티콘 등록"
+    }
+    
+    @objc private func closeButtonDidTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
 
@@ -27,4 +47,3 @@ final class RegisterGifticonTableViewController: UITableViewController {
         return 0
     }
 }
-

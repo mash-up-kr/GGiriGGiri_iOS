@@ -8,10 +8,16 @@
 
 import UIKit
 
+protocol ImageCollectionViewCellDelegate {
+    func imageCollectionViewCellDidTapped(itemAt indexPath: IndexPath)
+}
+
 final class ImageCollectionViewDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    var imageCollectionViewCellDelegate: ImageCollectionViewCellDelegate?
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        debugPrint(String(indexPath.section) + String(indexPath.item))
+        imageCollectionViewCellDelegate?.imageCollectionViewCellDidTapped(itemAt: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -25,6 +25,8 @@ final class ImagePickerViewController: UIViewController {
         view.backgroundColor = .white
         
         configureNavigationBar()
+
+        delegate.imageCollectionViewCellDelegate = self
         
         imagePickerView.configureDataSource(dataSource)
         imagePickerView.configureDelegate(delegate)
@@ -47,5 +49,13 @@ final class ImagePickerViewController: UIViewController {
     
     @objc private func nextButtonDidTapped() {
         debugPrint("nextButtonDidTapped")
+    }
+}
+
+
+extension ImagePickerViewController: ImageCollectionViewCellDelegate {
+    func imageCollectionViewCellDidTapped(itemAt indexPath: IndexPath) {
+        let registerGifticonTableViewController = RegisterGifticonTableViewController()
+        navigationController?.pushViewController(registerGifticonTableViewController, animated: true)
     }
 }
