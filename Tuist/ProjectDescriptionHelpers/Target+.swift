@@ -13,7 +13,7 @@ extension Target {
                platform: .iOS,
                product: .app,
                bundleId: "com.sz.mashup.\(name)",
-               deploymentTarget: .iOS(targetVersion: "13.0", devices: .iphone),
+               deploymentTarget: .iOS(targetVersion: "14.0", devices: .iphone),
                infoPlist: .file(path: "SupportingFiles/\(name)-Info.plist"),
                sources: [
                 "Sources/**"
@@ -40,7 +40,7 @@ extension Target {
             platform: .iOS,
             product: .framework,
             bundleId: "com.sz.mashup.GGiriGGiri.DesignSystem",
-            deploymentTarget: .iOS(targetVersion: "13.0", devices: .iphone),
+            deploymentTarget: .iOS(targetVersion: "14.0", devices: .iphone),
             infoPlist: .file(path: "SupportingFiles/\(name)-Info.plist"),
             sources: [
                 "Sources/**"
