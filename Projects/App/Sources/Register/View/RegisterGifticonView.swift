@@ -1,5 +1,5 @@
 //
-//  RegisterView.swift
+//  RegisterGifticonView.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/07/09.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class RegisterView: UIView {
+final class RegisterGifticonView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
