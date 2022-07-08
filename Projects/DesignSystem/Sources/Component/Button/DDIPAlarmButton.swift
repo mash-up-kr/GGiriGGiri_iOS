@@ -23,6 +23,7 @@ public class DDIPAlarmButton: UIButton {
     }
     
     private func setButton() {
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 5
         self.setTitleColor(self.style.titleColor, for: .normal)
         self.backgroundColor = self.style.buttonColor

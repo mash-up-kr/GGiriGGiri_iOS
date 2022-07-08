@@ -22,6 +22,7 @@ public class DDIPButton: UIButton {
     }
     
     public func setUI() {
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 20
         self.setTitleColor(self.style.titleColor, for: .normal)
         self.backgroundColor = self.style.buttonColor
