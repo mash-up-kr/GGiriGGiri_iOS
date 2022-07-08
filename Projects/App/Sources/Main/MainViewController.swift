@@ -117,6 +117,7 @@ final class MainViewController: UIViewController {
             DispatchQueue.main.async {
                 let imagePickerViewController = ImagePickerViewController()
                 let navigationController = UINavigationController(rootViewController: imagePickerViewController)
+                navigationController.modalPresentationStyle = .fullScreen
                 self.present(navigationController, animated: true)
             }
             debugPrint("authorized")
