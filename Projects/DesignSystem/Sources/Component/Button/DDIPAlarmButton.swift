@@ -29,7 +29,12 @@ public class DDIPAlarmButton: UIButton {
         self.backgroundColor = self.style.buttonColor
         self.titleLabel?.font = .systemFont(ofSize: 12)
         self.setTitle(self.style.title?.rawValue, for: .normal)
-        self.contentEdgeInsets = UIEdgeInsets(top: self.style.topInset, left: self.style.leftInset, bottom: self.style.bottomInset, right: self.style.rightInset)
+        self.contentEdgeInsets = UIEdgeInsets(
+            top: self.style.topInset,
+            left: self.style.leftInset,
+            bottom: self.style.bottomInset,
+            right: self.style.rightInset
+        )
     }
     
     private func setUI() {
