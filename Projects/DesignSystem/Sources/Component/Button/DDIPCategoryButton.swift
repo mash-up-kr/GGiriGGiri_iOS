@@ -1,5 +1,5 @@
 //
-//  DDIPButton.swift
+//  DDIPCategoryButton.swift
 //  DesignSystem
 //
 //  Created by Eddy on 2022/06/25.
@@ -7,12 +7,11 @@
 //
 
 import UIKit
-import PinLayout
 
-public class DDIPButton: UIButton {
-    public let style: DDIPButtonStyle
+public class DDIPCategoryButton: UIButton {
+    public let style: DDIPCategoryButtonStyle
     
-    public init(frame: CGRect = .zero, style: DDIPButtonStyle) {
+    public init(frame: CGRect = .zero, style: DDIPCategoryButtonStyle) {
         self.style = style
         super.init(frame: frame)
         setUI()
@@ -23,12 +22,16 @@ public class DDIPButton: UIButton {
     }
     
     public func setUI() {
-        self.layer.cornerRadius = self.style.radius
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.cornerRadius = 17
         self.setTitleColor(self.style.titleColor, for: .normal)
         self.backgroundColor = self.style.buttonColor
-        self.titleLabel?.font = self.style.buttonFont
+        self.titleLabel?.font = .systemFont(ofSize: 14)
         self.setTitle(self.style.title, for: .normal)
         self.contentEdgeInsets = UIEdgeInsets(top: self.style.topInset, left: self.style.leftInset, bottom: self.style.bottomInset, right: self.style.rightInset)
-        self.titleLabel?.pin.height(self.style.height.rawValue)
+        
+        NSLayoutConstraint.activate([
+            self.heightAnchor.constraint(equalToConstant: self.style.height.rawValue),
+        ])
     }
 }
