@@ -116,46 +116,15 @@ final class MainViewController: UIViewController {
                 }
             }
         case .authorized:
-            if #available(iOS 14, *) {
-                presentPicker()
-            } else {
-                // Fallback on earlier versions
-            }
+            let imagePickerViewController = ImagePickerViewController()
+            let navigationController = UINavigationController(rootViewController: imagePickerViewController)
+            present(navigationController, animated: true)
             debugPrint("authorized")
         case .limited:
             debugPrint("limited")
         @unknown default:
             DispatchQueue.main.async {
                 self.alert(message: "관리자에게 문의하세요.")
-            }
-        }
-    }
-    
-    @available(iOS 14, *)
-    private func presentPicker() {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-        
-        let picker = PHPickerViewController(configuration: configuration)
-        picker.delegate = self
-        present(picker, animated: true)
-    }
-}
-
-
-extension MainViewController: PHPickerViewControllerDelegate {
-    @available(iOS 14, *)
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        dismiss(animated: true)
-        
-        if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                DispatchQueue.main.async {
-                    guard let self = self, let image = image as? UIImage else {
-                        print("could not load image", error?.localizedDescription ?? "")
-                        return
-                    }
-                }
             }
         }
     }
