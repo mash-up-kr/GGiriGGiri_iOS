@@ -6,24 +6,13 @@
 //  Copyright © 2022 dvHuni. All rights reserved.
 //
 
-import SnapKit
 import UIKit
 
-final class MainView: UIView {
+import SnapKit
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setUI()
-    }
+final class MainView: CommonView {
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        setUI()
-    }
-    
-    private func setUI() {
+    override func setUI() {
         addSubview(collectionView)
         
         collectionView.snp.makeConstraints {
