@@ -1,5 +1,5 @@
 //
-//  RegisterGiftionImageWrapperView.swift
+//  RegisterGiftionImageView.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/07/09.
@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-final class RegisterGiftionImageWrapperView: CommonView {
+final class RegisterGiftionImageView: CommonView {
     
     private let borderView: CommonView = {
         let view = CommonView()

@@ -18,7 +18,7 @@ final class RegisterGifticonView: CommonView {
         return scrollView
     }()
     
-    private let registerGiftionImageWrapperView = RegisterGiftionImageWrapperView()
+    private let registerGiftionImageView = RegisterGiftionImageView()
     
     private let registerGifticonInfoMessageWrapperView = RegisterGifticonInfoMessageWrapperView()
     
@@ -35,16 +35,16 @@ final class RegisterGifticonView: CommonView {
             $0.edges.equalTo(self.safeAreaLayoutGuide)
         }
         
-        scrollView.addSubview(registerGiftionImageWrapperView)
+        scrollView.addSubview(registerGiftionImageView)
         scrollView.addSubview(registerGifticonInfoMessageWrapperView)
         
-        registerGiftionImageWrapperView.snp.makeConstraints {
+        registerGiftionImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(294)
         }
         
         registerGifticonInfoMessageWrapperView.snp.makeConstraints {
-            $0.top.equalTo(registerGiftionImageWrapperView.snp.bottom)
+            $0.top.equalTo(registerGiftionImageView.snp.bottom)
             $0.leading.equalTo(16)
             $0.trailing.equalTo(-16)
             $0.height.equalTo(108)
@@ -52,6 +52,6 @@ final class RegisterGifticonView: CommonView {
     }
     
     func configure() {
-        registerGiftionImageWrapperView.imageView.image = UIImage(systemName: "pencil")
+        registerGiftionImageView.imageView.image = UIImage(systemName: "pencil")
     }
 }
