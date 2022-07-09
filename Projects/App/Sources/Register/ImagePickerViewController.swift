@@ -55,7 +55,7 @@ final class ImagePickerViewController: UIViewController {
 
 extension ImagePickerViewController: ImageCollectionViewCellDelegate {
     func imageCollectionViewCellDidTapped(itemAt indexPath: IndexPath) {
-        let registerGifticonTableViewController = RegisterGifticonTableViewController()
-        navigationController?.pushViewController(registerGifticonTableViewController, animated: true)
+        let registerGifticonViewController = RegisterGifticonViewController()
+        navigationController?.pushViewController(registerGifticonViewController, animated: true)
     }
 }
