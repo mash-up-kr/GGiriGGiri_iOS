@@ -50,4 +50,8 @@ final class RegisterGifticonView: CommonView {
             $0.height.equalTo(108)
         }
     }
+    
+    func configure() {
+        registerGiftionImageWrapperView.imageView.image = UIImage(systemName: "pencil")
+    }
 }
