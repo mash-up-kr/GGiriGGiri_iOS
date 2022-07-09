@@ -20,4 +20,11 @@ extension UICollectionView {
                  forSupplementaryViewOfKind: elementKind,
                  withReuseIdentifier: cellIdentifier)
     }
+    
+    func dequeReusableCell<T: UICollectionViewCell>(_ type: T.Type, for indexPath: IndexPath) -> T? {
+        guard let cell = dequeueReusableCell(withReuseIdentifier: String(describing: T.self), for: indexPath) as? T else {
+            return nil
+        }
+        return cell
+    }
 }

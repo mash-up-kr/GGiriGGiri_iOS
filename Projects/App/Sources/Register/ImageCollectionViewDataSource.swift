@@ -17,7 +17,8 @@ final class ImageCollectionViewDataSource: NSObject, UICollectionViewDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.reuseIdentifier, for: indexPath) as? ImageCollectionViewCell else {
+        guard let cell = collectionView.dequeReusableCell(ImageCollectionViewCell.self,
+                                                          for: indexPath) else {
             return UICollectionViewCell()
         }
         
