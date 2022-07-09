@@ -20,22 +20,29 @@ final class RegisterGifticonView: CommonView {
     
     private let registerGiftionImageView = RegisterGiftionImageView()
     private let infoMessageView = InfoMessageView()
+    private let registerGifticonInfoView = RegisterGifticonInfoView()
+    private let registerGifticonDDipInfoView = RegisterGifticonDDipInfoView()
+    private let registerButton = TempButton(title: "내용을 입력해야 뿌릴 수 있어요.")
     
     override func setUI() {
         backgroundColor = .white
         
         addSubview(scrollView)
         
+        scrollView.addSubview(registerGiftionImageView)
+        scrollView.addSubview(infoMessageView)
+        scrollView.addSubview(registerGifticonInfoView)
+        scrollView.addSubview(registerGifticonDDipInfoView)
+        scrollView.addSubview(registerButton)
+        
         scrollView.snp.makeConstraints {
             $0.edges.equalTo(safeAreaLayoutGuide)
         }
         
         scrollView.contentLayoutGuide.snp.makeConstraints {
-            $0.edges.equalTo(self.safeAreaLayoutGuide)
+            $0.top.leading.trailing.equalTo(self.safeAreaLayoutGuide)
+            $0.bottom.equalTo(registerButton.snp.bottom)
         }
-        
-        scrollView.addSubview(registerGiftionImageView)
-        scrollView.addSubview(infoMessageView)
         
         registerGiftionImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
@@ -47,6 +54,24 @@ final class RegisterGifticonView: CommonView {
             $0.leading.equalTo(16)
             $0.trailing.equalTo(-16)
             $0.height.equalTo(108)
+        }
+        
+        registerGifticonInfoView.snp.makeConstraints {
+            $0.top.equalTo(infoMessageView.snp.bottom).offset(40)
+            $0.leading.trailing.equalTo(infoMessageView)
+            $0.height.equalTo(475)
+        }
+        
+        registerGifticonDDipInfoView.snp.makeConstraints {
+            $0.top.equalTo(registerGifticonInfoView.snp.bottom).offset(48)
+            $0.leading.trailing.equalTo(infoMessageView)
+            $0.height.equalTo(122)
+        }
+        
+        registerButton.snp.makeConstraints {
+            $0.top.equalTo(registerGifticonDDipInfoView.snp.bottom).offset(48)
+            $0.leading.trailing.equalTo(infoMessageView)
+            $0.height.equalTo(54)
         }
     }
     
