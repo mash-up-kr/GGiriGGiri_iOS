@@ -1,5 +1,5 @@
 //
-//  RegisterGiftionInfoMessageWrapperView.swift
+//  RegisterGifticonInfoMessageWrapperView.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/07/09.
@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-final class RegisterGiftionInfoMessageWrapperView: CommonView {
+final class RegisterGifticonInfoMessageWrapperView: CommonView {
     
     private let titleLabel = TempLabel(color: .black,
                                        text: "😲 중요해요!",
