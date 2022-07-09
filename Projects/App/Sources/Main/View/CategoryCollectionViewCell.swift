@@ -17,7 +17,6 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     
     func configure(with index: Int) {
         nameLabel.textAlignment = .center
-        nameLabel.backgroundColor = .yellow
         nameLabel.clipsToBounds = true
         nameLabel.layer.cornerRadius = 20
         nameLabel.text = Category.allCases[index].rawValue
@@ -34,7 +33,6 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     }
     
     private func configure() {
-        contentView.backgroundColor = .gray
         contentView.addSubview(nameLabel)
         
         nameLabel.snp.makeConstraints {

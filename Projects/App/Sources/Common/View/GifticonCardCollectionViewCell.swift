@@ -59,7 +59,6 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
     }
     
     private func configure() {
-        contentView.backgroundColor = .green
         contentView.addSubview(verticalStackView)
         
         verticalStackView.snp.makeConstraints {

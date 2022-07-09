@@ -8,6 +8,8 @@
 import PhotosUI
 import UIKit
 
+import DesignSystem
+
 final class MainViewController: UIViewController {
     
     static let sectionHeaderElementKind = "sectionHeaderElementKind"
@@ -20,47 +22,66 @@ final class MainViewController: UIViewController {
         super.init(coder: coder)
     }
     
-    private let mainView = MainView()
+    private let collectionView = MainView()
     private let delegate = MainCollectionViewDelegate()
     private let dataSource = MainCollectionViewDataSource()
+    private lazy var navigationBar: DDIPNavigationBar = {
+        let barButton = TempBarButton()
+        return  DDIPNavigationBar(
+            leftBarItem: nil,
+            title: nil,
+            rightButtonsItem: [
+                barButton.myButton,
+                barButton.notiButton
+            ])
+    }()
     private let floatingButton = TempButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .ddip(.primaryYellow)
         configure()
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        let floatingButtonWidth: CGFloat = 48
-        let offsetOfX: CGFloat = 16
-        let offsetOfY: CGFloat = 48
-        floatingButton.frame = CGRect(x: view.frame.size.width - floatingButtonWidth - offsetOfX,
-                                      y: view.frame.size.height - floatingButtonWidth - offsetOfY,
-                                      width: floatingButtonWidth,
-                                      height: floatingButtonWidth)
-    }
-    
+
     private func configure() {
         configureNavigationBar()
-        
-        floatingButton.addTarget(self, action: #selector(addButtonDidTapped), for: .touchUpInside)
-        
-        mainView.configureDataSource(dataSource)
-        mainView.configureDelegate(delegate)
-        mainView.addSubview(floatingButton)
-        self.view = mainView
+        configureCollectionView()
+        configureFloatingButton()
     }
     
     private func configureNavigationBar() {
-        let button = TempBarButton()
-        let myButtonItem = UIBarButtonItem(customView: button.myButton)
-        let notiButton = UIBarButtonItem(customView: button.notiButton)
-        self.navigationItem.rightBarButtonItems = [notiButton, myButtonItem]
-        self.navigationItem.hidesSearchBarWhenScrolling = true
-        self.navigationItem.title = "DDIP"
+        view.addSubview(navigationBar)
+        navigationBar.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
+        }
+    }
+    
+    private func configureCollectionView() {
+        collectionView.configureDataSource(dataSource)
+        collectionView.configureDelegate(delegate)
+        
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+    }
+    
+    private func configureFloatingButton() {
+        let floatingButtonWidth: CGFloat = 48
+        let offsetOfX: CGFloat = 16
+        let offsetOfY: CGFloat = 48
+        
+        view.addSubview(floatingButton)
+        floatingButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(offsetOfX)
+            $0.bottom.equalToSuperview().inset(offsetOfY)
+            $0.size.equalTo(floatingButtonWidth)
+        }
+        
+        floatingButton.addTarget(self, action: #selector(addButtonDidTapped), for: .touchUpInside)
     }
     
     @objc private func addButtonDidTapped() {
