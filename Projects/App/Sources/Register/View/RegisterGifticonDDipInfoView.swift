@@ -9,7 +9,18 @@
 import UIKit
 
 final class RegisterGifticonDDipInfoView: CommonView {
+    
+    private let titleLabel = TempLabel(color: .black,
+                                       text: "뿌리기 정보",
+                                       font: .systemFont(ofSize: 16))
     override func setUI() {
         backgroundColor = .yellow
+        
+        addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.leading.equalToSuperview()
+            $0.height.equalTo(20)
+        }
     }
 }
