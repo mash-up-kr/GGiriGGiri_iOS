@@ -44,5 +44,7 @@
 		<string>Pretendard-Semibold.ttf</string>
 		<string>ChakraPetch-Bold.ttf</string>
 	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>
