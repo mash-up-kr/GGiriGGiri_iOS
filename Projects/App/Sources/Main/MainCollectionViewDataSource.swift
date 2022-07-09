@@ -28,9 +28,8 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch MockData.main[indexPath.section] {
         case .deadLine(let items):
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: GifticonDeadLineCollectionViewCell.reuseIdentifier,
-                for: indexPath) as? GifticonDeadLineCollectionViewCell else {
+            guard let cell = collectionView.dequeReusableCell(GifticonDeadLineCollectionViewCell.self,
+                                                              for: indexPath) else {
                 return UICollectionViewCell()
             }
             cell.configure(with: items[indexPath.item])
@@ -39,17 +38,15 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
                                                  for: .touchUpInside)
             return cell
         case .category(_):
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: CategoryCollectionViewCell.reuseIdentifier,
-                for: indexPath) as? CategoryCollectionViewCell else {
+            guard let cell = collectionView.dequeReusableCell(CategoryCollectionViewCell.self,
+                                                              for: indexPath) else {
                 return UICollectionViewCell()
             }
             cell.configure(with: indexPath.item)
             return cell
         case .gifticonList(let items):
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: GifticonCardCollectionViewCell.reuseIdentifier,
-                for: indexPath) as? GifticonCardCollectionViewCell else {
+            guard let cell = collectionView.dequeReusableCell(GifticonCardCollectionViewCell.self,
+                                                              for: indexPath) else {
                 return UICollectionViewCell()
             }
             cell.configure(with: items[indexPath.item])

@@ -30,8 +30,7 @@ final class ImagePickerView: CommonView {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .white
         collectionView.clipsToBounds = true
-        collectionView.register(ImageCollectionViewCell.self,
-                                forCellWithReuseIdentifier: ImageCollectionViewCell.reuseIdentifier)
+        collectionView.register(ImageCollectionViewCell.self)
         return collectionView
     }()
     

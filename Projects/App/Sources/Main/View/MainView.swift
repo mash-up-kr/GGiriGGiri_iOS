@@ -23,19 +23,11 @@ final class MainView: CommonView {
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: generateLayout())
         collectionView.backgroundColor = .white
-        collectionView.register(
-            GifticonDeadLineCollectionViewCell.self,
-            forCellWithReuseIdentifier: String(describing: GifticonDeadLineCollectionViewCell.self))
-        collectionView.register(
-            CategoryCollectionViewCell.self,
-            forCellWithReuseIdentifier: String(describing: CategoryCollectionViewCell.self))
-        collectionView.register(
-            GifticonCardCollectionViewCell.self,
-            forCellWithReuseIdentifier: String(describing: GifticonCardCollectionViewCell.self))
-        collectionView.register(
-            CommonHeaderView.self,
-            forSupplementaryViewOfKind: MainViewController.sectionHeaderElementKind,
-            withReuseIdentifier: String(describing: CommonHeaderView.self))
+        collectionView.register(GifticonDeadLineCollectionViewCell.self)
+        collectionView.register(CategoryCollectionViewCell.self)
+        collectionView.register(GifticonCardCollectionViewCell.self)
+        collectionView.registerHeader(CommonHeaderView.self,
+                                      elementKind: MainViewController.sectionHeaderElementKind)
         return collectionView
     }()
     
