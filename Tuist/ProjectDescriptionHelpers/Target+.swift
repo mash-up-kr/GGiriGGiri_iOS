@@ -47,6 +47,11 @@ extension Target {
             ],
             resources: [
                 "Resources/**"
-            ])
+            ],
+            dependencies: [
+                .external(name: "RxSwift"),
+                .external(name: "RxCocoa")
+            ]
+        )
     }
 }
