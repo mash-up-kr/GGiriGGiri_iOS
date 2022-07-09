@@ -8,9 +8,23 @@
 
 import UIKit
 
+import SnapKit
+
 final class RegisterGifticonView: CommonView {
+    
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .systemPink
+        return scrollView
+    }()
     
     override func setUI() {
         backgroundColor = .white
+        
+        addSubview(scrollView)
+        
+        scrollView.snp.makeConstraints {
+            $0.edges.equalTo(safeAreaLayoutGuide)
+        }
     }
 }

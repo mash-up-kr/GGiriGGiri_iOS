@@ -8,8 +8,12 @@
 
 import UIKit
 
+import SnapKit
+
 final class RegisterGifticonViewController: UIViewController {
 
+    private let registerGifticonView = RegisterGifticonView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,7 +21,11 @@ final class RegisterGifticonViewController: UIViewController {
     }
     
     private func configure() {
-        view.backgroundColor = .white
+        view.addSubview(registerGifticonView)
+        
+        registerGifticonView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         
         configureNavigationBar()
     }
