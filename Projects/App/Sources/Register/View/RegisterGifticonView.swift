@@ -18,7 +18,7 @@ final class RegisterGifticonView: CommonView {
         return scrollView
     }()
     
-    private let registerGifticonWrapperView = RegisterGiftionWrapperView()
+    private let registerGifticonWrapperView = RegisterGiftionImageWrapperView()
     
     override func setUI() {
         backgroundColor = .white
