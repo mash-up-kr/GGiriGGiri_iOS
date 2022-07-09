@@ -71,7 +71,6 @@ final class MainViewController: UIViewController {
         if #available(iOS 14, *) {
             authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         } else {
-            // Fallback on earlier versions
             authorizationStatus = PHPhotoLibrary.authorizationStatus()
         }
         
@@ -95,7 +94,6 @@ final class MainViewController: UIViewController {
     private func handleAuthorizationStatus(with authorizationStatus: PHAuthorizationStatus) {
         switch authorizationStatus {
         case .notDetermined:
-            // 최초 실행 시에만 호출되므로, 이 때 접근 권한 요청.
             requestPHPhotoLibraryAuthorization()
         case .restricted:
             DispatchQueue.main.async {
