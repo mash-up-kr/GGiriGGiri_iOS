@@ -26,10 +26,8 @@ final class MainView: CommonView {
         collectionView.register(GifticonDeadLineCollectionViewCell.self)
         collectionView.register(CategoryCollectionViewCell.self)
         collectionView.register(GifticonCardCollectionViewCell.self)
-        collectionView.register(
-            CommonHeaderView.self,
-            forSupplementaryViewOfKind: MainViewController.sectionHeaderElementKind,
-            withReuseIdentifier: String(describing: CommonHeaderView.self))
+        collectionView.registerHeader(CommonHeaderView.self,
+                                      elementKind: MainViewController.sectionHeaderElementKind)
         return collectionView
     }()
     

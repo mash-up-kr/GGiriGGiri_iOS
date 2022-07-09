@@ -13,4 +13,11 @@ extension UICollectionView {
         let cellIdentifier = String(describing: T.self)
         register(T.self, forCellWithReuseIdentifier: cellIdentifier)
     }
+    
+    func registerHeader<T: UICollectionReusableView>(_: T.Type, elementKind: String) {
+        let cellIdentifier = String(describing: T.self)
+        register(T.self,
+                 forSupplementaryViewOfKind: elementKind,
+                 withReuseIdentifier: cellIdentifier)
+    }
 }
