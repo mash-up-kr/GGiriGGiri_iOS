@@ -18,6 +18,8 @@ final class RegisterGifticonView: CommonView {
         return scrollView
     }()
     
+    private let registerGifticonWrapperView = RegisterGiftionWrapperView()
+    
     override func setUI() {
         backgroundColor = .white
         
@@ -25,6 +27,17 @@ final class RegisterGifticonView: CommonView {
         
         scrollView.snp.makeConstraints {
             $0.edges.equalTo(safeAreaLayoutGuide)
+        }
+        
+        scrollView.contentLayoutGuide.snp.makeConstraints {
+            $0.edges.equalTo(self.safeAreaLayoutGuide)
+        }
+        
+        scrollView.addSubview(registerGifticonWrapperView)
+        
+        registerGifticonWrapperView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(294)
         }
     }
 }
