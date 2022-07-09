@@ -62,8 +62,7 @@ public enum DDIPFont {
     /// DesignSystem의 폰트 파일들을 project에 적용. 앱 초기화 시 1회만 호출되면 됨.
     public static func registerFonts() {
         DDIPFont.fonts.forEach {
-            guard let bundle = Bundle(identifier: bundleId) else { return }
-            registerFont(bundle: bundle, fontName: $0.name, fontExtension: $0.extension)
+            registerFont(fontName: $0.name, fontExtension: $0.extension)
         }
     }
 }
@@ -71,9 +70,6 @@ public enum DDIPFont {
 // MARK: - Private Exetnsion
 
 extension DDIPFont {
-    /// DesignSystem Framework 의 BundleID
-    private static var bundleId: String { "com.sz.mashup.GGiriGGiri.DesignSystem" }
-    
     /// 앱에서 사용될 폰트들
     private static var fonts: [DDIPFonts] {
         [
@@ -89,8 +85,8 @@ extension DDIPFont {
     ///   - bundle: 등록할 폰트 파일이 존재하는 Bundle
     ///   - fontName: 등록할 폰트 파일의 이름
     ///   - fontExtension: 등록할 폰트 파일의 확장자
-    private static func registerFont(bundle: Bundle, fontName: String, fontExtension: String) {
-        guard let fontURL = bundle.url(forResource: fontName, withExtension: fontExtension),
+    private static func registerFont(fontName: String, fontExtension: String) {
+        guard let fontURL = DesignSystem.Constant.bundle?.url(forResource: fontName, withExtension: fontExtension),
               let fontDataProvider = CGDataProvider(url: fontURL as CFURL),
               let font = CGFont(fontDataProvider) else {
             debugPrint("Couldn't create font from filename: \(fontName) with extension \(fontExtension)")
