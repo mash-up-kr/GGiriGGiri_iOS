@@ -76,12 +76,14 @@ fileprivate class InfoMessageView: CommonView {
         titleLabel.snp.makeConstraints {
             $0.top.leading.equalTo(16)
             $0.trailing.equalTo(-248)
+            $0.height.equalTo(20)
         }
         
         infoLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(8)
             $0.leading.equalTo(16)
             $0.trailing.bottom.equalTo(-16)
+            $0.height.equalTo(48)
         }
     }
 }
