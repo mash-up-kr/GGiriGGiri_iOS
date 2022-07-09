@@ -8,21 +8,11 @@
 
 import UIKit
 
-final class ImagePickerView: UIView {
+import SnapKit
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setUI()
-    }
+final class ImagePickerView: CommonView {
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        setUI()
-    }
-    
-    private func setUI() {
+    override func setUI() {
         backgroundColor = .white
         
         addSubview(collectionView)

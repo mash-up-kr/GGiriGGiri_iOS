@@ -8,21 +8,9 @@
 
 import UIKit
 
-final class RegisterGifticonView: UIView {
+final class RegisterGifticonView: CommonView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        setUI()
-    }
-    
-    private func setUI() {
+    override func setUI() {
         backgroundColor = .white
     }
 }
