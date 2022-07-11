@@ -129,8 +129,7 @@ final class MainView: CommonView {
                                                                     widthDimension: .fractionalWidth(1.0),
                                                                     heightDimension: item.layoutSize.heightDimension),
                                                                isDirectionVertical: true,
-                                                               item: item,
-                                                               itemCount: 0)
+                                                               item: item)
         
         let section = CollectionViewLayoutManager.configureSection(with: group,
                                                                    scrollingBehavior: nil,

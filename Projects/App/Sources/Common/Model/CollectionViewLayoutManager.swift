@@ -21,7 +21,7 @@ struct CollectionViewLayoutManager {
     static func configureGroup(with groupSize: CollectionViewConfigureSize,
                         inset: NSDirectionalEdgeInsets = .zero,
                         isDirectionVertical: Bool = false,
-                        item: NSCollectionLayoutItem, itemCount: Int) -> NSCollectionLayoutGroup {
+                        item: NSCollectionLayoutItem, itemCount: Int = 0) -> NSCollectionLayoutGroup {
         let groupSize = NSCollectionLayoutSize(widthDimension: groupSize.widthDimension,
                                                heightDimension: groupSize.heightDimension)
         let group: NSCollectionLayoutGroup
