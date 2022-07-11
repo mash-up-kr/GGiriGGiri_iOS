@@ -1,5 +1,5 @@
 //
-//  TempBarButton.swift
+//  TapBarButtons.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/06/25.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-final class TempBarButton {
-    private(set) var myButton: UIButton = {
+final class TapBarButtons {
+    private(set) var mybox: UIButton = {
         let button = UIButton()
         button.setTitle("마이박스", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
@@ -18,7 +18,7 @@ final class TempBarButton {
         return button
     }()
     
-    private(set) var notiButton: UIButton = {
+    private(set) var notification: UIButton = {
         let button = UIButton()
         button.setTitle("알림", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)

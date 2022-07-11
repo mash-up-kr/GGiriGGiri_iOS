@@ -28,8 +28,6 @@ final class CommonHeaderView: UICollectionReusableView {
     }
     
     private func configure() {
-        backgroundColor = .cyan
-        
         addSubview(titleLabel)
         
         titleLabel.snp.makeConstraints {

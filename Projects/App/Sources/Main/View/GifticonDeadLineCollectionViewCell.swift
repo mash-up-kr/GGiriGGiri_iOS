@@ -59,7 +59,6 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     }
     
     private func configure() {
-        contentView.backgroundColor = .systemPink
         contentView.addSubview(verticalStackView)
         
         verticalStackView.snp.makeConstraints {

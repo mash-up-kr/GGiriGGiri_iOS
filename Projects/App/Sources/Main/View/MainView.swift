@@ -22,7 +22,7 @@ final class MainView: CommonView {
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: generateLayout())
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .clear
         collectionView.register(GifticonDeadLineCollectionViewCell.self)
         collectionView.register(CategoryCollectionViewCell.self)
         collectionView.register(GifticonCardCollectionViewCell.self)
