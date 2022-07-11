@@ -79,6 +79,7 @@ final class MainView: CommonView {
                                                                  elementKind: MainViewController.sectionHeaderElementKind)
         
         let section = CollectionViewLayoutManager.configureSection(with: group,
+                                                                   scrollingBehavior: .groupPaging,
                                                                    header: header)
         return section
     }
@@ -108,6 +109,7 @@ final class MainView: CommonView {
                                                                  elementKind: MainViewController.sectionHeaderElementKind)
         
         let section = CollectionViewLayoutManager.configureSection(with: group,
+                                                                   scrollingBehavior: .groupPaging,
                                                                    header: header)
         return section
     }
@@ -125,13 +127,13 @@ final class MainView: CommonView {
         let group = CollectionViewLayoutManager.configureGroup(with:
                                                                 CollectionViewConfigureSize(
                                                                     widthDimension: .fractionalWidth(1.0),
-                                                                    heightDimension: .fractionalHeight(1.0)),
+                                                                    heightDimension: item.layoutSize.heightDimension),
                                                                isDirectionVertical: true,
                                                                item: item,
-                                                               itemCount: 5)
+                                                               itemCount: 0)
         
         let section = CollectionViewLayoutManager.configureSection(with: group,
-                                                                   scrollingBehavior: .continuousGroupLeadingBoundary,
+                                                                   scrollingBehavior: nil,
                                                                    header: nil)
         return section
     }
