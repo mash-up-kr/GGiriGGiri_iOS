@@ -26,13 +26,13 @@ final class MainViewController: UIViewController {
     private let delegate = MainCollectionViewDelegate()
     private let dataSource = MainCollectionViewDataSource()
     private lazy var navigationBar: DDIPNavigationBar = {
-        let barButton = TempBarButton()
+        let barButton = TapBarButtons()
         return  DDIPNavigationBar(
             leftBarItem: nil,
             title: nil,
             rightButtonsItem: [
-                barButton.myButton,
-                barButton.notiButton
+                barButton.mybox,
+                barButton.notification
             ])
     }()
     private let floatingButton = TempButton()
