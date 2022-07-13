@@ -7,8 +7,10 @@
 //
 
 import UIKit
+
 import RxSwift
 import RxCocoa
+import SnapKit
 
 public class DDIPNavigationBar: UIView {
     public enum BarItem {
@@ -25,34 +27,39 @@ public class DDIPNavigationBar: UIView {
         }
     }
     
-    private let titleLabel: UILabel? = UILabel()
-    private var rightButtonsItems: [UIBarButtonItem]?
-    private var leftButtonItem: UIBarButtonItem?
+    private let titleLabel: UILabel = UILabel()
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 20
+        return stackView
+    }()
+    private var rightButtonsItems: [UIButton]?
+    private var leftButtonItem: UIButton?
     
     private let disposeBag = DisposeBag()
     
     public let leftButtonTapEvent = PublishRelay<Void>()
     
     public init(
-        frame: CGRect = .zero,
         leftBarItem: BarItem? = nil,
         title: String? = nil,
-        rightButtonsItem: [UIBarButtonItem]? = nil
+        rightButtonsItem: [UIButton]? = nil
     ) {
         self.leftBarItem = leftBarItem
         self.title = title
         self.rightButtonsItems = rightButtonsItem
     
-        super.init(frame: frame)
+        super.init(frame: .zero)
         
-        setBarButtonItmes()
         setAttribute()
-        setNavigationBar()
+        setButtons()
+        layout()
         bind()
     }
         
     public var title: String? {
-        didSet { self.titleLabel?.text = title }
+        didSet { self.titleLabel.text = title }
     }
     
     public var leftBarItem: BarItem? {
@@ -60,31 +67,41 @@ public class DDIPNavigationBar: UIView {
     }
     
     private var leftIcon: UIImage? {
-        get { self.leftButtonItem?.image }
-        set { self.leftButtonItem?.setBackgroundImage(newValue, for: .normal, barMetrics: .default) }
+        get { self.leftButtonItem?.imageView?.image }
+        set { self.leftButtonItem?.setImage(newValue, for: .normal) }
     }
     
     public required init?(coder: NSCoder) {
         fatalError("Fatal Error")
     }
     
-    private func setBarButtonItmes() {
-        leftButtonItem = UIBarButtonItem(image: leftBarItem?.icon, style: .plain, target: nil, action: nil)
+    private func layout() {
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+        
+        if let leftButtonItem = leftButtonItem {
+            addSubview(leftButtonItem)
+        }
+        
+        addSubview(stackView)
+        stackView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(16)
+        }
     }
     
     private func setAttribute() {
         leftButtonItem?.tintColor = UIColor.black
     }
     
-    private func setNavigationBar() {
-        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 56, width: UIScreen.main.bounds.size.width, height: 38))
-        let navigationItem = UINavigationItem(title: self.title ?? "")
+    private func setButtons() {
+        guard let buttons = rightButtonsItems else { return }
+        buttons.forEach {
+            stackView.addArrangedSubview($0)
+        }
         
-        navigationItem.leftBarButtonItem = leftButtonItem
-        navigationItem.rightBarButtonItems = rightButtonsItems
-        navigationBar.setItems([navigationItem], animated: false)
-        
-        self.addSubview(navigationBar)
     }
     
     private func bind() {
