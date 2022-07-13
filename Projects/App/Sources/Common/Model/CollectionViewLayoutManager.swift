@@ -21,13 +21,13 @@ struct CollectionViewLayoutManager {
     static func configureGroup(with groupSize: CollectionViewConfigureSize,
                         inset: NSDirectionalEdgeInsets = .zero,
                         isDirectionVertical: Bool = false,
-                        item: NSCollectionLayoutItem, itemCount: Int) -> NSCollectionLayoutGroup {
+                        item: NSCollectionLayoutItem, itemCount: Int = 0) -> NSCollectionLayoutGroup {
         let groupSize = NSCollectionLayoutSize(widthDimension: groupSize.widthDimension,
                                                heightDimension: groupSize.heightDimension)
         let group: NSCollectionLayoutGroup
         
         if isDirectionVertical {
-            group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: itemCount)
+            group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             group.contentInsets = inset
             return group
         }
@@ -47,11 +47,14 @@ struct CollectionViewLayoutManager {
     
     static func configureSection(with group: NSCollectionLayoutGroup,
                                  contentInsets: NSDirectionalEdgeInsets = .zero,
-                                 scrollingBehavior: UICollectionLayoutSectionOrthogonalScrollingBehavior = .groupPaging,
+                                 scrollingBehavior: UICollectionLayoutSectionOrthogonalScrollingBehavior?,
                                  header: NSCollectionLayoutBoundarySupplementaryItem?) -> NSCollectionLayoutSection {
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = contentInsets
-        section.orthogonalScrollingBehavior = scrollingBehavior
+        
+        if let scrollingBehavior = scrollingBehavior {
+            section.orthogonalScrollingBehavior = scrollingBehavior
+        }
         
         if let header = header {
             section.boundarySupplementaryItems = [header]
