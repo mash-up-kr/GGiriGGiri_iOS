@@ -15,6 +15,7 @@ extension Project {
                     disableBundleAccessors: true,
                     disableSynthesizedResourceAccessors: true
                 ),
+                settings: .application,
                 targets: targets)
     }
 }
