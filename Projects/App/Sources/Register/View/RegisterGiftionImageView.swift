@@ -10,6 +10,7 @@ import UIKit
 
 import SnapKit
 
+/// 기프티콘 정보 - 이미지 등록 뷰
 final class RegisterGiftionImageView: BaseView {
     
     private let borderView: BaseView = {

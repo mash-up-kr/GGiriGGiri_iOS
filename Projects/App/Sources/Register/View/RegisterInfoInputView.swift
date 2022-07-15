@@ -10,6 +10,7 @@ import UIKit
 
 import SnapKit
 
+/// 기프티콘 정보 - 기프티콘 정보를 입력하는 공통 뷰 (타이틀 + 텍스트필드)
 final class RegisterInfoInputView: BaseView {
     
     private let titleLabel = TempLabel(color: .black, text: "브랜드", font: .systemFont(ofSize: 14))

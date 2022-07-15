@@ -10,6 +10,7 @@ import UIKit
 
 import SnapKit
 
+/// 기프티콘 정보 등록 화면
 final class RegisterGifticonView: BaseView {
     
     private let scrollView: UIScrollView = {

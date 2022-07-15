@@ -10,6 +10,7 @@ import UIKit
 
 import SnapKit
 
+/// 기프티콘 정보 - 기프티콘 정보 뷰
 final class RegisterGifticonInfoView: BaseView {
     
     private let titleLabel = TempLabel(color: .black,

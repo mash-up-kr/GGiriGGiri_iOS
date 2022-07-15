@@ -10,6 +10,7 @@ import UIKit
 
 import SnapKit
 
+/// 기프티콘 정보 - 기프티콘 뿌리기 정보 뷰
 final class RegisterGifticonDDipInfoView: BaseView {
     
     private let titleLabel = TempLabel(color: .black,
@@ -48,6 +49,7 @@ final class RegisterGifticonDDipInfoView: BaseView {
     }
 }
 
+/// 마감 시간 선택 뷰
 fileprivate class TimeInputView: BaseView {
     
     private var timeList = ["30분", "1시간", "2시간", "3시간", "4시간", "5시간", "6시간", "7시간"]
