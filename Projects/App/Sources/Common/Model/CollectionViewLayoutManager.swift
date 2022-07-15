@@ -31,7 +31,7 @@ struct CollectionViewLayoutManager {
             group.contentInsets = inset
             return group
         }
-        group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: itemCount)
+        group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.contentInsets = inset
         return group
     }

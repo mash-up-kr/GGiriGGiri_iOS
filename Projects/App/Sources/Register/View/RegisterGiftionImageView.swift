@@ -14,7 +14,7 @@ final class RegisterGiftionImageView: BaseView {
     
     private let borderView: BaseView = {
         let view = BaseView()
-        view.backgroundColor = .yellow
+        view.backgroundColor = .gray
         view.layer.cornerRadius = 15
         return view
     }()

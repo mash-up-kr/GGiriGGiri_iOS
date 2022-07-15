@@ -95,8 +95,8 @@ final class MainView: BaseView {
     private func generateCategorySection() -> NSCollectionLayoutSection {
         let item = CollectionViewLayoutManager.configureItem(with:
                                                                 CollectionViewConfigureSize(
-                                                                    widthDimension: .fractionalWidth(0.3),
-                                                                    heightDimension: .fractionalWidth(0.2)),
+                                                                    widthDimension: .estimated(1),
+                                                                    heightDimension: .estimated(1)),
                                                              inset: NSDirectionalEdgeInsets(top: 16,
                                                                                             leading: 16,
                                                                                             bottom: -30,
@@ -105,9 +105,8 @@ final class MainView: BaseView {
         let group = CollectionViewLayoutManager.configureGroup(with:
                                                                 CollectionViewConfigureSize(
                                                                     widthDimension: item.layoutSize.widthDimension,
-                                                                    heightDimension: item.layoutSize.heightDimension),
-                                                               item: item,
-                                                               itemCount: 1)
+                                                                    heightDimension: .estimated(1)),
+                                                               item: item)
 
         
         let header = CollectionViewLayoutManager.configureHeader(with:
