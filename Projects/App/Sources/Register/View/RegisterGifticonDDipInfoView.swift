@@ -20,7 +20,6 @@ final class RegisterGifticonDDipInfoView: BaseView {
                                           text: "마감시간",
                                           font: .systemFont(ofSize: 14))
     
-//    private let timePickerView = UIPickerView()
     private let timeInputView = TimeInputView()
     
     override func setLayout() {
@@ -29,7 +28,6 @@ final class RegisterGifticonDDipInfoView: BaseView {
         addSubview(titleLabel)
         addSubview(ddipTitleLabel)
         addSubview(timeInputView)
-//        addSubview(timePickerView)
         
         titleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
@@ -47,18 +45,6 @@ final class RegisterGifticonDDipInfoView: BaseView {
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(54)
         }
-    }
-    
-    override func configure() {
-        super.configure()
-//
-//        timePickerView.dataSource = self
-//        timePickerView.delegate = self
-    }
-    
-    func configure(with title: String, placeholder: String) {
-//        ddipLabel.text = title
-        
     }
 }
 
