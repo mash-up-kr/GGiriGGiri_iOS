@@ -27,6 +27,10 @@ final class RegisterGifticonInfoView: BaseView {
         return collectionView
     }()
     
+    private let brandContainer = RegisterInfoInputView()
+    private let productContainer = RegisterInfoInputView()
+    private let expirationDateContainer = RegisterInfoInputView()
+    
     private func generateLayout() -> UICollectionViewLayout {
         let layout =
         UICollectionViewCompositionalLayout { (sectionIndex: Int, _) -> NSCollectionLayoutSection? in
@@ -61,6 +65,9 @@ final class RegisterGifticonInfoView: BaseView {
         addSubview(titleLabel)
         addSubview(categoryLabel)
         addSubview(categoryView)
+        addSubview(brandContainer)
+        addSubview(productContainer)
+        addSubview(expirationDateContainer)
         
         titleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
@@ -78,6 +85,24 @@ final class RegisterGifticonInfoView: BaseView {
             $0.top.equalTo(categoryLabel.snp.bottom).offset(16)
             $0.height.equalTo(81)
         }
+        
+        brandContainer.snp.makeConstraints {
+            $0.top.equalTo(categoryView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(82)
+        }
+        
+        productContainer.snp.makeConstraints {
+            $0.top.equalTo(brandContainer.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(82)
+        }
+
+        expirationDateContainer.snp.makeConstraints {
+            $0.top.equalTo(productContainer.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(82)
+        }
     }
     
     override func configure() {
@@ -86,5 +111,8 @@ final class RegisterGifticonInfoView: BaseView {
         backgroundColor = .cyan
         
         categoryView.dataSource = categoryCollectionViewDataSource
+        brandContainer.configure(with: "브랜드", placeholder: "브랜드명")
+        productContainer.configure(with: "제품명", placeholder: "제품명")
+        expirationDateContainer.configure(with: "유효기간", placeholder: "유효기간(YYYY.MM.DD)")
     }
 }
