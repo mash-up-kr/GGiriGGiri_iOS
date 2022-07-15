@@ -34,7 +34,7 @@ final class MainView: BaseView {
         collectionView.register(GifticonDeadLineCollectionViewCell.self)
         collectionView.register(CategoryCollectionViewCell.self)
         collectionView.register(GifticonCardCollectionViewCell.self)
-        collectionView.registerHeader(CommonHeaderView.self,
+        collectionView.registerHeader(BaseHeaderView.self,
                                       elementKind: MainViewController.sectionHeaderElementKind)
         return collectionView
     }()
