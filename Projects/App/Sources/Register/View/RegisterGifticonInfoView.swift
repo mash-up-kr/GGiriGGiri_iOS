@@ -16,6 +16,10 @@ final class RegisterGifticonInfoView: BaseView {
                                        text: "기프티콘 정보",
                                        font: .systemFont(ofSize: 16))
     
+    private let categoryLabel = TempLabel(color: .black,
+                                          text: "카테고리",
+                                          font: .systemFont(ofSize: 14))
+    
     private lazy var categoryView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: generateLayout())
         collectionView.backgroundColor = .yellow
@@ -55,6 +59,7 @@ final class RegisterGifticonInfoView: BaseView {
         super.setLayout()
         
         addSubview(titleLabel)
+        addSubview(categoryLabel)
         addSubview(categoryView)
         
         titleLabel.snp.makeConstraints {
@@ -62,9 +67,15 @@ final class RegisterGifticonInfoView: BaseView {
             $0.height.equalTo(20)
         }
         
+        categoryLabel.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.height.equalTo(20)
+        }
+        
         categoryView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.top.equalTo(categoryLabel.snp.bottom).offset(16)
             $0.height.equalTo(81)
         }
     }
