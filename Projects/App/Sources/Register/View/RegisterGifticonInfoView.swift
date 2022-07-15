@@ -118,8 +118,6 @@ final class RegisterGifticonInfoView: BaseView {
     override func configure() {
         super.configure()
         
-        backgroundColor = .cyan
-        
         categoryView.dataSource = categoryCollectionViewDataSource
         brandContainer.configure(with: "브랜드", placeholder: "브랜드명")
         productContainer.configure(with: "제품명", placeholder: "제품명")

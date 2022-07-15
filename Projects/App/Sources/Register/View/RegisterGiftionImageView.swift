@@ -28,7 +28,7 @@ final class RegisterGiftionImageView: BaseView {
         return imageView
     }()
     
-    private let imageModifyButton = TempButton(title: "이미지 변경")
+    private let imageModifyButton = TempButton(title: "원본 보기")
     
     override func setLayout() {
         super.setLayout()

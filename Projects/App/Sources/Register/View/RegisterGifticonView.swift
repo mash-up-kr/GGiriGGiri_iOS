@@ -14,7 +14,7 @@ final class RegisterGifticonView: BaseView {
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = .systemPink
+        scrollView.backgroundColor = .gray
         return scrollView
     }()
     
