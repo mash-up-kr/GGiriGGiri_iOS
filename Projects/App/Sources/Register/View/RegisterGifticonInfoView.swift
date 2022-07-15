@@ -30,6 +30,9 @@ final class RegisterGifticonInfoView: BaseView {
     private let brandContainer = RegisterInfoInputView()
     private let productContainer = RegisterInfoInputView()
     private let expirationDateContainer = RegisterInfoInputView()
+    private let warningMessageLabel = TempLabel(color: .red,
+                                         text: "유효기간은 8자리(YYYYMMDD)로 입력해주세요.",
+                                         font: .systemFont(ofSize: 14))
     
     private func generateLayout() -> UICollectionViewLayout {
         let layout =
@@ -68,6 +71,7 @@ final class RegisterGifticonInfoView: BaseView {
         addSubview(brandContainer)
         addSubview(productContainer)
         addSubview(expirationDateContainer)
+        addSubview(warningMessageLabel)
         
         titleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
@@ -102,6 +106,12 @@ final class RegisterGifticonInfoView: BaseView {
             $0.top.equalTo(productContainer.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(82)
+        }
+        
+        warningMessageLabel.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(expirationDateContainer.snp.bottom).offset(4)
+            $0.height.equalTo(20)
         }
     }
     
