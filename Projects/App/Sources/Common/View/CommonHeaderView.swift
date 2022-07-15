@@ -6,8 +6,9 @@
 //  Copyright © 2022 dvHuni. All rights reserved.
 //
 
-import SnapKit
 import UIKit
+
+import SnapKit
 
 final class CommonHeaderView: UICollectionReusableView {
     
@@ -25,6 +26,8 @@ final class CommonHeaderView: UICollectionReusableView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
+        configure()
     }
     
     private func configure() {
