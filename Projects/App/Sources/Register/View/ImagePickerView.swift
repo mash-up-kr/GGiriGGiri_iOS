@@ -12,8 +12,8 @@ import SnapKit
 
 final class ImagePickerView: BaseView {
     
-    override func setUI() {
-        backgroundColor = .white
+    override func setLayout() {
+        super.setLayout()
         
         addSubview(collectionView)
         
