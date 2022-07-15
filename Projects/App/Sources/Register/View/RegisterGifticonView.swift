@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class RegisterGifticonView: CommonView {
+final class RegisterGifticonView: BaseView {
     
     override func setUI() {
         backgroundColor = .white

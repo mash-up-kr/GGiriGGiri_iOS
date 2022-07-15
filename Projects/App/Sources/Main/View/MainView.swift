@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-final class MainView: CommonView {
+final class MainView: BaseView {
     
     override func setUI() {
         addSubview(collectionView)

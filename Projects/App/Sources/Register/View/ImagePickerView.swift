@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-final class ImagePickerView: CommonView {
+final class ImagePickerView: BaseView {
     
     override func setUI() {
         backgroundColor = .white
