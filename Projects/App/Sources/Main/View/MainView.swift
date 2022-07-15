@@ -10,14 +10,22 @@ import UIKit
 
 import SnapKit
 
-final class MainView: CommonView {
+final class MainView: BaseView {
     
-    override func setUI() {
+    override func setLayout() {
+        super.setLayout()
+        
         addSubview(collectionView)
         
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    override func configure() {
+        super.configure()
+        
+        backgroundColor = .clear
     }
     
     private lazy var collectionView: UICollectionView = {

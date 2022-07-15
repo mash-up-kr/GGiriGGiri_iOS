@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-final class RegisterGifticonView: CommonView {
+final class RegisterGifticonView: BaseView {
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -24,8 +24,8 @@ final class RegisterGifticonView: CommonView {
     private let registerGifticonDDipInfoView = RegisterGifticonDDipInfoView()
     private let registerButton = TempButton(title: "내용을 입력해야 뿌릴 수 있어요.")
     
-    override func setUI() {
-        backgroundColor = .white
+    override func setLayout() {
+        super.setLayout()
         
         addSubview(scrollView)
         
@@ -75,13 +75,15 @@ final class RegisterGifticonView: CommonView {
         }
     }
     
-    func configure() {
+    override func configure() {
+        super.configure()
+        
         registerGiftionImageView.imageView.image = UIImage(systemName: "pencil")
     }
 }
 
 
-fileprivate class InfoMessageView: CommonView {
+fileprivate class InfoMessageView: BaseView {
     
     private let titleLabel = TempLabel(color: .black,
                                        text: "😲 중요해요!",
@@ -91,9 +93,8 @@ fileprivate class InfoMessageView: CommonView {
                                       text: "등록해주신 기프티콘 이미지는 당첨자에게 전송될 때 사용되며, 등록 시 화면에는 카테고리 아이콘으로 대체됩니다. 미사용 바코드가 찍힌 기프티콘 사진을 업로드해주시길 바랍니다. ",
                                       font: .systemFont(ofSize: 12))
     
-    override func setUI() {
-        self.layer.cornerRadius = 8
-        backgroundColor = .yellow
+    override func setLayout() {
+        super.setLayout()
         
         addSubview(titleLabel)
         addSubview(infoLabel)
@@ -110,6 +111,13 @@ fileprivate class InfoMessageView: CommonView {
             $0.trailing.bottom.equalTo(-16)
             $0.height.equalTo(48)
         }
+    }
+    
+    override func configure() {
+        super.configure()
+        
+        self.layer.cornerRadius = 8
+        backgroundColor = .yellow
     }
 }
 

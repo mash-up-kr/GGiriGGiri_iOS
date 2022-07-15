@@ -10,10 +10,10 @@ import UIKit
 
 import SnapKit
 
-final class RegisterGiftionImageView: CommonView {
+final class RegisterGiftionImageView: BaseView {
     
-    private let borderView: CommonView = {
-        let view = CommonView()
+    private let borderView: BaseView = {
+        let view = BaseView()
         view.backgroundColor = .yellow
         view.layer.cornerRadius = 15
         return view
@@ -30,13 +30,12 @@ final class RegisterGiftionImageView: CommonView {
     
     private let imageModifyButton = TempButton(title: "이미지 변경")
     
-    override func setUI() {
-        configure()
-    }
-    
-    private func configure() {
+    override func setLayout() {
+        super.setLayout()
+        
         borderView.addSubview(imageView)
         borderView.addSubview(imageModifyButton)
+        addSubview(borderView)
         
         imageView.snp.makeConstraints {
             $0.top.leading.equalTo(4)
@@ -49,8 +48,6 @@ final class RegisterGiftionImageView: CommonView {
             $0.width.equalTo(96)
             $0.height.equalTo(34)
         }
-        
-        addSubview(borderView)
         
         borderView.snp.makeConstraints {
             $0.top.equalTo(6)

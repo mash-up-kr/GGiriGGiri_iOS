@@ -51,14 +51,16 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configure()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
+        setLayout()
     }
     
-    private func configure() {
+    private func setLayout() {
         contentView.addSubview(verticalStackView)
         
         verticalStackView.snp.makeConstraints {

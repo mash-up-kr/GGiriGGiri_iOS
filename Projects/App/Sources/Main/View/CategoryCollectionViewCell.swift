@@ -6,8 +6,9 @@
 //  Copyright © 2022 dvHuni. All rights reserved.
 //
 
-import SnapKit
 import UIKit
+
+import SnapKit
 
 final class CategoryCollectionViewCell: UICollectionViewCell {
     
@@ -25,14 +26,16 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configure()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
+        setLayout()
     }
     
-    private func configure() {
+    private func setLayout() {
         contentView.addSubview(nameLabel)
         
         nameLabel.snp.makeConstraints {
