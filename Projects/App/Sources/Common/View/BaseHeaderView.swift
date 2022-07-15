@@ -14,7 +14,7 @@ final class BaseHeaderView: UICollectionReusableView {
     
     static let reuseIdentifier = "BaseHeaderView"
     
-    let titleLabel = TempLabel(color: .black,
+    private(set) var titleLabel = TempLabel(color: .black,
                                font: .systemFont(ofSize: 16,
                                                  weight: .bold))
     
