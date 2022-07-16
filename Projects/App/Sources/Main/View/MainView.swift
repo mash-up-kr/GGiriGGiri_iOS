@@ -101,7 +101,7 @@ final class MainView: BaseView {
                                                                 CollectionViewConfigureSize(
                                                                     widthDimension: .estimated(1),
                                                                     heightDimension: .estimated(1)),
-                                                               edgeSpacing: .init(leading: .fixed(10),
+                                                               edgeSpacing: .init(leading: .fixed(8),
                                                                                   top: .none,
                                                                                   trailing: .none,
                                                                                   bottom: .none),
