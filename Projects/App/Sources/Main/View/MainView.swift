@@ -67,18 +67,17 @@ final class MainView: BaseView {
         let item = CollectionViewLayoutManager.configureItem(with:
                                                                 CollectionViewConfigureSize(
                                                                     widthDimension: .absolute(310),
-                                                                    heightDimension: .absolute(380)),
-                                                             inset: NSDirectionalEdgeInsets(top: 0,
-                                                                                            leading: 16,
-                                                                                            bottom: 26,
-                                                                                            trailing: 16))
+                                                                    heightDimension: .absolute(380)))
         
         let group = CollectionViewLayoutManager.configureGroup(with:
                                                                 CollectionViewConfigureSize(
                                                                     widthDimension: item.layoutSize.widthDimension,
                                                                     heightDimension: item.layoutSize.heightDimension),
-                                                               item: item,
-                                                               itemCount: 1)
+                                                               edgeSpacing: .init(leading: .fixed(10),
+                                                                                  top: .none,
+                                                                                  trailing: .none,
+                                                                                  bottom: .none),
+                                                               item: item)
         
         let header = CollectionViewLayoutManager.configureHeader(with:
                                                                     CollectionViewConfigureSize(
@@ -102,6 +101,10 @@ final class MainView: BaseView {
                                                                 CollectionViewConfigureSize(
                                                                     widthDimension: .estimated(1),
                                                                     heightDimension: .estimated(1)),
+                                                               edgeSpacing: .init(leading: .fixed(10),
+                                                                                  top: .none,
+                                                                                  trailing: .none,
+                                                                                  bottom: .none),
                                                                item: item)
 
         
@@ -121,16 +124,16 @@ final class MainView: BaseView {
         let item = CollectionViewLayoutManager.configureItem(with:
                                                                 CollectionViewConfigureSize(
                                                                     widthDimension: .absolute(343),
-                                                                    heightDimension: .absolute(180)),
-                                                             inset: NSDirectionalEdgeInsets(top: 10,
-                                                                                            leading: 16,
-                                                                                            bottom: 0,
-                                                                                            trailing: 0))
+                                                                    heightDimension: .absolute(180)))
         
         let group = CollectionViewLayoutManager.configureGroup(with:
                                                                 CollectionViewConfigureSize(
                                                                     widthDimension: .fractionalWidth(1.0),
                                                                     heightDimension: item.layoutSize.heightDimension),
+                                                               edgeSpacing: .init(leading: .fixed(10),
+                                                                                  top: .fixed(16),
+                                                                                  trailing: .none,
+                                                                                  bottom: .none),
                                                                isDirectionVertical: true,
                                                                item: item)
         

@@ -10,27 +10,31 @@ import UIKit
 
 struct CollectionViewLayoutManager {
     
-    static func configureItem(with itemSize: CollectionViewConfigureSize, inset: NSDirectionalEdgeInsets = .zero) -> NSCollectionLayoutItem {
+    static func configureItem(with itemSize: CollectionViewConfigureSize) -> NSCollectionLayoutItem {
         let itemSize = NSCollectionLayoutSize(widthDimension: itemSize.widthDimension,
                                               heightDimension: itemSize.heightDimension)
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = inset
         return item
     }
-
+    
     static func configureGroup(with groupSize: CollectionViewConfigureSize,
-                        inset: NSDirectionalEdgeInsets = .zero,
-                        isDirectionVertical: Bool = false,
-                        item: NSCollectionLayoutItem, itemCount: Int = 0) -> NSCollectionLayoutGroup {
+                               edgeSpacing: NSCollectionLayoutEdgeSpacing = .init(leading: .none,
+                                                                                  top: .none,
+                                                                                  trailing: .none,
+                                                                                  bottom: .none),
+                               isDirectionVertical: Bool = false,
+                               item: NSCollectionLayoutItem) -> NSCollectionLayoutGroup {
         let groupSize = NSCollectionLayoutSize(widthDimension: groupSize.widthDimension,
                                                heightDimension: groupSize.heightDimension)
         let group: NSCollectionLayoutGroup
         
         if isDirectionVertical {
             group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+            group.edgeSpacing = edgeSpacing
             return group
         }
         group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.edgeSpacing = edgeSpacing
         return group
     }
     
