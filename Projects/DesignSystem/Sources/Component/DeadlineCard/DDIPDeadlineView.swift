@@ -10,7 +10,8 @@ import UIKit
 
 public class DDIPDeadlineView: UIView, AddViewsable {
     public let style: DDIPDeadlineViewStyle
-    private let CTAButton = DDIPCTAButton(style: .init(buttonColor: .blue, titleColor: .white, title: "지금 당장 응모할게요!"))
+    private let CTAButton: DDIPCTAButton
+    private let viwer: DDIPListViewer
     
     public let infoStackView: UIStackView = {
         let stackView = UIStackView()
@@ -21,14 +22,6 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         stackView.spacing = 8
                                     
         return stackView
-    }()
-    
-    public var viwerLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .right
-        
-        return label
     }()
     
     public let imageIcon: UIImageView = {
@@ -121,10 +114,11 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         return view
     }()
     
-    public init(frame: CGRect = .zero, style: DDIPDeadlineViewStyle) {
+    public init(frame: CGRect = .zero, style: DDIPDeadlineViewStyle, button: DDIPCTAButton, viwer: DDIPListViewer) {
         self.style = style
+        self.CTAButton = button
+        self.viwer = viwer
         super.init(frame: frame)
-        viwerLabel.addSubview(DDIPListViewer(viewLabel: style.viwer))
         self.layer.borderWidth = 2
         self.layer.borderColor = UIColor.red.cgColor
         self.layer.cornerRadius = 12
@@ -138,27 +132,22 @@ public class DDIPDeadlineView: UIView, AddViewsable {
     }
     
     private func setViews() {
-        self.addSubViews([timeStackView, imageIcon, viwerLabel, CTAButton, infoStackView, dashedLine])
-        infoStackView.addArrangedSubview(brandLabel)
-        infoStackView.addArrangedSubview(nameLabel)
-        infoStackView.addArrangedSubview(expirationLabel)
+        self.addSubViews([timeStackView, imageIcon, viwer, CTAButton, infoStackView, dashedLine])
+        infoStackView.addArrangedSubviews(with: [brandLabel, nameLabel, expirationLabel])
+        timeStackView.addArrangedSubviews(with: [firstTimeLabel, secondTimeLabel, separatorLabel, firstMinuteLabel, secondMinuteLabel])
         
-        timeStackView.addArrangedSubview(firstTimeLabel)
-        timeStackView.addArrangedSubview(secondTimeLabel)
-        timeStackView.addArrangedSubview(separatorLabel)
-        timeStackView.addArrangedSubview(firstMinuteLabel)
-        timeStackView.addArrangedSubview(secondMinuteLabel)
+        viwer.translatesAutoresizingMaskIntoConstraints = false
         
         imageIcon.image = UIImage(systemName: style.iconImage)
         nameLabel.text = style.name
         brandLabel.text = style.brand
         expirationLabel.text = style.expirationDate
-        viwerLabel.text = style.viwer
         
         firstTimeLabel.text = style.time
         secondTimeLabel.text = style.time
         firstMinuteLabel.text = style.time
         secondMinuteLabel.text = style.time
+        
         dashedLine.makeDashedBorderLine(color: .black, strokeLength: 10, gapLength: 5, width: 1)
     }
 
@@ -187,14 +176,14 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         NSLayoutConstraint.activate([
             infoStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             infoStackView.topAnchor.constraint(equalTo: dashedLine.bottomAnchor, constant: 16),
-            infoStackView.trailingAnchor.constraint(equalTo: viwerLabel.leadingAnchor, constant: -28),
+            infoStackView.trailingAnchor.constraint(equalTo: viwer.leadingAnchor, constant: -28),
             infoStackView.bottomAnchor.constraint(equalTo: CTAButton.topAnchor, constant: -16)
         ])
 
         NSLayoutConstraint.activate([
-            viwerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            viwerLabel.bottomAnchor.constraint(equalTo: CTAButton.topAnchor, constant: -54),
-            viwerLabel.topAnchor.constraint(equalTo: infoStackView.topAnchor)
+            viwer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            viwer.bottomAnchor.constraint(equalTo: CTAButton.topAnchor, constant: -54),
+            viwer.topAnchor.constraint(equalTo: infoStackView.topAnchor)
         ])
 
         NSLayoutConstraint.activate([
