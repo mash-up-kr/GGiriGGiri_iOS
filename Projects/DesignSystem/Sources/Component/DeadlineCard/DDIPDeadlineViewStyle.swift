@@ -14,21 +14,18 @@ public struct DDIPDeadlineViewStyle {
     public let name: String
     public let expirationDate: String
     public let iconImage: String
-    public let viwer: String
     
     public init(
         time: String,
         brand: String,
         name: String,
         expirationDate: String,
-        iconImage: String,
-        viwer: String
+        iconImage: String
     ) {
         self.time = time
         self.brand = brand
         self.name = name
         self.expirationDate = expirationDate
         self.iconImage = iconImage
-        self.viwer = viwer
     }
 }
