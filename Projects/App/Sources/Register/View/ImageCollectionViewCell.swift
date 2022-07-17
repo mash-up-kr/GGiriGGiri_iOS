@@ -35,12 +35,14 @@ final class ImageCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        setLayout()
         configure()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
+        setLayout()
         configure()
     }
     
@@ -54,10 +56,9 @@ final class ImageCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private func configure() {
+    private func setLayout() {
         imageView.addSubview(checkmarkImageView)
         
-        checkmarkImageView.isHidden = true
         checkmarkImageView.snp.makeConstraints {
             $0.center.equalToSuperview()
         }
@@ -67,5 +68,9 @@ final class ImageCollectionViewCell: UICollectionViewCell {
         imageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    private func configure() {
+        checkmarkImageView.isHidden = true
     }
 }

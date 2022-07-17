@@ -10,9 +10,11 @@ import UIKit
 
 import SnapKit
 
-final class MainView: CommonView {
+final class MainView: BaseView {
     
-    override func setUI() {
+    override func setLayout() {
+        super.setLayout()
+        
         addSubview(collectionView)
         
         collectionView.snp.makeConstraints {

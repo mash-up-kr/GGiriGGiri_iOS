@@ -17,8 +17,6 @@ final class RegisterGifticonTableViewController: UITableViewController {
     }
     
     private func configure() {
-        view.backgroundColor = .white
-        
         configureNavigationBar()
     }
     
