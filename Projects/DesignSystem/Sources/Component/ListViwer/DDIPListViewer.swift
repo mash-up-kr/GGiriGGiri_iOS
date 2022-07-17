@@ -23,6 +23,10 @@ public class DDIPListViewer: UIView {
         return stackView
     }()
     
+    public override var alignmentRectInsets: UIEdgeInsets {
+        return UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+    }
+    
     public init(frame: CGRect = .zero, viewLabel: String) {
         self.viewerLabel.text = "\(viewLabel)명"
         super.init(frame: frame)
@@ -33,7 +37,7 @@ public class DDIPListViewer: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func setAttribute() {
         self.backgroundColor = .black
         self.layer.cornerRadius = 8
@@ -50,9 +54,7 @@ public class DDIPListViewer: UIView {
         
         NSLayoutConstraint.activate([
             viwerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            viwerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 6),
-            viwerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            viwerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6)
+            viwerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8)
         ])
     }
 }
