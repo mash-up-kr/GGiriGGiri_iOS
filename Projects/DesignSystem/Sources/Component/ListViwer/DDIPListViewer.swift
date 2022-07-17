@@ -12,10 +12,6 @@ public class DDIPListViewer: UIView {
     private var viewerLabel: UILabel = UILabel()
     private var viewerImageView: UIImageView = UIImageView()
     
-    public var viewer: String? {
-        didSet { self.viewerLabel.text = viewer }
-    }
-    
     private let viwerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.distribution = .fill
@@ -28,7 +24,7 @@ public class DDIPListViewer: UIView {
     }()
     
     public init(frame: CGRect = .zero, viewLabel: String) {
-        self.viewerLabel.text = viewLabel
+        self.viewerLabel.text = "\(viewLabel)명"
         super.init(frame: frame)
         setLayout()
         setAttribute()
