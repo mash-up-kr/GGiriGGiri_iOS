@@ -29,7 +29,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .fill
-        stackView.distribution = .fill
+        stackView.distribution = .equalSpacing
         
         return stackView
     }()
@@ -69,7 +69,6 @@ public class DDIPListCardView: UIView, AddViewsable {
     public let descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .right
         
         return label
     }()
@@ -125,8 +124,10 @@ public class DDIPListCardView: UIView, AddViewsable {
         
         NSLayoutConstraint.activate([
             imageIcon.topAnchor.constraint(equalTo: self.topAnchor, constant: 13),
-            imageIcon.trailingAnchor.constraint(equalTo: viewer.leadingAnchor),
-            imageIcon.bottomAnchor.constraint(equalTo: dashedLine.topAnchor, constant: -10)
+            imageIcon.trailingAnchor.constraint(equalTo: viewer.leadingAnchor, constant: -1),
+            imageIcon.bottomAnchor.constraint(equalTo: dashedLine.topAnchor, constant: -10),
+            imageIcon.widthAnchor.constraint(equalToConstant: 75),
+            imageIcon.heightAnchor.constraint(equalToConstant: 75)
         ])
         
         NSLayoutConstraint.activate([
