@@ -30,11 +30,11 @@ final class RegisterGifticonView: BaseView {
         
         addSubview(scrollView)
         
-        scrollView.addSubview(registerGiftionImageView)
-        scrollView.addSubview(infoMessageView)
-        scrollView.addSubview(registerGifticonInfoView)
-        scrollView.addSubview(registerGifticonDDipInfoView)
-        scrollView.addSubview(registerButton)
+        scrollView.addSubviews(with: [registerGiftionImageView,
+                                      infoMessageView,
+                                      registerGifticonInfoView,
+                                      registerGifticonDDipInfoView,
+                                      registerButton])
         
         scrollView.snp.makeConstraints {
             $0.edges.equalTo(safeAreaLayoutGuide)
