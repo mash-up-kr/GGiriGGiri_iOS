@@ -66,13 +66,13 @@ final class RegisterGifticonInfoView: BaseView {
     override func setLayout() {
         super.setLayout()
         
-        addSubview(titleLabel)
-        addSubview(categoryLabel)
-        addSubview(categoryView)
-        addSubview(brandContainer)
-        addSubview(productContainer)
-        addSubview(expirationDateContainer)
-        addSubview(warningMessageLabel)
+        addSubviews(with: [titleLabel,
+                           categoryLabel,
+                           categoryView,
+                           brandContainer,
+                           productContainer,
+                           expirationDateContainer,
+                           warningMessageLabel])
         
         titleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
