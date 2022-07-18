@@ -42,7 +42,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
                                                               for: indexPath) else {
                 return UICollectionViewCell()
             }
-            cell.configure(with: indexPath.item)
+            cell.configure(Category.allCases, with: indexPath.item)
             return cell
         case .gifticonList(let items):
             guard let cell = collectionView.dequeReusableCell(GifticonCardCollectionViewCell.self,

@@ -10,12 +10,14 @@ import UIKit
 
 final class CategoryCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
+    private let category = Category.allCases.filter { return $0 != Category.all }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Category.allCases.count - 1
+        return Category.register.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -23,12 +25,7 @@ final class CategoryCollectionViewDataSource: NSObject, UICollectionViewDataSour
                                                           for: indexPath) else {
             return UICollectionViewCell()
         }
-        
-        if indexPath.item == 6 {
-            cell.configure(with: indexPath.item - 1)
-            return cell
-        }
-        cell.configure(with: indexPath.item + 1)
+        cell.configure(Category.register, with: indexPath.item)
         return cell
     }
 }

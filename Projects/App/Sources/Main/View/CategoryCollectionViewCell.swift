@@ -16,9 +16,14 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     
     private let nameLabel = TempLabel(color: .black)
     
-    func configure(with index: Int) {
+    func configure(_ category: [Category], with index: Int) {
         nameLabel.textAlignment = .center
         nameLabel.clipsToBounds = true
+        
+        if category == Category.register {
+            nameLabel.text = Category.register[index].rawValue
+            return
+        }
         nameLabel.text = Category.allCases[index].rawValue
     }
     
