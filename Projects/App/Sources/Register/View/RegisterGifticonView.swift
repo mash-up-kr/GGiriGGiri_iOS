@@ -97,8 +97,7 @@ fileprivate class InfoMessageView: BaseView {
     override func setLayout() {
         super.setLayout()
         
-        addSubview(titleLabel)
-        addSubview(infoLabel)
+        addSubviews(with: [titleLabel, infoLabel])
         
         titleLabel.snp.makeConstraints {
             $0.top.leading.equalTo(16)

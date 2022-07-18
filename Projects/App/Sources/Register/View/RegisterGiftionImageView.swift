@@ -34,8 +34,7 @@ final class RegisterGiftionImageView: BaseView {
     override func setLayout() {
         super.setLayout()
         
-        borderView.addSubview(imageView)
-        borderView.addSubview(imageModifyButton)
+        borderView.addSubviews(with: [imageView, imageModifyButton])
         addSubview(borderView)
         
         imageView.snp.makeConstraints {

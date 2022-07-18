@@ -20,9 +20,7 @@ final class RegisterInfoInputView: BaseView {
     override func setLayout() {
         super.setLayout()
         
-        addSubview(titleLabel)
-        addSubview(textInputView)
-        
+        addSubviews(with: [titleLabel, textInputView])
         
         titleLabel.snp.makeConstraints {
             $0.leading.top.trailing.equalToSuperview()

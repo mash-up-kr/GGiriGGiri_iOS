@@ -26,9 +26,7 @@ final class RegisterGifticonDDipInfoView: BaseView {
     override func setLayout() {
         super.setLayout()
         
-        addSubview(titleLabel)
-        addSubview(ddipTitleLabel)
-        addSubview(timeInputView)
+        addSubviews(with: [titleLabel, ddipTitleLabel, timeInputView])
         
         titleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
