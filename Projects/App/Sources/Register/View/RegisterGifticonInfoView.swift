@@ -13,11 +13,11 @@ import SnapKit
 /// 기프티콘 정보 - 기프티콘 정보 뷰
 final class RegisterGifticonInfoView: BaseView {
     
-    private let titleLabel = TempLabel(color: .black,
+    private let gifticonInfoSectionTitleLabel = TempLabel(color: .black,
                                        text: "기프티콘 정보",
                                        font: .systemFont(ofSize: 16))
     
-    private let categoryLabel = TempLabel(color: .black,
+    private let categoryTitleLabel = TempLabel(color: .black,
                                           text: "카테고리",
                                           font: .systemFont(ofSize: 14))
     
@@ -66,28 +66,28 @@ final class RegisterGifticonInfoView: BaseView {
     override func setLayout() {
         super.setLayout()
         
-        addSubviews(with: [titleLabel,
-                           categoryLabel,
+        addSubviews(with: [gifticonInfoSectionTitleLabel,
+                           categoryTitleLabel,
                            categoryView,
                            brandContainer,
                            productContainer,
                            expirationDateContainer,
                            warningMessageLabel])
         
-        titleLabel.snp.makeConstraints {
+        gifticonInfoSectionTitleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
             $0.height.equalTo(20)
         }
         
-        categoryLabel.snp.makeConstraints {
+        categoryTitleLabel.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.top.equalTo(gifticonInfoSectionTitleLabel.snp.bottom).offset(20)
             $0.height.equalTo(20)
         }
         
         categoryView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(categoryLabel.snp.bottom).offset(16)
+            $0.top.equalTo(categoryTitleLabel.snp.bottom).offset(16)
             $0.height.equalTo(81)
         }
         

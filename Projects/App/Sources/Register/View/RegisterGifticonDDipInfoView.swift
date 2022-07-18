@@ -13,11 +13,11 @@ import SnapKit
 /// 기프티콘 정보 - 기프티콘 뿌리기 정보 뷰
 final class RegisterGifticonDDipInfoView: BaseView {
     
-    private let titleLabel = TempLabel(color: .black,
+    private let gifticonDDipInfoSectionTitleLabel = TempLabel(color: .black,
                                        text: "뿌리기 정보",
                                        font: .systemFont(ofSize: 16))
     
-    private let ddipTitleLabel = TempLabel(color: .black,
+    private let expirationTimeTitleLabel = TempLabel(color: .black,
                                           text: "마감시간",
                                           font: .systemFont(ofSize: 14))
     
@@ -26,21 +26,21 @@ final class RegisterGifticonDDipInfoView: BaseView {
     override func setLayout() {
         super.setLayout()
         
-        addSubviews(with: [titleLabel, ddipTitleLabel, timeInputView])
+        addSubviews(with: [gifticonDDipInfoSectionTitleLabel, expirationTimeTitleLabel, timeInputView])
         
-        titleLabel.snp.makeConstraints {
+        gifticonDDipInfoSectionTitleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
             $0.height.equalTo(20)
         }
         
-        ddipTitleLabel.snp.makeConstraints {
+        expirationTimeTitleLabel.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.top.equalTo(gifticonDDipInfoSectionTitleLabel.snp.bottom).offset(20)
             $0.height.equalTo(20)
         }
         
         timeInputView.snp.makeConstraints {
-            $0.top.equalTo(ddipTitleLabel.snp.bottom).offset(8)
+            $0.top.equalTo(expirationTimeTitleLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(54)
         }
