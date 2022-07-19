@@ -88,7 +88,7 @@ fileprivate class InfoMessageView: BaseView {
     
     private let titleLabel = TempLabel(color: .black,
                                        text: "😲 중요해요!",
-                                       font: UIFont.pretendard(family: .regular, size: ._16))
+                                       font: UIFont.pretendard(family: .bold, size: ._16))
     
     private let infoLabel = TempLabel(color: .black,
                                       text: "등록해주신 기프티콘 이미지는 당첨자에게 전송될 때 사용되며, 등록 시 화면에는 카테고리 아이콘으로 대체됩니다. 미사용 기프티콘인지 다시 한번 확인해주세요.",

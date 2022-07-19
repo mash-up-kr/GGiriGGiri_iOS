@@ -15,7 +15,7 @@ final class RegisterGifticonDDipInfoView: BaseView {
     
     private let gifticonDDipInfoSectionTitleLabel = TempLabel(color: .black,
                                        text: "뿌리기 정보",
-                                       font: UIFont.pretendard(family: .regular, size: ._16))
+                                       font: UIFont.pretendard(family: .bold, size: ._16))
     
     private let expirationTimeTitleLabel = TempLabel(color: .black,
                                           text: "마감시간",

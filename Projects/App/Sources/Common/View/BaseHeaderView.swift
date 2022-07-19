@@ -15,7 +15,7 @@ final class BaseHeaderView: UICollectionReusableView {
     static let reuseIdentifier = "BaseHeaderView"
     
     private(set) var titleLabel = TempLabel(color: .black,
-                                            font: UIFont.pretendard(family: .regular, size: ._16))
+                                            font: UIFont.pretendard(family: .bold, size: ._16))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
