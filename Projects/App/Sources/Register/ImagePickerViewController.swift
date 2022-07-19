@@ -17,13 +17,11 @@ final class ImagePickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         configure()
     }
     
     private func configure() {
-        view.backgroundColor = .white
-        
         configureNavigationBar()
 
         delegate.imageCollectionViewCellDelegate = self
