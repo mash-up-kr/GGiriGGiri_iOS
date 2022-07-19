@@ -22,13 +22,19 @@ final class MainView: BaseView {
         }
     }
     
+    override func configure() {
+        super.configure()
+        
+        backgroundColor = .clear
+    }
+    
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: generateLayout())
         collectionView.backgroundColor = .clear
         collectionView.register(GifticonDeadLineCollectionViewCell.self)
         collectionView.register(CategoryCollectionViewCell.self)
         collectionView.register(GifticonCardCollectionViewCell.self)
-        collectionView.registerHeader(CommonHeaderView.self,
+        collectionView.registerHeader(BaseHeaderView.self,
                                       elementKind: MainViewController.sectionHeaderElementKind)
         return collectionView
     }()
@@ -61,18 +67,17 @@ final class MainView: BaseView {
         let item = CollectionViewLayoutManager.configureItem(with:
                                                                 CollectionViewConfigureSize(
                                                                     widthDimension: .absolute(310),
-                                                                    heightDimension: .absolute(380)),
-                                                             inset: NSDirectionalEdgeInsets(top: 0,
-                                                                                            leading: 16,
-                                                                                            bottom: 26,
-                                                                                            trailing: 16))
+                                                                    heightDimension: .absolute(380)))
         
         let group = CollectionViewLayoutManager.configureGroup(with:
                                                                 CollectionViewConfigureSize(
                                                                     widthDimension: item.layoutSize.widthDimension,
                                                                     heightDimension: item.layoutSize.heightDimension),
-                                                               item: item,
-                                                               itemCount: 1)
+                                                               edgeSpacing: .init(leading: .fixed(10),
+                                                                                  top: .none,
+                                                                                  trailing: .none,
+                                                                                  bottom: .none),
+                                                               item: item)
         
         let header = CollectionViewLayoutManager.configureHeader(with:
                                                                     CollectionViewConfigureSize(
@@ -89,19 +94,18 @@ final class MainView: BaseView {
     private func generateCategorySection() -> NSCollectionLayoutSection {
         let item = CollectionViewLayoutManager.configureItem(with:
                                                                 CollectionViewConfigureSize(
-                                                                    widthDimension: .fractionalWidth(0.3),
-                                                                    heightDimension: .fractionalWidth(0.2)),
-                                                             inset: NSDirectionalEdgeInsets(top: 16,
-                                                                                            leading: 16,
-                                                                                            bottom: -30,
-                                                                                            trailing: 16))
+                                                                    widthDimension: .estimated(40),
+                                                                    heightDimension: .estimated(14)))
         
         let group = CollectionViewLayoutManager.configureGroup(with:
                                                                 CollectionViewConfigureSize(
-                                                                    widthDimension: item.layoutSize.widthDimension,
-                                                                    heightDimension: item.layoutSize.heightDimension),
-                                                               item: item,
-                                                               itemCount: 1)
+                                                                    widthDimension: .estimated(1),
+                                                                    heightDimension: .estimated(1)),
+                                                               edgeSpacing: .init(leading: .fixed(8),
+                                                                                  top: .none,
+                                                                                  trailing: .none,
+                                                                                  bottom: .none),
+                                                               item: item)
 
         
         let header = CollectionViewLayoutManager.configureHeader(with:
@@ -120,16 +124,16 @@ final class MainView: BaseView {
         let item = CollectionViewLayoutManager.configureItem(with:
                                                                 CollectionViewConfigureSize(
                                                                     widthDimension: .absolute(343),
-                                                                    heightDimension: .absolute(180)),
-                                                             inset: NSDirectionalEdgeInsets(top: 10,
-                                                                                            leading: 16,
-                                                                                            bottom: 0,
-                                                                                            trailing: 0))
+                                                                    heightDimension: .absolute(180)))
         
         let group = CollectionViewLayoutManager.configureGroup(with:
                                                                 CollectionViewConfigureSize(
                                                                     widthDimension: .fractionalWidth(1.0),
                                                                     heightDimension: item.layoutSize.heightDimension),
+                                                               edgeSpacing: .init(leading: .fixed(10),
+                                                                                  top: .fixed(16),
+                                                                                  trailing: .none,
+                                                                                  bottom: .none),
                                                                isDirectionVertical: true,
                                                                item: item)
         

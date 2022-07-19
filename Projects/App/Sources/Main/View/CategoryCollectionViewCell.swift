@@ -16,10 +16,14 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     
     private let nameLabel = TempLabel(color: .black)
     
-    func configure(with index: Int) {
+    func configure(_ category: [Category], with index: Int) {
         nameLabel.textAlignment = .center
         nameLabel.clipsToBounds = true
-        nameLabel.layer.cornerRadius = 20
+        
+        if category == Category.register {
+            nameLabel.text = Category.register[index].rawValue
+            return
+        }
         nameLabel.text = Category.allCases[index].rawValue
     }
     
@@ -27,19 +31,28 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         setLayout()
+        configure()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
         setLayout()
+        configure()
     }
     
     private func setLayout() {
         contentView.addSubview(nameLabel)
         
         nameLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.top.bottom.equalToSuperview().inset(7)
         }
+    }
+    
+    private func configure() {
+        backgroundColor = .white
+        
+        self.layer.cornerRadius = 20
     }
 }

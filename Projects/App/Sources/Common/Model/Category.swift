@@ -17,4 +17,6 @@ enum Category: String, CaseIterable {
     case fastfood = "패스트푸드"
     case certificate = "상품권"
     case etc = "기타"
+    
+    static let register: [Category] = Category.allCases.filter { return $0 != Category.all }
 }

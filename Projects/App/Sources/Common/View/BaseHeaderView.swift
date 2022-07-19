@@ -1,5 +1,5 @@
 //
-//  CommonHeaderView.swift
+//  BaseHeaderView.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/06/25.
@@ -10,27 +10,27 @@ import UIKit
 
 import SnapKit
 
-final class CommonHeaderView: UICollectionReusableView {
+final class BaseHeaderView: UICollectionReusableView {
     
-    static let reuseIdentifier = "CommonHeaderView"
+    static let reuseIdentifier = "BaseHeaderView"
     
-    let titleLabel = TempLabel(color: .black,
+    private(set) var titleLabel = TempLabel(color: .black,
                                font: .systemFont(ofSize: 16,
                                                  weight: .bold))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configure()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        configure()
+        setLayout()
     }
     
-    private func configure() {
+    private func setLayout() {
         addSubview(titleLabel)
         
         titleLabel.snp.makeConstraints {

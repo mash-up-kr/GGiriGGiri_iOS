@@ -42,7 +42,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
                                                               for: indexPath) else {
                 return UICollectionViewCell()
             }
-            cell.configure(with: indexPath.item)
+            cell.configure(Category.allCases, with: indexPath.item)
             return cell
         case .gifticonList(let items):
             guard let cell = collectionView.dequeReusableCell(GifticonCardCollectionViewCell.self,
@@ -60,8 +60,8 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let supplementaryView = collectionView
             .dequeueReusableSupplementaryView(ofKind: kind,
-                                              withReuseIdentifier: CommonHeaderView.reuseIdentifier,
-                                              for: indexPath) as? CommonHeaderView else {
+                                              withReuseIdentifier: BaseHeaderView.reuseIdentifier,
+                                              for: indexPath) as? BaseHeaderView else {
             return UICollectionReusableView()
         }
         supplementaryView.titleLabel.text = MainSection.allCases[indexPath.section].headerTitle
