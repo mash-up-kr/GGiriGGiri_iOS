@@ -83,6 +83,8 @@ public class DDIPListCardView: UIView, AddViewsable {
         expirationLabel.text = style.expirationDate
         imageIcon.image = UIImage(systemName: style.iconImage)
         descriptionLabel.text = style.description
+        
+        dashedLine.createDottedLine(width: 1, color: UIColor.black.cgColor)
     }
     
     private func setUI() {
@@ -122,3 +124,16 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
 }
 
+extension UIView {
+    func createDottedLine(width: CGFloat, color: CGColor) {
+        let caShapeLayer = CAShapeLayer()
+        caShapeLayer.strokeColor = color
+        caShapeLayer.lineWidth = width
+        caShapeLayer.lineDashPattern = [2,4]
+        let cgPath = CGMutablePath()
+        let cgPoint = [CGPoint(x: self.bounds.minX, y: 0), CGPoint(x: 304, y: 0)]
+        cgPath.addLines(between: cgPoint)
+        caShapeLayer.path = cgPath
+        layer.addSublayer(caShapeLayer)
+    }
+}
