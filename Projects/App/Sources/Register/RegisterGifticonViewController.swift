@@ -42,7 +42,8 @@ final class RegisterGifticonViewController: UIViewController {
 
 extension RegisterGifticonViewController: RegisterGifticonImageViewButtonDelegate {
     func originalButtonTapped() {
-        let tempViewController = UIViewController()
-        present(tempViewController, animated: true)
+        let gifticonImageViewController = GiftionImageViewController()
+        gifticonImageViewController.giftionImageView.image = giftionImage
+        present(gifticonImageViewController, animated: true)
     }
 }
