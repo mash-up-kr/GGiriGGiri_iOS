@@ -76,29 +76,16 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     }
     
     @objc private func addButtonDidTapped() {
-        // TODO: + 버튼 탭 되었을 때의 액션 구현
-        // 현재 접근 권한 상태를 확인하고, 권한 상태에 따라 분기하는 handleAuthorizationStatus 메서드 호출.
         let authorizationStatus: PHAuthorizationStatus
-        
-        if #available(iOS 14, *) {
-            authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
-        } else {
-            authorizationStatus = PHPhotoLibrary.authorizationStatus()
-        }
+        authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         
         handleAuthorizationStatus(with: authorizationStatus)
     }
     
     /// 사용자에게 접근 권한을 요청하는 메서드
     private func requestPHPhotoLibraryAuthorization() {
-        if #available(iOS 14, *) {
-            PHPhotoLibrary.requestAuthorization(for: .readWrite) { authorizationStatus in
-                self.handleAuthorizationStatus(with: authorizationStatus)
-            }
-        } else {
-            PHPhotoLibrary.requestAuthorization { authorizationStatus in
-                self.handleAuthorizationStatus(with: authorizationStatus)
-            }
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { authorizationStatus in
+            self.handleAuthorizationStatus(with: authorizationStatus)
         }
     }
     
@@ -124,12 +111,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
                 }
             }
         case .authorized:
-            DispatchQueue.main.async {
-                let imagePickerViewController = ImagePickerViewController()
-                let navigationController = UINavigationController(rootViewController: imagePickerViewController)
-                navigationController.modalPresentationStyle = .fullScreen
-                self.present(navigationController, animated: true)
-            }
+            self.presentPhotoPicker()
             debugPrint("authorized")
         case .limited:
             debugPrint("limited")
@@ -138,5 +120,37 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
                 self.alert(message: "관리자에게 문의하세요.")
             }
         }
+    }
+    
+    private func presentPhotoPicker() {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+}
+
+extension MainViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+
+        if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                DispatchQueue.main.async {
+                    guard let self = self, let image = image as? UIImage else {
+                        debugPrint("could not load image", error?.localizedDescription ?? "")
+                        return
+                    }
+                    
+                    self.alert(message: "쿠폰 이미지 분석 중~", okHandler: { _ in
+                        let registerGifticonViewController = RegisterGifticonViewController()
+                        registerGifticonViewController.modalPresentationStyle = .fullScreen
+                        self.present(registerGifticonViewController, animated: true)
+                    })
+                }
+            }
+        }
+        dismiss(animated: true)
     }
 }
