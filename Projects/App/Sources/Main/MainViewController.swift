@@ -145,6 +145,7 @@ extension MainViewController: PHPickerViewControllerDelegate {
                     
                     self.alert(message: "쿠폰 이미지 분석 중~", okHandler: { _ in
                         let registerGifticonViewController = RegisterGifticonViewController()
+                        registerGifticonViewController.giftionImage = image
                         registerGifticonViewController.modalPresentationStyle = .fullScreen
                         self.present(registerGifticonViewController, animated: true)
                     })

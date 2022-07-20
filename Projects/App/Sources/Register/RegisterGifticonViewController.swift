@@ -13,6 +13,7 @@ import SnapKit
 final class RegisterGifticonViewController: UIViewController {
 
     private let registerGifticonView = RegisterGifticonView()
+    var giftionImage = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ final class RegisterGifticonViewController: UIViewController {
         
         configureNavigationBar()
         
+        registerGifticonView.registerGiftionImageView.imageView.image = giftionImage
         registerGifticonView.registerGiftionImageView.delegate = self
     }
     
