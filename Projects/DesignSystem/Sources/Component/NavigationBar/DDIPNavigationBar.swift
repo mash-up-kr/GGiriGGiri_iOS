@@ -47,7 +47,7 @@ public class DDIPNavigationBar: UIView {
         rightButtonsItem: [UIButton]? = nil
     ) {
         self.leftBarItem = leftBarItem
-        self.title = title
+        self.titleLabel.text = title
         self.rightButtonsItems = rightButtonsItem
     
         super.init(frame: .zero)
@@ -76,6 +76,9 @@ public class DDIPNavigationBar: UIView {
     }
     
     private func layout() {
+        snp.makeConstraints {
+            $0.height.equalTo(56)
+        }
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
@@ -85,6 +88,7 @@ public class DDIPNavigationBar: UIView {
             addSubview(leftButtonItem)
         }
         
+        guard let items = rightButtonsItems, items.isEmpty == false else { return }
         addSubview(stackView)
         stackView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
@@ -101,7 +105,6 @@ public class DDIPNavigationBar: UIView {
         buttons.forEach {
             stackView.addArrangedSubview($0)
         }
-        
     }
     
     private func bind() {
