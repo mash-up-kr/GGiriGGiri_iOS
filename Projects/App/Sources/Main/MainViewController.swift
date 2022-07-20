@@ -10,17 +10,8 @@ import UIKit
 
 import DesignSystem
 
-final class MainViewController: UIViewController {
-    
+final class MainViewController: BaseViewController<MainViewModelProtocol> {
     static let sectionHeaderElementKind = "sectionHeaderElementKind"
-     
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
     
     private let collectionView = MainView()
     private let delegate = MainCollectionViewDelegate()
@@ -40,10 +31,10 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .ddip(.primaryYellow)
-        configure()
     }
 
-    private func configure() {
+    override func configure() {
+        super.configure()
         configureNavigationBar()
         configureCollectionView()
         configureFloatingButton()
