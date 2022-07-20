@@ -10,8 +10,14 @@ import UIKit
 
 import SnapKit
 
+protocol RegisterGifticonImageViewButtonDelegate {
+    func originalButtonTapped()
+}
+
 /// 기프티콘 정보 - 이미지 등록 뷰
 final class RegisterGiftionImageView: BaseView {
+    
+    var delegate: RegisterGifticonImageViewButtonDelegate?
     
     private let borderView: BaseView = {
         let view = BaseView()
@@ -29,7 +35,7 @@ final class RegisterGiftionImageView: BaseView {
         return imageView
     }()
     
-    private let imageModifyButton = TempButton(title: "원본 보기")
+    private(set) var imageModifyButton = TempButton(title: "원본 보기")
     
     override func setLayout() {
         super.setLayout()
@@ -54,5 +60,15 @@ final class RegisterGiftionImageView: BaseView {
             $0.leading.equalTo(16)
             $0.trailing.bottom.equalTo(-16)
         }
+    }
+    
+    override func configure() {
+        super.configure()
+        
+        imageModifyButton.addTarget(self, action: #selector(originalButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func originalButtonTapped(_ sender: UIButton) {
+        delegate?.originalButtonTapped()
     }
 }

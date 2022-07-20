@@ -28,9 +28,19 @@ final class RegisterGifticonViewController: UIViewController {
         }
         
         configureNavigationBar()
+        
+        registerGifticonView.registerGiftionImageView.delegate = self
     }
     
     private func configureNavigationBar() {
         navigationItem.title = "기프티콘 등록"
+    }
+}
+
+
+extension RegisterGifticonViewController: RegisterGifticonImageViewButtonDelegate {
+    func originalButtonTapped() {
+        let tempViewController = UIViewController()
+        present(tempViewController, animated: true)
     }
 }

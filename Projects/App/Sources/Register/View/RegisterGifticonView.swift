@@ -19,7 +19,7 @@ final class RegisterGifticonView: BaseView {
         return scrollView
     }()
     
-    private let registerGiftionImageView = RegisterGiftionImageView()
+    private(set) var registerGiftionImageView = RegisterGiftionImageView()
     private let infoMessageView = InfoMessageView()
     private let registerGifticonInfoView = RegisterGifticonInfoView()
     private let registerGifticonDDipInfoView = RegisterGifticonDDipInfoView()
