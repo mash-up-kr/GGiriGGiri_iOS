@@ -13,6 +13,13 @@ public class DDIPListCardView: UIView, AddViewsable {
     private let alarmButton: DDIPCardListButton
     private let viewer: DDIPListViewer
     
+    public let nameLabel = UILabel()
+    public let brandLabel = UILabel()
+    public let expirationLabel = UILabel()
+    public let imageIcon = UIImageView()
+    public let dashedLine = UIView()
+    public let descriptionLabel = UILabel()
+    
     public let infoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -32,45 +39,6 @@ public class DDIPListCardView: UIView, AddViewsable {
         stackView.distribution = .equalSpacing
         
         return stackView
-    }()
-    
-    public let nameLabel: UILabel = {
-        let label = UILabel()
-        
-        return label
-    }()
-    
-    public let brandLabel: UILabel = {
-        let label = UILabel()
-        
-        return label
-    }()
-    
-    public let expirationLabel: UILabel = {
-        let label = UILabel()
-        
-        return label
-    }()
-    
-    public let imageIcon: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return imageView
-    }()
-    
-    public let dashedLine: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
-    public let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
     }()
     
     public init(
@@ -99,6 +67,9 @@ public class DDIPListCardView: UIView, AddViewsable {
     private func setView() {
         viewer.translatesAutoresizingMaskIntoConstraints = false
         alarmButton.translatesAutoresizingMaskIntoConstraints = false
+        imageIcon.translatesAutoresizingMaskIntoConstraints = false
+        dashedLine.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubViews([infoStackView, imageIcon, viewer, dashedLine, drawStackView])
         infoStackView.addArrangedSubviews(with: [brandLabel, nameLabel, expirationLabel])
