@@ -27,7 +27,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         stackView.alignment = .leading
         stackView.distribution = .fillProportionally
         stackView.spacing = 8
-                                    
+        
         return stackView
     }()
     
@@ -39,6 +39,30 @@ public class DDIPListCardView: UIView, AddViewsable {
         stackView.distribution = .equalSpacing
         
         return stackView
+    }()
+    
+    public let spaceLeftView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .red
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: view.bounds.size.width / 2, y: 0), radius: view.bounds.size.height, startAngle: 0.0, endAngle: .pi, clockwise: true)
+        let circleShape = CAShapeLayer()
+        circleShape.path = circlePath.cgPath
+        view.layer.addSublayer(circleShape)
+        
+        return view
+    }()
+    
+    public let spaceRightView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .red
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: view.bounds.size.width / 2, y: 0), radius: view.bounds.size.height, startAngle: 0.0, endAngle: .pi, clockwise: true)
+        let circleShape = CAShapeLayer()
+        circleShape.path = circlePath.cgPath
+        view.layer.addSublayer(circleShape)
+        
+        return view
     }()
     
     public init(
@@ -57,7 +81,6 @@ public class DDIPListCardView: UIView, AddViewsable {
         setView()
         setUI()
         setValue()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -71,10 +94,9 @@ public class DDIPListCardView: UIView, AddViewsable {
         dashedLine.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubViews([infoStackView, imageIcon, viewer, dashedLine, drawStackView])
+        self.addSubViews([infoStackView, imageIcon, viewer, spaceLeftView, spaceRightView, dashedLine, drawStackView])
         infoStackView.addArrangedSubviews(with: [brandLabel, nameLabel, expirationLabel])
         drawStackView.addArrangedSubviews(with: [alarmButton, descriptionLabel])
-        dashedLine.makeDashedBorderLine(color: .blue, strokeLength: 8, gapLength: 2, width: 1)
     }
     
     private func setValue() {
@@ -111,9 +133,19 @@ public class DDIPListCardView: UIView, AddViewsable {
         
         NSLayoutConstraint.activate([
             dashedLine.heightAnchor.constraint(equalToConstant: 1),
-            dashedLine.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            dashedLine.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            dashedLine.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -24)
+            dashedLine.leadingAnchor.constraint(equalTo: self.spaceLeftView.trailingAnchor),
+            dashedLine.trailingAnchor.constraint(equalTo: self.spaceRightView.leadingAnchor),
+            dashedLine.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -24),
+
+            spaceLeftView.heightAnchor.constraint(equalToConstant: 18),
+            spaceLeftView.widthAnchor.constraint(equalToConstant: 18),
+            spaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            spaceLeftView.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -15),
+            
+            spaceRightView.heightAnchor.constraint(equalToConstant: 18),
+            spaceRightView.widthAnchor.constraint(equalToConstant: 18),
+            spaceRightView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            spaceRightView.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -15),
         ])
         
         NSLayoutConstraint.activate([
@@ -131,7 +163,7 @@ extension UIView {
         caShapeLayer.lineWidth = width
         caShapeLayer.lineDashPattern = [2,4]
         let cgPath = CGMutablePath()
-        let cgPoint = [CGPoint(x: self.bounds.minX, y: 0), CGPoint(x: 304, y: 0)]
+        let cgPoint = [CGPoint(x: self.bounds.minX, y: 0), CGPoint(x: 305, y: 0)]
         cgPath.addLines(between: cgPoint)
         caShapeLayer.path = cgPath
         layer.addSublayer(caShapeLayer)
