@@ -12,7 +12,7 @@ import SnapKit
 
 final class GiftionImageViewController: UIViewController {
 
-    var giftionImageView = UIImageView()
+    private(set) var giftionImageView = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
