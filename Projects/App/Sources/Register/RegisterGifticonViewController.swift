@@ -8,16 +8,30 @@
 
 import UIKit
 
+import DesignSystem
+import RxSwift
 import SnapKit
 
 final class RegisterGifticonViewController: UIViewController {
 
+    private let disposeBag = DisposeBag()
+    
     private let registerGifticonView = RegisterGifticonView()
+    private lazy var navigationBar: DDIPNavigationBar = {
+        return DDIPNavigationBar(
+            leftBarItem: DDIPNavigationBar.BarItem.cancel,
+            title: "기프티콘 등록",
+            rightButtonsItem: nil)
+    }()
+    
     var giftionImage = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .white
+        
+        configureNavigationBar()
         configure()
     }
     
@@ -25,17 +39,25 @@ final class RegisterGifticonViewController: UIViewController {
         view.addSubview(registerGifticonView)
         
         registerGifticonView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(navigationBar.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
-        
-        configureNavigationBar()
         
         registerGifticonView.registerGiftionImageView.imageView.image = giftionImage
         registerGifticonView.registerGiftionImageView.delegate = self
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = "기프티콘 등록"
+        view.addSubview(navigationBar)
+        
+        navigationBar.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
+        }
+        
+        navigationBar.leftButtonTapEvent.subscribe(onNext: {
+            self.dismiss(animated: true)
+        }).disposed(by: disposeBag)
     }
 }
 
