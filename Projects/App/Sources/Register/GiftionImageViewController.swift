@@ -30,7 +30,7 @@ final class GiftionImageViewController: UIViewController {
     }
     
     private func configure() {
-        view.backgroundColor = .white
+        view.backgroundColor = .ddip(.neutralWhite)
         
         giftionImageView.contentMode = .scaleAspectFit
     }

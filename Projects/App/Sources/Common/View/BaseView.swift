@@ -27,6 +27,6 @@ class BaseView: UIView {
     func setLayout() { }
     
     func configure() {
-        backgroundColor = .white
+        backgroundColor = .ddip(.neutralWhite)
     }
 }

@@ -35,7 +35,7 @@ final class TempButton: UIButton {
         self.layer.cornerRadius = self.layer.frame.size.width / 2
         self.backgroundColor = .black
         self.setImage(UIImage(systemName: "plus"), for: .normal)
-        self.tintColor = .white
+        self.tintColor = .ddip(.neutralWhite)
     }
     
     private func configureFloatingButton(with title: String) {
@@ -45,6 +45,6 @@ final class TempButton: UIButton {
         self.backgroundColor = .black
         self.setImage(nil, for: .normal)
         self.setTitle(title, for: .normal)
-        self.tintColor = .white
+        self.tintColor = .ddip(.neutralWhite)
     }
 }
