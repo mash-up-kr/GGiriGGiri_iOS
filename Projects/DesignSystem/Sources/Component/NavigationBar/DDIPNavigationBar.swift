@@ -20,9 +20,9 @@ public class DDIPNavigationBar: UIView {
         var icon: UIImage? {
             switch self {
             case .back:
-                return UIImage(systemName: "chevron.backward")
+                return .designSystem(.iconAngelBracket24)
             case .cancel:
-                return UIImage(systemName: "xmark")
+                return .designSystem(.iconCrossX24)
             }
         }
     }
@@ -35,7 +35,7 @@ public class DDIPNavigationBar: UIView {
         return stackView
     }()
     private var rightButtonsItems: [UIButton]?
-    private var leftButtonItem: UIButton?
+    private let leftButtonItem = UIButton()
     
     private let disposeBag = DisposeBag()
     
@@ -63,12 +63,7 @@ public class DDIPNavigationBar: UIView {
     }
     
     public var leftBarItem: BarItem? {
-        didSet { self.leftIcon = leftBarItem?.icon }
-    }
-    
-    private var leftIcon: UIImage? {
-        get { self.leftButtonItem?.imageView?.image }
-        set { self.leftButtonItem?.setImage(newValue, for: .normal) }
+        didSet { leftButtonItem.setImage(leftBarItem?.icon, for: .normal) }
     }
     
     public required init?(coder: NSCoder) {
@@ -84,8 +79,10 @@ public class DDIPNavigationBar: UIView {
             $0.center.equalToSuperview()
         }
         
-        if let leftButtonItem = leftButtonItem {
-            addSubview(leftButtonItem)
+        addSubview(leftButtonItem)
+        leftButtonItem.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalToSuperview().offset(16)
         }
         
         guard let items = rightButtonsItems, items.isEmpty == false else { return }
@@ -97,7 +94,7 @@ public class DDIPNavigationBar: UIView {
     }
     
     private func setAttribute() {
-        leftButtonItem?.tintColor = UIColor.black
+        leftButtonItem.setImage(leftBarItem?.icon, for: .normal)
     }
     
     private func setButtons() {
@@ -108,7 +105,7 @@ public class DDIPNavigationBar: UIView {
     }
     
     private func bind() {
-        leftButtonItem?.rx.tap.bind(to: self.leftButtonTapEvent)
+        leftButtonItem.rx.tap.bind(to: self.leftButtonTapEvent)
             .disposed(by: disposeBag)
     }
 }
