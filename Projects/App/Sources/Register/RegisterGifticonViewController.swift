@@ -24,7 +24,7 @@ final class RegisterGifticonViewController: UIViewController {
             rightButtonsItem: nil)
     }()
     
-    var giftionImage = UIImage()
+    public var giftionImage = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -17,7 +17,7 @@ protocol RegisterGifticonImageViewButtonDelegate {
 /// 기프티콘 정보 - 이미지 등록 뷰
 final class RegisterGiftionImageView: BaseView {
     
-    var delegate: RegisterGifticonImageViewButtonDelegate?
+    public var delegate: RegisterGifticonImageViewButtonDelegate?
     
     private let borderView: BaseView = {
         let view = BaseView()
@@ -35,7 +35,7 @@ final class RegisterGiftionImageView: BaseView {
         return imageView
     }()
     
-    private(set) var imageModifyButton = TempButton(title: "원본 보기")
+    private let imageModifyButton = TempButton(title: "원본 보기")
     
     override func setLayout() {
         super.setLayout()
