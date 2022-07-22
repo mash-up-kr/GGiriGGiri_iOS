@@ -55,8 +55,8 @@ final class RegisterGifticonViewController: UIViewController {
             $0.leading.trailing.equalToSuperview()
         }
         
-        navigationBar.leftButtonTapEvent.subscribe(onNext: {
-            self.dismiss(animated: true)
+        navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
+            self?.dismiss(animated: true)
         }).disposed(by: disposeBag)
     }
 }
