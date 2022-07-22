@@ -10,14 +10,14 @@ import UIKit
 
 import SnapKit
 
-protocol RegisterGifticonImageViewButtonDelegate {
+protocol RegisterGifticonImageViewButtonDelegate: AnyObject {
     func originalButtonTapped()
 }
 
 /// 기프티콘 정보 - 이미지 등록 뷰
 final class RegisterGiftionImageView: BaseView {
     
-    public var delegate: RegisterGifticonImageViewButtonDelegate?
+    public weak var delegate: RegisterGifticonImageViewButtonDelegate?
     
     private let borderView: BaseView = {
         let view = BaseView()
