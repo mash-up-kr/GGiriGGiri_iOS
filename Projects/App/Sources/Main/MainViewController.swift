@@ -111,7 +111,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
                 }
             }
         case .authorized:
-            self.presentPhotoPicker()
+            presentPhotoPicker()
             debugPrint("authorized")
         case .limited:
             debugPrint("limited")
