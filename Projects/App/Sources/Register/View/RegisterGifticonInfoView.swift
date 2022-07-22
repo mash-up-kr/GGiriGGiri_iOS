@@ -14,15 +14,17 @@ import SnapKit
 /// 기프티콘 정보 - 기프티콘 정보 뷰
 final class RegisterGifticonInfoView: BaseView {
     
-    private let gifticonInfoSectionTitleLabel = TempLabel(color: .black,
-                                       text: "기프티콘 정보",
-                                       font: UIFont.pretendard(family: .regular
-                                                               , size: ._16))
+    private let gifticonInfoSectionTitleLabel = TempLabel(
+        color: .black,
+        text: "기프티콘 정보",
+        font: .designSystem(.pretendard, family: .regular, size: ._16)
+    )
     
-    private let categoryTitleLabel = TempLabel(color: .black,
-                                          text: "카테고리",
-                                          font: UIFont.pretendard(family: .regular
-                                                                  , size: ._14))
+    private let categoryTitleLabel = TempLabel(
+        color: .black,
+        text: "카테고리",
+        font: .designSystem(.pretendard, family: .regular, size: ._14)
+    )
     
     private lazy var categoryView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: generateLayout())
@@ -34,10 +36,11 @@ final class RegisterGifticonInfoView: BaseView {
     private let brandContainer = RegisterInfoInputView()
     private let productContainer = RegisterInfoInputView()
     private let expirationDateContainer = RegisterInfoInputView()
-    private let warningMessageLabel = TempLabel(color: .red,
-                                                text: "유효기간은 8자리(YYYYMMDD)로 입력해주세요.",
-                                                font: UIFont.pretendard(family: .regular
-                                                                        , size: ._14))
+    private let warningMessageLabel = TempLabel(
+        color: .red,
+        text: "유효기간은 8자리(YYYYMMDD)로 입력해주세요.",
+        font: .designSystem(.pretendard, family: .regular, size: ._14)
+    )
     
     private func generateLayout() -> UICollectionViewLayout {
         let layout =

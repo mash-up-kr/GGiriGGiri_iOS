@@ -30,7 +30,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .ddip(.primaryYellow)
+        view.backgroundColor = .designSystem(.primaryYellow)
     }
 
     override func configure() {
