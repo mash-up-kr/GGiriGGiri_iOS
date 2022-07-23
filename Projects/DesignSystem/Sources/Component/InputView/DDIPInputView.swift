@@ -78,7 +78,7 @@ public final class DDIPInputView: UIView {
     
     private var helperText: String? {
         didSet {
-            update(which: .text)
+            update(which: .helperText)
         }
     }
     
@@ -147,6 +147,7 @@ extension DDIPInputView {
         disposeBag = DisposeBag()
         
         bindActionButton()
+        bindInputFieldState()
     }
     
     private func bindActionButton() {
@@ -155,6 +156,16 @@ extension DDIPInputView {
             .debug()
             .subscribe(onNext: { [weak self] in
                 self?.action?()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindInputFieldState() {
+        inputField.state
+            .subscribe(onNext: { [weak self] in
+                self?.update(state: $0)
+                self?.update(which: .helperTextColor)
+                self?.update(which: .helperTextVisible)
             })
             .disposed(by: disposeBag)
     }
@@ -169,6 +180,9 @@ extension DDIPInputView {
         case title
         case placeholder
         case text
+        case helperText
+        case helperTextColor
+        case helperTextVisible
         case condition
         case state
     }
@@ -183,6 +197,12 @@ extension DDIPInputView {
             updatePlaceholder()
         case .text:
             updateText()
+        case .helperText:
+            updateHelperText()
+        case .helperTextColor:
+            updateHelperTextColor()
+        case .helperTextVisible:
+            updateHelperTextVisible()
         case .condition:
             updateCondition()
         case .state:
@@ -211,6 +231,28 @@ extension DDIPInputView {
     
     private func updateText() {
         inputField.update(text: _text)
+    }
+    
+    private func updateHelperText() {
+        helperTextLabel.text = helperText
+    }
+    
+    private func updateHelperTextColor() {
+        switch _state {
+        case .normal:
+            helperTextLabel.textColor = .designSystem(.neutralBlack)
+        case .error:
+            helperTextLabel.textColor = .designSystem(.dangerRaspberry)
+        }
+    }
+    
+    private func updateHelperTextVisible() {
+        switch _state {
+        case .normal:
+            helperTextLabel.isHidden = true
+        case .error:
+            helperTextLabel.isHidden = false
+        }
     }
     
     private func updateCondition() {

@@ -10,6 +10,7 @@ import UIKit
 
 import SnapKit
 import RxSwift
+import RxRelay
 
 /// DDIP DesignSystem InputField
 public final class DDIPInputField: UIView {
@@ -41,9 +42,11 @@ public final class DDIPInputField: UIView {
     
     private var disposeBag = DisposeBag()
     
+    let state = PublishRelay<DDIPInputField.State>()
+    
     // MARK: - Property Observers
     
-    private var state: State = .normal {
+    private var _state: State = .normal {
         didSet {
             update(which: .state)
         }
@@ -118,7 +121,9 @@ extension DDIPInputField {
             .withUnretained(self)
             .skip(1)
             .subscribe(onNext: { (owner, text) in
-                owner.update(state: owner.check(text))
+                let state = owner.check(text)
+                owner.update(state: state)
+                owner.state.accept(state)
             })
             .disposed(by: disposeBag)
         
@@ -164,7 +169,7 @@ extension DDIPInputField {
     }
     
     private func updateColor() {
-        switch state {
+        switch _state {
         case .normal:
             wrapper.layer.borderColor = UIColor.clear.cgColor
             textfield.textColor = .designSystem(.neutralBlack)
@@ -187,7 +192,7 @@ extension DDIPInputField {
 
 extension DDIPInputField {
     public func update(state: State) {
-        self.state = state
+        _state = state
     }
     
     public func update(placeholder: String?) {
