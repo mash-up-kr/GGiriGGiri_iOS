@@ -153,7 +153,6 @@ extension DDIPInputView {
     private func bindActionButton() {
         guard action != nil else { return }
         actionButton.rx.tap
-            .debug()
             .subscribe(onNext: { [weak self] in
                 self?.action?()
             })
