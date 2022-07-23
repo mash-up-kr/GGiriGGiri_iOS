@@ -24,7 +24,7 @@ public class DDIPListViewer: UIView {
     }()
     
     public override var alignmentRectInsets: UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 14, right: 0)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     public init(frame: CGRect = .zero, viewLabel: String) {
@@ -55,7 +55,8 @@ public class DDIPListViewer: UIView {
         NSLayoutConstraint.activate([
             viwerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             viwerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            viwerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8)
+            viwerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+            viwerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
         ])
     }
 }
