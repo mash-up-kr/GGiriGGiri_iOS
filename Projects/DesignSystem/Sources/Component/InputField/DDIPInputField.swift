@@ -121,6 +121,14 @@ extension DDIPInputField {
                 owner.update(state: owner.check(text))
             })
             .disposed(by: disposeBag)
+        
+        textfield.rx.controlEvent(.editingDidEnd)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                owner.update(which: .state)
+            })
+            .disposed(by: disposeBag)
+        
     }
     
     private func check(_ text: String?) -> State {
