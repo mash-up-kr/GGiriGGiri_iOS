@@ -55,6 +55,12 @@ public final class DDIPInputField: UIView {
         }
     }
     
+    private var text: String? {
+        didSet {
+            update(which: .text)
+        }
+    }
+    
     private var condition: ((String?) -> (Bool))? = nil {
         didSet {
             bind()
@@ -135,6 +141,7 @@ extension DDIPInputField {
     private enum Update {
         case state
         case placeholder
+        case text
     }
     
     private func update(which: Update) {
@@ -143,6 +150,8 @@ extension DDIPInputField {
             updateColor()
         case .placeholder:
             updatePlaceHolder()
+        case .text:
+            updateText()
         }
     }
     
@@ -159,6 +168,10 @@ extension DDIPInputField {
     
     private func updatePlaceHolder() {
         textfield.placeholder = placeholder
+    }
+    
+    private func updateText() {
+        textfield.text = text
     }
 }
 
@@ -180,5 +193,9 @@ extension DDIPInputField {
         }
 
         self.condition = condition
+    }
+    
+    public func update(text: String?) {
+        self.text = text
     }
 }
