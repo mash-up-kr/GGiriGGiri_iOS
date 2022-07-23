@@ -44,11 +44,7 @@ public class DDIPListCardView: UIView, AddViewsable {
     public let spaceLeftView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .red
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: view.bounds.size.width / 2, y: 0), radius: view.bounds.size.height, startAngle: 0.0, endAngle: .pi, clockwise: true)
-        let circleShape = CAShapeLayer()
-        circleShape.path = circlePath.cgPath
-        view.layer.addSublayer(circleShape)
+        view.backgroundColor = .clear
         
         return view
     }()
@@ -56,11 +52,7 @@ public class DDIPListCardView: UIView, AddViewsable {
     public let spaceRightView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .red
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: view.bounds.size.width / 2, y: 0), radius: view.bounds.size.height, startAngle: 0.0, endAngle: .pi, clockwise: true)
-        let circleShape = CAShapeLayer()
-        circleShape.path = circlePath.cgPath
-        view.layer.addSublayer(circleShape)
+        view.backgroundColor = .clear
         
         return view
     }()
@@ -81,6 +73,8 @@ public class DDIPListCardView: UIView, AddViewsable {
         setView()
         setUI()
         setValue()
+        setLeftSpaceView()
+        setRightSpaceView()
     }
     
     required init?(coder: NSCoder) {
@@ -107,6 +101,22 @@ public class DDIPListCardView: UIView, AddViewsable {
         descriptionLabel.text = style.description
         
         dashedLine.createDottedLine(width: 1, color: UIColor.black.cgColor)
+    }
+    
+    private func setLeftSpaceView() {
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: self.bounds.width, y: self.bounds.height + 10), radius: 12, startAngle: .pi * 3/2, endAngle: .pi / 2, clockwise: true)
+        let circleShape = CAShapeLayer()
+        circleShape.fillColor = UIColor.red.cgColor
+        circleShape.path = circlePath.cgPath
+        spaceLeftView.layer.addSublayer(circleShape)
+    }
+    
+    private func setRightSpaceView() {
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: self.bounds.width + 18, y: self.bounds.height + 10), radius: 12, startAngle: .pi / 2, endAngle: .pi * 3/2, clockwise: true)
+        let circleShape = CAShapeLayer()
+        circleShape.fillColor = UIColor.red.cgColor
+        circleShape.path = circlePath.cgPath
+        spaceRightView.layer.addSublayer(circleShape)
     }
     
     private func setUI() {
@@ -163,7 +173,7 @@ extension UIView {
         caShapeLayer.lineWidth = width
         caShapeLayer.lineDashPattern = [2,4]
         let cgPath = CGMutablePath()
-        let cgPoint = [CGPoint(x: self.bounds.minX, y: 0), CGPoint(x: 305, y: 0)]
+        let cgPoint = [CGPoint(x: self.bounds.minX, y: 0), CGPoint(x: 310, y: 0)]
         cgPath.addLines(between: cgPoint)
         caShapeLayer.path = cgPath
         layer.addSublayer(caShapeLayer)
