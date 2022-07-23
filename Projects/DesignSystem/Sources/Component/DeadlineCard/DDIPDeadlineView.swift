@@ -19,12 +19,16 @@ public class DDIPDeadlineView: UIView, AddViewsable {
     public let expirationLabel = UILabel()
     public let dashedLine = UIView()
     
+    private let firstTimeView = TimeView()
+    private let secondTimeView = TimeView()
+    private let firstMinuteView = TimeView()
+    private let secondMinuteView = TimeView()
+    
     public let infoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
+        stackView.distribution = .fillProportionally
         stackView.spacing = 8
                                     
         return stackView
@@ -33,55 +37,19 @@ public class DDIPDeadlineView: UIView, AddViewsable {
     public let timeStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.alignment = .fill
-        stackView.distribution = .fillEqually
+        stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
         
         return stackView
     }()
     
-    public let separatorLabel: UILabel = {
+    public let numberLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = ":"
         label.textAlignment = .center
 
-        return label
-    }()
-    
-    public let firstTimeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .lightGray
-        label.textAlignment = .center
-        
-        return label
-    }()
-    
-    public let secondTimeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .lightGray
-        label.textAlignment = .center
-        
-        return label
-    }()
-    
-    public let firstMinuteLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .lightGray
-        label.textAlignment = .center
-        
-        return label
-    }()
-    
-    public let secondMinuteLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .lightGray
-        label.textAlignment = .center
-        
         return label
     }()
     
@@ -111,10 +79,17 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         setValue()
         setLeftSpaceView()
         setRightSpaceView()
+        setFont()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setFont() {
+        nameLabel.font = UIFont.systemFont(ofSize: 18)
+        brandLabel.font = UIFont.systemFont(ofSize: 12)
+        expirationLabel.font = UIFont.systemFont(ofSize: 12)
     }
     
     private func setView() {
@@ -127,9 +102,7 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         
         self.addSubViews([timeStackView, imageIcon, viwer, CTAButton, infoStackView, dashedLine, spaceLeftView, spaceRightView])
         infoStackView.addArrangedSubviews(with: [brandLabel, nameLabel, expirationLabel])
-        timeStackView.addArrangedSubviews(with: [firstTimeLabel, secondTimeLabel, separatorLabel, firstMinuteLabel, secondMinuteLabel])
-        
-        dashedLine.createDottedLine(width: 1, color: UIColor.black.cgColor)
+        timeStackView.addArrangedSubviews(with: [firstTimeView, secondTimeView, numberLabel, firstMinuteView, secondMinuteView])
     }
     
     private func setValue() {
@@ -137,15 +110,17 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         self.layer.borderColor = UIColor.red.cgColor
         self.layer.cornerRadius = 12
         
+        dashedLine.createDottedLine(width: 1, color: UIColor.black.cgColor)
+        
         imageIcon.image = UIImage(systemName: style.iconImage)
         nameLabel.text = style.name
         brandLabel.text = style.brand
         expirationLabel.text = style.expirationDate
         
-        firstTimeLabel.text = style.time
-        secondTimeLabel.text = style.time
-        firstMinuteLabel.text = style.time
-        secondMinuteLabel.text = style.time
+        firstTimeView.numberLabel.text = style.time
+        secondTimeView.numberLabel.text = style.time
+        firstMinuteView.numberLabel.text = style.time
+        secondMinuteView.numberLabel.text = style.time
     }
     
     private func setLeftSpaceView() {
@@ -166,9 +141,10 @@ public class DDIPDeadlineView: UIView, AddViewsable {
 
     private func setUI() {
         NSLayoutConstraint.activate([
-            timeStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 87.5),
+            timeStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            timeStackView.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 0),
             timeStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            timeStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -87.5),
+            timeStackView.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor, constant: 0),
             timeStackView.bottomAnchor.constraint(equalTo: self.imageIcon.topAnchor, constant: -16)
         ])
         
@@ -189,8 +165,8 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         NSLayoutConstraint.activate([
             spaceLeftView.heightAnchor.constraint(equalToConstant: 18),
             spaceLeftView.widthAnchor.constraint(equalToConstant: 18),
+            spaceLeftView.centerYAnchor.constraint(equalTo: dashedLine.centerYAnchor),
             spaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            spaceLeftView.bottomAnchor.constraint(equalTo: infoStackView.topAnchor, constant: -7),
             
             spaceRightView.heightAnchor.constraint(equalToConstant: 18),
             spaceRightView.widthAnchor.constraint(equalToConstant: 18),
@@ -201,13 +177,12 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         NSLayoutConstraint.activate([
             infoStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             infoStackView.topAnchor.constraint(equalTo: dashedLine.bottomAnchor, constant: 16),
-            infoStackView.trailingAnchor.constraint(equalTo: viwer.leadingAnchor, constant: -28),
+            infoStackView.trailingAnchor.constraint(lessThanOrEqualTo: self.viwer.leadingAnchor, constant: -10),
             infoStackView.bottomAnchor.constraint(equalTo: CTAButton.topAnchor, constant: -16)
         ])
 
         NSLayoutConstraint.activate([
             viwer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            viwer.bottomAnchor.constraint(equalTo: CTAButton.topAnchor, constant: -54),
             viwer.topAnchor.constraint(equalTo: infoStackView.topAnchor)
         ])
 
@@ -215,6 +190,34 @@ public class DDIPDeadlineView: UIView, AddViewsable {
             CTAButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             CTAButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             CTAButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24),
+        ])
+    }
+}
+
+fileprivate final class TimeView: UIView {
+    public let numberLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "1"
+        label.textAlignment = .center
+
+        return label
+    }()
+    
+    convenience init() {
+        self.init(frame: .zero)
+        self.backgroundColor = .gray
+        setUI()
+    }
+    
+    public func setUI() {
+        self.addSubview(numberLabel)
+        
+        NSLayoutConstraint.activate([
+            numberLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 7),
+            numberLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -7),
+            numberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 7),
+            numberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -7)
         ])
     }
 }
