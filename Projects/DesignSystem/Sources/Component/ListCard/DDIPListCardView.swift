@@ -104,7 +104,7 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
     
     private func setLeftSpaceView() {
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: self.bounds.width, y: self.bounds.height + 10), radius: 12, startAngle: .pi * 3/2, endAngle: .pi / 2, clockwise: true)
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: self.bounds.width, y: self.bounds.height + 7), radius: 12, startAngle: .pi * 3/2, endAngle: .pi / 2, clockwise: true)
         let circleShape = CAShapeLayer()
         circleShape.fillColor = UIColor.red.cgColor
         circleShape.path = circlePath.cgPath
@@ -112,7 +112,7 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
     
     private func setRightSpaceView() {
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: self.bounds.width + 18, y: self.bounds.height + 10), radius: 12, startAngle: .pi / 2, endAngle: .pi * 3/2, clockwise: true)
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: self.bounds.width + 18, y: self.bounds.height + 7), radius: 12, startAngle: .pi / 2, endAngle: .pi * 3/2, clockwise: true)
         let circleShape = CAShapeLayer()
         circleShape.fillColor = UIColor.red.cgColor
         circleShape.path = circlePath.cgPath
