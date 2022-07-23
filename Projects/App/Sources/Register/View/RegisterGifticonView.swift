@@ -20,7 +20,7 @@ final class RegisterGifticonView: BaseView {
         return scrollView
     }()
     
-    private let registerGiftionImageView = RegisterGiftionImageView()
+    private(set) var registerGiftionImageView = RegisterGiftionImageView()
     private let infoMessageView = InfoMessageView()
     private let registerGifticonInfoView = RegisterGifticonInfoView()
     private let registerGifticonDDipInfoView = RegisterGifticonDDipInfoView()
@@ -29,22 +29,11 @@ final class RegisterGifticonView: BaseView {
     override func setLayout() {
         super.setLayout()
         
-        addSubview(scrollView)
-        
         scrollView.addSubviews(with: [registerGiftionImageView,
                                       infoMessageView,
                                       registerGifticonInfoView,
-                                      registerGifticonDDipInfoView,
-                                      registerButton])
-        
-        scrollView.snp.makeConstraints {
-            $0.edges.equalTo(safeAreaLayoutGuide)
-        }
-        
-        scrollView.contentLayoutGuide.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(self.safeAreaLayoutGuide)
-            $0.bottom.equalTo(registerButton.snp.bottom)
-        }
+                                      registerGifticonDDipInfoView])
+        addSubviews(with: [scrollView, registerButton])
         
         registerGiftionImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
@@ -70,10 +59,21 @@ final class RegisterGifticonView: BaseView {
             $0.height.equalTo(122)
         }
         
+        scrollView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(safeAreaLayoutGuide)
+            $0.bottom.equalTo(registerGifticonDDipInfoView.snp.bottom)
+        }
+        
+        scrollView.contentLayoutGuide.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(self.safeAreaLayoutGuide)
+            $0.bottom.equalTo(registerGifticonDDipInfoView.snp.bottom)
+        }
+        
         registerButton.snp.makeConstraints {
-            $0.top.equalTo(registerGifticonDDipInfoView.snp.bottom).offset(48)
-            $0.leading.trailing.equalTo(infoMessageView)
+            $0.top.equalTo(scrollView.snp.bottom).offset(46)
+            $0.leading.trailing.equalTo(scrollView)
             $0.height.equalTo(54)
+            $0.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
     
