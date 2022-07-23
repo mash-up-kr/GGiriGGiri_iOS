@@ -46,8 +46,8 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
         self.leftTabButton.setTitle(self.style.leftTitle, for: .normal)
         self.rightTapButton.setTitle(self.style.rightTitle, for: .normal)
         
-        self.leftTabButton.titleLabel?.font = .pretendard(family: .regular, size: ._16)
-        self.rightTapButton.titleLabel?.font = .pretendard(family: .regular, size: ._16)
+        self.leftTabButton.titleLabel?.font = .designSystem(.pretendard, family: .regular, size: ._16)
+        self.rightTapButton.titleLabel?.font = .designSystem(.pretendard, family: .regular, size: ._16)
         
         self.leftTabButton.setTitleColor(.black, for: .normal)
         self.rightTapButton.setTitleColor(.black, for: .normal)

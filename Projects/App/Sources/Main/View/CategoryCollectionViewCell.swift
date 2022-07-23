@@ -8,13 +8,17 @@
 
 import UIKit
 
+import DesignSystem
 import SnapKit
 
 final class CategoryCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "CategoryCollectionViewCell"
     
-    private let nameLabel = TempLabel(color: .black, font: UIFont.pretendard(family: .medium, size: ._14))
+    private let nameLabel = TempLabel(
+        color: .black,
+        font: .designSystem(.pretendard, family: .regular, size: ._14)
+    )
     
     func configure(_ category: [Category], with index: Int) {
         nameLabel.textAlignment = .center

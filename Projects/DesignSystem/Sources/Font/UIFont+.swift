@@ -9,11 +9,20 @@
 import UIKit
 
 extension UIFont {
+    public class func designSystem(_ name: DDIPFont.Name, family: DDIPFont.Family, size: DDIPFont.Size) -> UIFont {
+        switch name {
+        case .chakrapeth:
+            return chakraPetch(family: family, size: size)
+        case .pretendard:
+            return pretendard(family: family, size: size)
+        }
+    }
+
     /// ChekraPetch 폰트
     /// - Parameters:
     ///   - family: 사용할 패밀리 [default  bold]
     ///   - size: 적용될 사이즈 [default 20]
-    public class func chakraPetch(family: DDIPFont.Family = .bold, size: DDIPFont.Size = ._20) -> UIFont {
+    private class func chakraPetch(family: DDIPFont.Family = .bold, size: DDIPFont.Size = ._20) -> UIFont {
         let font = DDIPFont.DDIPFonts(name: .chakrapeth, family: family)
         return _font(name: font.name, size: size.rawValue)
     }
@@ -22,7 +31,7 @@ extension UIFont {
     /// - Parameters:
     ///   - family: 사용할 패밀리
     ///   - size: 적용될 사이즈
-    public class func pretendard(family: DDIPFont.Family, size: DDIPFont.Size) -> UIFont {
+    private class func pretendard(family: DDIPFont.Family = .regular, size: DDIPFont.Size) -> UIFont {
         let font = DDIPFont.DDIPFonts(name: .pretendard, family: family)
         return _font(name: font.name, size: size.rawValue)
     }

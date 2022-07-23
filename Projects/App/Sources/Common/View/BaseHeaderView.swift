@@ -8,6 +8,7 @@
 
 import UIKit
 
+import DesignSystem
 import SnapKit
 
 final class BaseHeaderView: UICollectionReusableView {
@@ -15,7 +16,7 @@ final class BaseHeaderView: UICollectionReusableView {
     static let reuseIdentifier = "BaseHeaderView"
     
     private(set) var titleLabel = TempLabel(color: .black,
-                                            font: UIFont.pretendard(family: .bold, size: ._16))
+                                            font: .designSystem(.pretendard, family: .regular, size: ._16))
     
     override init(frame: CGRect) {
         super.init(frame: frame)

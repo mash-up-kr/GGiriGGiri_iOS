@@ -8,18 +8,23 @@
 
 import UIKit
 
+import DesignSystem
 import SnapKit
 
 /// 기프티콘 정보 - 기프티콘 뿌리기 정보 뷰
 final class RegisterGifticonDDipInfoView: BaseView {
     
-    private let gifticonDDipInfoSectionTitleLabel = TempLabel(color: .black,
-                                       text: "뿌리기 정보",
-                                       font: UIFont.pretendard(family: .bold, size: ._16))
+    private let gifticonDDipInfoSectionTitleLabel = TempLabel(
+        color: .black,
+        text: "뿌리기 정보",
+        font: .designSystem(.pretendard, family: .regular, size: ._16)
+    )
     
-    private let expirationTimeTitleLabel = TempLabel(color: .black,
-                                          text: "마감시간",
-                                          font: UIFont.pretendard(family: .regular, size: ._14))
+    private let expirationTimeTitleLabel = TempLabel(
+        color: .black,
+        text: "마감시간",
+        font: .designSystem(.pretendard, family: .regular, size: ._14)
+    )
     
     private let timeInputView = TimeInputView()
     
@@ -94,7 +99,7 @@ extension TimeInputView: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let pickerContainerView = UIView()
         let pickerLabel = UILabel()
-        pickerLabel.font = UIFont.pretendard(family: .regular, size: ._14)
+        pickerLabel.font = .designSystem(.pretendard, family: .regular, size: ._14)
         pickerLabel.textColor = UIColor.black
         pickerLabel.backgroundColor = .clear
         pickerLabel.textAlignment = .left

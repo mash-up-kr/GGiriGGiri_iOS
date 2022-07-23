@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIColor {
-    public class func ddip(_ color: DDIPColor) -> UIColor? {
+    public class func designSystem(_ color: DDIPColor) -> UIColor? {
         guard let bundle = DesignSystem.Constant.bundle else { return nil }
         return UIColor(named: color.name, in: bundle, compatibleWith: nil)
     }
