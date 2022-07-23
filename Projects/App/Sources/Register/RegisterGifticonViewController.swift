@@ -29,7 +29,7 @@ final class RegisterGifticonViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .ddip(.neutralWhite)
+        view.backgroundColor = .designSystem(.neutralWhite)
         
         configureNavigationBar()
         configure()

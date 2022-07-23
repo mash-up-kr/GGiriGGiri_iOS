@@ -8,6 +8,7 @@
 
 import UIKit
 
+import DesignSystem
 import SnapKit
 
 final class GiftionImageViewController: UIViewController {
@@ -30,7 +31,7 @@ final class GiftionImageViewController: UIViewController {
     }
     
     private func configure() {
-        view.backgroundColor = .ddip(.neutralWhite)
+        view.backgroundColor = .designSystem(.neutralWhite)
         
         giftionImageView.contentMode = .scaleAspectFit
     }

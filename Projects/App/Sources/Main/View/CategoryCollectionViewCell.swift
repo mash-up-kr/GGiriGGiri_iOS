@@ -55,7 +55,7 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     }
     
     private func configure() {
-        backgroundColor = .ddip(.neutralWhite)
+        backgroundColor = .designSystem(.neutralWhite)
         
         self.layer.cornerRadius = 20
     }
