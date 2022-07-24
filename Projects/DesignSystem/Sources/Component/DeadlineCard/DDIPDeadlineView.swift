@@ -115,7 +115,7 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         imageIcon.image = UIImage(systemName: style.iconImage)
         nameLabel.text = style.name
         brandLabel.text = style.brand
-        expirationLabel.text = style.expirationDate
+        expirationLabel.text = "유효기간 : " + style.expirationDate
         
         firstTimeView.numberLabel.text = style.time
         secondTimeView.numberLabel.text = style.time

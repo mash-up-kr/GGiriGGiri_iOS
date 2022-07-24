@@ -96,7 +96,7 @@ public class DDIPListCardView: UIView, AddViewsable {
     private func setValue() {
         brandLabel.text = style.brand
         nameLabel.text = style.name
-        expirationLabel.text = style.expirationDate
+        expirationLabel.text = "유효기간 : " + style.expirationDate
         imageIcon.image = UIImage(systemName: style.iconImage)
         descriptionLabel.text = style.description
         
