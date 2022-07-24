@@ -173,8 +173,8 @@ extension DDIPInputField {
             wrapper.layer.borderColor = UIColor.clear.cgColor
             textfield.textColor = .designSystem(.neutralBlack)
         case .error:
-            textfield.textColor = .designSystem(.dangerRaspberry)
             wrapper.layer.borderColor = UIColor.designSystem(.dangerRaspberry)?.cgColor
+            textfield.textColor = .designSystem(.dangerRaspberry)
         }
     }
     
