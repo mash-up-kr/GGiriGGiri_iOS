@@ -142,9 +142,8 @@ extension DDIPInputField {
         }
         if condition(text) {
             return .normal
-        } else {
-            return .error
-        }
+        } 
+        return .error
     }
 }
 
