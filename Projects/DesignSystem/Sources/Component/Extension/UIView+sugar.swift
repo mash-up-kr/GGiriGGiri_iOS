@@ -13,7 +13,7 @@ extension UIView {
         let caShapeLayer = CAShapeLayer()
         caShapeLayer.strokeColor = color
         caShapeLayer.lineWidth = width
-        caShapeLayer.lineDashPattern = [2,4]
+        caShapeLayer.lineDashPattern = [3.5, 3.5]
         let cgPath = CGMutablePath()
         let cgPoint = [CGPoint(x: self.bounds.minX, y: 0), CGPoint(x: 310, y: 0)]
         cgPath.addLines(between: cgPoint)
