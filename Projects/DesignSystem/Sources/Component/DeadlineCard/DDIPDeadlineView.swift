@@ -208,9 +208,14 @@ fileprivate final class TimeView: UIView {
         self.init(frame: .zero)
         self.backgroundColor = .gray
         setUI()
+        setValue()
     }
     
-    public func setUI() {
+    private func setValue() {
+        self.layer.cornerRadius = 5
+    }
+    
+    private func setUI() {
         self.addSubview(numberLabel)
         
         NSLayoutConstraint.activate([
