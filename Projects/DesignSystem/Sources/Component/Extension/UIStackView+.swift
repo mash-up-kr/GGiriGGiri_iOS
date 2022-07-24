@@ -1,5 +1,5 @@
 //
-//  StackView+.swift
+//  UIStackView+.swift
 //  DesignSystem
 //
 //  Created by Eddy on 2022/07/17.
