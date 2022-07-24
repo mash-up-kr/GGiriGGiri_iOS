@@ -11,7 +11,7 @@ import UIKit
 public class DDIPDeadlineView: UIView, AddViewsable {
     public let style: DDIPDeadlineViewStyle
     private let CTAButton: DDIPCTAButton
-    private let viwer: DDIPListViewer
+    private let applyViewer: DDIPApplyViewer
     
     public let imageIcon = UIImageView()
     public let nameLabel = UILabel()
@@ -69,10 +69,10 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         return view
     }()
         
-    public init(frame: CGRect = .zero, style: DDIPDeadlineViewStyle, button: DDIPCTAButton, viwer: DDIPListViewer) {
+    public init(frame: CGRect = .zero, style: DDIPDeadlineViewStyle, button: DDIPCTAButton, applyViewer: DDIPApplyViewer) {
         self.style = style
         self.CTAButton = button
-        self.viwer = viwer
+        self.applyViewer = applyViewer
         super.init(frame: frame)
         setView()
         setUI()
@@ -93,14 +93,14 @@ public class DDIPDeadlineView: UIView, AddViewsable {
     }
     
     private func setView() {
-        viwer.translatesAutoresizingMaskIntoConstraints = false
+        applyViewer.translatesAutoresizingMaskIntoConstraints = false
         imageIcon.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         brandLabel.translatesAutoresizingMaskIntoConstraints = false
         expirationLabel.translatesAutoresizingMaskIntoConstraints = false
         dashedLine.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubViews([timeStackView, imageIcon, viwer, CTAButton, infoStackView, dashedLine, spaceLeftView, spaceRightView])
+        self.addSubViews([timeStackView, imageIcon, applyViewer, CTAButton, infoStackView, dashedLine, spaceLeftView, spaceRightView])
         infoStackView.addArrangedSubviews(with: [brandLabel, nameLabel, expirationLabel])
         timeStackView.addArrangedSubviews(with: [firstTimeView, secondTimeView, numberLabel, firstMinuteView, secondMinuteView])
     }
@@ -177,13 +177,13 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         NSLayoutConstraint.activate([
             infoStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             infoStackView.topAnchor.constraint(equalTo: dashedLine.bottomAnchor, constant: 16),
-            infoStackView.trailingAnchor.constraint(lessThanOrEqualTo: self.viwer.leadingAnchor, constant: -10),
+            infoStackView.trailingAnchor.constraint(lessThanOrEqualTo: self.applyViewer.leadingAnchor, constant: -10),
             infoStackView.bottomAnchor.constraint(equalTo: CTAButton.topAnchor, constant: -16)
         ])
 
         NSLayoutConstraint.activate([
-            viwer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            viwer.topAnchor.constraint(equalTo: infoStackView.topAnchor)
+            applyViewer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            applyViewer.topAnchor.constraint(equalTo: infoStackView.topAnchor)
         ])
 
         NSLayoutConstraint.activate([

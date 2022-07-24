@@ -8,11 +8,11 @@
 
 import UIKit
 
-public class DDIPListViewer: UIView {
-    private var viewerLabel: UILabel = UILabel()
-    private var viewerImageView: UIImageView = UIImageView()
+public class DDIPApplyViewer: UIView {
+    private var applyViewerLabel: UILabel = UILabel()
+    private var applyViewerImageView: UIImageView = UIImageView()
     
-    private let viwerStackView: UIStackView = {
+    private let applyViewerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.distribution = .fill
         stackView.alignment = .fill
@@ -28,7 +28,7 @@ public class DDIPListViewer: UIView {
     }
     
     public init(frame: CGRect = .zero, viewLabel: String) {
-        self.viewerLabel.text = "\(viewLabel)명"
+        applyViewerLabel.text = "\(viewLabel)명"
         super.init(frame: frame)
         setLayout()
         setAttribute()
@@ -42,21 +42,21 @@ public class DDIPListViewer: UIView {
         self.backgroundColor = .black
         self.layer.cornerRadius = 8
         
-        viewerImageView.image = UIImage(systemName: "swift")
-        viewerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        viewerLabel.textColor = .white
+        applyViewerImageView.image = UIImage(systemName: "swift")
+        applyViewerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        applyViewerLabel.textColor = .white
     }
     
     private func setLayout() {
-        self.addSubview(viwerStackView)
-        viwerStackView.addArrangedSubview(viewerImageView)
-        viwerStackView.addArrangedSubview(viewerLabel)
+        self.addSubview(applyViewerStackView)
+        applyViewerStackView.addArrangedSubview(applyViewerImageView)
+        applyViewerStackView.addArrangedSubview(applyViewerLabel)
         
         NSLayoutConstraint.activate([
-            viwerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            viwerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            viwerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-            viwerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
+            applyViewerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            applyViewerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            applyViewerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+            applyViewerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
         ])
     }
 }

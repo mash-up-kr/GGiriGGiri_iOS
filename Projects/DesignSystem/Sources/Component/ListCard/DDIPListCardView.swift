@@ -11,7 +11,7 @@ import UIKit
 public class DDIPListCardView: UIView, AddViewsable {
     public let style: DDIPListCardViewStyle
     private let alarmButton: DDIPCardListButton
-    private let viewer: DDIPListViewer
+    private let applyViewer: DDIPApplyViewer
     
     public let nameLabel = UILabel()
     public let brandLabel = UILabel()
@@ -61,11 +61,11 @@ public class DDIPListCardView: UIView, AddViewsable {
         frame: CGRect = .zero,
         style: DDIPListCardViewStyle,
         alarmButton: DDIPCardListButton,
-        viewer: DDIPListViewer
+        applyViewer: DDIPApplyViewer
     ) {
         self.style = style
         self.alarmButton = alarmButton
-        self.viewer = viewer
+        self.applyViewer = applyViewer
         super.init(frame: frame)
         self.layer.borderWidth = 2
         self.layer.borderColor = UIColor.red.cgColor
@@ -82,13 +82,13 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
     
     private func setView() {
-        viewer.translatesAutoresizingMaskIntoConstraints = false
+        applyViewer.translatesAutoresizingMaskIntoConstraints = false
         alarmButton.translatesAutoresizingMaskIntoConstraints = false
         imageIcon.translatesAutoresizingMaskIntoConstraints = false
         dashedLine.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubViews([infoStackView, imageIcon, viewer, spaceLeftView, spaceRightView, dashedLine, drawStackView])
+        self.addSubViews([infoStackView, imageIcon, applyViewer, spaceLeftView, spaceRightView, dashedLine, drawStackView])
         infoStackView.addArrangedSubviews(with: [brandLabel, nameLabel, expirationLabel])
         drawStackView.addArrangedSubviews(with: [alarmButton, descriptionLabel])
     }
@@ -129,16 +129,16 @@ public class DDIPListCardView: UIView, AddViewsable {
         
         NSLayoutConstraint.activate([
             imageIcon.topAnchor.constraint(equalTo: self.topAnchor, constant: 13),
-            imageIcon.trailingAnchor.constraint(equalTo: viewer.leadingAnchor, constant: -1),
+            imageIcon.trailingAnchor.constraint(equalTo: applyViewer.leadingAnchor, constant: -1),
             imageIcon.bottomAnchor.constraint(equalTo: dashedLine.topAnchor, constant: -10),
             imageIcon.widthAnchor.constraint(equalToConstant: 75),
             imageIcon.heightAnchor.constraint(equalToConstant: 75)
         ])
         
         NSLayoutConstraint.activate([
-            viewer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -9),
-            viewer.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-            viewer.bottomAnchor.constraint(equalTo: dashedLine.topAnchor, constant: -68)
+            applyViewer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -9),
+            applyViewer.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+            applyViewer.bottomAnchor.constraint(equalTo: dashedLine.topAnchor, constant: -68)
         ])
         
         NSLayoutConstraint.activate([
