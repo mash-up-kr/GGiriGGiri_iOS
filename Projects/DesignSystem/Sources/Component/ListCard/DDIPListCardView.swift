@@ -41,7 +41,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         return stackView
     }()
     
-    public let spaceLeftView: UIView = {
+    public let semiCircleSpaceLeftView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
@@ -49,7 +49,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         return view
     }()
     
-    public let spaceRightView: UIView = {
+    public let semiCircleSpaceRightView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
@@ -88,7 +88,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         dashedLine.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubViews([infoStackView, imageIcon, applyViewer, spaceLeftView, spaceRightView, dashedLine, drawStackView])
+        self.addSubViews([infoStackView, imageIcon, applyViewer, semiCircleSpaceLeftView, semiCircleSpaceRightView, dashedLine, drawStackView])
         infoStackView.addArrangedSubviews(with: [brandLabel, nameLabel, expirationLabel])
         drawStackView.addArrangedSubviews(with: [alarmButton, descriptionLabel])
     }
@@ -108,7 +108,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         let circleShape = CAShapeLayer()
         circleShape.fillColor = UIColor.red.cgColor
         circleShape.path = circlePath.cgPath
-        spaceLeftView.layer.addSublayer(circleShape)
+        semiCircleSpaceLeftView.layer.addSublayer(circleShape)
     }
     
     private func setRightSpaceView() {
@@ -116,7 +116,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         let circleShape = CAShapeLayer()
         circleShape.fillColor = UIColor.red.cgColor
         circleShape.path = circlePath.cgPath
-        spaceRightView.layer.addSublayer(circleShape)
+        semiCircleSpaceRightView.layer.addSublayer(circleShape)
     }
     
     private func setUI() {
@@ -143,21 +143,21 @@ public class DDIPListCardView: UIView, AddViewsable {
         
         NSLayoutConstraint.activate([
             dashedLine.heightAnchor.constraint(equalToConstant: 1),
-            dashedLine.leadingAnchor.constraint(equalTo: self.spaceLeftView.trailingAnchor),
-            dashedLine.trailingAnchor.constraint(equalTo: self.spaceRightView.leadingAnchor),
+            dashedLine.leadingAnchor.constraint(equalTo: self.semiCircleSpaceLeftView.trailingAnchor),
+            dashedLine.trailingAnchor.constraint(equalTo: self.semiCircleSpaceRightView.leadingAnchor),
             dashedLine.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -24)
         ])
         
         NSLayoutConstraint.activate([
-            spaceLeftView.heightAnchor.constraint(equalToConstant: 18),
-            spaceLeftView.widthAnchor.constraint(equalToConstant: 18),
-            spaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            spaceLeftView.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -15),
+            semiCircleSpaceLeftView.heightAnchor.constraint(equalToConstant: 18),
+            semiCircleSpaceLeftView.widthAnchor.constraint(equalToConstant: 18),
+            semiCircleSpaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            semiCircleSpaceLeftView.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -15),
             
-            spaceRightView.heightAnchor.constraint(equalToConstant: 18),
-            spaceRightView.widthAnchor.constraint(equalToConstant: 18),
-            spaceRightView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            spaceRightView.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -15),
+            semiCircleSpaceRightView.heightAnchor.constraint(equalToConstant: 18),
+            semiCircleSpaceRightView.widthAnchor.constraint(equalToConstant: 18),
+            semiCircleSpaceRightView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            semiCircleSpaceRightView.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -15),
         ])
         
         NSLayoutConstraint.activate([

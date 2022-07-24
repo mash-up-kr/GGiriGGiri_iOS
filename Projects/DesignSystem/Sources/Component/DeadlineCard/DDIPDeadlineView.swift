@@ -53,7 +53,7 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         return label
     }()
     
-    public let spaceLeftView: UIView = {
+    public let semiCircleSpaceLeftView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
@@ -61,7 +61,7 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         return view
     }()
     
-    public let spaceRightView: UIView = {
+    public let semiCircleSpaceRightView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
@@ -100,7 +100,7 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         expirationLabel.translatesAutoresizingMaskIntoConstraints = false
         dashedLine.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubViews([timeStackView, imageIcon, applyViewer, CTAButton, infoStackView, dashedLine, spaceLeftView, spaceRightView])
+        self.addSubViews([timeStackView, imageIcon, applyViewer, CTAButton, infoStackView, dashedLine, semiCircleSpaceLeftView, semiCircleSpaceRightView])
         infoStackView.addArrangedSubviews(with: [brandLabel, nameLabel, expirationLabel])
         timeStackView.addArrangedSubviews(with: [firstTimeView, secondTimeView, numberLabel, firstMinuteView, secondMinuteView])
     }
@@ -128,7 +128,7 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         let circleShape = CAShapeLayer()
         circleShape.fillColor = UIColor.red.cgColor
         circleShape.path = circlePath.cgPath
-        spaceLeftView.layer.addSublayer(circleShape)
+        semiCircleSpaceLeftView.layer.addSublayer(circleShape)
     }
     
     private func setRightSpaceView() {
@@ -136,7 +136,7 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         let circleShape = CAShapeLayer()
         circleShape.fillColor = UIColor.red.cgColor
         circleShape.path = circlePath.cgPath
-        spaceRightView.layer.addSublayer(circleShape)
+        semiCircleSpaceRightView.layer.addSublayer(circleShape)
     }
 
     private func setUI() {
@@ -163,15 +163,15 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         ])
         
         NSLayoutConstraint.activate([
-            spaceLeftView.heightAnchor.constraint(equalToConstant: 18),
-            spaceLeftView.widthAnchor.constraint(equalToConstant: 18),
-            spaceLeftView.centerYAnchor.constraint(equalTo: dashedLine.centerYAnchor),
-            spaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            semiCircleSpaceLeftView.heightAnchor.constraint(equalToConstant: 18),
+            semiCircleSpaceLeftView.widthAnchor.constraint(equalToConstant: 18),
+            semiCircleSpaceLeftView.centerYAnchor.constraint(equalTo: dashedLine.centerYAnchor),
+            semiCircleSpaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             
-            spaceRightView.heightAnchor.constraint(equalToConstant: 18),
-            spaceRightView.widthAnchor.constraint(equalToConstant: 18),
-            spaceRightView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            spaceRightView.bottomAnchor.constraint(equalTo: infoStackView.topAnchor, constant: -7),
+            semiCircleSpaceRightView.heightAnchor.constraint(equalToConstant: 18),
+            semiCircleSpaceRightView.widthAnchor.constraint(equalToConstant: 18),
+            semiCircleSpaceRightView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            semiCircleSpaceRightView.bottomAnchor.constraint(equalTo: infoStackView.topAnchor, constant: -7),
         ])
         
         NSLayoutConstraint.activate([
