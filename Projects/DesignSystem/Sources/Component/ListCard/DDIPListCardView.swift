@@ -145,8 +145,10 @@ public class DDIPListCardView: UIView, AddViewsable {
             dashedLine.heightAnchor.constraint(equalToConstant: 1),
             dashedLine.leadingAnchor.constraint(equalTo: self.spaceLeftView.trailingAnchor),
             dashedLine.trailingAnchor.constraint(equalTo: self.spaceRightView.leadingAnchor),
-            dashedLine.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -24),
-
+            dashedLine.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -24)
+        ])
+        
+        NSLayoutConstraint.activate([
             spaceLeftView.heightAnchor.constraint(equalToConstant: 18),
             spaceLeftView.widthAnchor.constraint(equalToConstant: 18),
             spaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
