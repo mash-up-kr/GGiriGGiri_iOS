@@ -21,14 +21,17 @@ public struct DDIPCardListButtonStyle {
     public let buttonColor: UIColor
     public let titleColor: UIColor?
     public let title: TitleStatus?
+    public let isHidden: Bool
 
     public init(
         buttonColor: UIColor,
         titleColor: UIColor?,
-        title: TitleStatus?
+        title: TitleStatus?,
+        isHidden: Bool
     ) {
         self.buttonColor = buttonColor
         self.titleColor = titleColor
         self.title = title
+        self.isHidden = isHidden
     }
 }
