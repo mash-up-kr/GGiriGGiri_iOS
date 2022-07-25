@@ -10,7 +10,7 @@ import UIKit
 
 /// 모든 ViewController의 기본이 되는 BaseViewController
 class BaseViewController<T>: UIViewController {
-    let viewModel: T
+    var viewModel: T
     
     init(_ viewModel: T) {
         self.viewModel = viewModel
@@ -18,6 +18,7 @@ class BaseViewController<T>: UIViewController {
         
         configure()
         setLayout()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -29,4 +30,7 @@ class BaseViewController<T>: UIViewController {
     
     /// UI 컴포넌트를 추가 및 배치할 때 사용하는 method
     func setLayout() { }
+    
+    /// 값 변화에 따른 처리를 설정할 때 사용하는 method
+    func bind() { }
 }
