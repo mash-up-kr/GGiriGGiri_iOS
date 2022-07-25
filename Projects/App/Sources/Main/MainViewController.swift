@@ -26,19 +26,24 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     }()
     private let floatingButton = TempButton()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .designSystem(.primaryYellow)
-    }
-
     override func configure() {
         super.configure()
-        configureNavigationBar()
-        configureCollectionView()
-        configureFloatingButton()
+        view.backgroundColor = .designSystem(.primaryYellow)
+        
+        collectionView.configureDataSource(viewModel.collectionViewDataSource)
+        collectionView.configureDelegate(viewModel.collectionViewDelegate)
+        
+        floatingButton.addTarget(self, action: #selector(addButtonDidTapped), for: .touchUpInside)
     }
     
-    private func configureNavigationBar() {
+    override func setLayout() {
+        super.setLayout()
+        layoutNavigationBar()
+        layoutCollectionView()
+        layoutloatingButton()
+    }
+    
+    private func layoutNavigationBar() {
         view.addSubview(navigationBar)
         navigationBar.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -46,10 +51,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         }
     }
     
-    private func configureCollectionView() {
-        collectionView.configureDataSource(viewModel.collectionViewDataSource)
-        collectionView.configureDelegate(viewModel.collectionViewDelegate)
-        
+    private func layoutCollectionView() {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
@@ -58,7 +60,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         }
     }
     
-    private func configureFloatingButton() {
+    private func layoutloatingButton() {
         let floatingButtonWidth: CGFloat = 48
         let offsetOfX: CGFloat = 16
         let offsetOfY: CGFloat = 48
@@ -69,8 +71,6 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             $0.bottom.equalToSuperview().inset(offsetOfY)
             $0.size.equalTo(floatingButtonWidth)
         }
-        
-        floatingButton.addTarget(self, action: #selector(addButtonDidTapped), for: .touchUpInside)
     }
     
     @objc private func addButtonDidTapped() {
