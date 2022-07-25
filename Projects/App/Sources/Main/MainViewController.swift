@@ -14,8 +14,6 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     static let sectionHeaderElementKind = "sectionHeaderElementKind"
     
     private let collectionView = MainView()
-    private let delegate = MainCollectionViewDelegate()
-    private let dataSource = MainCollectionViewDataSource()
     private lazy var navigationBar: DDIPNavigationBar = {
         let barButton = TapBarButtons()
         return  DDIPNavigationBar(
@@ -49,8 +47,8 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     }
     
     private func configureCollectionView() {
-        collectionView.configureDataSource(dataSource)
-        collectionView.configureDelegate(delegate)
+        collectionView.configureDataSource(viewModel.collectionViewDataSource)
+        collectionView.configureDelegate(viewModel.collectionViewDelegate)
         
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {

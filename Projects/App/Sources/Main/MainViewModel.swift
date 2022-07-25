@@ -10,14 +10,16 @@ import UIKit
 
 /// ViewModel에서 사용될 property와 method 정의
 protocol MainViewModelProtocol {
-    var something: Int { get set }
+    var collectionViewDataSource: MainCollectionViewDataSource { get }
+    var collectionViewDelegate: MainCollectionViewDelegate { get }
     
     func doSomething()
 }
 
 /// ViewModelProtocol 구현
 final class MainViewModel: MainViewModelProtocol {
-    var something: Int = .zero
+    let collectionViewDataSource = MainCollectionViewDataSource()
+    let collectionViewDelegate = MainCollectionViewDelegate()
     
     func doSomething() { }
 }
