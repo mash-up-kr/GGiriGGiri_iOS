@@ -17,7 +17,7 @@ public class DDIPDeadlineView: UIView, AddViewsable {
     public let nameLabel = UILabel()
     public let brandLabel = UILabel()
     public let expirationLabel = UILabel()
-    public let dashedLine = UIView()
+    private let dashedLine = DashedLine()
     
     private let firstTimeView = TimeView()
     private let secondTimeView = TimeView()
@@ -53,16 +53,16 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         return label
     }()
     
-    public let semiCircleSpaceLeftView: UIView = {
-        let view = UIView()
+    let semiCircleSpaceLeftView: SpaceView = {
+        let view = SpaceView(isClockwise: false)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
         
         return view
     }()
     
-    public let semiCircleSpaceRightView: UIView = {
-        let view = UIView()
+    let semiCircleSpaceRightView: SpaceView = {
+        let view = SpaceView(isClockwise: true)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
         
@@ -77,8 +77,6 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         setView()
         setUI()
         setValue()
-        setLeftSpaceView()
-        setRightSpaceView()
         setFont()
     }
 
@@ -109,9 +107,7 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         self.layer.borderWidth = 2
         self.layer.borderColor = UIColor.red.cgColor
         self.layer.cornerRadius = 12
-        
-        dashedLine.createDottedLine(width: 1, color: UIColor.black.cgColor)
-        
+
         imageIcon.image = UIImage(systemName: style.iconImage)
         nameLabel.text = style.name
         brandLabel.text = style.brand
@@ -121,22 +117,6 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         secondTimeView.numberLabel.text = style.time
         firstMinuteView.numberLabel.text = style.time
         secondMinuteView.numberLabel.text = style.time
-    }
-    
-    private func setLeftSpaceView() {
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: self.bounds.width, y: self.bounds.height + 7), radius: 12, startAngle: .pi * 3/2, endAngle: .pi / 2, clockwise: true)
-        let circleShape = CAShapeLayer()
-        circleShape.fillColor = UIColor.red.cgColor
-        circleShape.path = circlePath.cgPath
-        semiCircleSpaceLeftView.layer.addSublayer(circleShape)
-    }
-    
-    private func setRightSpaceView() {
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: self.bounds.width + 18, y: self.bounds.height + 7), radius: 12, startAngle: .pi / 2, endAngle: .pi * 3/2, clockwise: true)
-        let circleShape = CAShapeLayer()
-        circleShape.fillColor = UIColor.red.cgColor
-        circleShape.path = circlePath.cgPath
-        semiCircleSpaceRightView.layer.addSublayer(circleShape)
     }
 
     private func setUI() {
@@ -166,11 +146,11 @@ public class DDIPDeadlineView: UIView, AddViewsable {
             semiCircleSpaceLeftView.heightAnchor.constraint(equalToConstant: 18),
             semiCircleSpaceLeftView.widthAnchor.constraint(equalToConstant: 18),
             semiCircleSpaceLeftView.centerYAnchor.constraint(equalTo: dashedLine.centerYAnchor),
-            semiCircleSpaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            semiCircleSpaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: -9),
             
             semiCircleSpaceRightView.heightAnchor.constraint(equalToConstant: 18),
             semiCircleSpaceRightView.widthAnchor.constraint(equalToConstant: 18),
-            semiCircleSpaceRightView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            semiCircleSpaceRightView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 9),
             semiCircleSpaceRightView.bottomAnchor.constraint(equalTo: infoStackView.topAnchor, constant: -7),
         ])
         
