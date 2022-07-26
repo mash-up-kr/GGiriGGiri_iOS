@@ -87,8 +87,8 @@ public class DDIPListCardView: UIView, AddViewsable {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubViews([infoStackView, imageIcon, applyViewer, semiCircleSpaceLeftView, semiCircleSpaceRightView, dashedLine, drawStackView])
-        infoStackView.addArrangedSubviews(with: [brandLabel, nameLabel, expirationLabel])
-        drawStackView.addArrangedSubviews(with: [alarmButton, descriptionLabel])
+        infoStackView.addArrangedSubviews(brandLabel, nameLabel, expirationLabel)
+        drawStackView.addArrangedSubviews(alarmButton, descriptionLabel)
     }
     
     private func setValue() {

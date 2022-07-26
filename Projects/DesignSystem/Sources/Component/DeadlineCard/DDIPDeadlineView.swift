@@ -99,8 +99,8 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         dashedLine.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubViews([timeStackView, imageIcon, applyViewer, CTAButton, infoStackView, dashedLine, semiCircleSpaceLeftView, semiCircleSpaceRightView])
-        infoStackView.addArrangedSubviews(with: [brandLabel, nameLabel, expirationLabel])
-        timeStackView.addArrangedSubviews(with: [firstTimeView, secondTimeView, numberLabel, firstMinuteView, secondMinuteView])
+        infoStackView.addArrangedSubviews(brandLabel, nameLabel, expirationLabel)
+        timeStackView.addArrangedSubviews(firstTimeView, secondTimeView, numberLabel, firstMinuteView, secondMinuteView)
     }
     
     private func setValue() {
