@@ -9,9 +9,13 @@
 import Foundation
 
 protocol ApplyViewModelProtocol {
-    
+    var id: Int { get set }
 }
 
 final class ApplyViewModel: ApplyViewModelProtocol {
+    var id: Int
     
+    init(id: Int) {
+        self.id = id
+    }
 }
