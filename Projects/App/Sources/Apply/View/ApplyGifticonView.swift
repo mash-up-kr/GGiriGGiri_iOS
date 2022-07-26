@@ -96,8 +96,13 @@ final class ApplyGifticonView: BaseView {
         super.configure()
         
         applyButton.isEnabled = true
+        
         applyButton.setBackgroundColor(.designSystem(.secondaryBlue), for: .normal)
         applyButton.setBackgroundColor(.designSystem(.secondarySkyblue200), for: .disabled)
+        
+        applyButton.setTitle("지금 당장 응모할게요!", for: .normal)
+        applyButton.setTitle("응모 완료!", for: .disabled)
+        
         applyButton.layer.cornerRadius = 12
         applyButton.clipsToBounds = true
         applyButton.addTarget(self, action: #selector(applyButtonTapped(_:)), for: .touchUpInside)
