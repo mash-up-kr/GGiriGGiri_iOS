@@ -23,31 +23,30 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
             rightButtonsItem: nil)
     }()
     
-    private let gifticonCardView = ApplyGifticonCardView()
+    private let applyGifticonView = ApplyGifticonView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .designSystem(.neutralWhite)
-        
-        configureNavigationBar()
     }
     
     override func setLayout() {
         super.setLayout()
         
-        view.addSubviews(with: [gifticonCardView])
+        view.addSubviews(with: [applyGifticonView])
         
-        gifticonCardView.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom).offset(6)
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(393)
+        applyGifticonView.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
     }
     
     override func configure() {
         super.configure()
         
+        configureNavigationBar()
     }
     
     private func configureNavigationBar() {

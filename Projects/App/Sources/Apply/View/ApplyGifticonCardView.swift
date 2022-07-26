@@ -11,6 +11,7 @@ import UIKit
 import DesignSystem
 import SnapKit
 
+/// 기프티콘 응모 뷰 > 기프티콘 응모 카드 뷰 (타이머, 이미지 표시)
 final class ApplyGifticonCardView: BaseView {
     
     private let deadLineTitleLabel = TempLabel(
@@ -55,5 +56,15 @@ final class ApplyGifticonCardView: BaseView {
         layer.cornerRadius = 15
         
         gifticonImageView.image = UIImage(systemName: "pencil")
+    }
+}
+
+/// 기프티콘 응모 > 기프티콘 응모 카드 뷰 > 타이머 표시 뷰
+fileprivate class ApplyGifticonTimeView: BaseView {
+    
+    override func configure() {
+        super.configure()
+        
+        backgroundColor = .designSystem(.secondarySkyblue100)
     }
 }
