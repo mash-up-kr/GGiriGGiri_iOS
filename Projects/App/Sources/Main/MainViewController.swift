@@ -135,10 +135,16 @@ final class MainViewController: BaseViewController<MainViewModelProtocol>, MainC
         present(picker, animated: true)
     }
     
-    func cellTapped(with indexPath: IndexPath) {
-        let applyViewController = ApplyViewController(ApplyViewModel())
+    func gifticonCellTapped(with id: Int) {
+        let applyViewModel = ApplyViewModel(id: id)
+        let applyViewController = ApplyViewController(applyViewModel)
         applyViewController.modalPresentationStyle = .fullScreen
         self.present(applyViewController, animated: true)
+    }
+    
+    func categoryCellTapped(with category: Category) {
+        // TODO: Category에 따라 정렬하기
+        debugPrint(#function)
     }
 }
 

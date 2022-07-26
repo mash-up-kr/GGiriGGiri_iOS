@@ -14,6 +14,7 @@ import SnapKit
 
 final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
     
+    private var gifticonId: Int = 0
     private let disposeBag = DisposeBag()
     
     private lazy var navigationBar: DDIPNavigationBar = {
@@ -24,12 +25,6 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
     }()
     
     private let applyGifticonView = ApplyGifticonView()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        view.backgroundColor = .designSystem(.neutralWhite)
-    }
     
     override func setLayout() {
         super.setLayout()
@@ -48,6 +43,8 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
         
         configureNavigationBar()
         
+        view.backgroundColor = .designSystem(.neutralWhite)
+        gifticonId = viewModel.id
         applyGifticonView.delegate = self
     }
     
