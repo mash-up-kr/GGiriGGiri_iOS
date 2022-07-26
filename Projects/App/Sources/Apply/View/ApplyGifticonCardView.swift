@@ -55,6 +55,7 @@ final class ApplyGifticonCardView: BaseView {
         layer.borderWidth = 2
         layer.cornerRadius = 15
         
+        gifticonImageView.contentMode = .scaleAspectFit
         gifticonImageView.image = UIImage(systemName: "pencil")
     }
 }
