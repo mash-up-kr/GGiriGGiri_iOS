@@ -32,6 +32,7 @@ public class DDIPApplyViewer: UIView {
         super.init(frame: frame)
         setLayout()
         setAttribute()
+        applyViewerLabel.font = UIFont.systemFont(ofSize: 10)
     }
     
     required init?(coder: NSCoder) {
@@ -55,8 +56,8 @@ public class DDIPApplyViewer: UIView {
         NSLayoutConstraint.activate([
             applyViewerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             applyViewerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            applyViewerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-            applyViewerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
+            applyViewerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 6),
+            applyViewerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6),
         ])
     }
 }
