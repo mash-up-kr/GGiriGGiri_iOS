@@ -15,6 +15,7 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "GifticonDeadLineCollectionViewCell"
     
+    private(set) var gifticonId = 0
     private let brandLabel = TempLabel(color: .black)
     private let nameLabel = TempLabel(color: .black)
     private let expirationDateLabel = TempLabel(color: .black)
@@ -40,6 +41,7 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     }()
     
     func configure(with data: GifticonCard) {
+        gifticonId = data.gifticonInfo.id
         brandLabel.text = data.gifticonInfo.brand
         nameLabel.text = data.gifticonInfo.name
         expirationDateLabel.text = data.gifticonInfo.expirationDate

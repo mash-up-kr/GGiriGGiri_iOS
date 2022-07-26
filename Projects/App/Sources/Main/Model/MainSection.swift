@@ -11,14 +11,22 @@ import Foundation
 enum MainSection: CaseIterable {
     static var allCases: [MainSection] {
         return [.deadLine([GifticonCard(remainingTime: "",
-                                                gifticonInfo: Gifticon(brand: "", name: "", expirationDate: "", imageUrl: ""),
-                                                numberOfParticipants: 0,
-                                                isParticipating: true)]),
+                                        gifticonInfo: Gifticon(id: 0,
+                                                               brand: "",
+                                                               name: "",
+                                                               expirationDate: "",
+                                                               imageUrl: ""),
+                                        numberOfParticipants: 0,
+                                        isParticipating: true)]),
                 .category(Category.allCases),
                 .gifticonList([GifticonCard(remainingTime: "",
-                                                    gifticonInfo: Gifticon(brand: "", name: "", expirationDate: "", imageUrl: ""),
-                                                    numberOfParticipants: 0,
-                                                    isParticipating: true)])]
+                                            gifticonInfo: Gifticon(id: 0,
+                                                                   brand: "",
+                                                                   name: "",
+                                                                   expirationDate: "",
+                                                                   imageUrl: ""),
+                                            numberOfParticipants: 0,
+                                            isParticipating: true)])]
     }
     
     case deadLine([GifticonCard])

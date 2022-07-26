@@ -10,6 +10,7 @@ import Foundation
 
 /// 순수 기프티콘 정보
 struct Gifticon {
+    let id: Int
     let brand: String
     let name: String
     let expirationDate: String
