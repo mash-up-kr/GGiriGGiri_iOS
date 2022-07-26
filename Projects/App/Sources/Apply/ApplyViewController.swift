@@ -22,23 +22,32 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
             title: "응모하기",
             rightButtonsItem: nil)
     }()
+    
+    private let gifticonCardView = ApplyGifticonCardView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .designSystem(.neutralWhite)
+        
+        configureNavigationBar()
     }
     
     override func setLayout() {
         super.setLayout()
         
+        view.addSubviews(with: [gifticonCardView])
         
+        gifticonCardView.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom).offset(6)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(393)
+        }
     }
     
     override func configure() {
         super.configure()
         
-        configureNavigationBar()
     }
     
     private func configureNavigationBar() {
