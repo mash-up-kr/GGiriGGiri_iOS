@@ -10,7 +10,8 @@ import UIKit
 
 import DesignSystem
 
-final class MainViewController: BaseViewController<MainViewModelProtocol> {
+final class MainViewController: BaseViewController<MainViewModelProtocol>, MainCollectionViewCellDelegate {
+    
     static let sectionHeaderElementKind = "sectionHeaderElementKind"
     
     private let collectionView = MainView()
@@ -35,9 +36,12 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
 
     override func configure() {
         super.configure()
+        
         configureNavigationBar()
         configureCollectionView()
         configureFloatingButton()
+        
+        delegate.collectionViewCellDelegate = self
     }
     
     private func configureNavigationBar() {
@@ -129,6 +133,12 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         present(picker, animated: true)
+    }
+    
+    func cellTapped(with indexPath: IndexPath) {
+        let applyViewController = ApplyViewController(ApplyViewModel())
+        applyViewController.modalPresentationStyle = .fullScreen
+        self.present(applyViewController, animated: true)
     }
 }
 
