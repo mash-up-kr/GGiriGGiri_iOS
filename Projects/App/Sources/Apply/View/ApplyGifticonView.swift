@@ -11,8 +11,14 @@ import UIKit
 import DesignSystem
 import SnapKit
 
+protocol ApplyGifticonViewButtonDelegate: AnyObject {
+    func applyButtonTapped(completion: @escaping () -> Void)
+}
+
 /// 기프티콘 응모 뷰
 final class ApplyGifticonView: BaseView {
+    
+    public weak var delegate: ApplyGifticonViewButtonDelegate?
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -84,5 +90,22 @@ final class ApplyGifticonView: BaseView {
             $0.height.equalTo(54)
             $0.bottom.equalTo(safeAreaLayoutGuide)
         }
+    }
+    
+    override func configure() {
+        super.configure()
+        
+        applyButton.isEnabled = true
+        applyButton.setBackgroundColor(.designSystem(.secondaryBlue), for: .normal)
+        applyButton.setBackgroundColor(.designSystem(.secondarySkyblue200), for: .disabled)
+        applyButton.layer.cornerRadius = 12
+        applyButton.clipsToBounds = true
+        applyButton.addTarget(self, action: #selector(applyButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func applyButtonTapped(_ sender: UIButton) {
+        delegate?.applyButtonTapped(completion: {
+            self.applyButton.isEnabled = false
+        })
     }
 }

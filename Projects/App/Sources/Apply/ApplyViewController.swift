@@ -47,6 +47,8 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
         super.configure()
         
         configureNavigationBar()
+        
+        applyGifticonView.delegate = self
     }
     
     private func configureNavigationBar() {
@@ -60,5 +62,13 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
         navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
             self?.dismiss(animated: true)
         }).disposed(by: disposeBag)
+    }
+}
+
+extension ApplyViewController: ApplyGifticonViewButtonDelegate {
+    func applyButtonTapped(completion: @escaping () -> Void) {
+        alert(message: "응모 완료~!", okHandler: { _ in
+            completion()
+        })
     }
 }
