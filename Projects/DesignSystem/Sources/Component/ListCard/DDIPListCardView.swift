@@ -17,8 +17,8 @@ public class DDIPListCardView: UIView, AddViewsable {
     public let brandLabel = UILabel()
     public let expirationLabel = UILabel()
     public let imageIcon = UIImageView()
-    public let dashedLine = UIView()
     public let descriptionLabel = UILabel()
+    private let dashedLine = DashedLine()
     
     public let infoStackView: UIStackView = {
         let stackView = UIStackView()
@@ -35,22 +35,22 @@ public class DDIPListCardView: UIView, AddViewsable {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.alignment = .fill
+        stackView.alignment = .center
         stackView.distribution = .equalSpacing
         
         return stackView
     }()
     
-    public let semiCircleSpaceLeftView: UIView = {
-        let view = UIView()
+    let semiCircleSpaceLeftView: SpaceView = {
+        let view = SpaceView(isClockwise: false)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
         
         return view
     }()
     
-    public let semiCircleSpaceRightView: UIView = {
-        let view = UIView()
+    let semiCircleSpaceRightView: SpaceView = {
+        let view = SpaceView(isClockwise: true)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
         
@@ -73,8 +73,6 @@ public class DDIPListCardView: UIView, AddViewsable {
         setView()
         setUI()
         setValue()
-        setLeftSpaceView()
-        setRightSpaceView()
     }
     
     required init?(coder: NSCoder) {
@@ -99,24 +97,6 @@ public class DDIPListCardView: UIView, AddViewsable {
         expirationLabel.text = "유효기간 : " + style.expirationDate
         imageIcon.image = UIImage(systemName: style.iconImage)
         descriptionLabel.text = style.description
-        
-        dashedLine.createDottedLine(width: 1, color: UIColor.black.cgColor)
-    }
-    
-    private func setLeftSpaceView() {
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: self.bounds.width, y: self.bounds.height + 7), radius: 12, startAngle: .pi * 3/2, endAngle: .pi / 2, clockwise: true)
-        let circleShape = CAShapeLayer()
-        circleShape.fillColor = UIColor.red.cgColor
-        circleShape.path = circlePath.cgPath
-        semiCircleSpaceLeftView.layer.addSublayer(circleShape)
-    }
-    
-    private func setRightSpaceView() {
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: self.bounds.width + 18, y: self.bounds.height + 7), radius: 12, startAngle: .pi / 2, endAngle: .pi * 3/2, clockwise: true)
-        let circleShape = CAShapeLayer()
-        circleShape.fillColor = UIColor.red.cgColor
-        circleShape.path = circlePath.cgPath
-        semiCircleSpaceRightView.layer.addSublayer(circleShape)
     }
     
     private func setUI() {
@@ -130,13 +110,13 @@ public class DDIPListCardView: UIView, AddViewsable {
         NSLayoutConstraint.activate([
             imageIcon.topAnchor.constraint(equalTo: self.topAnchor, constant: 13),
             imageIcon.trailingAnchor.constraint(equalTo: applyViewer.leadingAnchor, constant: -1),
-            imageIcon.bottomAnchor.constraint(equalTo: dashedLine.topAnchor, constant: -10),
+            imageIcon.bottomAnchor.constraint(equalTo: dashedLine.topAnchor, constant: -11),
             imageIcon.widthAnchor.constraint(equalToConstant: 75),
             imageIcon.heightAnchor.constraint(equalToConstant: 75)
         ])
         
         NSLayoutConstraint.activate([
-            applyViewer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -9),
+            applyViewer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             applyViewer.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
             applyViewer.bottomAnchor.constraint(equalTo: dashedLine.topAnchor, constant: -68)
         ])
@@ -145,19 +125,19 @@ public class DDIPListCardView: UIView, AddViewsable {
             dashedLine.heightAnchor.constraint(equalToConstant: 1),
             dashedLine.leadingAnchor.constraint(equalTo: self.semiCircleSpaceLeftView.trailingAnchor),
             dashedLine.trailingAnchor.constraint(equalTo: self.semiCircleSpaceRightView.leadingAnchor),
-            dashedLine.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -24)
+            dashedLine.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([
             semiCircleSpaceLeftView.heightAnchor.constraint(equalToConstant: 18),
             semiCircleSpaceLeftView.widthAnchor.constraint(equalToConstant: 18),
-            semiCircleSpaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            semiCircleSpaceLeftView.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -15),
+            semiCircleSpaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: -9),
+            semiCircleSpaceLeftView.centerYAnchor.constraint(equalTo: self.dashedLine.centerYAnchor),
             
             semiCircleSpaceRightView.heightAnchor.constraint(equalToConstant: 18),
             semiCircleSpaceRightView.widthAnchor.constraint(equalToConstant: 18),
-            semiCircleSpaceRightView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            semiCircleSpaceRightView.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -15),
+            semiCircleSpaceRightView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 9),
+            semiCircleSpaceRightView.centerYAnchor.constraint(equalTo: self.dashedLine.centerYAnchor)
         ])
         
         NSLayoutConstraint.activate([
