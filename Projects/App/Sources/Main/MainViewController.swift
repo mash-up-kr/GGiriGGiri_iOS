@@ -9,10 +9,13 @@ import PhotosUI
 import UIKit
 
 import DesignSystem
+import RxSwift
 
 final class MainViewController: BaseViewController<MainViewModelProtocol> {
     
     static let sectionHeaderElementKind = "sectionHeaderElementKind"
+    
+    private let disposeBag = DisposeBag()
     
     private let collectionView = MainView()
     private let delegate = MainCollectionViewDelegate()
@@ -20,12 +23,9 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     private lazy var navigationBar: DDIPNavigationBar = {
         let barButton = TapBarButtons()
         return  DDIPNavigationBar(
-            leftBarItem: nil,
+            leftBarItem: DDIPNavigationBar.BarItem.back,
             title: nil,
-            rightButtonsItem: [
-                barButton.mybox,
-                barButton.notification
-            ])
+            rightButtonsItem: nil)
     }()
     private let floatingButton = TempButton()
 
@@ -50,6 +50,13 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
         }
+        
+        navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
+            let myBoxViewModel = MyBoxViewModel()
+            let myBoxViewController = MyBoxViewController(myBoxViewModel)
+            myBoxViewController.modalPresentationStyle = .fullScreen
+            self?.present(myBoxViewController, animated: true)
+        }).disposed(by: disposeBag)
     }
     
     private func configureCollectionView() {
