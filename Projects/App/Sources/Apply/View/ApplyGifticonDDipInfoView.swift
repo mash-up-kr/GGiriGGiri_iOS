@@ -20,11 +20,7 @@ final class ApplyGifticonDDipInfoView: BaseView {
         font: .designSystem(.pretendard, family: .bold, size: ._18)
     )
     
-    private let infoContainerView: BaseView = {
-        let view = BaseView()
-        view.backgroundColor = .designSystem(.neutralGray100)
-        return view
-    }()
+    private let infoContainerView = BaseView()
     
     private let verticalStackView: UIStackView = {
         let stackView = UIStackView()
@@ -62,6 +58,7 @@ final class ApplyGifticonDDipInfoView: BaseView {
     override func configure() {
         super.configure()
         
+        infoContainerView.backgroundColor = .designSystem(.neutralGray100)
         infoContainerView.layer.cornerRadius = 12
         
         categoryContainerView.configure(title: "현재 참여자", info: 24)
