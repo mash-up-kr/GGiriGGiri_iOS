@@ -9,16 +9,29 @@
 import UIKit
 
 import DesignSystem
+import SnapKit
 
 final class RegisterBoxView: BaseView {
+    
+    private let emptyView = MyBoxEmptyView()
 
     override func setLayout() {
         super.setLayout()
+        
+        addSubview(emptyView)
+        
+        emptyView.snp.makeConstraints {
+            $0.top.equalTo(117)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(302)
+        }
     }
 
     override func configure() {
         super.configure()
         
         backgroundColor = .designSystem(.secondarySkyblue200)
+        
+        emptyView.configureEmptyCategory(with: .register)
     }
 }
