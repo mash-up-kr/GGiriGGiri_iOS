@@ -15,6 +15,7 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "CategoryCollectionViewCell"
     
+    private(set) var categoryType: Category = .all
     private let nameLabel = TempLabel(
         color: .black,
         font: .designSystem(.pretendard, family: .regular, size: ._14)
@@ -23,6 +24,8 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     func configure(_ category: [Category], with index: Int) {
         nameLabel.textAlignment = .center
         nameLabel.clipsToBounds = true
+        
+        categoryType = Category.allCases[index]
         
         if category == Category.register {
             nameLabel.text = Category.register[index].rawValue

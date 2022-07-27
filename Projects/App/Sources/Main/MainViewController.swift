@@ -11,6 +11,7 @@ import UIKit
 import DesignSystem
 
 final class MainViewController: BaseViewController<MainViewModelProtocol> {
+    
     static let sectionHeaderElementKind = "sectionHeaderElementKind"
     
     private let collectionView = MainView()
@@ -35,9 +36,12 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
 
     override func configure() {
         super.configure()
+        
         configureNavigationBar()
         configureCollectionView()
         configureFloatingButton()
+        
+        delegate.collectionViewCellDelegate = self
     }
     
     private func configureNavigationBar() {
@@ -129,6 +133,20 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         present(picker, animated: true)
+    }
+}
+
+extension MainViewController: MainCollectionViewCellDelegate {
+    func gifticonCellTapped(with id: Int) {
+        let applyViewModel = ApplyViewModel(gifticonId: id)
+        let applyViewController = ApplyViewController(applyViewModel)
+        applyViewController.modalPresentationStyle = .fullScreen
+        self.present(applyViewController, animated: true)
+    }
+    
+    func categoryCellTapped(with category: Category) {
+        // TODO: Category에 따라 정렬하기
+        debugPrint(#function)
     }
 }
 
