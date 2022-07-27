@@ -67,28 +67,30 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
     }
     
     @objc private func selectLeftButton() {
+        self.rightTapButton.titleLabel?.font = nil
+        self.leftTabButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         UIView.animate(withDuration: 0.3) {
+            self.layoutIfNeeded()
             self.moveBarView.frame = CGRect(
                 x: self.leftTabButton.frame.origin.x,
                 y: self.leftTabButton.frame.origin.y + self.leftTabButton.frame.height,
                 width: self.moveBarView.frame.width,
                 height: self.moveBarView.frame.height
             )
-            self.layoutIfNeeded()
-        } completion: { _ in
         }
     }
     
     @objc private func selectRightButton() {
+        self.leftTabButton.titleLabel?.font = nil
+        self.rightTapButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         UIView.animate(withDuration: 0.3) {
+            self.layoutIfNeeded()
             self.moveBarView.frame = CGRect(
                 x: self.rightTapButton.frame.origin.x,
                 y: self.rightTapButton.frame.origin.y + self.rightTapButton.frame.height,
                 width: self.moveBarView.frame.width,
                 height: self.moveBarView.frame.height
             )
-            self.layoutIfNeeded()
-        } completion: { _ in
         }
     }
     
