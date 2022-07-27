@@ -27,6 +27,9 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         return DDIPCategoryTapView(style: .init(leftOption: .box, rightOption: .box))
     }()
     
+    private let applyBoxView = ApplyBoxView()
+    private let registerBoxView = RegisterBoxView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -34,11 +37,23 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
     override func setLayout() {
         super.setLayout()
         
-        view.addSubview(categoryTapView)
+        view.addSubviews(with: [categoryTapView, applyBoxView, registerBoxView])
         
         categoryTapView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.equalToSuperview()
+        }
+        
+        applyBoxView.snp.makeConstraints {
+            $0.top.equalTo(categoryTapView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        registerBoxView.snp.makeConstraints {
+            $0.top.equalTo(categoryTapView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
@@ -48,6 +63,18 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         configureNavigationBar()
         
         view.backgroundColor = .designSystem(.primaryYellow)
+        
+        registerBoxView.isHidden = true
+        
+        categoryTapView.leftButtonTapEvent.subscribe(onNext: { [weak self] in
+            self?.applyBoxView.isHidden = false
+            self?.registerBoxView.isHidden = true
+        }).disposed(by: disposeBag)
+        
+        categoryTapView.rightButtonTapEvent.subscribe(onNext: { [weak self] in
+            self?.applyBoxView.isHidden = true
+            self?.registerBoxView.isHidden = false
+        }).disposed(by: disposeBag)
     }
     
     private func configureNavigationBar() {
