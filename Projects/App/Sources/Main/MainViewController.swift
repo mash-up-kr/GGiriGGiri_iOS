@@ -10,7 +10,7 @@ import UIKit
 
 import DesignSystem
 
-final class MainViewController: BaseViewController<MainViewModelProtocol>, MainCollectionViewCellDelegate {
+final class MainViewController: BaseViewController<MainViewModelProtocol> {
     
     static let sectionHeaderElementKind = "sectionHeaderElementKind"
     
@@ -134,7 +134,9 @@ final class MainViewController: BaseViewController<MainViewModelProtocol>, MainC
         picker.delegate = self
         present(picker, animated: true)
     }
-    
+}
+
+extension MainViewController: MainCollectionViewCellDelegate {
     func gifticonCellTapped(with id: Int) {
         let applyViewModel = ApplyViewModel(id: id)
         let applyViewController = ApplyViewController(applyViewModel)
