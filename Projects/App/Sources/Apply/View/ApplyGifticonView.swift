@@ -18,7 +18,7 @@ protocol ApplyGifticonViewButtonDelegate: AnyObject {
 /// 기프티콘 응모 뷰
 final class ApplyGifticonView: BaseView {
     
-    public weak var delegate: ApplyGifticonViewButtonDelegate?
+    weak var delegate: ApplyGifticonViewButtonDelegate?
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
