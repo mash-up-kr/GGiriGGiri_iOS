@@ -40,8 +40,7 @@ final class ApplyGifticonDDipInfoView: BaseView {
     override func setLayout() {
         super.setLayout()
         
-        
-        verticalStackView.addArrangedSubviews(with: [categoryContainerView])
+        verticalStackView.addArrangedSubview(categoryContainerView)
         infoContainerView.addSubview(verticalStackView)
         addSubviews(with: [ddipInfoSectionTitleLabel, infoContainerView])
         

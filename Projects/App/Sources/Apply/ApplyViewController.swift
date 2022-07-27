@@ -29,7 +29,7 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
     override func setLayout() {
         super.setLayout()
         
-        view.addSubviews(with: [applyGifticonView])
+        view.addSubview(applyGifticonView)
         
         applyGifticonView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)

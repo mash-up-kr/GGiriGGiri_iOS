@@ -43,7 +43,6 @@ final class ApplyGifticonInfoView: BaseView {
     override func setLayout() {
         super.setLayout()
         
-        
         verticalStackView.addArrangedSubviews(with: [categoryContainerView,
                                                      brandContainerView,
                                                      productContainerView,
