@@ -138,7 +138,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
 
 extension MainViewController: MainCollectionViewCellDelegate {
     func gifticonCellTapped(with id: Int) {
-        let applyViewModel = ApplyViewModel(id: id)
+        let applyViewModel = ApplyViewModel(gifticonId: id)
         let applyViewController = ApplyViewController(applyViewModel)
         applyViewController.modalPresentationStyle = .fullScreen
         self.present(applyViewController, animated: true)

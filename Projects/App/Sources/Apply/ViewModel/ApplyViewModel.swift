@@ -9,13 +9,13 @@
 import Foundation
 
 protocol ApplyViewModelProtocol {
-    var id: Int { get set }
+    var gifticonId: Int { get }
 }
 
 final class ApplyViewModel: ApplyViewModelProtocol {
-    var id: Int
+    var gifticonId: Int
     
-    init(id: Int) {
-        self.id = id
+    init(gifticonId: Int) {
+        self.gifticonId = gifticonId
     }
 }

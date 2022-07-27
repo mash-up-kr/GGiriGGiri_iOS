@@ -57,7 +57,6 @@ final class ApplyGifticonInfoView: BaseView {
         infoContainerView.snp.makeConstraints {
             $0.top.equalTo(gifticonInfoSectionTitleLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(204)
         }
         
         verticalStackView.snp.makeConstraints {

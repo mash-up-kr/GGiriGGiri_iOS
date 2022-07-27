@@ -44,7 +44,7 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
         configureNavigationBar()
         
         view.backgroundColor = .designSystem(.neutralWhite)
-        gifticonId = viewModel.id
+        gifticonId = viewModel.gifticonId
         applyGifticonView.delegate = self
     }
     
