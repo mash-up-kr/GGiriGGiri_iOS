@@ -18,6 +18,7 @@ class BaseViewController<T>: UIViewController {
         
         configure()
         setLayout()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -29,4 +30,7 @@ class BaseViewController<T>: UIViewController {
     
     /// UI 컴포넌트를 추가 및 배치할 때 사용하는 method
     func setLayout() { }
+    
+    /// 비동기 처리 binding 시 사용하는 method
+    func bind() { }
 }
