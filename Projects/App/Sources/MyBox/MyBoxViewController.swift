@@ -41,7 +41,7 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         
         categoryTapView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
-            $0.leading.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
         }
         
         applyBoxView.snp.makeConstraints {
@@ -55,6 +55,10 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut) {
+            self.registerBoxView.transform = CGAffineTransform(translationX: self.view.frame.width, y: 0)
+        }
     }
     
     override func configure() {
@@ -64,16 +68,18 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         
         view.backgroundColor = .designSystem(.primaryYellow)
         
-        registerBoxView.isHidden = true
-        
         categoryTapView.leftButtonTapEvent.subscribe(onNext: { [weak self] in
-            self?.applyBoxView.isHidden = false
-            self?.registerBoxView.isHidden = true
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
+                self?.applyBoxView.transform = .identity // applyBoxView 위치를 defaultValue로 돌려줌.
+                self?.registerBoxView.transform = CGAffineTransform(translationX: self?.view.frame.width ?? 0, y: 0)
+            }
         }).disposed(by: disposeBag)
         
         categoryTapView.rightButtonTapEvent.subscribe(onNext: { [weak self] in
-            self?.applyBoxView.isHidden = true
-            self?.registerBoxView.isHidden = false
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
+                self?.registerBoxView.transform = .identity
+                self?.applyBoxView.transform = CGAffineTransform(translationX: -(self?.view.frame.width ?? 0) , y: 0)
+            }
         }).disposed(by: disposeBag)
     }
     
