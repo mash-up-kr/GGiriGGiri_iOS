@@ -10,7 +10,7 @@ import UIKit
 
 /// 모든 ViewController의 기본이 되는 BaseViewController
 class BaseViewController<T>: UIViewController {
-    let viewModel: T
+    var viewModel: T
     
     init(_ viewModel: T) {
         self.viewModel = viewModel
