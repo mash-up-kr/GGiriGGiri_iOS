@@ -20,12 +20,12 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     private let collectionView = MainView()
     private let delegate = MainCollectionViewDelegate()
     private let dataSource = MainCollectionViewDataSource()
+    private let myBoxButton = TapBarButtons().mybox
     private lazy var navigationBar: DDIPNavigationBar = {
-        let barButton = TapBarButtons()
         return  DDIPNavigationBar(
-            leftBarItem: DDIPNavigationBar.BarItem.back,
+            leftBarItem: nil,
             title: nil,
-            rightButtonsItem: nil)
+            rightButtonsItem: [myBoxButton])
     }()
     private let floatingButton = TempButton()
 
@@ -42,6 +42,13 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         configureFloatingButton()
         
         delegate.collectionViewCellDelegate = self
+        
+        myBoxButton.rx.tap.subscribe(onNext: { [weak self] in
+            let myBoxViewModel = MyBoxViewModel()
+            let myBoxViewController = MyBoxViewController(myBoxViewModel)
+            myBoxViewController.modalPresentationStyle = .fullScreen
+            self?.present(myBoxViewController, animated: true)
+        }).disposed(by: disposeBag)
     }
     
     private func configureNavigationBar() {
@@ -50,13 +57,6 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
         }
-        
-        navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
-            let myBoxViewModel = MyBoxViewModel()
-            let myBoxViewController = MyBoxViewController(myBoxViewModel)
-            myBoxViewController.modalPresentationStyle = .fullScreen
-            self?.present(myBoxViewController, animated: true)
-        }).disposed(by: disposeBag)
     }
     
     private func configureCollectionView() {
