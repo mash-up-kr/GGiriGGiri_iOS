@@ -88,7 +88,7 @@ public class DDIPNavigationBar: UIView {
         guard let items = rightButtonsItems, items.isEmpty == false else { return }
         addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
+            $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().inset(16)
         }
     }
