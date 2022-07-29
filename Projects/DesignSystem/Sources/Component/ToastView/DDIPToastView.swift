@@ -43,6 +43,7 @@ public class DDIPToastView: UIView, AddViewsable {
         self.style = style
         super.init(frame: .zero)
         setUI()
+        setFont()
     }
     
     private func setUI() {
@@ -56,6 +57,11 @@ public class DDIPToastView: UIView, AddViewsable {
         self.addSubViews([titleLabel, iconImageView, descriptionLabel])
         
         setToastViewLayout()
+    }
+    
+    private func setFont() {
+        self.titleLabel.font = .designSystem(.pretendard, family: .bold, size: ._18)
+        self.descriptionLabel.font = .designSystem(.pretendard, family: .regular, size: ._14)
     }
     
     private func setToastViewLayout() {
