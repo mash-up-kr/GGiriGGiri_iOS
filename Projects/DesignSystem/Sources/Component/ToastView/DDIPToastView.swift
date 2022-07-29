@@ -53,7 +53,7 @@ public class DDIPToastView: UIView, AddViewsable {
         self.iconImageView.image = UIImage(systemName: self.style.image)
         self.descriptionLabel.text = self.style.description
         
-        self.backgroundColor = .gray
+        self.backgroundColor = .designSystem(.neutralWhite)
         self.layer.cornerRadius = 12
         
         self.addSubViews([titleLabel, iconImageView, descriptionLabel])

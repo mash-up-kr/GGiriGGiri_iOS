@@ -44,7 +44,6 @@ public class DDIPListCardView: UIView, AddViewsable {
     let semiCircleSpaceLeftView: SpaceView = {
         let view = SpaceView(isClockwise: false)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
         
         return view
     }()
@@ -52,7 +51,6 @@ public class DDIPListCardView: UIView, AddViewsable {
     let semiCircleSpaceRightView: SpaceView = {
         let view = SpaceView(isClockwise: true)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
         
         return view
     }()
@@ -93,6 +91,7 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
     
     private func setValue() {
+        self.backgroundColor = .designSystem(.neutralWhite)
         brandLabel.text = style.brand
         nameLabel.text = style.name
         expirationLabel.text = "유효기간 : " + style.expirationDate

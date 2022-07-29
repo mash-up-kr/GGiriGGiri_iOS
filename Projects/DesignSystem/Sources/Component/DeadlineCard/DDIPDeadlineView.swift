@@ -121,8 +121,8 @@ public class DDIPDeadlineView: UIView, AddViewsable {
     
     private func setValue() {
         self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.red.cgColor
         self.layer.cornerRadius = 12
+        self.backgroundColor = .designSystem(.neutralWhite)
 
         imageIcon.image = UIImage(systemName: style.iconImage)
         nameLabel.text = style.name
