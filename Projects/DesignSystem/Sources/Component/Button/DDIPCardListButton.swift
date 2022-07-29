@@ -28,7 +28,7 @@ public class DDIPCardListButton: UIButton {
         self.setTitleColor(self.style.titleColor, for: .normal)
         self.backgroundColor = self.style.buttonColor
         self.isHidden = self.style.isHidden
-        self.titleLabel?.font = .systemFont(ofSize: 14)
+        self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._14)
         self.setTitle(self.style.title?.rawValue, for: .normal)
         self.titleLabel?.widthAnchor.constraint(equalToConstant: 52).isActive = true
         self.titleLabel?.textAlignment = .center

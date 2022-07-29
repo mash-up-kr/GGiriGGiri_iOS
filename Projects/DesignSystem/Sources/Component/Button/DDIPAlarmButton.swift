@@ -27,7 +27,7 @@ public class DDIPAlarmButton: UIButton {
         self.layer.cornerRadius = 5
         self.setTitleColor(self.style.titleColor, for: .normal)
         self.backgroundColor = self.style.buttonColor
-        self.titleLabel?.font = .systemFont(ofSize: 12)
+        self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._12)
         self.setTitle(self.style.title?.rawValue, for: .normal)
         self.contentEdgeInsets = UIEdgeInsets(
             top: self.style.topInset,

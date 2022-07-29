@@ -27,7 +27,7 @@ public class DDIPCTAButton: UIButton {
         self.layer.cornerRadius = 12
         self.setTitleColor(self.style.titleColor, for: .normal)
         self.backgroundColor = self.style.buttonColor
-        self.titleLabel?.font = .systemFont(ofSize: 16)
+        self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._16)
         self.setTitle(self.style.title, for: .normal)
     }
     
