@@ -85,12 +85,7 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setAttribute() {
-        firstTimeView.backgroundColor = .designSystem(.secondarySkyblue100)
-        secondTimeView.backgroundColor = .designSystem(.secondarySkyblue100)
-        firstMinuteView.backgroundColor = .designSystem(.secondarySkyblue100)
-        secondMinuteView.backgroundColor = .designSystem(.secondarySkyblue100)
-        
+    private func setAttribute() {        
         firstTimeView.numberLabel.textColor = .designSystem(.neutralBlack)
         secondTimeView.numberLabel.textColor = .designSystem(.neutralBlack)
         firstMinuteView.numberLabel.textColor = .designSystem(.dangerRaspberry)
@@ -207,7 +202,7 @@ fileprivate final class TimeView: UIView {
     
     convenience init() {
         self.init(frame: .zero)
-        self.backgroundColor = .gray
+        self.backgroundColor = .designSystem(.secondarySkyblue100)
         setUI()
         setValue()
     }
