@@ -49,6 +49,8 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = ":"
         label.textAlignment = .center
+        label.textColor = .designSystem(.neutralBlack)
+        label.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
 
         return label
     }()
@@ -56,7 +58,6 @@ public class DDIPDeadlineView: UIView, AddViewsable {
     let semiCircleSpaceLeftView: SpaceView = {
         let view = SpaceView(isClockwise: false)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
         
         return view
     }()
@@ -64,7 +65,6 @@ public class DDIPDeadlineView: UIView, AddViewsable {
     let semiCircleSpaceRightView: SpaceView = {
         let view = SpaceView(isClockwise: true)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
         
         return view
     }()
@@ -78,10 +78,27 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         setUI()
         setValue()
         setFont()
+        setAttribute()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setAttribute() {
+        firstTimeView.backgroundColor = .designSystem(.secondarySkyblue100)
+        secondTimeView.backgroundColor = .designSystem(.secondarySkyblue100)
+        firstMinuteView.backgroundColor = .designSystem(.secondarySkyblue100)
+        secondMinuteView.backgroundColor = .designSystem(.secondarySkyblue100)
+        
+        firstTimeView.numberLabel.textColor = .designSystem(.neutralBlack)
+        secondTimeView.numberLabel.textColor = .designSystem(.neutralBlack)
+        firstMinuteView.numberLabel.textColor = .designSystem(.dangerRaspberry)
+        secondTimeView.numberLabel.textColor = .designSystem(.dangerRaspberry)
+        brandLabel.textColor = .designSystem(.neutralBlack)
+        nameLabel.textColor = .designSystem(.neutralBlack)
+        expirationLabel.textColor = .designSystem(.neutralGray500)
+        
     }
     
     private func setFont() {
@@ -92,7 +109,6 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         secondTimeView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
         firstMinuteView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
         secondMinuteView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
-    
     }
     
     private func setView() {
