@@ -10,16 +10,13 @@ import UIKit
 
 public class DDIPCTAButtonStyle {
     public let buttonColor: UIColor
-    public let titleColor: UIColor?
     public let title: String?
     
     public init(
         buttonColor: UIColor,
-        titleColor: UIColor,
         title: String
     ) {
         self.buttonColor = buttonColor
-        self.titleColor = titleColor
         self.title = title
     }
 }

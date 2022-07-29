@@ -15,7 +15,6 @@ public struct DDIPCategoryButtonStyle {
     }
     
     public let buttonColor: UIColor
-    public let titleColor: UIColor?
     public let title: String?
     public let height: ButtonHeight
     public let topInset: CGFloat
@@ -25,7 +24,6 @@ public struct DDIPCategoryButtonStyle {
     
     public init(
         buttonColor: UIColor,
-        titleColor: UIColor?,
         title: String?,
         height: ButtonHeight,
         topInset: CGFloat,
@@ -34,7 +32,6 @@ public struct DDIPCategoryButtonStyle {
         bottomInset: CGFloat
     ) {
         self.buttonColor = buttonColor
-        self.titleColor = titleColor
         self.title = title
         self.height = height
         self.topInset = topInset

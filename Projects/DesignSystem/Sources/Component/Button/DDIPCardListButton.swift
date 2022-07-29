@@ -25,7 +25,7 @@ public class DDIPCardListButton: UIButton {
     private func setButton() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 12
-        self.setTitleColor(self.style.titleColor, for: .normal)
+        self.setTitleColor(.designSystem(.neutralWhite), for: .normal)
         self.backgroundColor = self.style.buttonColor
         self.isHidden = self.style.isHidden
         self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._14)
