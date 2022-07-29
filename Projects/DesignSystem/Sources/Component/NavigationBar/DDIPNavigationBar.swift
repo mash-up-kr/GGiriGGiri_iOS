@@ -95,6 +95,8 @@ public class DDIPNavigationBar: UIView {
     
     private func setAttribute() {
         leftButtonItem.setImage(leftBarItem?.icon, for: .normal)
+        titleLabel.textColor = .designSystem(.neutralBlack)
+        titleLabel.font = .designSystem(.pretendard, family: .bold, size: ._18)
     }
     
     private func setButtons() {
