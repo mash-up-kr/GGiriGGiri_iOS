@@ -10,9 +10,10 @@ import UIKit
 
 final class DashedLine: UIView {
     override func draw(_ rect: CGRect) {
+        super.draw(rect)
         let caShapeLayer = CAShapeLayer()
-        caShapeLayer.strokeColor = UIColor.designSystem(.neutralBlack)?.cgColor
-        caShapeLayer.lineWidth = 1
+        caShapeLayer.strokeColor = UIColor.designSystem(.neutralGray500)?.cgColor
+        caShapeLayer.lineWidth = 1.5
         caShapeLayer.lineDashPattern = [3.5, 3.5]
         let cgPath = CGMutablePath()
         let cgPoint = [CGPoint(x: 0, y: 0), CGPoint(x: self.frame.width, y: 0)]

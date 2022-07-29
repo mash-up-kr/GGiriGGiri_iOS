@@ -34,8 +34,10 @@ final class MainView: BaseView {
         collectionView.register(GifticonDeadLineCollectionViewCell.self)
         collectionView.register(CategoryCollectionViewCell.self)
         collectionView.register(GifticonCardCollectionViewCell.self)
-        collectionView.registerHeader(BaseHeaderView.self,
-                                      elementKind: MainViewController.sectionHeaderElementKind)
+        collectionView.registerHeader(
+            BaseHeaderView.self,
+            elementKind: MainViewController.sectionHeaderElementKind
+        )
         return collectionView
     }()
     
@@ -64,82 +66,127 @@ final class MainView: BaseView {
     }
     
     private func generateDeadLineSection() -> NSCollectionLayoutSection {
-        let item = CollectionViewLayoutManager.configureItem(with:
-                                                                CollectionViewConfigureSize(
-                                                                    widthDimension: .absolute(310),
-                                                                    heightDimension: .absolute(380)))
+        let item = CollectionViewLayoutManager.configureItem(
+            with: CollectionViewConfigureSize(
+                widthDimension: .absolute(310),
+                heightDimension: .absolute(380)
+            )
+        )
         
-        let group = CollectionViewLayoutManager.configureGroup(with:
-                                                                CollectionViewConfigureSize(
-                                                                    widthDimension: item.layoutSize.widthDimension,
-                                                                    heightDimension: item.layoutSize.heightDimension),
-                                                               edgeSpacing: .init(leading: .fixed(10),
-                                                                                  top: .none,
-                                                                                  trailing: .none,
-                                                                                  bottom: .none),
-                                                               item: item)
+        let group = CollectionViewLayoutManager.configureGroup(
+            with: CollectionViewConfigureSize(
+                widthDimension: item.layoutSize.widthDimension,
+                heightDimension: item.layoutSize.heightDimension
+            ),
+            edgeSpacing: .init(
+                leading: .none,
+                top: .none,
+                trailing: .fixed(16),
+                bottom: .none
+            ),
+            item: item
+        )
         
-        let header = CollectionViewLayoutManager.configureHeader(with:
-                                                                    CollectionViewConfigureSize(
-                                                                        widthDimension: .fractionalWidth(1.0),
-                                                                        heightDimension: .estimated(1)),
-                                                                 elementKind: MainViewController.sectionHeaderElementKind)
+        let header = CollectionViewLayoutManager.configureHeader(
+            with: CollectionViewConfigureSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .estimated(1)
+            ),
+            elementKind: MainViewController.sectionHeaderElementKind
+        )
         
-        let section = CollectionViewLayoutManager.configureSection(with: group,
-                                                                   scrollingBehavior: .groupPaging,
-                                                                   header: header)
+        let section = CollectionViewLayoutManager.configureSection(
+            with: group,
+            contentInsets: .init(
+                top: .zero,
+                leading: 16,
+                bottom: .zero,
+                trailing: .zero
+            ),
+            scrollingBehavior: .groupPaging,
+            header: header
+        )
         return section
     }
     
     private func generateCategorySection() -> NSCollectionLayoutSection {
-        let item = CollectionViewLayoutManager.configureItem(with:
-                                                                CollectionViewConfigureSize(
-                                                                    widthDimension: .estimated(40),
-                                                                    heightDimension: .estimated(14)))
+        let item = CollectionViewLayoutManager.configureItem(
+            with: CollectionViewConfigureSize(
+                widthDimension: .estimated(57),
+                heightDimension: .absolute(34)
+            )
+        )
         
-        let group = CollectionViewLayoutManager.configureGroup(with:
-                                                                CollectionViewConfigureSize(
-                                                                    widthDimension: .estimated(1),
-                                                                    heightDimension: .estimated(1)),
-                                                               edgeSpacing: .init(leading: .fixed(8),
-                                                                                  top: .none,
-                                                                                  trailing: .none,
-                                                                                  bottom: .none),
-                                                               item: item)
-
+        let group = CollectionViewLayoutManager.configureGroup(
+            with: CollectionViewConfigureSize(
+                widthDimension: .estimated(1),
+                heightDimension: .estimated(1)
+            ),
+            edgeSpacing: .init(
+                leading: .none,
+                top: .none,
+                trailing: .fixed(8),
+                bottom: .none
+            ),
+            item: item
+        )
         
-        let header = CollectionViewLayoutManager.configureHeader(with:
-                                                                    CollectionViewConfigureSize(
-                                                                        widthDimension: .fractionalWidth(1.0),
-                                                                        heightDimension: .estimated(1)),
-                                                                 elementKind: MainViewController.sectionHeaderElementKind)
+        let header = CollectionViewLayoutManager.configureHeader(
+            with: CollectionViewConfigureSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .estimated(1)
+            ),
+            elementKind: MainViewController.sectionHeaderElementKind
+        )
         
-        let section = CollectionViewLayoutManager.configureSection(with: group,
-                                                                   scrollingBehavior: .groupPaging,
-                                                                   header: header)
+        let section = CollectionViewLayoutManager.configureSection(
+            with: group,
+            contentInsets: .init(
+                top: .zero,
+                leading: 16,
+                bottom: .zero,
+                trailing: .zero
+            ),
+            scrollingBehavior: .continuous,
+            header: header
+        )
         return section
     }
     
     private func generateGifticonListSection() -> NSCollectionLayoutSection {
-        let item = CollectionViewLayoutManager.configureItem(with:
-                                                                CollectionViewConfigureSize(
-                                                                    widthDimension: .absolute(343),
-                                                                    heightDimension: .absolute(180)))
+        let item = CollectionViewLayoutManager.configureItem(
+            with: CollectionViewConfigureSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(180)
+            )
+        )
         
-        let group = CollectionViewLayoutManager.configureGroup(with:
-                                                                CollectionViewConfigureSize(
-                                                                    widthDimension: .fractionalWidth(1.0),
-                                                                    heightDimension: item.layoutSize.heightDimension),
-                                                               edgeSpacing: .init(leading: .fixed(10),
-                                                                                  top: .fixed(16),
-                                                                                  trailing: .none,
-                                                                                  bottom: .none),
-                                                               isDirectionVertical: true,
-                                                               item: item)
+        let group = CollectionViewLayoutManager.configureGroup(
+            with: CollectionViewConfigureSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: item.layoutSize.heightDimension
+            ),
+            edgeSpacing: .init(
+                leading: .none,
+                top: .fixed(16),
+                trailing: .none,
+                bottom: .none
+            ),
+            isDirectionVertical: true,
+            item: item
+        )
         
-        let section = CollectionViewLayoutManager.configureSection(with: group,
-                                                                   scrollingBehavior: nil,
-                                                                   header: nil)
+        let section = CollectionViewLayoutManager.configureSection(
+            with: group,
+            contentInsets: .init(
+                top: .zero,
+                leading: 16,
+                bottom: .zero,
+                trailing: 16
+            ),
+            scrollingBehavior: nil,
+            header: nil
+        )
         return section
     }
 }

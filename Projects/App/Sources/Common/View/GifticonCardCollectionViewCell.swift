@@ -8,6 +8,7 @@
 
 import UIKit
 
+import DesignSystem
 import Kingfisher
 import SnapKit
 
@@ -40,6 +41,25 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
+    private let listCardView = DDIPListCardView(
+        style: .init(
+            brand: "브랜드",
+            name: "네임",
+            expirationDate: "날짜",
+            iconImage: "이미지",
+            description: "이건몰까"
+        ),
+        alarmButton: .init(
+            style: .init(
+                buttonColor: .label,
+                titleColor: .label,
+                title: .apply,
+                isHidden: false
+            )
+        ),
+        applyViewer: .init(viewLabel: "명수인가?")
+    )
+    
     func configure(with data: GifticonCard) {
         gifticonId = data.gifticonInfo.id
         brandLabel.text = data.gifticonInfo.brand
@@ -61,18 +81,22 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
     }
     
     private func configure() {
-        contentView.addSubview(verticalStackView)
-        
-        verticalStackView.snp.makeConstraints {
+        contentView.addSubview(listCardView)
+        listCardView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+//        contentView.addSubview(verticalStackView)
         
-        verticalStackView.addArrangedSubviews(with: [gifticonImageView,
-                                                     brandLabel,
-                                                     nameLabel,
-                                                     expirationDateLabel,
-                                                     numberOfParticipantsViewLabel,
-                                                     remainingTimeLabel,
-                                                     isParticipatingButton])
+//        verticalStackView.snp.makeConstraints {
+//            $0.edges.equalToSuperview()
+//        }
+//
+//        verticalStackView.addArrangedSubviews(with: [gifticonImageView,
+//                                                     brandLabel,
+//                                                     nameLabel,
+//                                                     expirationDateLabel,
+//                                                     numberOfParticipantsViewLabel,
+//                                                     remainingTimeLabel,
+//                                                     isParticipatingButton])
     }
 }

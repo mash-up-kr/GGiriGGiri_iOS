@@ -21,6 +21,19 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
         font: .designSystem(.pretendard, family: .regular, size: ._14)
     )
     
+    private let categoryButton = DDIPCategoryButton(
+        style: .init(
+            buttonColor: .designSystem(.neutralWhite) ?? .label,
+            titleColor: .designSystem(.neutralBlack) ?? .label,
+            title: "버튼타이틀",
+            height: .height_34,
+            topInset: 7,
+            leftInset: 16,
+            rightInset: 16,
+            bottomInset: 7
+        )
+    )
+    
     func configure(_ category: [Category], with index: Int) {
         nameLabel.textAlignment = .center
         nameLabel.clipsToBounds = true
@@ -49,17 +62,23 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     }
     
     private func setLayout() {
-        contentView.addSubview(nameLabel)
-        
-        nameLabel.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.top.bottom.equalToSuperview().inset(7)
+        contentView.addSubview(categoryButton)
+        categoryButton.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
+//        contentView.addSubview(nameLabel)
+//
+//        nameLabel.snp.makeConstraints {
+//            $0.leading.trailing.equalToSuperview().inset(20)
+//            $0.top.bottom.equalToSuperview().inset(7)
+//        }
     }
     
     private func configure() {
-        backgroundColor = .designSystem(.neutralWhite)
         
-        self.layer.cornerRadius = 20
+//        backgroundColor = .designSystem(.neutralWhite)
+//
+//        self.layer.cornerRadius = 20
+        categoryButton.isUserInteractionEnabled = false
     }
 }
