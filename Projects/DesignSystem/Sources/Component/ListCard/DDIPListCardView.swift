@@ -73,6 +73,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         setView()
         setUI()
         setValue()
+        setFont()
     }
     
     required init?(coder: NSCoder) {
@@ -97,6 +98,12 @@ public class DDIPListCardView: UIView, AddViewsable {
         expirationLabel.text = "유효기간 : " + style.expirationDate
         imageIcon.image = UIImage(systemName: style.iconImage)
         descriptionLabel.text = style.description
+    }
+    
+    private func setFont() {
+        brandLabel.font = .designSystem(.pretendard, family: .bold, size: ._12)
+        nameLabel.font = .designSystem(.pretendard, family: .bold, size: ._18)
+        expirationLabel.font = .designSystem(.pretendard, family: .bold, size: ._12)
     }
     
     private func setUI() {
