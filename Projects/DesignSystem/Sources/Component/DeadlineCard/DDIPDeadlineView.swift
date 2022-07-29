@@ -85,9 +85,14 @@ public class DDIPDeadlineView: UIView, AddViewsable {
     }
     
     private func setFont() {
-        nameLabel.font = UIFont.systemFont(ofSize: 18)
-        brandLabel.font = UIFont.systemFont(ofSize: 12)
-        expirationLabel.font = UIFont.systemFont(ofSize: 12)
+        nameLabel.font = .designSystem(.pretendard, family: .bold, size: ._18)
+        brandLabel.font = .designSystem(.pretendard, family: .regular, size: ._12)
+        expirationLabel.font = .designSystem(.pretendard, family: .regular, size: ._12)
+        firstTimeView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
+        secondTimeView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
+        firstMinuteView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
+        secondMinuteView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
+    
     }
     
     private func setView() {
