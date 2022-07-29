@@ -100,6 +100,12 @@ public class DDIPListCardView: UIView, AddViewsable {
         descriptionLabel.text = style.description
     }
     
+    private func setAttribute() {
+        brandLabel.textColor = .designSystem(.neutralBlack)
+        nameLabel.textColor = .designSystem(.neutralBlack)
+        expirationLabel.textColor = .designSystem(.neutralGray500)
+    }
+    
     private func setFont() {
         brandLabel.font = .designSystem(.pretendard, family: .bold, size: ._12)
         nameLabel.font = .designSystem(.pretendard, family: .bold, size: ._18)
