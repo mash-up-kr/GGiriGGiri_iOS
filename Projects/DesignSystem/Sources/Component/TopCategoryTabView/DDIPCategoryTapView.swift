@@ -46,11 +46,11 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
         self.leftTabButton.setTitle(self.style.leftTitle, for: .normal)
         self.rightTapButton.setTitle(self.style.rightTitle, for: .normal)
         
-        self.leftTabButton.titleLabel?.font = .designSystem(.pretendard, family: .regular, size: ._16)
+        self.leftTabButton.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._16)
         self.rightTapButton.titleLabel?.font = .designSystem(.pretendard, family: .regular, size: ._16)
         
-        self.leftTabButton.setTitleColor(.black, for: .normal)
-        self.rightTapButton.setTitleColor(.black, for: .normal)
+        self.leftTabButton.setTitleColor(.designSystem(.neutralBlack), for: .normal)
+        self.rightTapButton.setTitleColor(.designSystem(.neutralBlack), for: .normal)
     }
     
     private func setButtons() {
@@ -67,8 +67,8 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
     }
     
     @objc private func selectLeftButton() {
-        self.rightTapButton.titleLabel?.font = nil
-        self.leftTabButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        self.rightTapButton.titleLabel?.font = .designSystem(.pretendard, family: .regular, size: ._16)
+        self.leftTabButton.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._16)
         UIView.animate(withDuration: 0.3) {
             self.layoutIfNeeded()
             self.moveBarView.frame = CGRect(
@@ -81,8 +81,8 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
     }
     
     @objc private func selectRightButton() {
-        self.leftTabButton.titleLabel?.font = nil
-        self.rightTapButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        self.leftTabButton.titleLabel?.font = .designSystem(.pretendard, family: .regular, size: ._16)
+        self.rightTapButton.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._16)
         UIView.animate(withDuration: 0.3) {
             self.layoutIfNeeded()
             self.moveBarView.frame = CGRect(

@@ -15,7 +15,6 @@ public class DDIPAlarmButtonStyle {
     }
     
     public let buttonColor: UIColor
-    public let titleColor: UIColor?
     public let title: TitleStatus?
     public let topInset: CGFloat
     public let leftInset: CGFloat
@@ -24,7 +23,6 @@ public class DDIPAlarmButtonStyle {
     
     public init(
         buttonColor: UIColor,
-        titleColor: UIColor?,
         title: TitleStatus?,
         topInset: CGFloat,
         leftInset: CGFloat,
@@ -32,7 +30,6 @@ public class DDIPAlarmButtonStyle {
         bottomInset: CGFloat
     ) {
         self.buttonColor = buttonColor
-        self.titleColor = titleColor
         self.title = title
         self.topInset = topInset
         self.leftInset = leftInset

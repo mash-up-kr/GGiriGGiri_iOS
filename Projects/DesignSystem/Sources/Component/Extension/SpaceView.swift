@@ -14,7 +14,7 @@ final class SpaceView: UIView {
     override func draw(_ rect: CGRect) {
         let circlePath = UIBezierPath(arcCenter: CGPoint(x: self.bounds.width / 2, y: self.bounds.height / 2 ), radius: self.bounds.width / 2, startAngle: .pi / 2, endAngle: .pi * 3/2, clockwise: isClockwise)
         let circleShape = CAShapeLayer()
-        circleShape.fillColor = UIColor.red.cgColor
+        circleShape.fillColor = UIColor.designSystem(.primaryYellow)?.cgColor
         circleShape.path = circlePath.cgPath
         self.layer.addSublayer(circleShape)
     }

@@ -11,7 +11,7 @@ import UIKit
 final class DashedLine: UIView {
     override func draw(_ rect: CGRect) {
         let caShapeLayer = CAShapeLayer()
-        caShapeLayer.strokeColor = UIColor.black.cgColor
+        caShapeLayer.strokeColor = UIColor.designSystem(.neutralBlack)?.cgColor
         caShapeLayer.lineWidth = 1
         caShapeLayer.lineDashPattern = [3.5, 3.5]
         let cgPath = CGMutablePath()

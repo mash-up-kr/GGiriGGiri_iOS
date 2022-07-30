@@ -44,7 +44,6 @@ public class DDIPListCardView: UIView, AddViewsable {
     let semiCircleSpaceLeftView: SpaceView = {
         let view = SpaceView(isClockwise: false)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
         
         return view
     }()
@@ -52,7 +51,6 @@ public class DDIPListCardView: UIView, AddViewsable {
     let semiCircleSpaceRightView: SpaceView = {
         let view = SpaceView(isClockwise: true)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
         
         return view
     }()
@@ -67,12 +65,11 @@ public class DDIPListCardView: UIView, AddViewsable {
         self.alarmButton = alarmButton
         self.applyViewer = applyViewer
         super.init(frame: frame)
-        self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.red.cgColor
         self.layer.cornerRadius = 8
         setView()
         setUI()
         setValue()
+        setFont()
     }
     
     required init?(coder: NSCoder) {
@@ -92,11 +89,24 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
     
     private func setValue() {
+        self.backgroundColor = .designSystem(.neutralWhite)
         brandLabel.text = style.brand
         nameLabel.text = style.name
         expirationLabel.text = "유효기간 : " + style.expirationDate
         imageIcon.image = UIImage(systemName: style.iconImage)
         descriptionLabel.text = style.description
+    }
+    
+    private func setAttribute() {
+        brandLabel.textColor = .designSystem(.neutralBlack)
+        nameLabel.textColor = .designSystem(.neutralBlack)
+        expirationLabel.textColor = .designSystem(.neutralGray500)
+    }
+    
+    private func setFont() {
+        brandLabel.font = .designSystem(.pretendard, family: .bold, size: ._12)
+        nameLabel.font = .designSystem(.pretendard, family: .bold, size: ._18)
+        expirationLabel.font = .designSystem(.pretendard, family: .bold, size: ._12)
     }
     
     private func setUI() {

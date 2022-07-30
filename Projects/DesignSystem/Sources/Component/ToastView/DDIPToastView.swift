@@ -12,11 +12,12 @@ public class DDIPToastView: UIView, AddViewsable {
     public let style: DDIPToastViewStyle
     
     public let titleLabel: UILabel = {
-        let titlelabel = UILabel()
-        titlelabel.translatesAutoresizingMaskIntoConstraints = false
-        titlelabel.font = UIFont.boldSystemFont(ofSize: 18)
+        let titleLabel = UILabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textColor = .designSystem(.neutralBlack)
+        titleLabel.font = .designSystem(.pretendard, family: .bold, size: ._18)
         
-        return titlelabel
+        return titleLabel
     }()
     
     public let iconImageView: UIImageView = {
@@ -31,6 +32,8 @@ public class DDIPToastView: UIView, AddViewsable {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .center
+        descriptionLabel.textColor = .designSystem(.neutralGray400)
+        descriptionLabel.font = .designSystem(.pretendard, family: .regular, size: ._14)
         
         return descriptionLabel
     }()
@@ -50,7 +53,7 @@ public class DDIPToastView: UIView, AddViewsable {
         self.iconImageView.image = UIImage(systemName: self.style.image)
         self.descriptionLabel.text = self.style.description
         
-        self.backgroundColor = .gray
+        self.backgroundColor = .designSystem(.neutralWhite)
         self.layer.cornerRadius = 12
         
         self.addSubViews([titleLabel, iconImageView, descriptionLabel])

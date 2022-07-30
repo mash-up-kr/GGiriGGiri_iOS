@@ -24,9 +24,9 @@ public class DDIPCategoryButton: UIButton {
     public func setUI() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 17
-        self.setTitleColor(self.style.titleColor, for: .normal)
+        self.setTitleColor(.designSystem(.neutralWhite), for: .normal)
         self.backgroundColor = self.style.buttonColor
-        self.titleLabel?.font = .systemFont(ofSize: 14)
+        self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._14)
         self.setTitle(self.style.title, for: .normal)
         self.contentEdgeInsets = UIEdgeInsets(top: self.style.topInset, left: self.style.leftInset, bottom: self.style.bottomInset, right: self.style.rightInset)
         
