@@ -13,18 +13,21 @@ import SnapKit
 
 /// 기프티콘 정보 - 기프티콘 정보 뷰
 final class RegisterGifticonInfoView: BaseView {
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "기프티콘 정보"
+        label.font = .designSystem(.pretendard, family: .bold, size: ._16)
+        label.textColor = .designSystem(.neutralBlack)
+        return label
+    }()
     
-    private let gifticonInfoSectionTitleLabel = TempLabel(
-        color: .black,
-        text: "기프티콘 정보",
-        font: .designSystem(.pretendard, family: .regular, size: ._16)
-    )
-    
-    private let categoryTitleLabel = TempLabel(
-        color: .black,
-        text: "카테고리",
-        font: .designSystem(.pretendard, family: .regular, size: ._14)
-    )
+    private let categoryTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "카테고리"
+        label.font = .designSystem(.pretendard, family: .regular, size: ._14)
+        label.textColor = .designSystem(.neutralBlack)
+        return label
+    }()
     
     private lazy var categoryView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: generateLayout())
@@ -69,21 +72,21 @@ final class RegisterGifticonInfoView: BaseView {
     override func setLayout() {
         super.setLayout()
         
-        addSubviews(with: [gifticonInfoSectionTitleLabel,
+        addSubviews(with: [titleLabel,
                            categoryTitleLabel,
                            categoryView,
                            barndIntputView,
                            nameInputView,
                            expirationDateInputView])
         
-        gifticonInfoSectionTitleLabel.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
             $0.height.equalTo(20)
         }
         
         categoryTitleLabel.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(gifticonInfoSectionTitleLabel.snp.bottom).offset(20)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.height.equalTo(20)
         }
         
