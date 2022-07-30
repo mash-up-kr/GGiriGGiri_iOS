@@ -1,0 +1,16 @@
+DEVELOPMENT_TEAM = 8WGBZHP3L6
+PROVISIONING_PROFILE_SPECIFIER = match Development com.sz.mashup.GGiriGGiri
+SWIFT_VERSION = 5.0
+CODE_SIGN_IDENTITY = Apple Development
+CODE_SIGN_STYLE = Manual
+
+// The base SDK to use (if no version is specified, the latest version is
+// assumed)
+SDKROOT=iphoneos
+
+// Whether to strip out code that isn't called from anywhere
+DEAD_CODE_STRIPPING = NO
+
+// Sets the @rpath for the application such that it can include frameworks in
+// the application bundle (inside the "Frameworks" folder)
+LD_RUNPATH_SEARCH_PATHS = @executable_path/../Frameworks @loader_path/../Frameworks @executable_path/Frameworks
