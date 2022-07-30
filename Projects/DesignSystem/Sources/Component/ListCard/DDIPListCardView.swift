@@ -65,8 +65,6 @@ public class DDIPListCardView: UIView, AddViewsable {
         self.alarmButton = alarmButton
         self.applyViewer = applyViewer
         super.init(frame: frame)
-        self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.red.cgColor
         self.layer.cornerRadius = 8
         setView()
         setUI()

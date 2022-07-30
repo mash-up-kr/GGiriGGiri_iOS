@@ -67,7 +67,7 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
     }
     
     @objc private func selectLeftButton() {
-        self.rightTapButton.titleLabel?.font = nil
+        self.rightTapButton.titleLabel?.font = .designSystem(.pretendard, family: .regular, size: ._16)
         self.leftTabButton.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._16)
         UIView.animate(withDuration: 0.3) {
             self.layoutIfNeeded()
@@ -81,7 +81,7 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
     }
     
     @objc private func selectRightButton() {
-        self.leftTabButton.titleLabel?.font = nil
+        self.leftTabButton.titleLabel?.font = .designSystem(.pretendard, family: .regular, size: ._16)
         self.rightTapButton.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._16)
         UIView.animate(withDuration: 0.3) {
             self.layoutIfNeeded()
