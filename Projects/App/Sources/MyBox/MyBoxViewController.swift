@@ -27,8 +27,8 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         return DDIPCategoryTapView(style: .init(leftOption: .box, rightOption: .box))
     }()
     
-    private let applyBoxView = ApplyBoxView()
-    private let registerBoxView = RegisterBoxView()
+    private let myBoxView = MyBoxView()
+    private let dataSource = MyBoxCollectionViewDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,27 +37,16 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
     override func setLayout() {
         super.setLayout()
         
-        view.addSubviews(with: [categoryTapView, applyBoxView, registerBoxView])
+        view.addSubviews(with: [categoryTapView, myBoxView])
         
         categoryTapView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
             $0.leading.trailing.equalToSuperview()
         }
         
-        applyBoxView.snp.makeConstraints {
-            $0.top.equalTo(categoryTapView.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        registerBoxView.snp.makeConstraints {
-            $0.top.equalTo(categoryTapView.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut) {
-            self.registerBoxView.transform = CGAffineTransform(translationX: self.view.frame.width, y: 0)
+        myBoxView.snp.makeConstraints {
+            $0.top.equalTo(categoryTapView.snp.bottom).offset(8)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
     
@@ -68,18 +57,14 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         
         view.backgroundColor = .designSystem(.primaryYellow)
         
-        categoryTapView.leftButtonTapEvent.subscribe(onNext: { [weak self] in
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
-                self?.applyBoxView.transform = .identity // applyBoxView 위치를 defaultValue로 돌려줌.
-                self?.registerBoxView.transform = CGAffineTransform(translationX: self?.view.frame.width ?? 0, y: 0)
-            }
-        }).disposed(by: disposeBag)
+        myBoxView.configureDataSource(dataSource)
         
+        categoryTapView.leftButtonTapEvent.subscribe(onNext: { [weak self] in
+            // TODO: 응모 BOX로 화면 이동
+        }).disposed(by: disposeBag)
+
         categoryTapView.rightButtonTapEvent.subscribe(onNext: { [weak self] in
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
-                self?.registerBoxView.transform = .identity
-                self?.applyBoxView.transform = CGAffineTransform(translationX: -(self?.view.frame.width ?? 0) , y: 0)
-            }
+            // TODO: 등록 BOX로 화면 이동
         }).disposed(by: disposeBag)
     }
     
