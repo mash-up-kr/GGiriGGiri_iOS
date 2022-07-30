@@ -13,108 +13,112 @@ import SnapKit
 
 /// 기프티콘 정보 등록 화면
 final class RegisterGifticonView: BaseView {
-    
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.backgroundColor = .gray
-        return scrollView
-    }()
-    
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
     private(set) var registerGiftionImageView = RegisterGiftionImageView()
     private let infoMessageView = InfoMessageView()
     private let registerGifticonInfoView = RegisterGifticonInfoView()
     private let registerGifticonDDipInfoView = RegisterGifticonDDipInfoView()
-    private let registerButton = TempButton(title: "내용을 입력해야 뿌릴 수 있어요.")
+    private let registerButton = DDIPCTAButton(style:
+            .init(
+                buttonColor: .designSystem(.secondaryBlue) ?? .clear,
+                titleColor: .designSystem(.neutralWhite) ?? .clear,
+                title: "내용을 먼저 입력하세요"
+            )
+    )
+    
+    var didTapTimeSelect: (() -> ())?
     
     override func setLayout() {
         super.setLayout()
         
-        scrollView.addSubviews(with: [registerGiftionImageView,
+        addSubviews(with: [scrollView, registerButton])
+        
+        scrollView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+        }
+        registerButton.snp.makeConstraints {
+            $0.top.equalTo(scrollView.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalTo(safeAreaLayoutGuide)
+        }
+        
+        contentViewLayout()
+    }
+    
+    private func contentViewLayout() {
+        scrollView.addSubview(contentView)
+        contentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalTo(UIScreen.main.bounds.width)
+        }
+        
+        contentView.addSubviews(with: [registerGiftionImageView,
                                       infoMessageView,
                                       registerGifticonInfoView,
                                       registerGifticonDDipInfoView])
-        addSubviews(with: [scrollView, registerButton])
         
         registerGiftionImageView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().offset(6)
+            $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(294)
         }
         
         infoMessageView.snp.makeConstraints {
-            $0.top.equalTo(registerGiftionImageView.snp.bottom)
-            $0.leading.equalTo(16)
-            $0.trailing.equalTo(-16)
-            $0.height.equalTo(108)
+            $0.top.equalTo(registerGiftionImageView.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
         
         registerGifticonInfoView.snp.makeConstraints {
             $0.top.equalTo(infoMessageView.snp.bottom).offset(40)
             $0.leading.trailing.equalTo(infoMessageView)
-            $0.height.equalTo(475)
         }
         
         registerGifticonDDipInfoView.snp.makeConstraints {
             $0.top.equalTo(registerGifticonInfoView.snp.bottom).offset(48)
             $0.leading.trailing.equalTo(infoMessageView)
-            $0.height.equalTo(122)
-        }
-        
-        scrollView.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(safeAreaLayoutGuide)
-            $0.bottom.equalTo(registerGifticonDDipInfoView.snp.bottom)
-        }
-        
-        scrollView.contentLayoutGuide.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(self.safeAreaLayoutGuide)
-            $0.bottom.equalTo(registerGifticonDDipInfoView.snp.bottom)
-        }
-        
-        registerButton.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.bottom).offset(46)
-            $0.leading.trailing.equalTo(scrollView)
-            $0.height.equalTo(54)
-            $0.bottom.equalTo(safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview()
         }
     }
     
     override func configure() {
         super.configure()
-        
-        registerGiftionImageView.imageView.image = UIImage(systemName: "pencil")
     }
 }
 
 
 fileprivate class InfoMessageView: BaseView {
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "😲 중요해요!"
+        label.font = .designSystem(.pretendard, family: .bold, size: ._16)
+        label.textColor = .designSystem(.neutralBlack)
+        return label
+    }()
     
-    private let titleLabel = TempLabel(
-        color: .black,
-        text: "😲 중요해요!",
-        font: .designSystem(.pretendard, family: .regular, size: ._16)
-    )
+    private let infoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "등록해주신 기프티콘 이미지는 당첨자에게 전송될 때 사용되며, 등록 시 화면에는 카테고리 아이콘으로 대체됩니다. 미사용 기프티콘인지 다시 한번 확인해주세요."
+        label.font = .designSystem(.pretendard, family: .regular, size: ._12)
+        label.textColor = .designSystem(.neutralGray500)
+        label.numberOfLines = .zero
+        return label
+    }()
     
-    private let infoLabel = TempLabel(
-        color: .black,
-        text: "등록해주신 기프티콘 이미지는 당첨자에게 전송될 때 사용되며, 등록 시 화면에는 카테고리 아이콘으로 대체됩니다. 미사용 기프티콘인지 다시 한번 확인해주세요.",
-        font: .designSystem(.pretendard, family: .regular, size: ._12)
-    )
-        
     override func setLayout() {
         super.setLayout()
         
         addSubviews(with: [titleLabel, infoLabel])
         
         titleLabel.snp.makeConstraints {
-            $0.top.leading.equalTo(16)
-            $0.trailing.equalTo(-248)
-            $0.height.equalTo(20)
+            $0.top.leading.equalToSuperview().inset(16)
+            $0.trailing.equalToSuperview()
         }
         
         infoLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(8)
-            $0.leading.equalTo(16)
-            $0.trailing.bottom.equalTo(-16)
-            $0.height.equalTo(48)
+            $0.leading.equalToSuperview().offset(16)
+            $0.trailing.bottom.equalToSuperview().inset(16)
         }
     }
     

@@ -8,6 +8,7 @@
 
 import UIKit
 
+import DesignSystem
 import SnapKit
 
 protocol RegisterGifticonImageViewButtonDelegate: AnyObject {
@@ -15,57 +16,59 @@ protocol RegisterGifticonImageViewButtonDelegate: AnyObject {
 }
 
 /// 기프티콘 정보 - 이미지 등록 뷰
+
 final class RegisterGiftionImageView: BaseView {
     
     weak var delegate: RegisterGifticonImageViewButtonDelegate?
-    
-    private let borderView: BaseView = {
-        let view = BaseView()
-        view.backgroundColor = .gray
-        view.layer.cornerRadius = 15
-        return view
-    }()
     
     private(set) var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "pencil")
         imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 15
         return imageView
     }()
     
-    private let imageModifyButton = TempButton(title: "원본 보기")
+    private let seeOriginalButton: UIButton = {
+       let button = UIButton()
+        button.setTitle("원본보기", for: .normal)
+        button.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._14)
+        button.backgroundColor = UIColor.designSystem(.neutralBlack)?.withAlphaComponent(0.89)
+        button.layer.cornerRadius = 12
+        if #available(iOS 15.0, *) {
+            button.configuration?.contentInsets = NSDirectionalEdgeInsets(top: 7, leading: 22, bottom: 22, trailing: 7)
+        } else {
+            button.titleEdgeInsets = UIEdgeInsets(top: 7, left: 22, bottom: 22, right: 7)
+        }
+        
+        return button
+    }()
     
     override func setLayout() {
         super.setLayout()
         
-        borderView.addSubviews(with: [imageView, imageModifyButton])
-        addSubview(borderView)
+        addSubviews(with: [imageView, seeOriginalButton])
         
         imageView.snp.makeConstraints {
-            $0.top.leading.equalTo(4)
-            $0.trailing.bottom.equalTo(-4)
+            $0.edges.equalToSuperview()
         }
         
-        imageModifyButton.snp.makeConstraints {
-            $0.trailing.equalTo(-10)
-            $0.bottom.equalTo(-13)
+        seeOriginalButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(10)
+            $0.bottom.equalToSuperview().inset(13)
+            
             $0.width.equalTo(96)
             $0.height.equalTo(34)
-        }
-        
-        borderView.snp.makeConstraints {
-            $0.top.equalTo(6)
-            $0.leading.equalTo(16)
-            $0.trailing.bottom.equalTo(-16)
         }
     }
     
     override func configure() {
         super.configure()
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.designSystem(.neutralGray300)?.cgColor
+        layer.cornerRadius = 15
+        clipsToBounds = true
         
-        imageModifyButton.addTarget(self, action: #selector(originalButtonTapped(_:)), for: .touchUpInside)
+        seeOriginalButton.addTarget(self, action: #selector(originalButtonTapped(_:)), for: .touchUpInside)
     }
     
     @objc private func originalButtonTapped(_ sender: UIButton) {

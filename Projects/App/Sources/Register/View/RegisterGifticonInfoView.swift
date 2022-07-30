@@ -33,15 +33,11 @@ final class RegisterGifticonInfoView: BaseView {
         return collectionView
     }()
     
-    private let brandContainer = RegisterInfoInputView()
-    private let productContainer = RegisterInfoInputView()
-    private let expirationDateContainer = RegisterInfoInputView()
-    private let warningMessageLabel = TempLabel(
-        color: .red,
-        text: "유효기간은 8자리(YYYYMMDD)로 입력해주세요.",
-        font: .designSystem(.pretendard, family: .regular, size: ._14)
-    )
-    
+    private let barndIntputView = DDIPInputView(title: "브랜드", placeholder: "브랜드명을 입력해주세요.")
+    private let nameInputView = DDIPInputView(title: "제품명", placeholder: "제품명을 입력해주세요.")
+    private let expirationDateInputView = DDIPInputView(inputType: .text,
+                                                             title: "유효기간",
+                                                             placeholder: "유효기간(YYYY.MM.DD)을 입력해주세요")
     private func generateLayout() -> UICollectionViewLayout {
         let layout =
         UICollectionViewCompositionalLayout { (sectionIndex: Int, _) -> NSCollectionLayoutSection? in
@@ -76,10 +72,9 @@ final class RegisterGifticonInfoView: BaseView {
         addSubviews(with: [gifticonInfoSectionTitleLabel,
                            categoryTitleLabel,
                            categoryView,
-                           brandContainer,
-                           productContainer,
-                           expirationDateContainer,
-                           warningMessageLabel])
+                           barndIntputView,
+                           nameInputView,
+                           expirationDateInputView])
         
         gifticonInfoSectionTitleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
@@ -98,37 +93,35 @@ final class RegisterGifticonInfoView: BaseView {
             $0.height.equalTo(81)
         }
         
-        brandContainer.snp.makeConstraints {
+        barndIntputView.snp.makeConstraints {
             $0.top.equalTo(categoryView.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(82)
         }
         
-        productContainer.snp.makeConstraints {
-            $0.top.equalTo(brandContainer.snp.bottom).offset(24)
+        nameInputView.snp.makeConstraints {
+            $0.top.equalTo(barndIntputView.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(82)
         }
 
-        expirationDateContainer.snp.makeConstraints {
-            $0.top.equalTo(productContainer.snp.bottom).offset(24)
+        expirationDateInputView.snp.makeConstraints {
+            $0.top.equalTo(nameInputView.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(82)
-        }
-        
-        warningMessageLabel.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(expirationDateContainer.snp.bottom).offset(4)
-            $0.height.equalTo(20)
+            $0.bottom.equalToSuperview()
         }
     }
     
     override func configure() {
         super.configure()
-        
         categoryView.dataSource = categoryCollectionViewDataSource
-        brandContainer.configure(with: "브랜드", placeholder: "브랜드명")
-        productContainer.configure(with: "제품명", placeholder: "제품명")
-        expirationDateContainer.configure(with: "유효기간", placeholder: "유효기간(YYYY.MM.DD)")
+        expirationDateInputView.update(keyboardType: .numberPad)
+        expirationDateInputView.update { [weak self] text in
+            let count = text?.count ?? .zero
+            if count != 8 {
+                self?.expirationDateInputView.update(helperText: "유효기간은 8자리(YYYYMMDD)로 입력해주세요.")
+                self?.expirationDateInputView.update(state: .error)
+                return false
+            }
+            return true
+        }
     }
 }
