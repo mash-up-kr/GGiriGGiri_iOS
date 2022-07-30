@@ -25,8 +25,6 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     private let remainingTimeLabel = TempLabel(color: .black)
     
     private let cardView = DDIPDeadlineView(
-        /// 빈값으로 만들 수 있어야 하고
-        ///  전반적으로 컴포넌트들이 외부에서 수정 할 수 없게 되어있음
         style: .init(time: "시간",
                      brand: "브랜드",
                      name: "이름",
@@ -83,19 +81,5 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
         cardView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-//
-//        contentView.addSubview(verticalStackView)
-//
-//        verticalStackView.snp.makeConstraints {
-//            $0.edges.equalToSuperview()
-//        }
-//
-//        verticalStackView.addArrangedSubviews(with: [gifticonImageView,
-//                                                     brandLabel,
-//                                                     nameLabel,
-//                                                     expirationDateLabel,
-//                                                     numberOfParticipantsViewLabel,
-//                                                     remainingTimeLabel,
-//                                                     isParticipatingButton])
     }
 }

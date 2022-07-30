@@ -56,7 +56,6 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         setLayout()
         configure()
     }
@@ -66,19 +65,9 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
         categoryButton.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-//        contentView.addSubview(nameLabel)
-//
-//        nameLabel.snp.makeConstraints {
-//            $0.leading.trailing.equalToSuperview().inset(20)
-//            $0.top.bottom.equalToSuperview().inset(7)
-//        }
     }
     
     private func configure() {
-        
-//        backgroundColor = .designSystem(.neutralWhite)
-//
-//        self.layer.cornerRadius = 20
         categoryButton.isUserInteractionEnabled = false
     }
 }

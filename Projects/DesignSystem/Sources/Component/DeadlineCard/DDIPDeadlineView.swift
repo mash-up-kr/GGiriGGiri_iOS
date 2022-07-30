@@ -8,8 +8,6 @@
 
 import UIKit
 
-// DeadLineCard 그룹인데, DeadlineView 인 이유는?
-
 public class DDIPDeadlineView: UIView, AddViewsable {
     public let style: DDIPDeadlineViewStyle
     private let CTAButton: DDIPCTAButton

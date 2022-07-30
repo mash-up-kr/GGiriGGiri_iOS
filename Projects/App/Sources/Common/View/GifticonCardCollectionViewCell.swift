@@ -85,18 +85,5 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
         listCardView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-//        contentView.addSubview(verticalStackView)
-        
-//        verticalStackView.snp.makeConstraints {
-//            $0.edges.equalToSuperview()
-//        }
-//
-//        verticalStackView.addArrangedSubviews(with: [gifticonImageView,
-//                                                     brandLabel,
-//                                                     nameLabel,
-//                                                     expirationDateLabel,
-//                                                     numberOfParticipantsViewLabel,
-//                                                     remainingTimeLabel,
-//                                                     isParticipatingButton])
     }
 }
