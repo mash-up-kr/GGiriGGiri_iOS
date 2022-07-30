@@ -60,11 +60,15 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         myBoxView.configureDataSource(dataSource)
         
         categoryTapView.leftButtonTapEvent.subscribe(onNext: { [weak self] in
-            // TODO: 응모 BOX로 화면 이동
+            self?.myBoxView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0),
+                                                        at: .centeredHorizontally,
+                                                        animated: true)
         }).disposed(by: disposeBag)
 
         categoryTapView.rightButtonTapEvent.subscribe(onNext: { [weak self] in
-            // TODO: 등록 BOX로 화면 이동
+            self?.myBoxView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0),
+                                                        at: .centeredHorizontally,
+                                                        animated: true)
         }).disposed(by: disposeBag)
     }
     

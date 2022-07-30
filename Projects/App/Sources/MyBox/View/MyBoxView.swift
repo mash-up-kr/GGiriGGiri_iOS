@@ -13,7 +13,7 @@ import SnapKit
 
 final class MyBoxView: BaseView {
 
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: generateLayout())
         collectionView.backgroundColor = .designSystem(.primaryYellow)
         collectionView.register(MyBoxCollectionViewCell.self)
