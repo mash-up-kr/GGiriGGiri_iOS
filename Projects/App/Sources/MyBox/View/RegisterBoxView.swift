@@ -30,7 +30,7 @@ final class RegisterBoxView: BaseView {
     override func configure() {
         super.configure()
         
-        backgroundColor = .designSystem(.secondarySkyblue200)
+        backgroundColor = .clear
         
         emptyView.configureEmptyCategory(with: .register)
     }

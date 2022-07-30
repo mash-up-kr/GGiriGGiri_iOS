@@ -30,7 +30,7 @@ final class ApplyBoxView: BaseView {
     override func configure() {
         super.configure()
         
-        backgroundColor = .designSystem(.neutralGray100)
+        backgroundColor = .clear
         
         emptyView.configureEmptyCategory(with: .apply)
     }
