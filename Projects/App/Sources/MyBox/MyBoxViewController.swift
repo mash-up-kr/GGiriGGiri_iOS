@@ -29,6 +29,7 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
     
     private let myBoxView = MyBoxView()
     private let dataSource = MyBoxCollectionViewDataSource()
+    private let delegate = MyBoxCollectionViewDelegate()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +58,9 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         
         view.backgroundColor = .designSystem(.primaryYellow)
         
+        dataSource.item = MockData.myBoxItem
         myBoxView.configureDataSource(dataSource)
+        myBoxView.configureDelegate(delegate)
         
         categoryTapView.leftButtonTapEvent.subscribe(onNext: { [weak self] in
             self?.myBoxView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0),
@@ -70,6 +73,16 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
                                                         at: .centeredHorizontally,
                                                         animated: true)
         }).disposed(by: disposeBag)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
+        swipeLeft.direction = .left
+        swipeLeft.delegate = self
+        myBoxView.collectionView.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
+        swipeRight.direction = .right
+        swipeRight.delegate = self
+        myBoxView.collectionView.addGestureRecognizer(swipeRight)
     }
     
     private func configureNavigationBar() {
@@ -83,5 +96,20 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
             self?.dismiss(animated: true)
         }).disposed(by: disposeBag)
+    }
+    
+    @objc private func swipeAction(_ gesture: UISwipeGestureRecognizer) {
+        if gesture.direction == .left {
+            myBoxView.collectionView.reloadData()
+            return
+        }
+        myBoxView.collectionView.reloadData()
+    }
+}
+
+extension MyBoxViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

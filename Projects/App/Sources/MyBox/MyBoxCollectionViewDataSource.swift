@@ -10,9 +10,12 @@ import UIKit
 
 final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
-    private let listCollectionViewDataSource = MyBoxListCollectionViewDataSource()
-    private let listCollectionViewDelegate = MyBoxListCollectionViewDelegate()
-    private let item = MockData.myBox
+    var item = [[GifticonCard]]()
+    
+    private let applyDataSource = MyBoxListCollectionViewDataSource()
+    private let applyDelegate = MyBoxListCollectionViewDelegate()
+    private let registerDatasource = MyBoxListCollectionViewDataSource()
+    private let registerDelegate = MyBoxListCollectionViewDelegate()
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -27,15 +30,22 @@ final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource 
             return UICollectionViewCell()
         }
         
-        cell.configureDataSource(listCollectionViewDataSource)
-        cell.configureDelegate(listCollectionViewDelegate)
-        
         switch MyBox.allCases[indexPath.item] {
         case .apply:
-            listCollectionViewDataSource.currentType = .apply
+            guard let applyItem = item.first else { return UICollectionViewCell() }
+            applyDataSource.item = applyItem
+            applyDataSource.currentType = .apply
+            
+            cell.configureDataSource(applyDataSource)
+            cell.configureDelegate(applyDelegate)
             cell.configure(with: .apply)
         case .register:
-            listCollectionViewDataSource.currentType = .register
+            guard let registerItem = item.last else { return UICollectionViewCell() }
+            registerDatasource.item = registerItem
+            registerDatasource.currentType = .register
+            
+            cell.configureDataSource(registerDatasource)
+            cell.configureDelegate(registerDelegate)
             cell.configure(with: .register)
         }
         return cell
