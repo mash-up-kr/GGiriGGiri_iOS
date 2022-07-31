@@ -20,8 +20,6 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     
     public let timeStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.alignment = .fill
-        stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
         
@@ -30,8 +28,6 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     
     public let minuteStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.alignment = .fill
-        stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
         
@@ -40,8 +36,6 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     
     public let secondStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.alignment = .fill
-        stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
         
@@ -87,7 +81,6 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     
     public let entireTimeStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
