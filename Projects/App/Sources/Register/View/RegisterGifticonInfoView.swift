@@ -36,7 +36,7 @@ final class RegisterGifticonInfoView: BaseView {
         return collectionView
     }()
     
-    private let barndIntputView = DDIPInputView(title: "브랜드", placeholder: "브랜드명을 입력해주세요.")
+    private let barndInputView = DDIPInputView(title: "브랜드", placeholder: "브랜드명을 입력해주세요.")
     private let nameInputView = DDIPInputView(title: "제품명", placeholder: "제품명을 입력해주세요.")
     private let expirationDateInputView = DDIPInputView(inputType: .text,
                                                              title: "유효기간",
@@ -69,47 +69,51 @@ final class RegisterGifticonInfoView: BaseView {
     
     private let categoryCollectionViewDataSource = CategoryCollectionViewDataSource()
     
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        return stackView
+    }()
+    
+    private let inputStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 24
+        return stackView
+    }()
+    
     override func setLayout() {
         super.setLayout()
         
-        addSubviews(with: [titleLabel,
-                           categoryTitleLabel,
-                           categoryView,
-                           barndIntputView,
-                           nameInputView,
-                           expirationDateInputView])
+        addSubview(stackView)
+        stackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        stackView.addArrangedSubviews(with: [titleLabel,
+                                             categoryTitleLabel,
+                                             categoryView,
+                                             inputStackView])
+        
+        stackView.setCustomSpacing(20, after: titleLabel)
+        stackView.setCustomSpacing(16, after: categoryTitleLabel)
+        stackView.setCustomSpacing(24, after: categoryView)
+        
+        inputStackView.addArrangedSubviews(with: [
+            barndInputView,
+            nameInputView,
+            expirationDateInputView
+        ])
         
         titleLabel.snp.makeConstraints {
-            $0.top.leading.equalToSuperview()
             $0.height.equalTo(20)
         }
         
         categoryTitleLabel.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.height.equalTo(20)
         }
         
         categoryView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(categoryTitleLabel.snp.bottom).offset(16)
             $0.height.equalTo(81)
-        }
-        
-        barndIntputView.snp.makeConstraints {
-            $0.top.equalTo(categoryView.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview()
-        }
-        
-        nameInputView.snp.makeConstraints {
-            $0.top.equalTo(barndIntputView.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview()
-        }
-
-        expirationDateInputView.snp.makeConstraints {
-            $0.top.equalTo(nameInputView.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
         }
     }
     
