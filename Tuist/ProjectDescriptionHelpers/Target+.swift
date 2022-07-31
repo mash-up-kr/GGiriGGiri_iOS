@@ -31,7 +31,8 @@ extension Target {
                 .external(name: "FlexLayout"),
                 .external(name: "Lottie"),
                 .external(name: "SnapKit")
-               ])
+               ],
+               settings: .appTarget)
     }
     
     public static func frameworkTarget(name: String) -> Target {
