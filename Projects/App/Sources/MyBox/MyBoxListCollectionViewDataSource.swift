@@ -30,11 +30,12 @@ final class MyBoxListCollectionViewDataSource: NSObject, UICollectionViewDataSou
             return UICollectionViewCell()
         }
         
-        if currentType == .apply {
+        switch currentType {
+        case .apply:
             cell.configure(with: .apply, data: item[indexPath.item])
-            return cell
+        case .register:
+            cell.configure(with: .register, data: item[indexPath.item])
         }
-        cell.configure(with: .register, data: item[indexPath.item])
         return cell
     }
 }

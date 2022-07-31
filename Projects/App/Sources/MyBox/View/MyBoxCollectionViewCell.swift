@@ -98,12 +98,12 @@ final class MyBoxCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with category: MyBox) {
-        if category == .apply {
+        switch category {
+        case .apply:
             collectionView.backgroundView = applyBoxView
-            return
+        case .register:
+            collectionView.backgroundView = registerBoxView
         }
-        collectionView.backgroundView = registerBoxView
-        return
     }
 }
 

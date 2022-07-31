@@ -52,19 +52,17 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with category: MyBox, data: GifticonCard) {
-        if category == .apply {
-            listCardView.brandLabel.text = data.gifticonInfo.brand
-            listCardView.nameLabel.text = data.gifticonInfo.name
-            listCardView.expirationLabel.text = data.gifticonInfo.expirationDate
-            listCardView.descriptionLabel.text = "응모박스으"
-            listCardView.imageIcon.image = UIImage(named: "img_gosim1")
-            return
-        }
         listCardView.brandLabel.text = data.gifticonInfo.brand
         listCardView.nameLabel.text = data.gifticonInfo.name
         listCardView.expirationLabel.text = data.gifticonInfo.expirationDate
-        listCardView.descriptionLabel.text = "등록박스으"
         listCardView.imageIcon.image = UIImage(named: "img_gosim1")
+        
+        switch category {
+        case .apply:
+            listCardView.descriptionLabel.text = "응모박스으"
+        case .register:
+            listCardView.descriptionLabel.text = "등록박스으"
+        }
         return
     }
 }
