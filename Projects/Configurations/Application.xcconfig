@@ -1,9 +1,3 @@
-DEVELOPMENT_TEAM = 8WGBZHP3L6
-PROVISIONING_PROFILE_SPECIFIER = match Development com.sz.mashup.GGiriGGiri
-SWIFT_VERSION = 5.0
-CODE_SIGN_IDENTITY = Apple Development
-CODE_SIGN_STYLE = Manual
-
 // The base SDK to use (if no version is specified, the latest version is
 // assumed)
 SDKROOT=iphoneos

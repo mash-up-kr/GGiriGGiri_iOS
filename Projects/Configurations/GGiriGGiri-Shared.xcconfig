@@ -5,6 +5,12 @@
 // https://github.com/dempseyatgithub/BuildSettingExtractor
 //
 
+DEVELOPMENT_TEAM = 8WGBZHP3L6
+PROVISIONING_PROFILE_SPECIFIER = match Development com.sz.mashup.GGiriGGiri
+SWIFT_VERSION = 5.0
+CODE_SIGN_IDENTITY = Apple Development
+CODE_SIGN_STYLE = Manual
+
 // Primary App Icon Set Name
 // 
 // Name of an app icon set for the target's default app icon. The contents will be merged
