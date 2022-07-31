@@ -10,7 +10,7 @@ import UIKit
 
 final class MyBoxListCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
-    private let item = MockData.myBox
+    var item = MockData.myBox
     var currentType: MyBox = .register
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
