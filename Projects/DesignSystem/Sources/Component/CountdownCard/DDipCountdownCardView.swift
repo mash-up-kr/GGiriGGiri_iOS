@@ -49,7 +49,7 @@ public class DDipCountdownCardView: UIView, AddViewsable {
         return imageView
     }()
     
-    public let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .designSystem(.pretendard, family: .bold, size: ._20)
