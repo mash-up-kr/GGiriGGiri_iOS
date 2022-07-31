@@ -8,22 +8,31 @@ on:
       - config/**
 
 jobs:
-  label:
-
+  build:
     runs-on: macos-latest
 
-
     steps:
+      - uses: actions/checkout@v3
+
       - uses: fwal/setup-swift@2040b795e5c453c3a05fcb8316496afc8a74f192
         with:
           swift-version: "5.0"
 
+      - uses: sinoru/actions-setup-xcode@v2
+        with:
+          xcode-version: '13.3'
+
       - run: swift --version
 
-      - uses: actions/checkout@v3
+      - run: curl -Ls https://install.tuist.io | bash
 
-      - run: swift build
+      - run: make generate
 
-      - run: swift test
-
+#      - name: Build
+#        run: |
+#          xcodebuild clean build -workspace "GGiriGGiri.xcworkspace" -scheme "yourtarget" -destination "platform=iOS Simulator,name=iPhone 12 Pro,OS=latest" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+#
+#      - name: Test
+#        run: |
+#          xcodebuild clean test -workspace "GGiriGGiri.xcworkspace" -scheme "yourtargetTests" -destination "platform=iOS Simulator,name=iPhone 12 Pro,OS=latest" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
 
