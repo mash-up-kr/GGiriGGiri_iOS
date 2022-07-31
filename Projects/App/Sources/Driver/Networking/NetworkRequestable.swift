@@ -41,8 +41,7 @@ extension NetworkRequestable {
 extension NetworkRequestable {
     /// Request 시 사용될 BaseURL
     var baseURL: String {
-        // 추후 API 연동시 baseURL 변경 에정입니다.
-        "https://ddip.kr"
+        "https://ddip.sgsg.name/"
     }
     
     var path: String {
