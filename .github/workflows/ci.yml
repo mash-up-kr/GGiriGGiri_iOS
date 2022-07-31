@@ -1,0 +1,29 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - develop
+  push:
+    branches:
+      - config/**
+
+jobs:
+  label:
+
+    runs-on: macos-latest
+
+
+    steps:
+      - uses: fwal/setup-swift@2040b795e5c453c3a05fcb8316496afc8a74f192
+        with:
+          swift-version: "5.0"
+
+      - run: swift --version
+
+      - uses: actions/checkout@v3
+
+      - run: swift build
+
+      - run: swift test
+
+
