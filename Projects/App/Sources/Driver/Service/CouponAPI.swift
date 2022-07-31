@@ -11,15 +11,21 @@ import Foundation
 // MARK: SAMPLE
 
 enum CouponAPI {
-    case list
+    case list(ListRquestModel)
 }
 
 extension CouponAPI: NetworkRequestable {
     var path: String {
         switch self {
         case .list:
-            return "/list"
+            return "/api/v1/sprinkles"
+        }
+    }
+    
+    var parameters: Encodable? {
+        switch self {
+        case let .list(model):
+            return model
         }
     }
 }
-

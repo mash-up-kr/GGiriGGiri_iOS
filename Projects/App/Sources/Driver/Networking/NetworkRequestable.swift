@@ -9,6 +9,7 @@
 import Foundation
 
 import Alamofire
+import UIKit
 
 protocol NetworkRequestable {
     /// Request Path
@@ -41,7 +42,7 @@ extension NetworkRequestable {
 extension NetworkRequestable {
     /// Request 시 사용될 BaseURL
     var baseURL: String {
-        "https://ddip.sgsg.name/"
+        "https://ddip.sgsg.name"
     }
     
     var path: String {
@@ -57,7 +58,9 @@ extension NetworkRequestable {
     }
     
     var headers: HTTPHeaders {
-        HTTPHeaders()
+        HTTPHeaders([
+            "Authorization" : UIDevice.current.identifierForVendor?.description ?? .init().description
+        ])
     }
 }
 

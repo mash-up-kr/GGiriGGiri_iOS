@@ -21,7 +21,7 @@ struct CouponService {
         self.network = network
     }
     
-    func list() -> CouponListResponse {
-        network.request(CouponAPI.list).map()
+    func list(_ model: ListRquestModel) -> CouponListResponse {
+        network.request(CouponAPI.list(model)).map()
     }
 }
