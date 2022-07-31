@@ -52,6 +52,10 @@ final class MyBoxCollectionViewCell: UICollectionViewCell {
                                                                item: item)
         
         let section = CollectionViewLayoutManager.configureSection(with: group,
+                                                                   contentInsets: .init(top: .zero,
+                                                                                        leading: 16,
+                                                                                        bottom: .zero,
+                                                                                        trailing: 16),
                                                                    scrollingBehavior: nil,
                                                                    header: nil)
         return section
@@ -59,6 +63,7 @@ final class MyBoxCollectionViewCell: UICollectionViewCell {
     
     func configureDataSource(_ dataSource: UICollectionViewDataSource) {
         collectionView.dataSource = dataSource
+        collectionView.reloadData()
     }
     
     func configureDelegate(_ delegate: UICollectionViewDelegate) {
