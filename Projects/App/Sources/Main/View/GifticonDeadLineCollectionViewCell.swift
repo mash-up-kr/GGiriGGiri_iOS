@@ -30,9 +30,10 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
                      name: "이름",
                      expirationDate: "유효기간",
                      iconImage: "아이콘이미지"),
-        button: .init(style: .init(buttonColor: .designSystem(.secondaryBlue) ?? .label,
-                                   titleColor: .designSystem(.neutralWhite) ?? .label,
-                                   title: "지금당장응모할게용")),
+        button: .init(
+            style: .init(
+                buttonColor: .designSystem(.secondaryBlue) ?? .label,
+                title: "지금당장응모할게용")),
         applyViewer: .init(viewLabel: "오잉?")
     )
     

@@ -24,7 +24,6 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     private let categoryButton = DDIPCategoryButton(
         style: .init(
             buttonColor: .designSystem(.neutralWhite) ?? .label,
-            titleColor: .designSystem(.neutralBlack) ?? .label,
             title: "버튼타이틀",
             height: .height_34,
             topInset: 7,

@@ -52,7 +52,6 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
         alarmButton: .init(
             style: .init(
                 buttonColor: .label,
-                titleColor: .label,
                 title: .apply,
                 isHidden: false
             )

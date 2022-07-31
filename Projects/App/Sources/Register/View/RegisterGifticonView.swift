@@ -22,7 +22,6 @@ final class RegisterGifticonView: BaseView {
     private let registerButton = DDIPCTAButton(style:
             .init(
                 buttonColor: .designSystem(.secondaryBlue) ?? .clear,
-                titleColor: .designSystem(.neutralWhite) ?? .clear,
                 title: "내용을 먼저 입력하세요"
             )
     )
