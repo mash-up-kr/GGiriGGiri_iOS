@@ -8,13 +8,13 @@
 
 import UIKit
 
+import DesignSystem
+
 final class TapBarButtons {
     private(set) var mybox: UIButton = {
         let button = UIButton()
-        button.setTitle("마이박스", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        button.sizeToFit()
+        button.setBackgroundImage(.designSystem(.iconMyBox24), for: .normal)
+        button.frame = CGRect(origin: .zero, size: CGSize(width: 28, height: 28))
         return button
     }()
     
