@@ -9,10 +9,10 @@
 import UIKit
 
 public struct DDipCountdownCardViewStyle {
-    public let iconImage: String
+    public let iconImage: DDIPAsset.name
     public let time: String
     
-    public init(iconImage: String, time: String) {
+    public init(iconImage: DDIPAsset.name, time: String) {
         self.iconImage = iconImage
         self.time = time
     }

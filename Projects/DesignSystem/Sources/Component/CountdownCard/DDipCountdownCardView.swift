@@ -107,7 +107,7 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     private func setValue() {
         self.layer.cornerRadius = 15
         self.backgroundColor = .designSystem(.neutralWhite)
-        iconImageView.image = UIImage(systemName: style.iconImage)
+        iconImageView.image = .designSystem(style.iconImage)
     }
     
     private func setStackView() {
