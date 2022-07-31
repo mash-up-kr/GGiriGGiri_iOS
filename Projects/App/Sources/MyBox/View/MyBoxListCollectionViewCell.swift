@@ -21,7 +21,10 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
                                                              expirationDate: "2022.08.02",
                                                              iconImage: "icecream",
                                                              description: "마감까지 6시간 남았습니다."),
-                                                alarmButton: .init(style: .init(buttonColor: .designSystem(.secondarySkyblue200)!, titleColor: .designSystem(.neutralWhite), title: .progress, isHidden: false)),
+                                                alarmButton: .init(style: .init(buttonColor: .designSystem(.secondarySkyblue200)!,
+                                                                                titleColor: .designSystem(.neutralWhite),
+                                                                                title: .progress,
+                                                                                isHidden: false)),
                                                 applyViewer: .init(viewLabel: "10"))
     
     override init(frame: CGRect) {
