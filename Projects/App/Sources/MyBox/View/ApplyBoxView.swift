@@ -21,7 +21,7 @@ final class ApplyBoxView: BaseView {
         addSubview(emptyView)
         
         emptyView.snp.makeConstraints {
-            $0.top.equalTo(117)
+            $0.top.equalToSuperview().offset(117)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(302)
         }
