@@ -13,7 +13,7 @@ import RxSwift
 // MARK: SAMPLE
 
 struct CouponService {
-    typealias CouponListResponse = Single<[CouponEntity]>
+    typealias CouponListResponse = Response<[CouponEntity]>
     
     private let network: Networking
     
