@@ -42,8 +42,8 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(listCardView)
         
         listCardView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.top.bottom.equalToSuperview().inset(7)
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().inset(7)
         }
     }
     

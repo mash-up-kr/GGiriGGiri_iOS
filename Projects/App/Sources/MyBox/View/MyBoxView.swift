@@ -34,8 +34,6 @@ final class MyBoxView: BaseView {
                                                                 CollectionViewConfigureSize(
                                                                     widthDimension: .fractionalWidth(1),
                                                                     heightDimension: .fractionalHeight(1)))
-        let inset: CGFloat = 16
-        item.contentInsets = .init(top: .zero, leading: inset, bottom: .zero, trailing: inset)
         
         let group = CollectionViewLayoutManager.configureGroup(with:
                                                                 CollectionViewConfigureSize(
