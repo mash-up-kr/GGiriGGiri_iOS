@@ -20,7 +20,7 @@ final class ApplyGifticonView: BaseView {
     }()
     
     private let countdownView: DDipCountdownCardView = {
-        let view = DDipCountdownCardView(style: .init(iconImage: .iconAngelBracket24, time: ""))
+        let view = DDipCountdownCardView(timerType: .second)
         view.layer.borderColor = UIColor.designSystem(.neutralGray200)?.cgColor
         view.layer.borderWidth = 1
         return view
@@ -59,5 +59,9 @@ final class ApplyGifticonView: BaseView {
         countdownView.snp.makeConstraints {
             $0.height.equalTo(394)
         }
+    }
+    
+    func updateCountdownDate(date: Date) {
+        countdownView.update(countdownDate: date)
     }
 }
