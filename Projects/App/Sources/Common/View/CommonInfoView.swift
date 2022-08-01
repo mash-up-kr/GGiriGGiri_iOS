@@ -8,6 +8,8 @@
 
 import UIKit
 
+import DesignSystem
+
 final class CommonInfoView: BaseView {
 
     private let titleLabel: UILabel = {
@@ -22,7 +24,7 @@ final class CommonInfoView: BaseView {
         let label = UILabel()
         label.text = "카페/디저트"
         label.textColor = .designSystem(.neutralBlack)
-        label.font = .designSystem(.pretendard, family: .medium, size: ._14)
+        label.font = .designSystem(.pretendard, family: .bold, size: ._14)
         return label
     }()
     
