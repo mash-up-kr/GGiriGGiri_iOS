@@ -22,7 +22,7 @@ final class ApplyGifticonDDipInfoView: BaseView {
         return label
     }()
     
-    private let infoContainerView: BaseView = {
+    private let wrapperView: BaseView = {
         let view = BaseView()
         view.backgroundColor = .designSystem(.neutralGray100)
         view.layer.cornerRadius = 12
@@ -40,19 +40,19 @@ final class ApplyGifticonDDipInfoView: BaseView {
     
     override func setLayout() {
         super.setLayout()
-        addSubviews(with: [titleLabel, infoContainerView])
+        addSubviews(with: [titleLabel, wrapperView])
         
         titleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
         }
         
-        infoContainerView.snp.makeConstraints {
+        wrapperView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
         
-        infoContainerView.addSubview(verticalStackView)
+        wrapperView.addSubview(verticalStackView)
         verticalStackView.addArrangedSubview(participantsLabelView)
         
         verticalStackView.snp.makeConstraints {
