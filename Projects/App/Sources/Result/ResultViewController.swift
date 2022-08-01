@@ -55,6 +55,7 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
         
         resultView.delegate = self
         resultView.type = viewModel.type
+        resultView.winView.iconView.delegate = self
     }
     
     private func configureNavigationBar() {
@@ -73,11 +74,21 @@ extension ResultViewController: ResultViewButtonDelegate {
     }
     
     func saveButtonTapped() {
+        // TODO: 서버에서 받아온 이미지로 저장해줘야함
         guard let image = UIImage(named: "img_gosim3") else { return }
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(gifticonImageSaved), nil)
     }
     
     @objc private func gifticonImageSaved(image: UIImage, error: Error?, context: UnsafeRawPointer) {
         alert(message: "저장완료")
+    }
+}
+
+extension ResultViewController: GifticonIconViewDelegate {
+    func gifticonIconDidTapped() {
+        let gifticonImageViewController = GiftionImageViewController()
+        // TODO: 서버에서 받아온 이미지로 보여줘야함
+        gifticonImageViewController.giftionImageView.image = UIImage(named: "img_gosim1")
+        present(gifticonImageViewController, animated: true)
     }
 }

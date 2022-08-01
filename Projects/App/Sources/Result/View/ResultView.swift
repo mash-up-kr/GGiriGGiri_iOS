@@ -34,7 +34,7 @@ final class ResultView: BaseView {
         }
     }
     
-    private let winView = WinView()
+    private(set) var winView = WinView()
     private let loseView = LoseView()
     
     private let button = DDIPCTAButton(
