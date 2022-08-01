@@ -104,13 +104,7 @@ final class WinView: BaseView {
 fileprivate final class IconView: BaseView {
     
     private let speechView = SpeechView()
-    private let triangleView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "icon_polygon")
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        return imageView
-    }()
+    private let triangleView = TriangleView()
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -134,6 +128,7 @@ fileprivate final class IconView: BaseView {
         triangleView.snp.makeConstraints {
             $0.top.equalTo(speechView.snp.bottom)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(20)
             $0.height.equalTo(12)
         }
         
@@ -205,5 +200,26 @@ fileprivate final class SpeechView: BaseView {
         
         backgroundColor = .designSystem(.secondarySkyblue100)
         layer.cornerRadius = 12
+    }
+}
+
+fileprivate final class TriangleView: BaseView {
+
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+
+        let heightWidth = self.frame.size.width
+        let path = CGMutablePath()
+
+        path.move(to: CGPoint(x: 0, y: 0))
+        path.addLine(to: CGPoint(x: 0 + heightWidth / 2, y: heightWidth / 2))
+        path.addLine(to: CGPoint(x: 0 + heightWidth, y: 0))
+        path.addLine(to: CGPoint(x: 0, y: 0))
+
+        let shape = CAShapeLayer()
+        shape.path = path
+        shape.fillColor = UIColor.designSystem(.secondarySkyblue100)?.cgColor
+
+        self.layer.insertSublayer(shape, at: 0)
     }
 }
