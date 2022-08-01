@@ -55,7 +55,6 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     }()
     
     func configure(with data: GifticonCard) {
-        /// 전달받은 값을 반영할 수 있어야 한다
         gifticonId = data.gifticonInfo.id
         brandLabel.text = data.gifticonInfo.brand
         nameLabel.text = data.gifticonInfo.name
