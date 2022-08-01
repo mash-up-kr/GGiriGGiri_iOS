@@ -66,8 +66,9 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
     
     private func gifticonViewLayout() {
         applyGifticonView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
+            $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(37)
         }
     }
     
