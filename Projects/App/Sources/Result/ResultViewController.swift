@@ -53,6 +53,7 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
             self?.dismiss(animated: true)
         }).disposed(by: disposeBag)
         
+        resultView.delegate = self
         resultView.type = viewModel.type
     }
     
@@ -63,5 +64,20 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
         }
+    }
+}
+
+extension ResultViewController: ResultViewButtonDelegate {
+    func homeButtonTapped() {
+        dismiss(animated: true)
+    }
+    
+    func saveButtonTapped() {
+        guard let image = UIImage(named: "img_gosim3") else { return }
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(gifticonImageSaved), nil)
+    }
+    
+    @objc private func gifticonImageSaved(image: UIImage, error: Error?, context: UnsafeRawPointer) {
+        alert(message: "저장완료")
     }
 }

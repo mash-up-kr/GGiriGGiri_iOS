@@ -13,6 +13,7 @@ import SnapKit
 
 protocol ResultViewButtonDelegate: AnyObject {
     func homeButtonTapped()
+    func saveButtonTapped()
 }
 
 final class ResultView: BaseView {
@@ -72,7 +73,11 @@ final class ResultView: BaseView {
     }
     
     @objc private func homeButtonTapped(_ sender: UIButton) {
-    
-        delegate?.homeButtonTapped()
+        switch type {
+        case .win:
+            delegate?.saveButtonTapped()
+        case .lose:
+            delegate?.homeButtonTapped()
+        }
     }
 }
