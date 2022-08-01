@@ -9,15 +9,30 @@
 import UIKit
 
 public class DDIPListCardView: UIView, AddViewsable {
-    public let style: DDIPListCardViewStyle
-    private let alarmButton: DDIPCardListButton
-    private let applyViewer: DDIPApplyViewer
+    public enum ApplyStatus {
+        case apply
+        case progress
+        case complete
+        
+        func choose(style: DDIPListCardViewStyle) -> DDipListCardApplyBaseView {
+            switch self {
+            case .apply:
+                return  DDipListCardDeadlineView(style: style)
+            case .progress:
+                return DDipListCardApplyView(style: style)
+            case .complete:
+                return DDipListCardCompleteView(style: style)
+            }
+        }
+    }
     
+    public let style: DDIPListCardViewStyle
+    private let applyViewer: DDIPApplyViewer
+    private let applyStatus: ApplyStatus
     public let nameLabel = UILabel()
     public let brandLabel = UILabel()
     public let expirationLabel = UILabel()
     public let imageIcon = UIImageView()
-    public let descriptionLabel = UILabel()
     private let dashedLine = DashedLine()
     
     public let infoStackView: UIStackView = {
@@ -31,8 +46,8 @@ public class DDIPListCardView: UIView, AddViewsable {
         return stackView
     }()
     
-    public let drawStackView: UIStackView = {
-        let stackView = UIStackView()
+    public lazy var drawStackView: DDipListCardApplyBaseView = {
+        let stackView = applyStatus.choose(style: style)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -58,11 +73,11 @@ public class DDIPListCardView: UIView, AddViewsable {
     public init(
         frame: CGRect = .zero,
         style: DDIPListCardViewStyle,
-        alarmButton: DDIPCardListButton,
+        applyStatus: ApplyStatus,
         applyViewer: DDIPApplyViewer
     ) {
         self.style = style
-        self.alarmButton = alarmButton
+        self.applyStatus = applyStatus
         self.applyViewer = applyViewer
         super.init(frame: frame)
         self.layer.cornerRadius = 8
@@ -78,14 +93,11 @@ public class DDIPListCardView: UIView, AddViewsable {
     
     private func setView() {
         applyViewer.translatesAutoresizingMaskIntoConstraints = false
-        alarmButton.translatesAutoresizingMaskIntoConstraints = false
         imageIcon.translatesAutoresizingMaskIntoConstraints = false
         dashedLine.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubViews([infoStackView, imageIcon, applyViewer, semiCircleSpaceLeftView, semiCircleSpaceRightView, dashedLine, drawStackView])
         infoStackView.addArrangedSubviews(brandLabel, nameLabel, expirationLabel)
-        drawStackView.addArrangedSubviews(alarmButton, descriptionLabel)
     }
     
     private func setValue() {
@@ -94,7 +106,6 @@ public class DDIPListCardView: UIView, AddViewsable {
         nameLabel.text = style.name
         expirationLabel.text = "유효기간 : " + style.expirationDate
         imageIcon.image = UIImage(systemName: style.iconImage)
-        descriptionLabel.text = style.description
     }
     
     private func setAttribute() {
