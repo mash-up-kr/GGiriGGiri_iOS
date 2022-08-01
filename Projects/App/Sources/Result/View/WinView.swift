@@ -68,7 +68,7 @@ final class WinView: BaseView {
         }
         
         iconView.snp.makeConstraints {
-            $0.top.equalTo(winMessageLabel.snp.bottom).offset(30)
+            $0.top.equalTo(winMessageLabel.snp.bottom).offset(22)
             $0.leading.trailing.equalToSuperview()
         }
         
@@ -104,7 +104,13 @@ final class WinView: BaseView {
 fileprivate final class IconView: BaseView {
     
     private let speechView = SpeechView()
-    private let triangleView = TriangleView()
+    private let bubbleView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "icon_bubble")
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        return imageView
+    }()
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -117,23 +123,22 @@ fileprivate final class IconView: BaseView {
     override func setLayout() {
         super.setLayout()
         
-        addSubviews(with: [speechView, triangleView, imageView])
+        bubbleView.addSubview(speechView)
+        addSubviews(with: [bubbleView, imageView])
         
         speechView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(22)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(72)
+            $0.top.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(28)
         }
         
-        triangleView.snp.makeConstraints {
-            $0.top.equalTo(speechView.snp.bottom)
+        bubbleView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(24)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(20)
-            $0.height.equalTo(12)
+            $0.height.equalTo(83)
         }
         
         imageView.snp.makeConstraints {
-            $0.top.equalTo(triangleView.snp.bottom)
+            $0.top.equalTo(bubbleView.snp.bottom)
             $0.centerX.equalToSuperview()
             $0.width.height.equalTo(180)
             $0.bottom.equalToSuperview().inset(20)
@@ -188,10 +193,10 @@ fileprivate final class SpeechView: BaseView {
         
         verticalStackView.addArrangedSubviews(with: [bubbleLabel, bubbleBoldLabel])
         
-        addSubviews(with: [verticalStackView])
+        addSubview(verticalStackView)
         
         verticalStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(16)
+            $0.edges.equalToSuperview()
         }
     }
     
@@ -200,26 +205,5 @@ fileprivate final class SpeechView: BaseView {
         
         backgroundColor = .designSystem(.secondarySkyblue100)
         layer.cornerRadius = 12
-    }
-}
-
-fileprivate final class TriangleView: BaseView {
-
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-
-        let heightWidth = self.frame.size.width
-        let path = CGMutablePath()
-
-        path.move(to: CGPoint(x: 0, y: 0))
-        path.addLine(to: CGPoint(x: 0 + heightWidth / 2, y: heightWidth / 2))
-        path.addLine(to: CGPoint(x: 0 + heightWidth, y: 0))
-        path.addLine(to: CGPoint(x: 0, y: 0))
-
-        let shape = CAShapeLayer()
-        shape.path = path
-        shape.fillColor = UIColor.designSystem(.secondarySkyblue100)?.cgColor
-
-        self.layer.insertSublayer(shape, at: 0)
     }
 }
