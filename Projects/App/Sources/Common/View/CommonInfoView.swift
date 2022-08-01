@@ -9,18 +9,22 @@
 import UIKit
 
 final class CommonInfoView: BaseView {
+
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "카테고리"
+        label.textColor = .designSystem(.neutralBlack)
+        label.font = .designSystem(.pretendard, family: .medium, size: ._14)
+        return label
+    }()
     
-    private let titleLabel = TempLabel(
-        color: .designSystem(.neutralBlack),
-        text: "카테고리",
-        font: .designSystem(.pretendard, family: .medium, size: ._14)
-    )
-    
-    private let infoLabel = TempLabel(
-        color: .designSystem(.neutralBlack),
-        text: "카페/디저트",
-        font: .designSystem(.pretendard, family: .bold, size: ._14)
-    )
+    private let infoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "카페/디저트"
+        label.textColor = .designSystem(.neutralBlack)
+        label.font = .designSystem(.pretendard, family: .medium, size: ._14)
+        return label
+    }()
     
     override func setLayout() {
         super.setLayout()
