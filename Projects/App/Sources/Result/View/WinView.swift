@@ -99,4 +99,10 @@ final class WinView: BaseView {
         productWrapperView.configure(title: "제품명", info: "5,000원 상품권")
         expirationDateWrapperView.configure(title: "유효기간", info: "2022.02.03")
     }
+    
+    func configure(gifticon: Gifticon) {
+        brandWrapperView.configure(title: "브랜드", info: gifticon.brand)
+        productWrapperView.configure(title: "제품명", info: gifticon.name)
+        expirationDateWrapperView.configure(title: "유효기간", info: gifticon.expirationDate)
+    }
 }

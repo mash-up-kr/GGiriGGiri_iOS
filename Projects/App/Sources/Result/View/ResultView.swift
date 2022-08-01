@@ -26,6 +26,11 @@ final class ResultView: BaseView {
                 winView.isHidden = false
                 loseView.isHidden = true
                 button.titleLabel?.text = "갤러리에 저장"
+                winView.configure(gifticon: Gifticon(id: 0,
+                                                     brand: "할리스",
+                                                     name: "바닐라라떼",
+                                                     expirationDate: "2022.08.03",
+                                                     imageUrl: "ㅁㅁ"))
             case .lose:
                 winView.isHidden = true
                 loseView.isHidden = false
