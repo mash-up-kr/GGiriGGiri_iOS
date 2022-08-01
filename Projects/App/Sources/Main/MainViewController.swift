@@ -23,7 +23,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     private let myBoxButton = TapBarButtons().mybox
     private lazy var navigationBar: DDIPNavigationBar = {
         return  DDIPNavigationBar(
-            leftBarItem: nil,
+            leftBarItem: DDIPNavigationBar.BarItem.back,
             title: nil,
             rightButtonsItem: [myBoxButton])
     }()
@@ -48,6 +48,16 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             let myBoxViewController = MyBoxViewController(myBoxViewModel)
             myBoxViewController.modalPresentationStyle = .fullScreen
             self?.present(myBoxViewController, animated: true)
+        }).disposed(by: disposeBag)
+        
+        navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
+            let resultViewModel = ResultViewModel()
+            resultViewModel.type = .win
+            print("viwmOde", resultViewModel.type)
+            let resultViewController = ResultViewController(resultViewModel)
+            resultViewController.type = .win
+            resultViewController.modalPresentationStyle = .fullScreen
+            self?.present(resultViewController, animated: true)
         }).disposed(by: disposeBag)
     }
     
