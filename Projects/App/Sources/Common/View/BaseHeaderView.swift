@@ -16,7 +16,7 @@ final class BaseHeaderView: UICollectionReusableView {
     static let reuseIdentifier = "BaseHeaderView"
     
     private(set) var titleLabel = TempLabel(color: .black,
-                                            font: .designSystem(.pretendard, family: .regular, size: ._16))
+                                            font: .designSystem(.pretendard, family: .bold, size: ._16))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,8 +34,8 @@ final class BaseHeaderView: UICollectionReusableView {
         addSubview(titleLabel)
         
         titleLabel.snp.makeConstraints {
-            $0.leading.equalTo(16)
-            $0.trailing.equalTo(-16)
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
             $0.top.equalTo(self.snp.top).offset(14)
             $0.bottom.equalTo(self.snp.bottom).offset(-24)
         }

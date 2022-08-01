@@ -295,6 +295,10 @@ extension DDIPInputView {
     public func update(state: DDIPInputField.State) {
         self._state = state
     }
+    
+    public func update(keyboardType: UIKeyboardType) {
+        self.inputField.update(keyboardType: keyboardType)
+    }
 }
 
 // MARK: - Public

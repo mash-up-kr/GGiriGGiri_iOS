@@ -26,14 +26,13 @@ struct CollectionViewLayoutManager {
                                item: NSCollectionLayoutItem) -> NSCollectionLayoutGroup {
         let groupSize = NSCollectionLayoutSize(widthDimension: groupSize.widthDimension,
                                                heightDimension: groupSize.heightDimension)
-        let group: NSCollectionLayoutGroup
-        
-        if isDirectionVertical {
-            group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-            group.edgeSpacing = edgeSpacing
-            return group
-        }
-        group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let group: NSCollectionLayoutGroup = {
+            if isDirectionVertical {
+                return NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+            } else {
+                return NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            }
+        }()
         group.edgeSpacing = edgeSpacing
         return group
     }

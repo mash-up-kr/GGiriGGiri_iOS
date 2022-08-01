@@ -8,6 +8,7 @@
 
 import UIKit
 
+import DesignSystem
 import SnapKit
 import Kingfisher
 
@@ -22,6 +23,19 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     private(set) var isParticipatingButton = TempButton(title: "지금 당장 응모할게요!")
     private let numberOfParticipantsViewLabel = TempLabel(color: .black)
     private let remainingTimeLabel = TempLabel(color: .black)
+    
+    private let cardView = DDIPDeadlineView(
+        style: .init(time: "시간",
+                     brand: "브랜드",
+                     name: "이름",
+                     expirationDate: "유효기간",
+                     iconImage: "아이콘이미지"),
+        button: .init(
+            style: .init(
+                buttonColor: .designSystem(.secondaryBlue) ?? .label,
+                title: "지금당장응모할게용")),
+        applyViewer: .init(viewLabel: "오잉?")
+    )
     
     private let gifticonImageView: UIImageView = {
         let imageView = UIImageView()
@@ -63,18 +77,9 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     }
     
     private func setLayout() {
-        contentView.addSubview(verticalStackView)
-        
-        verticalStackView.snp.makeConstraints {
+        contentView.addSubview(cardView)
+        cardView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
-        verticalStackView.addArrangedSubviews(with: [gifticonImageView,
-                                                     brandLabel,
-                                                     nameLabel,
-                                                     expirationDateLabel,
-                                                     numberOfParticipantsViewLabel,
-                                                     remainingTimeLabel,
-                                                     isParticipatingButton])
     }
 }

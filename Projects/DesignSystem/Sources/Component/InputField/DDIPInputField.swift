@@ -210,4 +210,8 @@ extension DDIPInputField {
     public func update(text: String?) {
         self.text = text
     }
+    
+    public func update(keyboardType: UIKeyboardType) {
+        self.textfield.keyboardType = keyboardType
+    }
 }
