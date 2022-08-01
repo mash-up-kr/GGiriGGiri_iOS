@@ -20,11 +20,12 @@ final class ResultView: BaseView {
     weak var delegate: ResultViewButtonDelegate?
     var type: GifticonResult = .lose {
         didSet {
-            if type == .win {
+            switch type {
+            case .win:
                 winView.isHidden = false
                 loseView.isHidden = true
                 button.titleLabel?.text = "갤러리에 저장"
-            } else {
+            case .lose:
                 winView.isHidden = true
                 loseView.isHidden = false
                 button.titleLabel?.text = "홈으로 이동"
@@ -71,6 +72,7 @@ final class ResultView: BaseView {
     }
     
     @objc private func homeButtonTapped(_ sender: UIButton) {
+    
         delegate?.homeButtonTapped()
     }
 }
