@@ -19,7 +19,9 @@ final class ApplyGifticonView: BaseView {
         return stackView
     }()
     
-    private let gifticonCardView = ApplyGifticonCardView()
+    private let gifticonCardView = DDipCountdownCardView(
+        style: .init(iconImage: .iconAngelBracket24, time: "")
+    )
     private let gifticonInfoView = ApplyGifticonInfoView()
     private let gifticonDDipInfoView = ApplyGifticonDDipInfoView()
     
@@ -45,7 +47,7 @@ final class ApplyGifticonView: BaseView {
         ])
         
         gifticonCardView.snp.makeConstraints {
-            $0.height.equalTo(393)
+            $0.height.equalTo(394)
         }
         
         gifticonInfoView.snp.makeConstraints {
@@ -63,5 +65,7 @@ final class ApplyGifticonView: BaseView {
     
     override func configure() {
         super.configure()
+        gifticonCardView.layer.borderColor = UIColor.designSystem(.neutralGray200)?.cgColor
+        gifticonCardView.layer.borderWidth = 1
     }
 }
