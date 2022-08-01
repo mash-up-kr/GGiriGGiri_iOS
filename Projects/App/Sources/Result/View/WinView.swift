@@ -23,7 +23,7 @@ final class WinView: BaseView {
     
     private let iconView = IconView()
     
-    private let infoContainerView: BaseView = {
+    private let infoWrapperView: BaseView = {
         let view = BaseView()
         view.backgroundColor = .designSystem(.neutralGray100)
         return view
@@ -37,9 +37,9 @@ final class WinView: BaseView {
         return stackView
     }()
     
-    private let brandContainerView = CommonInfoView()
-    private let productContainerView = CommonInfoView()
-    private let expirationDateContainerView = CommonInfoView()
+    private let brandWrapperView = CommonInfoView()
+    private let productWrapperView = CommonInfoView()
+    private let expirationDateWrapperView = CommonInfoView()
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
@@ -52,13 +52,13 @@ final class WinView: BaseView {
     override func setLayout() {
         super.setLayout()
         
-        verticalStackView.addArrangedSubviews(with: [brandContainerView,
-                                                     productContainerView,
-                                                     expirationDateContainerView])
-        infoContainerView.addSubview(verticalStackView)
+        verticalStackView.addArrangedSubviews(with: [brandWrapperView,
+                                                     productWrapperView,
+                                                     expirationDateWrapperView])
+        infoWrapperView.addSubview(verticalStackView)
         addSubviews(with: [winMessageLabel,
                            iconView,
-                           infoContainerView,
+                           infoWrapperView,
                            descriptionLabel])
         
         
@@ -72,7 +72,7 @@ final class WinView: BaseView {
             $0.leading.trailing.equalToSuperview()
         }
         
-        infoContainerView.snp.makeConstraints {
+        infoWrapperView.snp.makeConstraints {
             $0.top.equalTo(iconView.snp.bottom).offset(26)
             $0.leading.trailing.equalToSuperview()
         }
@@ -82,7 +82,7 @@ final class WinView: BaseView {
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(infoContainerView.snp.bottom).offset(28)
+            $0.top.equalTo(infoWrapperView.snp.bottom).offset(28)
             $0.centerX.equalToSuperview()
         }
     }
@@ -93,11 +93,11 @@ final class WinView: BaseView {
         backgroundColor = .clear
         
         iconView.layer.cornerRadius = 15
-        infoContainerView.layer.cornerRadius = 12
+        infoWrapperView.layer.cornerRadius = 12
         
-        brandContainerView.configure(title: "브랜드", info: "GS25")
-        productContainerView.configure(title: "제품명", info: "5,000원 상품권")
-        expirationDateContainerView.configure(title: "유효기간", info: "2022.02.03")
+        brandWrapperView.configure(title: "브랜드", info: "GS25")
+        productWrapperView.configure(title: "제품명", info: "5,000원 상품권")
+        expirationDateWrapperView.configure(title: "유효기간", info: "2022.02.03")
     }
 }
 
@@ -205,28 +205,5 @@ fileprivate final class SpeechView: BaseView {
         
         backgroundColor = .designSystem(.secondarySkyblue100)
         layer.cornerRadius = 12
-    }
-}
-
-fileprivate final class TriangleView: BaseView {
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-
-        let triangle = UIBezierPath()
-        let y = rect.height - sqrt(pow(rect.width, 2) - pow(rect.width/2, 2))
-        triangle.move(to: CGPoint(x: 0, y: 0))
-        triangle.addLine(to: CGPoint(x: rect.width / 2, y: 0))
-        triangle.addLine(to: CGPoint(x: rect.width / 2, y: y / 6))
-        triangle.addLine(to: CGPoint(x: 0, y: 0))
-        triangle.lineJoinStyle = .round
-        triangle.lineWidth = 5
-
-        UIColor.designSystem(.secondarySkyblue100)?.set()
-        triangle.stroke()
-        triangle.close()
-        
-        UIColor.designSystem(.secondarySkyblue100)?.setFill()
-        triangle.fill()
     }
 }
