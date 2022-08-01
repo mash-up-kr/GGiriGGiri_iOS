@@ -11,106 +11,53 @@ import UIKit
 import DesignSystem
 import SnapKit
 
-protocol ApplyGifticonViewButtonDelegate: AnyObject {
-    func applyButtonTapped(completion: @escaping () -> Void)
-}
-
 /// 기프티콘 응모 뷰
 final class ApplyGifticonView: BaseView {
-    
-    weak var delegate: ApplyGifticonViewButtonDelegate?
-    
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.backgroundColor = .designSystem(.neutralWhite)
-        scrollView.showsVerticalScrollIndicator = false
-        return scrollView
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        return stackView
     }()
     
-    private let gifticonCardView = ApplyGifticonCardView()
-    private let gifticonInfoView = ApplyGifticonInfoView()
-    private let gifticonDDipInfoView = ApplyGifticonDDipInfoView()
+    private let countdownView: DDipCountdownCardView = {
+        let view = DDipCountdownCardView(style: .init(iconImage: .iconAngelBracket24, time: ""))
+        view.layer.borderColor = UIColor.designSystem(.neutralGray200)?.cgColor
+        view.layer.borderWidth = 1
+        return view
+    }()
+    private let informationView = ApplyGifticonInfoView()
+    private let ddipInformationView = ApplyGifticonDDipInfoView()
     
-    private let infoLabel = TempLabel(
-        color: .designSystem(.neutralBlack),
-        text: "결과 정보는 마감 후 바로 나옵니다.",
-        font: .designSystem(.pretendard, family: .bold, size: ._16)
-    )
-    
-    private let applyButton = TempButton(title: "지금 당장 응모할게요!")
+    private let noticeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "결과 정보는 마감 후 바로 나옵니다."
+        label.textColor = .designSystem(.neutralBlack)
+        label.font = .designSystem(.pretendard, family: .bold, size: ._16)
+        label.textAlignment = .center
+        return label
+    }()
     
     override func setLayout() {
         super.setLayout()
+        addSubview(stackView)
         
-        scrollView.addSubviews(with: [gifticonCardView,
-                                      gifticonInfoView,
-                                      gifticonDDipInfoView,
-                                      infoLabel,
-                                      applyButton])
-        
-        addSubviews(with: [scrollView, applyButton])
-        
-        gifticonCardView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(393)
+        stackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
         
-        gifticonInfoView.snp.makeConstraints {
-            $0.top.equalTo(gifticonCardView.snp.bottom).offset(30)
-            $0.leading.trailing.equalTo(gifticonCardView)
-            $0.height.equalTo(248)
+        stackView.addArrangedSubviews(with: [
+            countdownView,
+            informationView,
+            ddipInformationView,
+            noticeLabel
+        ])
+        
+        stackView.setCustomSpacing(29, after: countdownView)
+        stackView.setCustomSpacing(24, after: informationView)
+        stackView.setCustomSpacing(28, after: ddipInformationView)
+        
+        countdownView.snp.makeConstraints {
+            $0.height.equalTo(394)
         }
-        
-        gifticonDDipInfoView.snp.makeConstraints {
-            $0.top.equalTo(gifticonInfoView.snp.bottom).offset(24)
-            $0.leading.trailing.equalTo(gifticonCardView)
-            $0.height.equalTo(104)
-        }
-        
-        infoLabel.snp.makeConstraints {
-            $0.top.equalTo(gifticonDDipInfoView.snp.bottom).offset(28)
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(-37)
-        }
-        
-        scrollView.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(safeAreaLayoutGuide)
-            $0.bottom.equalTo(infoLabel.snp.bottom).offset(37)
-        }
-        
-        scrollView.contentLayoutGuide.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(safeAreaLayoutGuide)
-            $0.bottom.equalTo(infoLabel.snp.bottom).offset(37)
-        }
-        
-        applyButton.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.bottom)
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(54)
-            $0.bottom.equalTo(safeAreaLayoutGuide)
-        }
-    }
-    
-    override func configure() {
-        super.configure()
-        
-        applyButton.isEnabled = true
-        
-        applyButton.setBackgroundColor(.designSystem(.secondaryBlue), for: .normal)
-        applyButton.setBackgroundColor(.designSystem(.secondarySkyblue200), for: .disabled)
-        
-        applyButton.setTitle("지금 당장 응모할게요!", for: .normal)
-        applyButton.setTitle("응모 완료!", for: .disabled)
-        
-        applyButton.layer.cornerRadius = 12
-        applyButton.clipsToBounds = true
-        applyButton.addTarget(self, action: #selector(applyButtonTapped(_:)), for: .touchUpInside)
-    }
-    
-    @objc private func applyButtonTapped(_ sender: UIButton) {
-        delegate?.applyButtonTapped(completion: {
-            self.applyButton.isEnabled = false
-        })
     }
 }

@@ -24,17 +24,51 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
             rightButtonsItem: nil)
     }()
     
+    private let scrollView = UIScrollView()
+    
+    private let scrollContentView = UIView()
+    
     private let applyGifticonView = ApplyGifticonView()
+    
+    private let applyButton = DDIPCTAButton(
+        style: .init(
+            buttonColor: .designSystem(.secondaryBlue) ?? .label,
+            title: "지금 당장 응모할게요!"
+        )
+    )
     
     override func setLayout() {
         super.setLayout()
         
-        view.addSubview(applyGifticonView)
-        
-        applyGifticonView.snp.makeConstraints {
+        view.addSubviews(with: [navigationBar, scrollView, applyButton])
+        navigationBar.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
+        }
+        scrollView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+        }
+        scrollView.addSubview(scrollContentView)
+        scrollContentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalTo(view)
+        }
+        scrollContentView.addSubview(applyGifticonView)
+        applyButton.snp.makeConstraints {
+            $0.top.equalTo(scrollView.snp.bottom)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        gifticonViewLayout()
+    }
+    
+    private func gifticonViewLayout() {
+        applyGifticonView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(37)
         }
     }
     
@@ -45,27 +79,11 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
         
         view.backgroundColor = .designSystem(.neutralWhite)
         gifticonId = viewModel.gifticonId
-        applyGifticonView.delegate = self
     }
-    
+
     private func configureNavigationBar() {
-        view.addSubview(navigationBar)
-        
-        navigationBar.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.trailing.equalToSuperview()
-        }
-        
         navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
             self?.dismiss(animated: true)
         }).disposed(by: disposeBag)
-    }
-}
-
-extension ApplyViewController: ApplyGifticonViewButtonDelegate {
-    func applyButtonTapped(completion: @escaping () -> Void) {
-        alert(message: "응모 완료~!", okHandler: { _ in
-            completion()
-        })
     }
 }
