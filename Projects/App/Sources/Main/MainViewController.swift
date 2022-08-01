@@ -53,9 +53,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
             let resultViewModel = ResultViewModel()
             resultViewModel.type = .win
-            print("viwmOde", resultViewModel.type)
             let resultViewController = ResultViewController(resultViewModel)
-            resultViewController.type = .win
             resultViewController.modalPresentationStyle = .fullScreen
             self?.present(resultViewController, animated: true)
         }).disposed(by: disposeBag)

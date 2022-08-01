@@ -28,8 +28,6 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        resultView.type = viewModel.type
     }
 
     override func setLayout() {
@@ -37,7 +35,6 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
         
         view.addSubview(resultView)
         
-        resultView.type = viewModel.type
         resultView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
             $0.leading.trailing.equalToSuperview()
@@ -55,6 +52,8 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
         navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
             self?.dismiss(animated: true)
         }).disposed(by: disposeBag)
+        
+        resultView.type = viewModel.type
     }
     
     private func configureNavigationBar() {
