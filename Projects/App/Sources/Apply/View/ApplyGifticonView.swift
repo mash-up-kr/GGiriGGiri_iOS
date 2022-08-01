@@ -19,17 +19,23 @@ final class ApplyGifticonView: BaseView {
         return stackView
     }()
     
-    private let gifticonCardView = DDipCountdownCardView(
-        style: .init(iconImage: .iconAngelBracket24, time: "")
-    )
-    private let gifticonInfoView = ApplyGifticonInfoView()
-    private let gifticonDDipInfoView = ApplyGifticonDDipInfoView()
+    private let countdownView: DDipCountdownCardView = {
+        let view = DDipCountdownCardView(style: .init(iconImage: .iconAngelBracket24, time: ""))
+        view.layer.borderColor = UIColor.designSystem(.neutralGray200)?.cgColor
+        view.layer.borderWidth = 1
+        return view
+    }()
+    private let informationView = ApplyGifticonInfoView()
+    private let ddipInformationView = ApplyGifticonDDipInfoView()
     
-    private let infoLabel = TempLabel(
-        color: .designSystem(.neutralBlack),
-        text: "결과 정보는 마감 후 바로 나옵니다.",
-        font: .designSystem(.pretendard, family: .bold, size: ._16)
-    )
+    private let noticeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "결과 정보는 마감 후 바로 나옵니다."
+        label.textColor = .designSystem(.neutralBlack)
+        label.font = .designSystem(.pretendard, family: .bold, size: ._16)
+        label.textAlignment = .center
+        return label
+    }()
     
     override func setLayout() {
         super.setLayout()
@@ -40,32 +46,18 @@ final class ApplyGifticonView: BaseView {
         }
         
         stackView.addArrangedSubviews(with: [
-            gifticonCardView,
-            gifticonInfoView,
-            gifticonDDipInfoView,
-            infoLabel
+            countdownView,
+            informationView,
+            ddipInformationView,
+            noticeLabel
         ])
         
-        gifticonCardView.snp.makeConstraints {
+        stackView.setCustomSpacing(29, after: countdownView)
+        stackView.setCustomSpacing(24, after: informationView)
+        stackView.setCustomSpacing(28, after: ddipInformationView)
+        
+        countdownView.snp.makeConstraints {
             $0.height.equalTo(394)
         }
-        
-        gifticonInfoView.snp.makeConstraints {
-            $0.height.equalTo(248)
-        }
-        
-        gifticonDDipInfoView.snp.makeConstraints {
-            $0.height.equalTo(104)
-        }
-        
-        infoLabel.snp.makeConstraints {
-            $0.height.equalTo(100)
-        }
-    }
-    
-    override func configure() {
-        super.configure()
-        gifticonCardView.layer.borderColor = UIColor.designSystem(.neutralGray200)?.cgColor
-        gifticonCardView.layer.borderWidth = 1
     }
 }
