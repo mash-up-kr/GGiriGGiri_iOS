@@ -120,6 +120,5 @@ fileprivate final class SpeechView: BaseView {
         super.configure()
         
         backgroundColor = .designSystem(.secondarySkyblue100)
-        layer.cornerRadius = 12
     }
 }
