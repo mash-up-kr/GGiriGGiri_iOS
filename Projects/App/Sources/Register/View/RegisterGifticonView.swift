@@ -26,8 +26,6 @@ final class RegisterGifticonView: BaseView {
             )
     )
     
-    var didTapTimeSelect: (() -> ())?
-    
     override func setLayout() {
         super.setLayout()
         
