@@ -30,7 +30,12 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
     
     private let applyGifticonView = ApplyGifticonView()
     
-    private let applyButton = TempButton(title: "지금 당장 응모할게요!")
+    private let applyButton = DDIPCTAButton(
+        style: .init(
+            buttonColor: .designSystem(.secondaryBlue) ?? .label,
+            title: "지금 당장 응모할게요!"
+        )
+    )
     
     override func setLayout() {
         super.setLayout()
@@ -52,7 +57,7 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
         scrollContentView.addSubview(applyGifticonView)
         applyButton.snp.makeConstraints {
             $0.top.equalTo(scrollView.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(16)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
