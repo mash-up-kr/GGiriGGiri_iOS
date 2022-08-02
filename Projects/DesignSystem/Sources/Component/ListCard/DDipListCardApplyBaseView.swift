@@ -10,12 +10,9 @@ import UIKit
 
 public class DDipListCardApplyBaseView: UIStackView {
     public let drawLabel = UILabel()
-    public let alarmButton: DDIPCardListButton?
+    public let cardListButton = DDIPCardListButton()
     
-    public init(
-        alarmButton: DDIPCardListButton? = nil
-    ) {
-        self.alarmButton = alarmButton
+    public init() {
         super.init(frame: .zero)
         setStackView()
     }
@@ -25,10 +22,7 @@ public class DDipListCardApplyBaseView: UIStackView {
     }
     
     private func setStackView() {
-        if let alarmButton = alarmButton  {
-            self.addArrangedSubview(alarmButton)
-        }
-        
+        self.addArrangedSubview(cardListButton)
         self.addArrangedSubview(drawLabel)
     }
 }
