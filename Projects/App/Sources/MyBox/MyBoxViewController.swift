@@ -61,6 +61,8 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         dataSource.item = MockData.myBoxItem
         myBoxView.configureDataSource(dataSource)
         myBoxView.configureDelegate(delegate)
+        dataSource.applyDelegate.collectionViewCellDelegate = self
+        dataSource.registerDelegate.collectionViewCellDelegate = self
         
         categoryTapView.leftButtonTapEvent.subscribe(onNext: { [weak self] in
             self?.myBoxView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0),
@@ -111,5 +113,15 @@ extension MyBoxViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+}
+
+extension MyBoxViewController: MyBoxListCollectionViewCellDelegate {
+    func cellTapped(type: MyBox, with index: Int) {
+        let resultViewModel = ResultViewModel()
+        resultViewModel.type = .win
+        let resultViewController = ResultViewController(resultViewModel)
+        resultViewController.modalPresentationStyle = .fullScreen
+        self.present(resultViewController, animated: true)
     }
 }

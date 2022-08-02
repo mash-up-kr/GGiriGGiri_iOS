@@ -13,9 +13,9 @@ final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource 
     var item = [[GifticonCard]]()
     
     private let applyDataSource = MyBoxListCollectionViewDataSource()
-    private let applyDelegate = MyBoxListCollectionViewDelegate()
+    private(set) var applyDelegate = MyBoxListCollectionViewDelegate(type: .apply)
     private let registerDatasource = MyBoxListCollectionViewDataSource()
-    private let registerDelegate = MyBoxListCollectionViewDelegate()
+    private(set) var registerDelegate = MyBoxListCollectionViewDelegate(type: .register)
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
