@@ -85,11 +85,6 @@ extension ResultViewController: ResultViewButtonDelegate {
     }
     
     @objc private func gifticonImageSaved(image: UIImage, error: Error?, context: UnsafeRawPointer) {
-//        let toastView = DDIPToastView(style: .init(titleOption: .save, descriptionOption: .save, imageIcon: "img_logos"))
-//
-//        let wrapperView = UIView()
-//
-//        let dimView = UIView()
         dimView.backgroundColor = UIColor.black.withAlphaComponent(0.25)
         dimView.addSubview(toastView)
         wrapperView.addSubview(dimView)
