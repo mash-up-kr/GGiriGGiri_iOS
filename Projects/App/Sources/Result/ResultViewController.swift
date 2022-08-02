@@ -25,6 +25,11 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
     }()
     
     private let resultView = ResultView()
+    private let toastView = DDIPToastView(style: .init(titleOption: .save,
+                                                       descriptionOption: .save,
+                                                       imageIcon: "img_logos"))
+    private let wrapperView = UIView()
+    private let dimView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,14 +85,18 @@ extension ResultViewController: ResultViewButtonDelegate {
     }
     
     @objc private func gifticonImageSaved(image: UIImage, error: Error?, context: UnsafeRawPointer) {
-        let toastView = DDIPToastView(style: .init(titleOption: .save, descriptionOption: .save, imageIcon: "img_logos"))
-        
-        let wrapperView = UIView()
-        
-        let dimView = UIView()
+//        let toastView = DDIPToastView(style: .init(titleOption: .save, descriptionOption: .save, imageIcon: "img_logos"))
+//
+//        let wrapperView = UIView()
+//
+//        let dimView = UIView()
         dimView.backgroundColor = UIColor.black.withAlphaComponent(0.25)
         dimView.addSubview(toastView)
         wrapperView.addSubview(dimView)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissPopupView(_:)))
+        wrapperView.addGestureRecognizer(tapGesture)
+        wrapperView.isUserInteractionEnabled = true
         
         view.addSubview(wrapperView)
         wrapperView.snp.makeConstraints {
@@ -108,16 +117,21 @@ extension ResultViewController: ResultViewButtonDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
             UIView.transition(with: self.view, duration: 0.3, options: [.curveEaseInOut], animations: {
-                toastView.alpha = 1
+                self.toastView.alpha = 1
             }, completion: nil)
         }
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 4) {
             UIView.transition(with: self.view, duration: 0.3, options: [.curveEaseInOut], animations: {
-                toastView.alpha = 0
-                wrapperView.alpha = 0
+                self.toastView.alpha = 0
+                self.wrapperView.alpha = 0
             }, completion: nil)
         }
+    }
+    
+    @objc private func dismissPopupView(_ gesture: UITapGestureRecognizer) {
+        wrapperView.removeFromSuperview()
+        toastView.removeFromSuperview()
     }
 }
 
