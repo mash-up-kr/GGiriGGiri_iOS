@@ -65,7 +65,7 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
 
     public func setListCardCompleteView(drawDate: String) {
-        let listCardCompleteView = drawStackView as! DDipListCardCompleteView
+        guard let listCardCompleteView = drawStackView as? DDipListCardCompleteView else { return }
 
         listCardCompleteView.setDrawLabel(drawDate: drawDate)
     }
@@ -92,8 +92,8 @@ public class DDIPListCardView: UIView, AddViewsable {
         expirationLabel.text = "유효기간 : \(expirationDate)"
     }
 
-    public func setImageIcon(image: String) {
-        imageIcon.image = UIImage(systemName: image)
+    public func setImageIcon(image: DDIPAsset.name) {
+        imageIcon.image = .designSystem(image)
     }
 
     public func setApplyViewer(viewer: String) {
