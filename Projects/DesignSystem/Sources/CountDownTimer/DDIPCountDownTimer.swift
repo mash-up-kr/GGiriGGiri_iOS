@@ -104,7 +104,7 @@ public final class DDIPCountDownTimer {
 }
 
 extension DDIPCountDownTimer {
-    func update(date: Date) {
+    func update(date: Date?) {
         disposeBag = DisposeBag()
         
         standardDate = date

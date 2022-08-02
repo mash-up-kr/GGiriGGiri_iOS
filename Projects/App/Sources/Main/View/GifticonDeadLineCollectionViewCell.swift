@@ -24,18 +24,7 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     private let numberOfParticipantsViewLabel = TempLabel(color: .black)
     private let remainingTimeLabel = TempLabel(color: .black)
     
-    private let cardView = DDIPDeadlineView(
-        style: .init(time: "시간",
-                     brand: "브랜드",
-                     name: "이름",
-                     expirationDate: "유효기간",
-                     iconImage: "아이콘이미지"),
-        button: .init(
-            style: .init(
-                buttonColor: .designSystem(.secondaryBlue) ?? .label,
-                title: "지금당장응모할게용")),
-        applyViewer: .init(viewLabel: "오잉?")
-    )
+    private let cardView = DDIPDeadlineView()
     
     private let gifticonImageView: UIImageView = {
         let imageView = UIImageView()
@@ -54,17 +43,6 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
-    func configure(with data: GifticonCard) {
-        /// 전달받은 값을 반영할 수 있어야 한다
-        gifticonId = data.gifticonInfo.id
-        brandLabel.text = data.gifticonInfo.brand
-        nameLabel.text = data.gifticonInfo.name
-        expirationDateLabel.text = data.gifticonInfo.expirationDate
-        numberOfParticipantsViewLabel.text = "\(data.numberOfParticipants)"
-        remainingTimeLabel.text = data.remainingTime
-        gifticonImageView.kf.setImage(with: data.gifticonInfo.url)
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -82,5 +60,24 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
         cardView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cardView.update(countDownDate: nil)
+    }
+    
+    func configure(with data: GifticonCard) {
+        gifticonId = data.gifticonInfo.id
+        cardView.update(
+            style: .init(
+                time: "-",
+                brand: data.gifticonInfo.brand,
+                name: data.gifticonInfo.name,
+                expirationDate: data.gifticonInfo.expirationDate,
+                iconImage: .iconCrossFill48
+            )
+        )
+        cardView.update(countDownDate: Date())
     }
 }
