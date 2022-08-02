@@ -18,6 +18,7 @@ protocol ResultViewButtonDelegate: AnyObject {
 
 final class ResultView: BaseView {
     
+    weak var iconDelegate: GifticonIconViewDelegate?
     weak var delegate: ResultViewButtonDelegate?
     var type: GifticonResult = .lose {
         didSet {
@@ -39,7 +40,7 @@ final class ResultView: BaseView {
         }
     }
     
-    private(set) var winView = WinView()
+    private let winView = WinView()
     private let loseView = LoseView()
     
     private let button = DDIPCTAButton(
@@ -75,6 +76,9 @@ final class ResultView: BaseView {
         backgroundColor = .clear
         
         button.addTarget(self, action: #selector(homeButtonTapped(_:)), for: .touchUpInside)
+        
+        winView.iconView.delegate = self
+        iconDelegate = winView.iconView.delegate
     }
     
     @objc private func homeButtonTapped(_ sender: UIButton) {
@@ -84,5 +88,11 @@ final class ResultView: BaseView {
         case .lose:
             delegate?.homeButtonTapped()
         }
+    }
+}
+
+extension ResultView: GifticonIconViewDelegate {
+    func gifticonIconDidTapped() {
+        iconDelegate?.gifticonIconDidTapped()
     }
 }

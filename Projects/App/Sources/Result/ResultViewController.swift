@@ -60,7 +60,7 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
         
         resultView.delegate = self
         resultView.type = viewModel.type
-        resultView.winView.iconView.delegate = self
+        resultView.iconDelegate = self
     }
     
     private func configureNavigationBar() {
