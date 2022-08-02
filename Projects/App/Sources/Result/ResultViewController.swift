@@ -80,7 +80,44 @@ extension ResultViewController: ResultViewButtonDelegate {
     }
     
     @objc private func gifticonImageSaved(image: UIImage, error: Error?, context: UnsafeRawPointer) {
-        alert(message: "저장완료")
+        let toastView = DDIPToastView(style: .init(titleOption: .save, descriptionOption: .save, imageIcon: "img_logos"))
+        
+        let wrapperView = UIView()
+        
+        let dimView = UIView()
+        dimView.backgroundColor = UIColor.black.withAlphaComponent(0.25)
+        dimView.addSubview(toastView)
+        wrapperView.addSubview(dimView)
+        
+        view.addSubview(wrapperView)
+        wrapperView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        dimView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        toastView.snp.makeConstraints {
+            $0.width.equalTo(289)
+            $0.height.equalTo(295)
+            $0.centerX.centerY.equalToSuperview()
+        }
+
+        toastView.alpha = 0
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+            UIView.transition(with: self.view, duration: 0.3, options: [.curveEaseInOut], animations: {
+                toastView.alpha = 1
+            }, completion: nil)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 4) {
+            UIView.transition(with: self.view, duration: 0.3, options: [.curveEaseInOut], animations: {
+                toastView.alpha = 0
+                wrapperView.alpha = 0
+            }, completion: nil)
+        }
     }
 }
 
