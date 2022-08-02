@@ -11,12 +11,12 @@ import UIKit
 import RxSwift
 
 public class DDipCountdownCardView: UIView, AddViewsable {
-    private let firstTimeView = TimeView()
-    private let secondTimeView = TimeView()
-    private let firstMinuteView = TimeView()
-    private let secondMinuteView = TimeView()
-    private let firstSecondView = TimeView()
-    private let secondSecondView = TimeView()
+    private let firstTimeView = DDIPTimeView(displayType: .second)
+    private let secondTimeView = DDIPTimeView(displayType: .second)
+    private let firstMinuteView = DDIPTimeView(displayType: .second)
+    private let secondMinuteView = DDIPTimeView(displayType: .second)
+    private let firstSecondView = DDIPTimeView(displayType: .second)
+    private let secondSecondView = DDIPTimeView(displayType: .second)
     
     public let timeStackView: UIStackView = {
         let stackView = UIStackView()
@@ -213,43 +213,5 @@ extension DDipCountdownCardView {
     
     public func update(countdownDate: Date) {
         timer.update(date: countdownDate)
-    }
-}
-
-fileprivate final class TimeView: UIView {
-    public let numberLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "-"
-        label.textAlignment = .center
-
-        return label
-    }()
-    
-    convenience init() {
-        self.init(frame: .zero)
-        self.backgroundColor = .designSystem(.secondarySkyblue100)
-        setValue()
-        setUI()
-    }
-    
-    private func setValue() {
-        self.addSubview(numberLabel)
-        self.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._28)
-        self.layer.cornerRadius = 12
-    }
-    
-    private func setUI() {
-        NSLayoutConstraint.activate([
-            numberLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            numberLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            numberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            numberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-            numberLabel.widthAnchor.constraint(equalToConstant: 19)
-        ])
-    }
-    
-    func update(text: String) {
-        numberLabel.text = text
     }
 }
