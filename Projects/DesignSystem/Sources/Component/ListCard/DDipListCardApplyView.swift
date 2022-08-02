@@ -9,21 +9,10 @@
 import UIKit
 
 public class DDipListCardApplyView: DDipListCardApplyBaseView {
-    private let style: DDIPListCardViewStyle
-    
-    private func setDrawLabel() {
-        drawLabel.text = "\(style.description) 응모"
+    public func setDrawLabel(applyDate: String) {
+        drawLabel.text = "\(applyDate) 응모"
         drawLabel.textColor = .designSystem(.neutralGray500)
         drawLabel.font = .designSystem(.pretendard, family: .regular, size: ._14)
-    }
-    
-    public init(style: DDIPListCardViewStyle) {
-        self.style = style
-        super.init(alarmButton: .init(style: .init(buttonColor: .designSystem(.secondarySkyblue200), title: .progress, isHidden: false)))
-        setDrawLabel()
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        cardListButton.setButtonAttribute(titleStatus: .progress, buttonColor: .designSystem(.secondarySkyblue200), isHidden: false)
     }
 }
