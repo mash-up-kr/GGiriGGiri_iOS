@@ -14,28 +14,38 @@ public class DDIPListCardView: UIView, AddViewsable {
         case progress
         case complete
         
-        func choose(style: DDIPListCardViewStyle) -> DDipListCardApplyBaseView {
+        func choose() -> DDipListCardApplyBaseView {
             switch self {
             case .apply:
-                return  DDipListCardDeadlineView(style: style)
+                return DDipListCardDeadlineView()
             case .progress:
-                return DDipListCardApplyView(style: style)
+                return DDipListCardApplyView()
             case .complete:
-                return DDipListCardCompleteView(style: style)
+                return DDipListCardCompleteView()
             }
         }
     }
-    
-    public let style: DDIPListCardViewStyle
-    private let applyViewer: DDIPApplyViewer
-    private let applyStatus: ApplyStatus
-    public let nameLabel = UILabel()
-    public let brandLabel = UILabel()
-    public let expirationLabel = UILabel()
-    public let imageIcon = UIImageView()
+
+    public enum ApplyTitleStatus: String {
+        case complete = "마감"
+        case result = "결과"
+        case empty = ""
+
+        var description: String {
+            return self.rawValue
+        }
+    }
+
+    public let applyStatus: ApplyStatus
+    private let applyViewer = DDIPApplyViewer()
+    private let nameLabel = UILabel()
+    private let brandLabel = UILabel()
+    private let expirationLabel = UILabel()
+    private let imageIcon = UIImageView()
     private let dashedLine = DashedLine()
-    
-    public let infoStackView: UIStackView = {
+    public var applyTitleStatus: ApplyTitleStatus = .empty
+
+    public let productStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -45,9 +55,53 @@ public class DDIPListCardView: UIView, AddViewsable {
         
         return stackView
     }()
-    
+
+    public func setListCardDeadlineView(buttonColor: UIColor?, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: String) {
+        guard let listCardDeadlineView = drawStackView as? DDipListCardDeadlineView else { return }
+
+        listCardDeadlineView.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden)
+
+        listCardDeadlineView.setDrawLabel(titleStatus: titleStatus.rawValue, leftTime: leftTime)
+    }
+
+    public func setListCardCompleteView(drawDate: String) {
+        let listCardCompleteView = drawStackView as! DDipListCardCompleteView
+
+        listCardCompleteView.setDrawLabel(drawDate: drawDate)
+    }
+
+    public func setListCardApplyView(applyDate: String) {
+        guard let listCardApplyView = drawStackView as? DDipListCardApplyView else { return }
+
+        listCardApplyView.setDrawLabel(applyDate: applyDate)
+    }
+
+    public func setApplyTitleStatus(applyTitleStatus: ApplyTitleStatus) {
+        self.applyTitleStatus = applyTitleStatus
+    }
+
+    public func setBrandName(brand: String) {
+        brandLabel.text = brand
+    }
+
+    public func setName(name: String) {
+        nameLabel.text = name
+    }
+
+    public func setExpirationDate(expirationDate: String) {
+        expirationLabel.text = "유효기간 : \(expirationDate)"
+    }
+
+    public func setImageIcon(image: String) {
+        imageIcon.image = UIImage(systemName: image)
+    }
+
+    public func setApplyViewer(viewer: String) {
+        applyViewer.setViewer(viewer: viewer)
+    }
+
     public lazy var drawStackView: DDipListCardApplyBaseView = {
-        let stackView = applyStatus.choose(style: style)
+        let stackView = applyStatus.choose()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -72,19 +126,13 @@ public class DDIPListCardView: UIView, AddViewsable {
     
     public init(
         frame: CGRect = .zero,
-        style: DDIPListCardViewStyle,
-        applyStatus: ApplyStatus,
-        applyViewer: DDIPApplyViewer
+        _ applyStatus: ApplyStatus
     ) {
-        self.style = style
         self.applyStatus = applyStatus
-        self.applyViewer = applyViewer
         super.init(frame: frame)
-        self.layer.cornerRadius = 8
         setView()
         setUI()
-        setValue()
-        setFont()
+        setAttribute()
     }
     
     required init?(coder: NSCoder) {
@@ -92,29 +140,21 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
     
     private func setView() {
+        self.backgroundColor = .designSystem(.neutralWhite)
+        self.layer.cornerRadius = 8
         applyViewer.translatesAutoresizingMaskIntoConstraints = false
         imageIcon.translatesAutoresizingMaskIntoConstraints = false
         dashedLine.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubViews([infoStackView, imageIcon, applyViewer, semiCircleSpaceLeftView, semiCircleSpaceRightView, dashedLine, drawStackView])
-        infoStackView.addArrangedSubviews(brandLabel, nameLabel, expirationLabel)
-    }
-    
-    private func setValue() {
-        self.backgroundColor = .designSystem(.neutralWhite)
-        brandLabel.text = style.brand
-        nameLabel.text = style.name
-        expirationLabel.text = "유효기간 : " + style.expirationDate
-        imageIcon.image = UIImage(systemName: style.iconImage)
+        self.addSubViews([productStackView, imageIcon, applyViewer, semiCircleSpaceLeftView, semiCircleSpaceRightView, dashedLine, drawStackView])
+        productStackView.addArrangedSubviews(brandLabel, nameLabel, expirationLabel)
     }
     
     private func setAttribute() {
         brandLabel.textColor = .designSystem(.neutralBlack)
         nameLabel.textColor = .designSystem(.neutralBlack)
         expirationLabel.textColor = .designSystem(.neutralGray500)
-    }
-    
-    private func setFont() {
+
         brandLabel.font = .designSystem(.pretendard, family: .bold, size: ._12)
         nameLabel.font = .designSystem(.pretendard, family: .bold, size: ._18)
         expirationLabel.font = .designSystem(.pretendard, family: .bold, size: ._12)
@@ -122,10 +162,10 @@ public class DDIPListCardView: UIView, AddViewsable {
     
     private func setUI() {
         NSLayoutConstraint.activate([
-            infoStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            infoStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            infoStackView.trailingAnchor.constraint(equalTo: imageIcon.leadingAnchor, constant: -17),
-            infoStackView.bottomAnchor.constraint(equalTo: dashedLine.topAnchor, constant: -16)
+            productStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            productStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+            productStackView.trailingAnchor.constraint(equalTo: imageIcon.leadingAnchor, constant: -17),
+            productStackView.bottomAnchor.constraint(equalTo: dashedLine.topAnchor, constant: -16)
         ])
         
         NSLayoutConstraint.activate([
