@@ -119,14 +119,16 @@ extension ResultViewController: ResultViewButtonDelegate {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 4) {
             UIView.transition(with: self.view, duration: 0.3, options: [.curveEaseInOut], animations: {
                 self.toastView.alpha = 0
-                self.wrapperView.alpha = 0
+                self.dimView.removeFromSuperview()
+                self.wrapperView.removeFromSuperview()
             }, completion: nil)
         }
     }
     
     @objc private func dismissPopupView(_ gesture: UITapGestureRecognizer) {
-        wrapperView.removeFromSuperview()
-        toastView.removeFromSuperview()
+        self.toastView.alpha = 0
+        self.dimView.removeFromSuperview()
+        self.wrapperView.removeFromSuperview()
     }
 }
 
