@@ -9,11 +9,21 @@
 import UIKit
 
 public class DDIPCardListButton: UIButton {
-    public let style: DDIPCardListButtonStyle
-    
-    public init(frame: CGRect = .zero, style: DDIPCardListButtonStyle) {
-        self.style = style
-        super.init(frame: frame)
+    public enum TitleStatus: String {
+        case apply = "응모하기"
+        case complete = "응모완료"
+        case result = "결과확인"
+        case progress = "응모중"
+        case failure = "꽝"
+        case win = "당첨"
+
+        var value: String {
+            return self.rawValue
+        }
+    }
+
+    public init() {
+        super.init(frame: .zero)
         setButton()
         setUI()
     }
@@ -21,15 +31,19 @@ public class DDIPCardListButton: UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    public func setButtonAttribute(titleStatus: TitleStatus, buttonColor: UIColor?, isHidden: Bool) {
+        self.setTitle(titleStatus.value, for: .normal)
+        self.isHidden = isHidden
+        self.backgroundColor = buttonColor
+    }
     
     private func setButton() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 12
+
         self.setTitleColor(.designSystem(.neutralWhite), for: .normal)
-        self.backgroundColor = self.style.buttonColor
-        self.isHidden = self.style.isHidden
         self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._14)
-        self.setTitle(self.style.title?.rawValue, for: .normal)
         self.titleLabel?.widthAnchor.constraint(equalToConstant: 52).isActive = true
         self.titleLabel?.textAlignment = .center
     }
