@@ -9,35 +9,49 @@
 import UIKit
 
 public class DDIPAlarmButton: UIButton {
-    public let style: DDIPAlarmButtonStyle
-    
-    public init(frame: CGRect = .zero, style: DDIPAlarmButtonStyle) {
-        self.style = style
-        super.init(frame: frame)
+    public enum TitleStatus: String {
+        case checkResult = "결과 확인"
+        case confirmed = "확인 완료"
+    }
+
+    public init() {
+        super.init(frame: .zero)
         setButton()
-        setUI()
+        setAttribute()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    public func setBackgroundColor(_ backgroundColor: UIColor?) {
+        self.backgroundColor = backgroundColor
+    }
+
+    public func setTitle(_ title: TitleStatus) {
+        self.setTitle(title.rawValue, for: .normal)
+    }
+
+    public func setEdgeInset(
+        topInset: CGFloat,
+        leftInset: CGFloat,
+        rightInset: CGFloat,
+        bottomInset: CGFloat) {
+            self.contentEdgeInsets = .init(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
+    }
     
     private func setButton() {
         self.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    private func setAttribute() {
         self.layer.cornerRadius = 5
         self.setTitleColor(.designSystem(.neutralWhite), for: .normal)
-        self.backgroundColor = self.style.buttonColor
         self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._12)
-        self.setTitle(self.style.title?.rawValue, for: .normal)
-        self.contentEdgeInsets = UIEdgeInsets(
-            top: self.style.topInset,
-            left: self.style.leftInset,
-            bottom: self.style.bottomInset,
-            right: self.style.rightInset
-        )
     }
     
-    private func setUI() {
+    private func setLayout() {
         NSLayoutConstraint.activate([
             self.heightAnchor.constraint(equalToConstant: 34)
         ])

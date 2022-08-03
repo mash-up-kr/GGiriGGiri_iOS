@@ -9,7 +9,20 @@
 import UIKit
 
 public class DDIPToastView: UIView, AddViewsable {
-    public let style: DDIPToastViewStyle
+    public enum ToastViewOptions {
+        case save, register, apply
+
+        var info: (title: String, description: String) {
+            switch self {
+            case .save:
+                return ("저장완료", "기프티콘이 갤러리에 저장되었어요.")
+            case .register:
+                return ("등록 완료", "뿌리기 등록이 완료되었어요!\n 설정한 마감 시간이 지나면 자동적으로 기프티콘이 전달됩니다.")
+            case .apply:
+                return ("응모 완료", "응모가 완료되었어요!\n 응모 결과는 마감 후에 확인할 수 있어요.")
+            }
+        }
+    }
     
     public let titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -42,38 +55,53 @@ public class DDIPToastView: UIView, AddViewsable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public init(frame: CGRect = .zero, style: DDIPToastViewStyle) {
-        self.style = style
+    public init() {
         super.init(frame: .zero)
-        setUI()
+        setView()
+        setAttribute()
+    }
+
+    public func setTitleLabel(_ title: ToastViewOptions) {
+        titleLabel.text = title.info.title
+    }
+
+    public func setIconImageView(_ image: DDIPAsset.name) {
+        self.iconImageView.image = .designSystem(image)
+    }
+
+    public func setDescriptionLabel(_ description: ToastViewOptions) {
+        descriptionLabel.text = description.info.description
     }
     
-    private func setUI() {
-        self.titleLabel.text = self.style.title
-        self.iconImageView.image = UIImage(systemName: self.style.image)
-        self.descriptionLabel.text = self.style.description
-        
-        self.backgroundColor = .designSystem(.neutralWhite)
-        self.layer.cornerRadius = 12
-        
+    private func setView() {
         self.addSubViews([titleLabel, iconImageView, descriptionLabel])
         
-        setToastViewLayout()
+        setLayout()
+    }
+
+    private func setAttribute() {
+        self.backgroundColor = .designSystem(.neutralWhite)
+        self.layer.cornerRadius = 12
     }
     
-    private func setToastViewLayout() {
+    private func setLayout() {
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 111.5),
-            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -111.5),
+            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 0),
+            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor, constant: 0),
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 28),
             titleLabel.bottomAnchor.constraint(equalTo: self.iconImageView.topAnchor, constant: -16),
             titleLabel.heightAnchor.constraint(equalToConstant: 24),
-            
+        ])
+
+        NSLayoutConstraint.activate([
             iconImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             iconImageView.bottomAnchor.constraint(equalTo: self.descriptionLabel.topAnchor, constant: -16),
             iconImageView.widthAnchor.constraint(equalToConstant: 128),
             iconImageView.heightAnchor.constraint(equalToConstant: 128),
-            
+        ])
+
+        NSLayoutConstraint.activate([
             descriptionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             descriptionLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -28)
