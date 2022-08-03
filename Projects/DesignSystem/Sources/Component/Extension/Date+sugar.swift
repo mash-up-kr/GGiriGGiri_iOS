@@ -9,13 +9,13 @@
 import Foundation
 
 extension Date {
-    func ListCardDeadlineString() -> String {
+    func hourString() -> String {
         Formatter.date.dateFormat = "HH"
         guard let dateString = Formatter.date.string(for: self) else { return "" }
         return dateString
     }
 
-    func listCardString() -> String {
+    func fullDateString() -> String {
         Formatter.date.dateFormat = "yyyy.MM.dd"
         guard let dateString = Formatter.date.string(for: self) else { return "" }
         return dateString

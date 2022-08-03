@@ -19,7 +19,7 @@ public class DDipListCardCompleteView: DDipListCardApplyBaseView {
     }
 
     public func setDrawLabel(drawDate: Date) {
-        drawLabel.text = "\(drawDate.listCardString()) 전달 완료"
+        drawLabel.text = "\(drawDate.fullDateString()) 전달 완료"
     }
 
     public func setAttribute() {

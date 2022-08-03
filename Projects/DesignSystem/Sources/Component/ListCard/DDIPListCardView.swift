@@ -89,7 +89,7 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
 
     public func setExpirationDate(expirationDate: Date) {
-        expirationLabel.text = "유효기간 : \(expirationDate.listCardString())"
+        expirationLabel.text = "유효기간 : \(expirationDate.fullDateString())"
     }
 
     public func setImageIcon(image: DDIPAsset.name) {

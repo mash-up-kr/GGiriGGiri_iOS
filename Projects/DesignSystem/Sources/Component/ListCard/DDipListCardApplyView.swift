@@ -20,7 +20,7 @@ public class DDipListCardApplyView: DDipListCardApplyBaseView {
     }
 
     public func setDrawLabel(applyDate: Date) {
-        drawLabel.text = "\(applyDate.listCardString()) 응모"
+        drawLabel.text = "\(applyDate.fullDateString()) 응모"
     }
 
     public func setDrawLabelAttribute() {

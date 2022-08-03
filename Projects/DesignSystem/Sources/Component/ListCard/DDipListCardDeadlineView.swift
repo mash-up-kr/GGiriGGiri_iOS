@@ -23,8 +23,8 @@ public class DDipListCardDeadlineView: DDipListCardApplyBaseView {
     }
 
     public func setDrawLabel(titleStatus: String, leftTime: Date) {
-        let fullText = "\(titleStatus)까지 \(leftTime.ListCardDeadlineString())시간 남았어요!"
-        let leftTimeText = "\(leftTime.ListCardDeadlineString())시간"
+        let fullText = "\(titleStatus)까지 \(leftTime.hourString())시간 남았어요!"
+        let leftTimeText = "\(leftTime.hourString())시간"
         let resultTitle = "\(titleStatus)"
         let attributedString = NSMutableAttributedString(string: fullText)
 
