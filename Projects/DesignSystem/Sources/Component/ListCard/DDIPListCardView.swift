@@ -140,8 +140,6 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
     
     private func setView() {
-        self.backgroundColor = .designSystem(.neutralWhite)
-        self.layer.cornerRadius = 8
         applyViewer.translatesAutoresizingMaskIntoConstraints = false
         imageIcon.translatesAutoresizingMaskIntoConstraints = false
         dashedLine.translatesAutoresizingMaskIntoConstraints = false
@@ -151,6 +149,9 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
     
     private func setAttribute() {
+        self.backgroundColor = .designSystem(.neutralWhite)
+        self.layer.cornerRadius = 8
+
         brandLabel.textColor = .designSystem(.neutralBlack)
         nameLabel.textColor = .designSystem(.neutralBlack)
         expirationLabel.textColor = .designSystem(.neutralGray500)
