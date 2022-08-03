@@ -37,9 +37,9 @@ final class WinView: BaseView {
         return stackView
     }()
     
-    private let brandWrapperView = CommonInfoView()
-    private let productWrapperView = CommonInfoView()
-    private let expirationDateWrapperView = CommonInfoView()
+    private let brandWrapperView = TitleDescriptionView()
+    private let productWrapperView = TitleDescriptionView()
+    private let expirationDateWrapperView = TitleDescriptionView()
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()

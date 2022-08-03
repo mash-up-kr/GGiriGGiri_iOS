@@ -1,5 +1,5 @@
 //
-//  CommonInfoView.swift
+//  TitleDescriptionView.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/08/01.
@@ -10,7 +10,8 @@ import UIKit
 
 import DesignSystem
 
-final class CommonInfoView: BaseView {
+/// 왼쪽에는 타이틀을, 오른쪽에는 그 정보를 표시하는 뷰
+final class TitleDescriptionView: BaseView {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
