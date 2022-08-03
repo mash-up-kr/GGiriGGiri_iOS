@@ -1,5 +1,5 @@
 //
-//  CouponAPI.swift
+//  GifticonAPI.swift
 //  GGiriGGiri
 //
 //  Created by AhnSangHoon on 2022/07/04.
@@ -8,23 +8,21 @@
 
 import Foundation
 
-// MARK: SAMPLE
-
-enum CouponAPI {
-    case list(ListRquestModel)
+enum GifticonAPI {
+    case categoryList(GifticonListRquestModel)
 }
 
-extension CouponAPI: NetworkRequestable {
+extension GifticonAPI: NetworkRequestable {
     var path: String {
         switch self {
-        case .list:
+        case .categoryList:
             return "/api/v1/sprinkles"
         }
     }
     
     var parameters: Encodable? {
         switch self {
-        case let .list(model):
+        case let .categoryList(model):
             return model
         }
     }

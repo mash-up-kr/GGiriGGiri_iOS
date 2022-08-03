@@ -1,5 +1,5 @@
 //
-//  CouponService.swift
+//  GifticonService.swift
 //  GGiriGGiri
 //
 //  Created by AhnSangHoon on 2022/07/04.
@@ -10,9 +10,7 @@ import Foundation
 
 import RxSwift
 
-// MARK: SAMPLE
-
-struct CouponService {
+struct GifticonService {
     typealias CouponListResponse = Response<[CouponEntity]>
     
     private let network: Networking
@@ -21,7 +19,7 @@ struct CouponService {
         self.network = network
     }
     
-    func list(_ model: ListRquestModel) -> CouponListResponse {
-        network.request(CouponAPI.list(model)).map()
+    func list(_ model: GifticonListRquestModel) -> CouponListResponse {
+        network.request(GifticonAPI.categoryList(model)).map()
     }
 }

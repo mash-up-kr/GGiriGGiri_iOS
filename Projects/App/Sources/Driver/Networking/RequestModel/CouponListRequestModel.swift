@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ListRquestModel: Encodable {
+struct GifticonListRquestModel: Encodable {
     let orderBy: BaseReqeustModel.Order
     let category: BaseReqeustModel.Category
 }

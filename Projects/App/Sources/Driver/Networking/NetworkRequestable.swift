@@ -6,10 +6,9 @@
 //  Copyright © 2022 dvHuni. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 import Alamofire
-import UIKit
 
 protocol NetworkRequestable {
     /// Request Path
