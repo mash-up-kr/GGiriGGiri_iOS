@@ -9,29 +9,51 @@
 import UIKit
 
 public class DDIPCategoryButton: UIButton {
-    public let style: DDIPCategoryButtonStyle
-    
-    public init(frame: CGRect = .zero, style: DDIPCategoryButtonStyle) {
-        self.style = style
-        super.init(frame: frame)
-        setUI()
+    public enum ButtonHeight: CGFloat {
+        case height_34 = 34
+        case height_36 = 36
+    }
+
+    public init() {
+        super.init(frame: .zero)
+        setButton()
+        setAttribute()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    public func setUI() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.layer.cornerRadius = 17
-        self.setTitleColor(.designSystem(.neutralWhite), for: .normal)
-        self.backgroundColor = self.style.buttonColor
-        self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._14)
-        self.setTitle(self.style.title, for: .normal)
-        self.contentEdgeInsets = UIEdgeInsets(top: self.style.topInset, left: self.style.leftInset, bottom: self.style.bottomInset, right: self.style.rightInset)
-        
+
+    public func setBackgroundColor(_ color: UIColor?) {
+        self.backgroundColor = color
+    }
+
+    public func setTitle(_ title: String) {
+        self.setTitle(title)
+    }
+
+    public func setHeight(_ height: ButtonHeight) {
         NSLayoutConstraint.activate([
-            self.heightAnchor.constraint(equalToConstant: self.style.height.rawValue),
+            self.heightAnchor.constraint(equalToConstant: height.rawValue),
         ])
+    }
+
+    public func setEdgeInset(
+        topInset: CGFloat,
+        leftInset: CGFloat,
+        rightInset: CGFloat,
+        bottomInset: CGFloat) {
+            self.contentEdgeInsets = .init(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
+    }
+
+    private func setButton() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setAttribute() {
+        self.layer.cornerRadius = 17
+
+        self.setTitleColor(.designSystem(.neutralWhite), for: .normal)
+        self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._14)
     }
 }
