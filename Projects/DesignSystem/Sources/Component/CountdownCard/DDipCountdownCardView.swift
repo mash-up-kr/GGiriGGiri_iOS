@@ -8,15 +8,15 @@
 
 import UIKit
 
+import RxSwift
+
 public class DDipCountdownCardView: UIView, AddViewsable {
-    public let style: DDipCountdownCardViewStyle
-    
-    private let firstTimeView = TimeView()
-    private let secondTimeView = TimeView()
-    private let firstMinuteView = TimeView()
-    private let secondMinuteView = TimeView()
-    private let firstSecondView = TimeView()
-    private let secondSecondView = TimeView()
+    private let firstTimeView = DDIPTimeView(displayType: .second)
+    private let secondTimeView = DDIPTimeView(displayType: .second)
+    private let firstMinuteView = DDIPTimeView(displayType: .second)
+    private let secondMinuteView = DDIPTimeView(displayType: .second)
+    private let firstSecondView = DDIPTimeView(displayType: .second)
+    private let secondSecondView = DDIPTimeView(displayType: .second)
     
     public let timeStackView: UIStackView = {
         let stackView = UIStackView()
@@ -86,13 +86,57 @@ public class DDipCountdownCardView: UIView, AddViewsable {
         return stackView
     }()
     
-    public init(frame: CGRect = .zero, style: DDipCountdownCardViewStyle) {
-        self.style = style
+    private var timer = DDIPCountDownTimer(.second)
+    
+    private let disposeBag = DisposeBag()
+    
+    public init() {
         super.init(frame: .zero)
         setView()
         setStackView()
         setUI()
         setValue()
+        bind()
+    }
+    
+    public init(timerType: DDIPCountDownTimer.CountDownType) {
+        super.init(frame: .zero)
+        timer = DDIPCountDownTimer(timerType)
+        setView()
+        setStackView()
+        setUI()
+        setValue()
+        bind()
+    }
+    
+    private func bind() {
+        bindingTimer()
+    }
+    
+    private func bindingTimer() {
+        timer.hour
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] in
+                guard let hour = $0 else { return }
+                self?.update(hour: hour)
+            })
+            .disposed(by: disposeBag)
+        
+        timer.minute
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] in
+                guard let minute = $0 else { return }
+                self?.update(minute: minute)
+            })
+            .disposed(by: disposeBag)
+        
+        timer.second
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] in
+                guard let second = $0 else { return }
+                self?.update(second: second)
+            })
+            .disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {
@@ -107,7 +151,6 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     private func setValue() {
         self.layer.cornerRadius = 15
         self.backgroundColor = .designSystem(.neutralWhite)
-        iconImageView.image = .designSystem(style.iconImage)
     }
     
     private func setStackView() {
@@ -146,38 +189,29 @@ public class DDipCountdownCardView: UIView, AddViewsable {
             iconImageView.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
+    
+    private func update(hour: Int) {
+        firstTimeView.update(text: "\(hour / 10)")
+        secondTimeView.update(text: "\(hour % 10)")
+    }
+    
+    private func update(minute: Int) {
+        firstMinuteView.update(text: "\(minute / 10)")
+        secondMinuteView.update(text: "\(minute % 10)")
+    }
+    
+    private func update(second: Int) {
+        firstSecondView.update(text: "\(second / 10)")
+        secondSecondView.update(text: "\(second % 10)")
+    }
 }
 
-fileprivate final class TimeView: UIView {
-    public let numberLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "1"
-        label.textAlignment = .center
-
-        return label
-    }()
-    
-    convenience init() {
-        self.init(frame: .zero)
-        self.backgroundColor = .designSystem(.secondarySkyblue100)
-        setValue()
-        setUI()
+extension DDipCountdownCardView {
+    public func update(imageName: DDIPAsset.name) {
+        iconImageView.image = .designSystem(imageName)
     }
     
-    private func setValue() {
-        self.addSubview(numberLabel)
-        self.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._28)
-        self.layer.cornerRadius = 12
-    }
-    
-    private func setUI() {
-        NSLayoutConstraint.activate([
-            numberLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            numberLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            numberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            numberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-            numberLabel.widthAnchor.constraint(equalToConstant: 19)
-        ])
+    public func update(countdownDate: Date) {
+        timer.update(date: countdownDate)
     }
 }

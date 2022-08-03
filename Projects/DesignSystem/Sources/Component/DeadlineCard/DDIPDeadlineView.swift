@@ -8,23 +8,29 @@
 
 import UIKit
 
+import RxSwift
+
 public class DDIPDeadlineView: UIView, AddViewsable {
-    public let style: DDIPDeadlineViewStyle
-    private let CTAButton: DDIPCTAButton
-    private let applyViewer: DDIPApplyViewer
+    private let CTAButton = DDIPCTAButton(
+        style: .init(buttonColor: .designSystem(.secondaryBlue) ?? .label, title: "-")
+    )
+    private let applyViewer = DDIPApplyViewer(viewLabel: "-")
     
-    public let imageIcon = UIImageView()
-    public let nameLabel = UILabel()
-    public let brandLabel = UILabel()
-    public let expirationLabel = UILabel()
+    private let imageIcon = UIImageView()
+    private let nameLabel = UILabel()
+    private let brandLabel = UILabel()
+    private let expirationLabel = UILabel()
     private let dashedLine = DashedLine()
     
-    private let firstTimeView = TimeView()
-    private let secondTimeView = TimeView()
-    private let firstMinuteView = TimeView()
-    private let secondMinuteView = TimeView()
+    private let firstTimeView = DDIPTimeView(displayType: .minute)
+    private let secondTimeView = DDIPTimeView(displayType: .minute)
+    private let firstMinuteView = DDIPTimeView(displayType: .minute)
+    private let secondMinuteView = DDIPTimeView(displayType: .minute)
     
-    public let infoStackView: UIStackView = {
+    private let timer = DDIPCountDownTimer(.minute)
+    private let disposeBag = DisposeBag()
+    
+    private let infoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -34,17 +40,15 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         return stackView
     }()
     
-    public let timeStackView: UIStackView = {
+    private let timeStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.alignment = .fill
-        stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
         
         return stackView
     }()
     
-    public let numberLabel: UILabel = {
+    private let numberLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = ":"
@@ -55,30 +59,28 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         return label
     }()
     
-    let semiCircleSpaceLeftView: SpaceView = {
+    private let semiCircleSpaceLeftView: SpaceView = {
         let view = SpaceView(isClockwise: false)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
-    let semiCircleSpaceRightView: SpaceView = {
+    private let semiCircleSpaceRightView: SpaceView = {
         let view = SpaceView(isClockwise: true)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
-        
-    public init(frame: CGRect = .zero, style: DDIPDeadlineViewStyle, button: DDIPCTAButton, applyViewer: DDIPApplyViewer) {
-        self.style = style
-        self.CTAButton = button
-        self.applyViewer = applyViewer
-        super.init(frame: frame)
+    
+    public init() {
+        super.init(frame: .zero)
         setView()
         setUI()
         setValue()
         setFont()
         setAttribute()
+        bind()
     }
 
     required init?(coder: NSCoder) {
@@ -89,7 +91,7 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         firstTimeView.numberLabel.textColor = .designSystem(.neutralBlack)
         secondTimeView.numberLabel.textColor = .designSystem(.neutralBlack)
         firstMinuteView.numberLabel.textColor = .designSystem(.dangerRaspberry)
-        secondTimeView.numberLabel.textColor = .designSystem(.dangerRaspberry)
+        secondMinuteView.numberLabel.textColor = .designSystem(.dangerRaspberry)
         brandLabel.textColor = .designSystem(.neutralBlack)
         nameLabel.textColor = .designSystem(.neutralBlack)
         expirationLabel.textColor = .designSystem(.neutralGray500)
@@ -123,30 +125,19 @@ public class DDIPDeadlineView: UIView, AddViewsable {
         self.backgroundColor = .designSystem(.neutralWhite)
         self.layer.cornerRadius = 12
         self.backgroundColor = .designSystem(.neutralWhite)
-
-        imageIcon.image = UIImage(systemName: style.iconImage)
-        nameLabel.text = style.name
-        brandLabel.text = style.brand
-        expirationLabel.text = "유효기간 : " + style.expirationDate
-        
-        firstTimeView.numberLabel.text = style.time
-        secondTimeView.numberLabel.text = style.time
-        firstMinuteView.numberLabel.text = style.time
-        secondMinuteView.numberLabel.text = style.time
     }
 
     private func setUI() {
         NSLayoutConstraint.activate([
-            timeStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            timeStackView.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 0),
             timeStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            timeStackView.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor, constant: 0),
-            timeStackView.bottomAnchor.constraint(equalTo: self.imageIcon.topAnchor, constant: -16)
+            timeStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            timeStackView.heightAnchor.constraint(equalToConstant: 34)
         ])
         
         NSLayoutConstraint.activate([
-            imageIcon.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 95),
-            imageIcon.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -95),
+            imageIcon.topAnchor.constraint(equalTo: timeStackView.bottomAnchor, constant: 16),
+            imageIcon.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             imageIcon.widthAnchor.constraint(equalToConstant: 120),
             imageIcon.heightAnchor.constraint(equalToConstant: 120)
         ])
@@ -188,37 +179,51 @@ public class DDIPDeadlineView: UIView, AddViewsable {
             CTAButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24),
         ])
     }
+    
+    private func bind() {
+        bindingTimer()
+    }
+    
+    private func bindingTimer() {
+        timer.hour
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] in
+                guard let hour = $0 else { return }
+                self?.update(hour: hour)
+            })
+            .disposed(by: disposeBag)
+        
+        timer.minute
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] in
+                guard let minute = $0 else { return }
+                self?.update(minute: minute)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func update(hour: Int) {
+        firstTimeView.update(text: "\(hour / 10)")
+        secondTimeView.update(text: "\(hour % 10)")
+    }
+    
+    private func update(minute: Int) {
+        firstMinuteView.update(text: "\(minute / 10)")
+        secondMinuteView.update(text: "\(minute % 10)")
+    }
 }
 
-fileprivate final class TimeView: UIView {
-    public let numberLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "1"
-        label.textAlignment = .center
-
-        return label
-    }()
-    
-    convenience init() {
-        self.init(frame: .zero)
-        self.backgroundColor = .designSystem(.secondarySkyblue100)
-        setUI()
-        setValue()
+extension DDIPDeadlineView {
+    public func update(countDownDate: Date?) {
+        timer.update(date: countDownDate)
     }
     
-    private func setValue() {
-        self.layer.cornerRadius = 5
+    public func update(style: DDIPDeadlineViewStyle) {
+        imageIcon.image = .designSystem(style.iconImage)
+        nameLabel.text = style.name
+        brandLabel.text = style.brand
+        expirationLabel.text = "유효기간 : \(style.expirationDate)"
     }
     
-    private func setUI() {
-        self.addSubview(numberLabel)
-        
-        NSLayoutConstraint.activate([
-            numberLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 7),
-            numberLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -7),
-            numberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 7),
-            numberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -7)
-        ])
-    }
+    // TODO: CTAButton Update Logic 추가해야함
 }
