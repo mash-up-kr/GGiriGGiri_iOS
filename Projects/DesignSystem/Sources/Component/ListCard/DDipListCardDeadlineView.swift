@@ -43,9 +43,11 @@ public class DDipListCardDeadlineView: DDipListCardApplyBaseView {
             range: NSString(string: fullText).range(of: leftTimeText)
         )
 
-        attributedString.setAttributes([
+        attributedString.setAttributes(
+            [
             .font: UIFont.designSystem(.pretendard, family: .bold, size: ._14)
-        ], range: NSString(string: fullText).range(of: resultTitle))
+            ],
+            range: NSString(string: fullText).range(of: resultTitle))
 
         drawLabel.attributedText = attributedString
     }
