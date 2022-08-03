@@ -31,8 +31,6 @@ public class DDIPApplyViewer: UIView {
         super.init(frame: .zero)
         setLayout()
         setAttribute()
-        applyViewerLabel.font = UIFont.systemFont(ofSize: 10)
-        applyViewerLabel.font = .designSystem(.pretendard, family: .regular, size: ._14)
     }
 
     public func setViewer(viewer: String) {
@@ -46,6 +44,8 @@ public class DDIPApplyViewer: UIView {
     private func setAttribute() {
         self.backgroundColor = .designSystem(.neutralGray500)
         self.layer.cornerRadius = 8
+
+        applyViewerLabel.font = .designSystem(.pretendard, family: .regular, size: ._14)
         
         applyViewerImageView.image = UIImage(systemName: "swift")
         applyViewerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
