@@ -85,6 +85,17 @@ extension ResultViewController: ResultViewButtonDelegate {
     }
     
     @objc private func gifticonImageSaved(image: UIImage, error: Error?, context: UnsafeRawPointer) {
+        configureToastView()
+        showToastView()
+    }
+    
+    @objc private func dismissPopupView(_ gesture: UITapGestureRecognizer) {
+        toastView.alpha = 0
+        dimView.removeFromSuperview()
+        wrapperView.removeFromSuperview()
+    }
+    
+    private func configureToastView() {
         dimView.backgroundColor = UIColor.black.withAlphaComponent(0.25)
         dimView.addSubview(toastView)
         wrapperView.addSubview(dimView)
@@ -109,7 +120,9 @@ extension ResultViewController: ResultViewButtonDelegate {
         }
 
         toastView.alpha = 0
-        
+    }
+    
+    private func showToastView() {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
             UIView.transition(with: self.view, duration: 0.3, options: [.curveEaseInOut], animations: {
                 self.toastView.alpha = 1
@@ -124,12 +137,6 @@ extension ResultViewController: ResultViewButtonDelegate {
                 self.wrapperView.removeFromSuperview()
             })
         }
-    }
-    
-    @objc private func dismissPopupView(_ gesture: UITapGestureRecognizer) {
-        toastView.alpha = 0
-        dimView.removeFromSuperview()
-        wrapperView.removeFromSuperview()
     }
 }
 
