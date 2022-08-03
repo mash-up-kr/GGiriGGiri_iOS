@@ -24,7 +24,10 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
     }()
     
     private let categoryTapView: DDIPCategoryTapView = {
-        return DDIPCategoryTapView(style: .init(leftOption: .box, rightOption: .box))
+        let view = DDIPCategoryTapView()
+        view.setLeftTitle(.alarm)
+        view.setRightTitle(.alarm)
+        return view
     }()
     
     private let myBoxView = MyBoxView()

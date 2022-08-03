@@ -16,15 +16,7 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
     
     var myBoxType: MyBox = .register
     
-    private let listCardView = DDIPListCardView(style: .init(brand: "스타벅스",
-                                                             name: "아이스 아메리카노",
-                                                             expirationDate: "2022.08.02",
-                                                             iconImage: "icecream",
-                                                             description: "마감까지 6시간 남았습니다."),
-                                                alarmButton: .init(style: .init(buttonColor: .designSystem(.secondarySkyblue200)!,
-                                                                                title: .progress,
-                                                                                isHidden: false)),
-                                                applyViewer: .init(viewLabel: "10"))
+    private var listCardView = DDIPListCardView(.apply)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,19 +45,5 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
         backgroundColor = .clear
     }
     
-    func configure(with category: MyBox, data: GifticonCard) {
-        listCardView.brandLabel.text = data.gifticonInfo.brand
-        listCardView.nameLabel.text = data.gifticonInfo.name
-        listCardView.expirationLabel.text = data.gifticonInfo.expirationDate
-        // TODO: 마이박스에서 리스트 카드뷰의 이미지에 보이는 이미지 표시 필요
-        listCardView.imageIcon.image = UIImage(systemName: "pencil")
-        
-        switch category {
-        case .apply:
-            listCardView.descriptionLabel.text = "응모박스으"
-        case .register:
-            listCardView.descriptionLabel.text = "등록박스으"
-        }
-        return
-    }
+    func configure(with category: MyBox, data: GifticonCard) { }
 }

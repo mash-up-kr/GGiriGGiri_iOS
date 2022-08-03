@@ -24,9 +24,7 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
     }()
     
     private let resultView = ResultView()
-    private let toastView = DDIPToastView(style: .init(titleOption: .save,
-                                                       descriptionOption: .save,
-                                                       imageIcon: "img_logos"))
+    private let toastView = DDIPToastView()
     private let wrapperView = UIView()
     private let dimView = UIView()
     

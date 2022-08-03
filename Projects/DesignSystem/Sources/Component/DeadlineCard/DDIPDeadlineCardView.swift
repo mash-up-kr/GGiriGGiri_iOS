@@ -1,5 +1,5 @@
 //
-//  DDIPDeadlineView.swift
+//  DDIPDeadlineCardView.swift
 //  DesignSystem
 //
 //  Created by Eddy on 2022/07/09.
@@ -10,11 +10,9 @@ import UIKit
 
 import RxSwift
 
-public class DDIPDeadlineView: UIView, AddViewsable {
-    private let CTAButton = DDIPCTAButton(
-        style: .init(buttonColor: .designSystem(.secondaryBlue) ?? .label, title: "-")
-    )
-    private let applyViewer = DDIPApplyViewer(viewLabel: "-")
+public class DDIPDeadlineCardView: UIView, AddViewsable {
+    private let CTAButton = DDIPCTAButton()
+    private let applyViewer = DDIPApplyViewer()
     
     private let imageIcon = UIImageView()
     private let nameLabel = UILabel()
@@ -213,7 +211,7 @@ public class DDIPDeadlineView: UIView, AddViewsable {
     }
 }
 
-extension DDIPDeadlineView {
+extension DDIPDeadlineCardView {
     public func update(countDownDate: Date?) {
         timer.update(date: countDownDate)
     }
@@ -223,6 +221,15 @@ extension DDIPDeadlineView {
         nameLabel.text = style.name
         brandLabel.text = style.brand
         expirationLabel.text = "유효기간 : \(style.expirationDate)"
+    }
+    
+    public func update(buttonTitle: String, backgroundColor: DDIPColor) {
+        CTAButton.setTitle(title: buttonTitle)
+        CTAButton.setBackgroundColor(buttonColor: UIColor.designSystem(backgroundColor))
+    }
+    
+    public func update(viewerCount: String) {
+        applyViewer.setViewer(viewer: viewerCount)
     }
     
     // TODO: CTAButton Update Logic 추가해야함

@@ -21,17 +21,7 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
         font: .designSystem(.pretendard, family: .regular, size: ._14)
     )
     
-    private let categoryButton = DDIPCategoryButton(
-        style: .init(
-            buttonColor: .designSystem(.neutralWhite) ?? .label,
-            title: "버튼타이틀",
-            height: .height_34,
-            topInset: 7,
-            leftInset: 16,
-            rightInset: 16,
-            bottomInset: 7
-        )
-    )
+    private let categoryButton = DDIPCategoryButton()
     
     func configure(_ category: [Category], with index: Int) {
         nameLabel.textAlignment = .center

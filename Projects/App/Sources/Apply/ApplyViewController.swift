@@ -30,12 +30,7 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
     
     private let applyGifticonView = ApplyGifticonView()
     
-    private let applyButton = DDIPCTAButton(
-        style: .init(
-            buttonColor: .designSystem(.secondaryBlue) ?? .label,
-            title: "지금 당장 응모할게요!"
-        )
-    )
+    private let applyButton = DDIPCTAButton()
     
     override func setLayout() {
         super.setLayout()
@@ -79,6 +74,9 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
         
         view.backgroundColor = .designSystem(.neutralWhite)
         gifticonId = viewModel.gifticonId
+        
+        applyGifticonView.updateCountdownDate(date: <#T##Date#>)
+
     }
 
     private func configureNavigationBar() {

@@ -43,9 +43,7 @@ final class ResultView: BaseView {
     private let winView = WinView()
     private let loseView = LoseView()
     
-    private let button = DDIPCTAButton(
-        style: .init(buttonColor: .designSystem(.secondaryBlue) ?? .white,
-                     title: "홈으로 이동"))
+    private let button = DDIPCTAButton()
     
     override func setLayout() {
         super.setLayout()

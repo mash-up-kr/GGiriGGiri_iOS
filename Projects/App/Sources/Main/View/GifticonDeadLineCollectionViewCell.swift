@@ -24,7 +24,7 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     private let numberOfParticipantsViewLabel = TempLabel(color: .black)
     private let remainingTimeLabel = TempLabel(color: .black)
     
-    private let cardView = DDIPDeadlineView()
+    private let cardView = DDIPDeadlineCardView()
     
     private let gifticonImageView: UIImageView = {
         let imageView = UIImageView()

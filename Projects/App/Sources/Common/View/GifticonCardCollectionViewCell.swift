@@ -41,23 +41,7 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
-    private let listCardView = DDIPListCardView(
-        style: .init(
-            brand: "브랜드",
-            name: "네임",
-            expirationDate: "날짜",
-            iconImage: "이미지",
-            description: "이건몰까"
-        ),
-        alarmButton: .init(
-            style: .init(
-                buttonColor: .label,
-                title: .apply,
-                isHidden: false
-            )
-        ),
-        applyViewer: .init(viewLabel: "명수인가?")
-    )
+    private let listCardView = DDIPListCardView(.apply)
     
     func configure(with data: GifticonCard) {
         gifticonId = data.gifticonInfo.id

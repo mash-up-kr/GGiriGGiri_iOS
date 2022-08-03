@@ -19,12 +19,7 @@ final class RegisterGifticonView: BaseView {
     private let infoMessageView = InfoMessageView()
     private let registerGifticonInfoView = RegisterGifticonInfoView()
     private let registerGifticonDDipInfoView = RegisterGifticonDDipInfoView()
-    private let registerButton = DDIPCTAButton(style:
-            .init(
-                buttonColor: .designSystem(.secondaryBlue) ?? .clear,
-                title: "내용을 먼저 입력하세요"
-            )
-    )
+    private let registerButton = DDIPCTAButton()
     
     override func setLayout() {
         super.setLayout()
