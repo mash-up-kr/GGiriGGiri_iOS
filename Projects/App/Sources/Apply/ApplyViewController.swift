@@ -74,9 +74,6 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
         
         view.backgroundColor = .designSystem(.neutralWhite)
         gifticonId = viewModel.gifticonId
-        
-        applyGifticonView.updateCountdownDate(date: <#T##Date#>)
-
     }
 
     private func configureNavigationBar() {
