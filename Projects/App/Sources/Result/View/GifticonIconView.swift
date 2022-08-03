@@ -81,7 +81,6 @@ fileprivate final class SpeechView: BaseView {
     private let verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 0
         stackView.distribution = .equalSpacing
         return stackView
     }()

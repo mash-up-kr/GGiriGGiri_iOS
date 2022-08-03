@@ -126,9 +126,9 @@ extension ResultViewController: ResultViewButtonDelegate {
     }
     
     @objc private func dismissPopupView(_ gesture: UITapGestureRecognizer) {
-        self.toastView.alpha = 0
-        self.dimView.removeFromSuperview()
-        self.wrapperView.removeFromSuperview()
+        toastView.alpha = 0
+        dimView.removeFromSuperview()
+        wrapperView.removeFromSuperview()
     }
 }
 
