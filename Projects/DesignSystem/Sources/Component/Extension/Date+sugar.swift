@@ -9,7 +9,14 @@
 import Foundation
 
 extension Date {
-    func convertToString() -> String {
+    func ListCardDeadlineString() -> String {
+        Formatter.date.dateFormat = "HH"
+        guard let dateString = Formatter.date.string(for: self) else { return "" }
+        return dateString
+    }
+
+    func listCardString() -> String {
+        Formatter.date.dateFormat = "yyyy.MM.dd"
         guard let dateString = Formatter.date.string(for: self) else { return "" }
         return dateString
     }
