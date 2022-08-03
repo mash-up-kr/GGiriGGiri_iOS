@@ -23,7 +23,6 @@ final class RegisterGiftionImageView: BaseView {
     
     private(set) var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "pencil")
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
