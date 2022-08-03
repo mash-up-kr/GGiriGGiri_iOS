@@ -25,7 +25,8 @@ public class DDIPCardListButton: UIButton {
     public init() {
         super.init(frame: .zero)
         setButton()
-        setUI()
+        setAttribute()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -40,15 +41,20 @@ public class DDIPCardListButton: UIButton {
     
     private func setButton() {
         self.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    private func setAttribute() {
         self.layer.cornerRadius = 12
 
         self.setTitleColor(.designSystem(.neutralWhite), for: .normal)
         self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._14)
-        self.titleLabel?.widthAnchor.constraint(equalToConstant: 52).isActive = true
         self.titleLabel?.textAlignment = .center
+
     }
     
-    private func setUI() {
+    private func setLayout() {
+        self.titleLabel?.widthAnchor.constraint(equalToConstant: 52).isActive = true
+
         NSLayoutConstraint.activate([
             self.heightAnchor.constraint(equalToConstant: 34),
             self.widthAnchor.constraint(equalToConstant: 96)
