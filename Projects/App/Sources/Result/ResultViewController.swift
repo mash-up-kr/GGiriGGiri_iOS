@@ -14,7 +14,6 @@ import SnapKit
 
 final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
 
-    var type: GifticonResult = .lose
     private let disposeBag = DisposeBag()
     
     private lazy var navigationBar: DDIPNavigationBar = {
