@@ -19,8 +19,8 @@ public class DDipListCardApplyView: DDipListCardApplyBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func setDrawLabel(applyDate: String) {
-        drawLabel.text = "\(applyDate) 응모"
+    public func setDrawLabel(applyDate: Date) {
+        drawLabel.text = "\(applyDate.listCardString()) 응모"
     }
 
     public func setDrawLabelAttribute() {
