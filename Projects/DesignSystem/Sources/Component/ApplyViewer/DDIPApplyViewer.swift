@@ -27,12 +27,14 @@ public class DDIPApplyViewer: UIView {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    public init(frame: CGRect = .zero, viewLabel: String) {
-        applyViewerLabel.text = "\(viewLabel)명"
-        super.init(frame: frame)
+    public init() {
+        super.init(frame: .zero)
         setLayout()
         setAttribute()
-        applyViewerLabel.font = UIFont.systemFont(ofSize: 10)
+    }
+
+    public func setViewer(viewer: String) {
+        self.applyViewerLabel.text = "\(viewer)명"
     }
     
     required init?(coder: NSCoder) {
@@ -40,8 +42,10 @@ public class DDIPApplyViewer: UIView {
     }
     
     private func setAttribute() {
-        self.backgroundColor = .black
+        self.backgroundColor = .designSystem(.neutralGray500)
         self.layer.cornerRadius = 8
+
+        applyViewerLabel.font = .designSystem(.pretendard, family: .regular, size: ._14)
         
         applyViewerImageView.image = UIImage(systemName: "swift")
         applyViewerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
