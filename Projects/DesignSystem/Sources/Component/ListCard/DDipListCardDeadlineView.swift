@@ -22,8 +22,32 @@ public class DDipListCardDeadlineView: DDipListCardApplyBaseView {
         cardListButton.setButtonAttribute(titleStatus: buttonTitle, buttonColor: buttonColor, isHidden: isHidden)
     }
 
-    public func setDrawLabel(titleStatus: String, leftTime: String) {
-        drawLabel.text = "\(titleStatus)까지 \(leftTime)시간 남았어요!"
+    public func setDrawLabel(titleStatus: String, leftTime: Date) {
+        let fullText = "\(titleStatus)까지 \(leftTime.ListCardDeadlineString())시간 남았어요!"
+        let leftTimeText = "\(leftTime.ListCardDeadlineString())시간"
+        let resultTitle = "\(titleStatus)"
+        let attributedString = NSMutableAttributedString(string: fullText)
+
+        attributedString.setAttributes(
+            [
+                .font: UIFont.designSystem(.pretendard, family: .regular, size: ._14)
+            ],
+            range: NSString(string: fullText).range(of: fullText)
+        )
+
+        attributedString.setAttributes(
+            [
+                .foregroundColor: UIColor.designSystem(.secondaryBlue),
+                .font: UIFont.designSystem(.pretendard, family: .bold, size: ._14)
+            ],
+            range: NSString(string: fullText).range(of: leftTimeText)
+        )
+
+        attributedString.setAttributes([
+            .font: UIFont.designSystem(.pretendard, family: .bold, size: ._14)
+        ], range: NSString(string: fullText).range(of: resultTitle))
+
+        drawLabel.attributedText = attributedString
     }
 
     public func setAttribute() {
