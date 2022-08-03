@@ -9,29 +9,37 @@
 import UIKit
 
 public class DDIPCTAButton: UIButton {
-    public let style: DDIPCTAButtonStyle
-    
-    public init(frame: CGRect = .zero, style: DDIPCTAButtonStyle) {
-        self.style = style
-        super.init(frame: frame)
+    public init() {
+        super.init(frame: .zero)
         setButton()
-        setUI()
+        setAttribute()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    public func setBackgroundColor(buttonColor: UIColor?) {
+        self.backgroundColor = buttonColor
+    }
+
+    public func setTitle(title: String) {
+        self.setTitle(title, for: .normal)
+    }
     
     private func setButton() {
         self.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    private func setAttribute() {
         self.layer.cornerRadius = 12
+
         self.setTitleColor(.designSystem(.neutralWhite), for: .normal)
-        self.backgroundColor = self.style.buttonColor
         self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._16)
-        self.setTitle(self.style.title, for: .normal)
     }
     
-    private func setUI() {
+    private func setLayout() {
         NSLayoutConstraint.activate([
             self.heightAnchor.constraint(equalToConstant: 54)
         ])
