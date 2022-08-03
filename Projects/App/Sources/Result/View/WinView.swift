@@ -95,6 +95,7 @@ final class WinView: BaseView {
         iconView.layer.cornerRadius = 15
         infoWrapperView.layer.cornerRadius = 12
         
+        // TODO: 뷰에 표시하기 위한 임시 데이터 추가
         brandWrapperView.configure(title: "브랜드", info: "GS25")
         productWrapperView.configure(title: "제품명", info: "5,000원 상품권")
         expirationDateWrapperView.configure(title: "유효기간", info: "2022.02.03")
