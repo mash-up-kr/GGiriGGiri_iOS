@@ -13,7 +13,18 @@ import RxCocoa
 import RxSwift
 
 public class DDIPCategoryTapView: UIView, AddViewsable {
-    public let style: DDIPCategoryTapViewStyle
+    public enum TapCategoryOptions {
+        case box, alarm
+
+        var info: (leftTitle: String, rightTitle: String) {
+            switch self {
+            case .box:
+                return ("응모 BOX", "등록 BOX")
+            case .alarm:
+                return ("결과 알림", "활동 알림")
+            }
+        }
+    }
     
     public let leftTabButton: UIButton = UIButton()
     public let rightTapButton: UIButton = UIButton()
@@ -24,14 +35,10 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
     public let leftButtonTapEvent = PublishRelay<Void>()
     public let rightButtonTapEvent = PublishRelay<Void>()
     
-    public init(
-        frame: CGRect = .zero,
-        style: DDIPCategoryTapViewStyle
-    ) {
-        self.style = style
-        super.init(frame: frame)
-        setTapView()
-        setUI()
+    public init() {
+        super.init(frame: .zero)
+        setView()
+        setLayout()
         setAttribute()
         bind()
         setButtons()
@@ -40,12 +47,18 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    public func setLeftTitle(_ title: TapCategoryOptions) {
+        self.leftTabButton.setTitle(title.info.leftTitle, for: .normal)
+    }
+
+    public func setRightTitle(_ title: TapCategoryOptions) {
+        self.rightTapButton.setTitle(title.info.rightTitle, for: .normal)
+    }
     
     private func setAttribute() {
-        self.moveBarView.backgroundColor = UIColor.black
-        self.leftTabButton.setTitle(self.style.leftTitle, for: .normal)
-        self.rightTapButton.setTitle(self.style.rightTitle, for: .normal)
-        
+        self.moveBarView.backgroundColor = .designSystem(.neutralBlack)
+
         self.leftTabButton.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._16)
         self.rightTapButton.titleLabel?.font = .designSystem(.pretendard, family: .regular, size: ._16)
         
@@ -54,11 +67,11 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
     }
     
     private func setButtons() {
-        self.leftTabButton.addTarget(self, action: #selector(selectLeftButton), for: .touchUpInside)
-        self.rightTapButton.addTarget(self, action: #selector(selectRightButton), for: .touchUpInside)
+        self.leftTabButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
+        self.rightTapButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
     }
     
-    private func setTapView() {
+    private func setView() {
         self.leftTabButton.translatesAutoresizingMaskIntoConstraints = false
         self.rightTapButton.translatesAutoresizingMaskIntoConstraints = false
         self.moveBarView.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +79,7 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
         self.addSubViews([leftTabButton, rightTapButton, moveBarView])
     }
     
-    @objc private func selectLeftButton() {
+    @objc private func leftButtonTapped() {
         self.rightTapButton.titleLabel?.font = .designSystem(.pretendard, family: .regular, size: ._16)
         self.leftTabButton.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._16)
         UIView.animate(withDuration: 0.3) {
@@ -80,7 +93,7 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
         }
     }
     
-    @objc private func selectRightButton() {
+    @objc private func rightButtonTapped() {
         self.leftTabButton.titleLabel?.font = .designSystem(.pretendard, family: .regular, size: ._16)
         self.rightTapButton.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._16)
         UIView.animate(withDuration: 0.3) {
@@ -94,23 +107,29 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
         }
     }
     
-    private func setUI() {
+    private func setLayout() {
+        NSLayoutConstraint.activate([
+            self.widthAnchor.constraint(equalToConstant: 390),
+            self.heightAnchor.constraint(equalToConstant: 38)
+        ])
+
         NSLayoutConstraint.activate([
             leftTabButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             leftTabButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
             leftTabButton.trailingAnchor.constraint(equalTo: self.rightTapButton.leadingAnchor, constant: -30),
-            leftTabButton.bottomAnchor.constraint(equalTo: moveBarView.topAnchor),
-            
+            leftTabButton.bottomAnchor.constraint(equalTo: moveBarView.topAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
             rightTapButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            rightTapButton.bottomAnchor.constraint(equalTo: self.moveBarView.topAnchor),
-            
+            rightTapButton.bottomAnchor.constraint(equalTo: self.moveBarView.topAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
             moveBarView.leadingAnchor.constraint(equalTo: self.leftTabButton.leadingAnchor),
             moveBarView.trailingAnchor.constraint(equalTo: self.leftTabButton.trailingAnchor),
             moveBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             moveBarView.heightAnchor.constraint(equalToConstant: 2),
-            
-            self.widthAnchor.constraint(equalToConstant: 390),
-            self.heightAnchor.constraint(equalToConstant: 38)
         ])
     }
     
