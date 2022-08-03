@@ -63,12 +63,12 @@ public final class DDIPCountDownTimer {
         
         Observable<Int>.interval(countdownType.interval, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
-                self?.desrecase()
+                self?.decrease()
             })
             .disposed(by: disposeBag)
     }
     
-    private func desrecase() {
+    private func decrease() {
         guard let usageDate = usageDate else {
             disposeBag = DisposeBag()
             return
