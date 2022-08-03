@@ -56,7 +56,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         return stackView
     }()
 
-    public func setListCardDeadlineView(buttonColor: UIColor?, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: String) {
+    public func setListCardDeadlineView(buttonColor: UIColor?, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: Date) {
         guard let listCardDeadlineView = drawStackView as? DDipListCardDeadlineView else { return }
 
         listCardDeadlineView.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden)
@@ -64,13 +64,13 @@ public class DDIPListCardView: UIView, AddViewsable {
         listCardDeadlineView.setDrawLabel(titleStatus: titleStatus.rawValue, leftTime: leftTime)
     }
 
-    public func setListCardCompleteView(drawDate: String) {
+    public func setListCardCompleteView(drawDate: Date) {
         guard let listCardCompleteView = drawStackView as? DDipListCardCompleteView else { return }
 
         listCardCompleteView.setDrawLabel(drawDate: drawDate)
     }
 
-    public func setListCardApplyView(applyDate: String) {
+    public func setListCardApplyView(applyDate: Date) {
         guard let listCardApplyView = drawStackView as? DDipListCardApplyView else { return }
 
         listCardApplyView.setDrawLabel(applyDate: applyDate)
@@ -88,8 +88,8 @@ public class DDIPListCardView: UIView, AddViewsable {
         nameLabel.text = name
     }
 
-    public func setExpirationDate(expirationDate: String) {
-        expirationLabel.text = "유효기간 : \(expirationDate)"
+    public func setExpirationDate(expirationDate: Date) {
+        expirationLabel.text = "유효기간 : \(expirationDate.fullDateString())"
     }
 
     public func setImageIcon(image: DDIPAsset.name) {

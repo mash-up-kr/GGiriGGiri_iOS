@@ -18,8 +18,8 @@ public class DDipListCardCompleteView: DDipListCardApplyBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func setDrawLabel(drawDate: String) {
-        drawLabel.text = "\(drawDate) 전달 완료"
+    public func setDrawLabel(drawDate: Date) {
+        drawLabel.text = "\(drawDate.fullDateString()) 전달 완료"
     }
 
     public func setAttribute() {
