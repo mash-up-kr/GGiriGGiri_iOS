@@ -79,8 +79,6 @@ final class RegisterGifticonView: BaseView {
     
     override func configure() {
         super.configure()
-        
-        registerGiftionImageView.imageView.image = UIImage(systemName: "pencil")
     }
 }
 

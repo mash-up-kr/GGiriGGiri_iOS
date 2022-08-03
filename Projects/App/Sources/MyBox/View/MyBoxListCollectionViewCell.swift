@@ -57,7 +57,8 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
         listCardView.brandLabel.text = data.gifticonInfo.brand
         listCardView.nameLabel.text = data.gifticonInfo.name
         listCardView.expirationLabel.text = data.gifticonInfo.expirationDate
-        listCardView.imageIcon.image = UIImage(named: "img_gosim1")
+        // TODO: 마이박스에서 리스트 카드뷰의 이미지에 보이는 이미지 표시 필요
+        listCardView.imageIcon.image = UIImage(systemName: "pencil")
         
         switch category {
         case .apply:

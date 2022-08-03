@@ -15,7 +15,8 @@ final class MyBoxEmptyView: BaseView {
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "logocharacter_empty")
+        // TODO: 빈 화면이라는 이미지 뷰 표시 필요
+        imageView.image = UIImage(systemName: "pencil")
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView

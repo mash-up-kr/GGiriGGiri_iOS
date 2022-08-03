@@ -28,7 +28,6 @@ final class RegisterGiftionImageView: BaseView {
     
     private(set) var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "pencil")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 15

@@ -80,7 +80,7 @@ extension ResultViewController: ResultViewButtonDelegate {
     
     func saveButtonTapped() {
         // TODO: 서버에서 받아온 이미지로 저장해줘야함
-        guard let image = UIImage(named: "img_gosim3") else { return }
+        guard let image = UIImage(systemName: "pencil") else { return }
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(gifticonImageSaved), nil)
     }
     
@@ -136,7 +136,7 @@ extension ResultViewController: GifticonIconViewDelegate {
     func gifticonIconDidTapped() {
         let gifticonImageViewController = GiftionImageViewController()
         // TODO: 서버에서 받아온 이미지로 보여줘야함
-        gifticonImageViewController.giftionImageView.image = UIImage(named: "img_gosim1")
+        gifticonImageViewController.giftionImageView.image = UIImage(systemName: "pencil")
         present(gifticonImageViewController, animated: true)
     }
 }

@@ -17,7 +17,8 @@ final class LoseView: BaseView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "img_lose")
+        // TODO: 꽝 이미지 Asset으로 변경 필요
+        imageView.image = UIImage(systemName: "pencil")
         return imageView
     }()
     

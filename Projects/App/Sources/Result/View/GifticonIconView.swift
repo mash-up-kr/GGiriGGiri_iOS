@@ -22,7 +22,8 @@ final class GifticonIconView: BaseView {
     private let speechView = SpeechView()
     private let bubbleView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "icon_bubble")
+        // TODO: 추후 말풍선 이미지 Asset으로 교체 필요
+        imageView.image = UIImage(systemName: "pencil")
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
@@ -30,7 +31,8 @@ final class GifticonIconView: BaseView {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "icon_drugstore")
+        // TODO: 당첨 이미지 Asset으로 변경 필요
+        imageView.image = UIImage(systemName: "pencil")
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
