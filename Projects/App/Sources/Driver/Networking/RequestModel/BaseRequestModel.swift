@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum BaseReqeustModel {
+enum BaseRequestModel {
     enum Order: Encodable {
         case deadLine
         case create

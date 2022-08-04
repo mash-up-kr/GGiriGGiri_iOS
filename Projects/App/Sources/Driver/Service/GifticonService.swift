@@ -19,7 +19,7 @@ struct GifticonService {
         self.network = network
     }
     
-    func list(_ model: GifticonListRquestModel) -> CouponListResponse {
+    func list(_ model: GifticonListRequestModel) -> CouponListResponse {
         network.request(GifticonAPI.categoryList(model)).map()
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 enum GifticonAPI {
-    case categoryList(GifticonListRquestModel)
+    case categoryList(GifticonListRequestModel)
 }
 
 extension GifticonAPI: NetworkRequestable {
