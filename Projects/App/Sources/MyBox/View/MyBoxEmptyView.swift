@@ -15,8 +15,7 @@ final class MyBoxEmptyView: BaseView {
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        // TODO: 빈 화면이라는 이미지 뷰 표시 필요
-        imageView.image = UIImage(systemName: "pencil")
+        imageView.image = .designSystem(.iconRotateLogoCharacterEmpty)
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView

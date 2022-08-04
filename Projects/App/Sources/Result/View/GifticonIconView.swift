@@ -22,21 +22,13 @@ final class GifticonIconView: BaseView {
     private let speechView = SpeechView()
     private let bubbleView: UIImageView = {
         let imageView = UIImageView()
-        // TODO: 추후 말풍선 이미지 Asset으로 교체 필요
-        imageView.image = UIImage(systemName: "pencil")
-        imageView.contentMode = .scaleAspectFit
+        imageView.image = .designSystem(.chatBubble)
         imageView.clipsToBounds = true
         return imageView
     }()
     
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        // TODO: 당첨 이미지 Asset으로 변경 필요
-        imageView.image = UIImage(systemName: "pencil")
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        return imageView
-    }()
+    // TODO: 서버에서 내려준 카테고리에 따라 에셋 사용하기
+    private let imageView = UIImageView()
     
     override func setLayout() {
         super.setLayout()
