@@ -47,7 +47,8 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             let myBoxViewModel = MyBoxViewModel()
             let myBoxViewController = MyBoxViewController(myBoxViewModel)
             myBoxViewController.modalPresentationStyle = .fullScreen
-            self?.present(myBoxViewController, animated: true)
+            self?.navigationController?.setNavigationBarHidden(true, animated: false)
+            self?.navigationController?.pushViewController(myBoxViewController, animated: true)
         }).disposed(by: disposeBag)
     }
     
@@ -148,7 +149,8 @@ extension MainViewController: MainCollectionViewCellDelegate {
         let applyViewModel = ApplyViewModel(gifticonId: id)
         let applyViewController = ApplyViewController(applyViewModel)
         applyViewController.modalPresentationStyle = .fullScreen
-        self.present(applyViewController, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.pushViewController(applyViewController, animated: true)
     }
     
     func categoryCellTapped(with category: Category) {

@@ -99,7 +99,7 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         }
         
         navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
-            self?.dismiss(animated: true)
+            self?.navigationController?.popViewController(animated: true)
         }).disposed(by: disposeBag)
     }
     
@@ -125,6 +125,6 @@ extension MyBoxViewController: MyBoxListCollectionViewCellDelegate {
         resultViewModel.type = .win
         let resultViewController = ResultViewController(resultViewModel)
         resultViewController.modalPresentationStyle = .fullScreen
-        self.present(resultViewController, animated: true)
+        self.navigationController?.pushViewController(resultViewController, animated: true)
     }
 }
