@@ -78,7 +78,7 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
 
     private func configureNavigationBar() {
         navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
-            self?.dismiss(animated: true)
+            self?.navigationController?.popViewController(animated: true)
         }).disposed(by: disposeBag)
     }
 }

@@ -99,7 +99,7 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         }
         
         navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
-            self?.dismiss(animated: true)
+            self?.navigationController?.popViewController(animated: true)
         }).disposed(by: disposeBag)
     }
     
