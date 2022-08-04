@@ -52,7 +52,7 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
         configureNavigationBar()
         
         navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
-            self?.dismiss(animated: true)
+            self?.navigationController?.popViewController(animated: true)
         }).disposed(by: disposeBag)
         
         resultView.delegate = self

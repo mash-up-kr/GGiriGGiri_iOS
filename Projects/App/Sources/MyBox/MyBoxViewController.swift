@@ -125,6 +125,6 @@ extension MyBoxViewController: MyBoxListCollectionViewCellDelegate {
         resultViewModel.type = .win
         let resultViewController = ResultViewController(resultViewModel)
         resultViewController.modalPresentationStyle = .fullScreen
-        self.present(resultViewController, animated: true)
+        self.navigationController?.pushViewController(resultViewController, animated: true)
     }
 }
