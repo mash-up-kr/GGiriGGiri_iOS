@@ -33,7 +33,7 @@ public class DDIPApplyViewer: UIView {
         setAttribute()
     }
 
-    public func setViewer(viewer: String) {
+    public func setViewer(viewer: Int) {
         self.applyViewerLabel.text = "\(viewer)명"
     }
     

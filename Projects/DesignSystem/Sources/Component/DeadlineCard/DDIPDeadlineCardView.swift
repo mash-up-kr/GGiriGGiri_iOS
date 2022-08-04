@@ -228,7 +228,7 @@ extension DDIPDeadlineCardView {
         CTAButton.setBackgroundColor(buttonColor: backgroundColor)
     }
     
-    public func update(viewerCount: String) {
+    public func update(viewerCount: Int) {
         applyViewer.setViewer(viewer: viewerCount)
     }
     

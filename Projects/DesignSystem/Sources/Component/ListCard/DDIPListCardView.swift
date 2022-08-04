@@ -96,7 +96,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         imageIcon.image = .designSystem(image)
     }
 
-    public func setApplyViewer(viewer: String) {
+    public func setApplyViewer(viewer: Int) {
         applyViewer.setViewer(viewer: viewer)
     }
 
