@@ -78,6 +78,14 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
         
         self.addSubViews([leftTabButton, rightTapButton, moveBarView])
     }
+
+    public func tapLeftButton() {
+        leftButtonTapped()
+    }
+
+    public func tapRightButton() {
+        rightButtonTapped()
+    }
     
     @objc private func leftButtonTapped() {
         self.rightTapButton.titleLabel?.font = .designSystem(.pretendard, family: .regular, size: ._16)
@@ -109,7 +117,6 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
     
     private func setLayout() {
         NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalToConstant: 390),
             self.heightAnchor.constraint(equalToConstant: 38)
         ])
 
