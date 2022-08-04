@@ -56,7 +56,7 @@ final class ApplyGifticonCardView: BaseView {
         layer.cornerRadius = 15
         
         gifticonImageView.contentMode = .scaleAspectFit
-        // TODO: 이미지 Asset으로 변경 필요 (기프티콘 응모 이미지)
+        // TODO: 서버에서 내려준 카테고리에 따라 에셋 사용하기
         gifticonImageView.image = UIImage(systemName: "pencil")
     }
 }
