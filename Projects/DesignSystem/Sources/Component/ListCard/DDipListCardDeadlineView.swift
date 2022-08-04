@@ -18,8 +18,8 @@ public class DDipListCardDeadlineView: DDipListCardApplyBaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setListCardButton(buttonTitle: DDIPCardListButton.TitleStatus, buttonColor: DDIPColor, isHidden: Bool) {
-        cardListButton.setButtonAttribute(titleStatus: buttonTitle, buttonColor: buttonColor, isHidden: isHidden)
+    public func setListCardButton(buttonTitle: DDIPCardListButton.TitleStatus, buttonColor: DDIPColor, isHidden: Bool, isEnabled: Bool) {
+        cardListButton.setButtonAttribute(titleStatus: buttonTitle, buttonColor: buttonColor, isHidden: isHidden, isEnabled: isEnabled)
     }
 
     public func setDrawLabel(titleStatus: String, leftTime: Date) {

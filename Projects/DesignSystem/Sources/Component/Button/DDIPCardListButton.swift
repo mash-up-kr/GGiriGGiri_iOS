@@ -59,9 +59,10 @@ public class DDIPCardListButton: UIButton {
 // MARK: - 외부 주입 메서드
 
 extension DDIPCardListButton {
-    public func setButtonAttribute(titleStatus: TitleStatus, buttonColor: DDIPColor, isHidden: Bool) {
+    public func setButtonAttribute(titleStatus: TitleStatus, buttonColor: DDIPColor, isHidden: Bool, isEnabled: Bool) {
         self.setTitle(titleStatus.value, for: .normal)
         self.isHidden = isHidden
         self.backgroundColor = UIColor.designSystem(buttonColor)
+        self.isEnabled = isEnabled
     }
 }

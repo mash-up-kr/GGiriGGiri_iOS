@@ -172,7 +172,7 @@ extension DDIPListCardView {
     public func setListCardDeadlineView(buttonColor: DDIPColor, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: Date) {
         guard let listCardDeadlineView = drawStackView as? DDipListCardDeadlineView else { return }
 
-        listCardDeadlineView.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden)
+        listCardDeadlineView.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden, isEnabled: true)
 
         listCardDeadlineView.setDrawLabel(titleStatus: titleStatus.rawValue, leftTime: leftTime)
     }
