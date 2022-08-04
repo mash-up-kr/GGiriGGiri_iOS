@@ -56,7 +56,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         return stackView
     }()
 
-    public func setListCardDeadlineView(buttonColor: UIColor?, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: Date) {
+    public func setListCardDeadlineView(buttonColor: DDIPColor, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: Date) {
         guard let listCardDeadlineView = drawStackView as? DDipListCardDeadlineView else { return }
 
         listCardDeadlineView.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden)

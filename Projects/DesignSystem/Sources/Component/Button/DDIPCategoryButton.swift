@@ -24,8 +24,8 @@ public class DDIPCategoryButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func setBackgroundColor(_ color: UIColor?) {
-        self.backgroundColor = color
+    public func setBackgroundColor(_ color: DDIPColor) {
+        self.backgroundColor = UIColor.designSystem(color)
     }
 
     public func setTitle(_ title: String) {

@@ -20,8 +20,8 @@ public class DDIPCTAButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func setBackgroundColor(buttonColor: UIColor?) {
-        self.backgroundColor = buttonColor
+    public func setBackgroundColor(buttonColor: DDIPColor) {
+        self.backgroundColor = UIColor.designSystem(buttonColor)
     }
 
     public func setTitle(title: String) {

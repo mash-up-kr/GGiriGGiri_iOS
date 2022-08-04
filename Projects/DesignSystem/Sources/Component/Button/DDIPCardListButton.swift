@@ -33,10 +33,10 @@ public class DDIPCardListButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func setButtonAttribute(titleStatus: TitleStatus, buttonColor: UIColor?, isHidden: Bool) {
+    public func setButtonAttribute(titleStatus: TitleStatus, buttonColor: DDIPColor, isHidden: Bool) {
         self.setTitle(titleStatus.value, for: .normal)
         self.isHidden = isHidden
-        self.backgroundColor = buttonColor
+        self.backgroundColor = UIColor.designSystem(buttonColor)
     }
     
     private func setButton() {
