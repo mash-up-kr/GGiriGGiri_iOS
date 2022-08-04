@@ -8,8 +8,6 @@
 
 import Foundation
 
-// MARK:  SAMPLE
-
 struct CouponEntity: Decodable {
 
 }
