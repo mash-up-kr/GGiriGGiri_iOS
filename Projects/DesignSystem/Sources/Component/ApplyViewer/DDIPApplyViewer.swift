@@ -33,10 +33,6 @@ public class DDIPApplyViewer: UIView {
         setAttribute()
     }
 
-    public func setViewer(viewer: Int) {
-        self.applyViewerLabel.text = "\(viewer)명"
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -63,5 +59,13 @@ public class DDIPApplyViewer: UIView {
             applyViewerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 6),
             applyViewerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6),
         ])
+    }
+}
+
+// MARK: - 외부 주입 메서드
+
+extension DDIPApplyViewer {
+    public func setViewer(viewer: Int) {
+        self.applyViewerLabel.text = "\(viewer)명"
     }
 }

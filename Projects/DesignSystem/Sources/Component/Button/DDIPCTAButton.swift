@@ -19,14 +19,6 @@ public class DDIPCTAButton: UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    public func setBackgroundColor(buttonColor: DDIPColor) {
-        self.backgroundColor = UIColor.designSystem(buttonColor)
-    }
-
-    public func setTitle(title: String) {
-        self.setTitle(title, for: .normal)
-    }
     
     private func setButton() {
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -43,5 +35,17 @@ public class DDIPCTAButton: UIButton {
         NSLayoutConstraint.activate([
             self.heightAnchor.constraint(equalToConstant: 54)
         ])
+    }
+}
+
+// MARK: - 외부 주입 메서드
+
+extension DDIPCTAButton {
+    public func setBackgroundColor(buttonColor: DDIPColor) {
+        self.backgroundColor = UIColor.designSystem(buttonColor)
+    }
+
+    public func setTitle(title: String) {
+        self.setTitle(title, for: .normal)
     }
 }

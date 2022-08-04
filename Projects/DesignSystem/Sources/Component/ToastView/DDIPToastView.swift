@@ -61,18 +61,6 @@ public class DDIPToastView: UIView, AddViewsable {
         setAttribute()
     }
 
-    public func setTitleLabel(_ title: ToastViewOptions) {
-        titleLabel.text = title.info.title
-    }
-
-    public func setIconImageView(_ image: DDIPAsset.name) {
-        self.iconImageView.image = .designSystem(image)
-    }
-
-    public func setDescriptionLabel(_ description: ToastViewOptions) {
-        descriptionLabel.text = description.info.description
-    }
-    
     private func setView() {
         self.addSubViews([titleLabel, iconImageView, descriptionLabel])
         
@@ -106,5 +94,21 @@ public class DDIPToastView: UIView, AddViewsable {
             descriptionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             descriptionLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -28)
         ])
+    }
+}
+
+// MARK: - 외부 주입 메서드
+
+extension DDIPToastView {
+    public func setTitleLabel(_ title: ToastViewOptions) {
+        titleLabel.text = title.info.title
+    }
+
+    public func setIconImageView(_ image: DDIPAsset.name) {
+        self.iconImageView.image = .designSystem(image)
+    }
+
+    public func setDescriptionLabel(_ description: ToastViewOptions) {
+        descriptionLabel.text = description.info.description
     }
 }

@@ -56,50 +56,6 @@ public class DDIPListCardView: UIView, AddViewsable {
         return stackView
     }()
 
-    public func setListCardDeadlineView(buttonColor: DDIPColor, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: Date) {
-        guard let listCardDeadlineView = drawStackView as? DDipListCardDeadlineView else { return }
-
-        listCardDeadlineView.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden)
-
-        listCardDeadlineView.setDrawLabel(titleStatus: titleStatus.rawValue, leftTime: leftTime)
-    }
-
-    public func setListCardCompleteView(drawDate: Date) {
-        guard let listCardCompleteView = drawStackView as? DDipListCardCompleteView else { return }
-
-        listCardCompleteView.setDrawLabel(drawDate: drawDate)
-    }
-
-    public func setListCardApplyView(applyDate: Date) {
-        guard let listCardApplyView = drawStackView as? DDipListCardApplyView else { return }
-
-        listCardApplyView.setDrawLabel(applyDate: applyDate)
-    }
-
-    public func setApplyTitleStatus(applyTitleStatus: ApplyTitleStatus) {
-        self.applyTitleStatus = applyTitleStatus
-    }
-
-    public func setBrandName(brand: String) {
-        brandLabel.text = brand
-    }
-
-    public func setName(name: String) {
-        nameLabel.text = name
-    }
-
-    public func setExpirationDate(expirationDate: Date) {
-        expirationLabel.text = "유효기간 : \(expirationDate.fullDateString())"
-    }
-
-    public func setImageIcon(image: DDIPAsset.name) {
-        imageIcon.image = .designSystem(image)
-    }
-
-    public func setApplyViewer(viewer: Int) {
-        applyViewer.setViewer(viewer: viewer)
-    }
-
     public lazy var drawStackView: DDipListCardApplyBaseView = {
         let stackView = applyStatus.choose()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -207,5 +163,53 @@ public class DDIPListCardView: UIView, AddViewsable {
             drawStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             drawStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24)
         ])
+    }
+}
+
+// MARK: - 외부 주입 메서드
+
+extension DDIPListCardView {
+    public func setListCardDeadlineView(buttonColor: DDIPColor, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: Date) {
+        guard let listCardDeadlineView = drawStackView as? DDipListCardDeadlineView else { return }
+
+        listCardDeadlineView.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden)
+
+        listCardDeadlineView.setDrawLabel(titleStatus: titleStatus.rawValue, leftTime: leftTime)
+    }
+
+    public func setListCardCompleteView(drawDate: Date) {
+        guard let listCardCompleteView = drawStackView as? DDipListCardCompleteView else { return }
+
+        listCardCompleteView.setDrawLabel(drawDate: drawDate)
+    }
+
+    public func setListCardApplyView(applyDate: Date) {
+        guard let listCardApplyView = drawStackView as? DDipListCardApplyView else { return }
+
+        listCardApplyView.setDrawLabel(applyDate: applyDate)
+    }
+
+    public func setApplyTitleStatus(applyTitleStatus: ApplyTitleStatus) {
+        self.applyTitleStatus = applyTitleStatus
+    }
+
+    public func setBrandName(brand: String) {
+        brandLabel.text = brand
+    }
+
+    public func setName(name: String) {
+        nameLabel.text = name
+    }
+
+    public func setExpirationDate(expirationDate: Date) {
+        expirationLabel.text = "유효기간 : \(expirationDate.fullDateString())"
+    }
+
+    public func setImageIcon(image: DDIPAsset.name) {
+        imageIcon.image = .designSystem(image)
+    }
+
+    public func setApplyViewer(viewer: Int) {
+        applyViewer.setViewer(viewer: viewer)
     }
 }
