@@ -47,14 +47,6 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    public func setLeftTitle(_ title: TapCategoryOptions) {
-        self.leftTabButton.setTitle(title.info.leftTitle, for: .normal)
-    }
-
-    public func setRightTitle(_ title: TapCategoryOptions) {
-        self.rightTapButton.setTitle(title.info.rightTitle, for: .normal)
-    }
     
     private func setAttribute() {
         self.moveBarView.backgroundColor = .designSystem(.neutralBlack)
@@ -109,7 +101,6 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
     
     private func setLayout() {
         NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalToConstant: 390),
             self.heightAnchor.constraint(equalToConstant: 38)
         ])
 
@@ -138,5 +129,25 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
             .disposed(by: disposeBag)
         rightTapButton.rx.tap.bind(to: self.rightButtonTapEvent)
             .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - 외부 주입 메서드
+
+extension DDIPCategoryTapView {
+    public func setLeftTitle(_ title: TapCategoryOptions) {
+        self.leftTabButton.setTitle(title.info.leftTitle, for: .normal)
+    }
+
+    public func setRightTitle(_ title: TapCategoryOptions) {
+        self.rightTapButton.setTitle(title.info.rightTitle, for: .normal)
+    }
+
+    public func tapLeftButton() {
+        leftButtonTapped()
+    }
+
+    public func tapRightButton() {
+        rightButtonTapped()
     }
 }

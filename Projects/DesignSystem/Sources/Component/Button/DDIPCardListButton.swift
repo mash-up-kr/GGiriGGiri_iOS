@@ -33,12 +33,6 @@ public class DDIPCardListButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func setButtonAttribute(titleStatus: TitleStatus, buttonColor: UIColor?, isHidden: Bool) {
-        self.setTitle(titleStatus.value, for: .normal)
-        self.isHidden = isHidden
-        self.backgroundColor = buttonColor
-    }
-    
     private func setButton() {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -59,5 +53,16 @@ public class DDIPCardListButton: UIButton {
             self.heightAnchor.constraint(equalToConstant: 34),
             self.widthAnchor.constraint(equalToConstant: 96)
         ])
+    }
+}
+
+// MARK: - 외부 주입 메서드
+
+extension DDIPCardListButton {
+    public func setButtonAttribute(titleStatus: TitleStatus, buttonColor: DDIPColor, isHidden: Bool, isEnabled: Bool) {
+        self.setTitle(titleStatus.value, for: .normal)
+        self.isHidden = isHidden
+        self.backgroundColor = UIColor.designSystem(buttonColor)
+        self.isEnabled = isEnabled
     }
 }

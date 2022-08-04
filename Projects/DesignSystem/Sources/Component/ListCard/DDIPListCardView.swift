@@ -26,6 +26,12 @@ public class DDIPListCardView: UIView, AddViewsable {
         }
     }
 
+    public enum RegisterStatus: String {
+        case apply = "응모 진행 중"
+        case complete = "전달 완료"
+        case nobody = "받은 사람 없음"
+    }
+
     public enum ApplyTitleStatus: String {
         case complete = "마감"
         case result = "결과"
@@ -55,50 +61,6 @@ public class DDIPListCardView: UIView, AddViewsable {
         
         return stackView
     }()
-
-    public func setListCardDeadlineView(buttonColor: UIColor?, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: Date) {
-        guard let listCardDeadlineView = drawStackView as? DDipListCardDeadlineView else { return }
-
-        listCardDeadlineView.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden)
-
-        listCardDeadlineView.setDrawLabel(titleStatus: titleStatus.rawValue, leftTime: leftTime)
-    }
-
-    public func setListCardCompleteView(drawDate: Date) {
-        guard let listCardCompleteView = drawStackView as? DDipListCardCompleteView else { return }
-
-        listCardCompleteView.setDrawLabel(drawDate: drawDate)
-    }
-
-    public func setListCardApplyView(applyDate: Date) {
-        guard let listCardApplyView = drawStackView as? DDipListCardApplyView else { return }
-
-        listCardApplyView.setDrawLabel(applyDate: applyDate)
-    }
-
-    public func setApplyTitleStatus(applyTitleStatus: ApplyTitleStatus) {
-        self.applyTitleStatus = applyTitleStatus
-    }
-
-    public func setBrandName(brand: String) {
-        brandLabel.text = brand
-    }
-
-    public func setName(name: String) {
-        nameLabel.text = name
-    }
-
-    public func setExpirationDate(expirationDate: Date) {
-        expirationLabel.text = "유효기간 : \(expirationDate.fullDateString())"
-    }
-
-    public func setImageIcon(image: DDIPAsset.name) {
-        imageIcon.image = .designSystem(image)
-    }
-
-    public func setApplyViewer(viewer: String) {
-        applyViewer.setViewer(viewer: viewer)
-    }
 
     public lazy var drawStackView: DDipListCardApplyBaseView = {
         let stackView = applyStatus.choose()
@@ -207,5 +169,53 @@ public class DDIPListCardView: UIView, AddViewsable {
             drawStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             drawStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24)
         ])
+    }
+}
+
+// MARK: - 외부 주입 메서드
+
+extension DDIPListCardView {
+    public func setListCardDeadlineView(buttonColor: DDIPColor, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: Date) {
+        guard let listCardDeadlineView = drawStackView as? DDipListCardDeadlineView else { return }
+
+        listCardDeadlineView.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden, isEnabled: true)
+
+        listCardDeadlineView.setDrawLabel(titleStatus: titleStatus.rawValue, leftTime: leftTime)
+    }
+
+    public func setListCardCompleteView(drawDate: Date? = nil, registerStatus: RegisterStatus) {
+        guard let listCardCompleteView = drawStackView as? DDipListCardCompleteView else { return }
+
+        listCardCompleteView.setDrawLabel(drawDate: drawDate, registerStatus: registerStatus.rawValue)
+    }
+
+    public func setListCardApplyView(applyDate: Date) {
+        guard let listCardApplyView = drawStackView as? DDipListCardApplyView else { return }
+
+        listCardApplyView.setDrawLabel(applyDate: applyDate)
+    }
+
+    public func setApplyTitleStatus(applyTitleStatus: ApplyTitleStatus) {
+        self.applyTitleStatus = applyTitleStatus
+    }
+
+    public func setBrandName(brand: String) {
+        brandLabel.text = brand
+    }
+
+    public func setName(name: String) {
+        nameLabel.text = name
+    }
+
+    public func setExpirationDate(expirationDate: Date) {
+        expirationLabel.text = "유효기간 : \(expirationDate.fullDateString())"
+    }
+
+    public func setImageIcon(image: DDIPAsset.name) {
+        imageIcon.image = .designSystem(image)
+    }
+
+    public func setApplyViewer(viewer: Int) {
+        applyViewer.setViewer(viewer: viewer)
     }
 }

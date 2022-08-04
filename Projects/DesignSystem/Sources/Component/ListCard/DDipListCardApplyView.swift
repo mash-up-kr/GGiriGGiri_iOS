@@ -29,6 +29,6 @@ public class DDipListCardApplyView: DDipListCardApplyBaseView {
     }
 
     public func setCardListButton() {
-        cardListButton.setButtonAttribute(titleStatus: .progress, buttonColor: .designSystem(.secondarySkyblue200), isHidden: false)
+        cardListButton.setButtonAttribute(titleStatus: .progress, buttonColor: .secondarySkyblue200, isHidden: false, isEnabled: false)
     }
 }

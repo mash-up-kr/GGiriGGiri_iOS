@@ -225,11 +225,19 @@ extension DDIPDeadlineCardView {
     
     public func update(buttonTitle: String, backgroundColor: DDIPColor) {
         CTAButton.setTitle(title: buttonTitle)
-        CTAButton.setBackgroundColor(buttonColor: UIColor.designSystem(backgroundColor))
+        CTAButton.setBackgroundColor(buttonColor: backgroundColor)
     }
     
-    public func update(viewerCount: String) {
+    public func update(viewerCount: Int) {
         applyViewer.setViewer(viewer: viewerCount)
+    }
+
+    public func disableButton() {
+        CTAButton.isEnabled = false
+    }
+
+    public func enableButton() {
+        CTAButton.isEnabled = true
     }
     
     // TODO: CTAButton Update Logic 추가해야함

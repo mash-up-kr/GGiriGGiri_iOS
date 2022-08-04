@@ -24,12 +24,29 @@ public class DDIPCategoryButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func setBackgroundColor(_ color: UIColor?) {
-        self.backgroundColor = color
+
+
+    private func setButton() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setAttribute() {
+        self.layer.cornerRadius = 17
+
+        self.setTitleColor(.designSystem(.neutralWhite), for: .normal)
+        self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._14)
+    }
+}
+
+// MARK: - 외부 주입 메서드
+
+extension DDIPCategoryButton {
+    public func setBackgroundColor(_ color: DDIPColor) {
+        self.backgroundColor = UIColor.designSystem(color)
     }
 
-    public func setTitle(_ title: String) {
-        self.setTitle(title)
+    public func setButtonTitle(_ title: String) {
+        self.setTitle(title, for: .normal)
     }
 
     public func setHeight(_ height: ButtonHeight) {
@@ -44,16 +61,5 @@ public class DDIPCategoryButton: UIButton {
         rightInset: CGFloat,
         bottomInset: CGFloat) {
             self.contentEdgeInsets = .init(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
-    }
-
-    private func setButton() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private func setAttribute() {
-        self.layer.cornerRadius = 17
-
-        self.setTitleColor(.designSystem(.neutralWhite), for: .normal)
-        self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._14)
     }
 }

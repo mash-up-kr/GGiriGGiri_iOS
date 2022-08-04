@@ -25,14 +25,6 @@ public class DDIPAlarmButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func setBackgroundColor(_ backgroundColor: UIColor?) {
-        self.backgroundColor = backgroundColor
-    }
-
-    public func setTitle(_ title: TitleStatus) {
-        self.setTitle(title.rawValue, for: .normal)
-    }
-
     public func setEdgeInset(
         topInset: CGFloat,
         leftInset: CGFloat,
@@ -55,5 +47,17 @@ public class DDIPAlarmButton: UIButton {
         NSLayoutConstraint.activate([
             self.heightAnchor.constraint(equalToConstant: 34)
         ])
+    }
+}
+
+// MARK: - 외부 주입 메서드
+
+extension DDIPAlarmButton {
+    public func setBackgroundColor(_ backgroundColor: DDIPColor) {
+        self.backgroundColor = UIColor.designSystem(backgroundColor)
+    }
+
+    public func setTitle(_ title: TitleStatus) {
+        self.setTitle(title.rawValue, for: .normal)
     }
 }
