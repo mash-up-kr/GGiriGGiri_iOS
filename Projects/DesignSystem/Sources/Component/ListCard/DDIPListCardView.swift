@@ -26,6 +26,12 @@ public class DDIPListCardView: UIView, AddViewsable {
         }
     }
 
+    public enum RegisterStatus: String {
+        case apply = "응모 진행 중"
+        case complete = "전달 완료"
+        case nobody = "받은 사람 없음"
+    }
+
     public enum ApplyTitleStatus: String {
         case complete = "마감"
         case result = "결과"
@@ -177,10 +183,10 @@ extension DDIPListCardView {
         listCardDeadlineView.setDrawLabel(titleStatus: titleStatus.rawValue, leftTime: leftTime)
     }
 
-    public func setListCardCompleteView(drawDate: Date) {
+    public func setListCardCompleteView(drawDate: Date? = nil, registerStatus: RegisterStatus) {
         guard let listCardCompleteView = drawStackView as? DDipListCardCompleteView else { return }
 
-        listCardCompleteView.setDrawLabel(drawDate: drawDate)
+        listCardCompleteView.setDrawLabel(drawDate: drawDate, registerStatus: registerStatus.rawValue)
     }
 
     public func setListCardApplyView(applyDate: Date) {
