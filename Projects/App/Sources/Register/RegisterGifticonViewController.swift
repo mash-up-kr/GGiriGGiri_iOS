@@ -37,6 +37,9 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
         
         registerGifticonView.registerGiftionImageView.imageView.image = giftionImage
         registerGifticonView.registerGiftionImageView.delegate = self
+        registerGifticonView.showTimeSelectPicker = { [weak self] in
+            self?.showPicker()
+        }
         
         registerButton.setTitle(title: "내용을 입력해야 뿌릴 수 있어요")
         registerButton.setBackgroundColor(buttonColor: .secondarySkyblue200)
@@ -143,6 +146,21 @@ extension RegisterGifticonViewController {
 extension RegisterGifticonViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         view.endEditing(true)
+    }
+}
+
+// MARK: - Picker
+
+extension RegisterGifticonViewController {
+    func showPicker() {
+        let pickerViewController = PickerViewController(PickerViewModel(dataSourceType: .title(
+            // TODO: - 임의로 넣은 피커 데이터. 확인 필요
+            ["30분", "1시간", "1시간30분", "2시간", "2시간 30분"]
+        ), didSelectItem: { [weak self] time in
+            guard let time = time as? String else { return }
+            self?.registerGifticonView.updateTime(time)
+        }))
+        present(pickerViewController, animated: false)
     }
 }
 

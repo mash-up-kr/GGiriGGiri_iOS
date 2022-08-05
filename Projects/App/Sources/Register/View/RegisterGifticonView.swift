@@ -18,6 +18,8 @@ final class RegisterGifticonView: BaseView {
     private let registerGifticonInfoView = RegisterGifticonInfoView()
     private let registerGifticonDDipInfoView = RegisterGifticonDDipInfoView()
     
+    var showTimeSelectPicker: (() -> ())?
+    
     override func setLayout() {
         super.setLayout()
         addSubviews(with: [registerGiftionImageView,
@@ -51,6 +53,16 @@ final class RegisterGifticonView: BaseView {
     
     override func configure() {
         super.configure()
+        
+        registerGifticonDDipInfoView.didTapTimeSelect = { [weak self] in
+            self?.showTimeSelectPicker?()
+        }
+    }
+}
+
+extension RegisterGifticonView {
+    func updateTime(_ time: String) {
+        registerGifticonDDipInfoView.update(time: time)
     }
 }
 
