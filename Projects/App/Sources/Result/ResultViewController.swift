@@ -82,58 +82,9 @@ extension ResultViewController: ResultViewButtonDelegate {
     }
     
     @objc private func gifticonImageSaved(image: UIImage, error: Error?, context: UnsafeRawPointer) {
-        configureToastView()
-        showToastView()
-    }
-    
-    @objc private func dismissPopupView(_ gesture: UITapGestureRecognizer) {
-        toastView.alpha = 0
-        dimView.removeFromSuperview()
-        wrapperView.removeFromSuperview()
-    }
-    
-    private func configureToastView() {
-        dimView.backgroundColor = UIColor.black.withAlphaComponent(0.25)
-        dimView.addSubview(toastView)
-        wrapperView.addSubview(dimView)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissPopupView(_:)))
-        wrapperView.addGestureRecognizer(tapGesture)
-        wrapperView.isUserInteractionEnabled = true
-        
-        view.addSubview(wrapperView)
-        wrapperView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        dimView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        toastView.snp.makeConstraints {
-            $0.width.equalTo(289)
-            $0.height.equalTo(295)
-            $0.centerX.centerY.equalToSuperview()
-        }
-
-        toastView.alpha = 0
-    }
-    
-    private func showToastView() {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-            UIView.transition(with: self.view, duration: 0.3, options: [.curveEaseInOut], animations: {
-                self.toastView.alpha = 1
-            }, completion: nil)
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 4) {
-            UIView.transition(with: self.view, duration: 0.3, options: [.curveEaseInOut], animations: {
-                self.toastView.alpha = 0
-            }, completion: { _ in
-                self.dimView.removeFromSuperview()
-                self.wrapperView.removeFromSuperview()
-            })
-        }
+        let toastView = ToastView()
+        toastView.configureToastView(with: self.view, style: .save, image: .iconLogoCharacter)
+        toastView.showToastView(with: self.view)
     }
 }
 
