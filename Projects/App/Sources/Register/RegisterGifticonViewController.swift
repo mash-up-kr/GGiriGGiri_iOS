@@ -12,11 +12,7 @@ import DesignSystem
 import RxSwift
 import SnapKit
 
-final class RegisterGifticonViewController: UIViewController {
-
-    private let disposeBag = DisposeBag()
-    
-    private let registerGifticonView = RegisterGifticonView()
+final class RegisterGifticonViewController: BaseViewController<RegisterGifticonViewModelProtocol> {
     private lazy var navigationBar: DDIPNavigationBar = {
         return DDIPNavigationBar(
             leftBarItem: DDIPNavigationBar.BarItem.cancel,
