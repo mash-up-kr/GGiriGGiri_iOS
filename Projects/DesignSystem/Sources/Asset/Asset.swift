@@ -23,9 +23,9 @@ public enum DDIPAsset {
         case iconPersonEmpty10
         case iconTrashcan24
 
-        case iconCafeDesert
-        case iconRotateCafeDesert
-        case iconRotateCafeDesertEmpty
+        case iconCafedesert
+        case iconRotateCafedesert
+        case iconRotateCafedesertEmpty
         
         case iconChicken
         case iconRotateChicken
@@ -39,9 +39,9 @@ public enum DDIPAsset {
         case iconRotateDrugStore
         case iconRotateDrugStoreEmpty
         
-        case iconFastFood
-        case iconRotateFastFood
-        case iconRotateFastFoodEmpty
+        case iconFastfood
+        case iconRotateFastfood
+        case iconRotateFastfoodEmpty
         
         case iconGuitar
         case iconRotateGuitar
@@ -79,12 +79,12 @@ public enum DDIPAsset {
                 return "icon_person_empty10"
             case .iconTrashcan24:
                 return "icon_trashcan24"
-            case .iconCafeDesert:
-                return "icon_cafe_desert"
-            case .iconRotateCafeDesert:
-                return "icon_rotate_cafe_desert"
-            case .iconRotateCafeDesertEmpty:
-                return "icon_rotate_cafe_desert_empty"
+            case .iconCafedesert:
+                return "icon_cafedesert"
+            case .iconRotateCafedesert:
+                return "icon_rotate_cafedesert"
+            case .iconRotateCafedesertEmpty:
+                return "icon_rotate_cafedesert_empty"
             case .iconChicken:
                 return "icon_chicken"
             case .iconRotateChicken:
@@ -103,11 +103,11 @@ public enum DDIPAsset {
                 return "icon_rotate_drugstore"
             case .iconRotateDrugStoreEmpty:
                 return "icon_rotate_drugstore_empty"
-            case .iconFastFood:
+            case .iconFastfood:
                 return "icon_fastfood"
-            case .iconRotateFastFood:
+            case .iconRotateFastfood:
                 return "icon_rotate_fastfood"
-            case .iconRotateFastFoodEmpty:
+            case .iconRotateFastfoodEmpty:
                 return "icon_rotate_fastfood_empty"
             case .iconGuitar:
                 return "icon_guitar"
