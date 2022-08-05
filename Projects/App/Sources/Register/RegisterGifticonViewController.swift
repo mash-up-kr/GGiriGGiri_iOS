@@ -31,6 +31,7 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
     override func configure() {
         super.configure()
         view.backgroundColor = .designSystem(.neutralWhite)
+        scrollView.delegate = self
         
         configureNavigationBar()
         
@@ -39,6 +40,20 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
         
         registerButton.setTitle(title: "내용을 입력해야 뿌릴 수 있어요")
         registerButton.setBackgroundColor(buttonColor: .secondarySkyblue200)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(willShowKeyboard),
+            name: UIWindow.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(willHideKeyboard),
+            name: UIWindow.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     private func configureNavigationBar() {
@@ -84,6 +99,50 @@ extension RegisterGifticonViewController {
         registerGifticonView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+}
+
+// MARK: - Keyboard Observer
+
+extension RegisterGifticonViewController {
+    @objc
+    private func willShowKeyboard(_ notification: Notification) {
+        handleScrollView(notification, isKeyboardShow: true)
+    }
+    
+    @objc
+    private func willHideKeyboard(_ notification: Notification) {
+        handleScrollView(notification, isKeyboardShow: false)
+    }
+    
+    private func handleScrollView(_ notification: Notification, isKeyboardShow: Bool) {
+        guard
+            let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+            let keyboardAnimationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
+        else { return }
+        
+        let insetValue = isKeyboardShow ? keyboardFrame.cgRectValue.height - view.safeAreaInsets.bottom: 0
+        let contentInsetValue: CGFloat = isKeyboardShow ? 20 : 0
+        
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: contentInsetValue, right: 0)
+        
+        registerButton.snp.updateConstraints {
+            $0.top.equalTo(scrollView.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(insetValue + 34)
+        }
+        
+        UIView.animate(withDuration: keyboardAnimationDuration.doubleValue) { [weak self] in
+            self?.view.layoutIfNeeded()
+        }
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension RegisterGifticonViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        view.endEditing(true)
     }
 }
 
