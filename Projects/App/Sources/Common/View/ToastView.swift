@@ -9,6 +9,7 @@
 import UIKit
 
 import DesignSystem
+import SnapKit
 
 final class ToastView {
     private let toastView = DDIPToastView()
