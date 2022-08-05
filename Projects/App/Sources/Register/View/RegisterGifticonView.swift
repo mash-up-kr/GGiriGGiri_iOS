@@ -13,42 +13,18 @@ import SnapKit
 
 /// 기프티콘 정보 등록 화면
 final class RegisterGifticonView: BaseView {
-    private let scrollView = UIScrollView()
-    private let contentView = UIView()
     private(set) var registerGiftionImageView = RegisterGiftionImageView()
     private let infoMessageView = InfoMessageView()
     private let registerGifticonInfoView = RegisterGifticonInfoView()
     private let registerGifticonDDipInfoView = RegisterGifticonDDipInfoView()
-    private let registerButton = DDIPCTAButton()
     
     override func setLayout() {
         super.setLayout()
+        addSubviews(with: [registerGiftionImageView,
+                           infoMessageView,
+                           registerGifticonInfoView,
+                           registerGifticonDDipInfoView])
         
-        addSubviews(with: [scrollView, registerButton])
-        
-        scrollView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-        }
-        registerButton.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(safeAreaLayoutGuide)
-        }
-        
-        contentViewLayout()
-    }
-    
-    private func contentViewLayout() {
-        scrollView.addSubview(contentView)
-        contentView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.width.equalTo(UIScreen.main.bounds.width)
-        }
-        
-        contentView.addSubviews(with: [registerGiftionImageView,
-                                      infoMessageView,
-                                      registerGifticonInfoView,
-                                      registerGifticonDDipInfoView])
         
         registerGiftionImageView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(6)
