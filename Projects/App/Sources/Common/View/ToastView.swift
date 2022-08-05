@@ -21,7 +21,7 @@ final class ToastView {
         toastView.setDescriptionLabel(style)
         toastView.setIconImageView(image)
         
-        dimView.backgroundColor = UIColor.black.withAlphaComponent(0.25)
+        dimView.backgroundColor = .designSystem(.neutralBlack)?.withAlphaComponent(0.25)
         dimView.addSubview(toastView)
         wrapperView.addSubview(dimView)
         
