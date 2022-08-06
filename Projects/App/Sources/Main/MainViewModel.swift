@@ -21,6 +21,9 @@ protocol MainViewModelProtocol {
     var mainDelegate: MainCollectionViewDelegate { get }
     
     func presentPhotoPicker()
+    func requestPHPhotoLibraryAuthorization()
+    func handleAuthorizationStatus(with authorizationStatus: PHAuthorizationStatus)
+    func addButtonDidTapped()
 }
 
 /// ViewModelProtocol 구현
@@ -44,6 +47,53 @@ final class MainViewModel: MainViewModelProtocol {
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         present?(picker)
+    }
+}
+
+extension MainViewModel {
+    
+    /// 사용자에게 접근 권한을 요청하는 메서드
+    func requestPHPhotoLibraryAuthorization() {
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { authorizationStatus in
+            self.handleAuthorizationStatus(with: authorizationStatus)
+        }
+    }
+    
+    /// 현재 PHAuthorizationStatus에 따라 분기해서 처리하는 메서드
+    func handleAuthorizationStatus(with authorizationStatus: PHAuthorizationStatus) {
+        switch authorizationStatus {
+        case .notDetermined:
+            requestPHPhotoLibraryAuthorization()
+        case .restricted:
+            DispatchQueue.main.async {
+                self.alert?(nil, "라이브러리 권한이 제한되어있습니다.", nil, nil, nil)
+            }
+        case .denied:
+            DispatchQueue.main.async {
+                self.alert?(nil, "갤러리 접근 권한이 거부되었습니다.", "권한 설정하러 가기", nil) { _ in
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        if UIApplication.shared.canOpenURL(url) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                }
+            }
+        case .authorized:
+            presentPhotoPicker()
+        case .limited:
+            debugPrint("limited")
+        @unknown default:
+            DispatchQueue.main.async {
+                self.alert?(nil, "관리자에게 문의하세요.", nil, nil, nil)
+            }
+        }
+    }
+    
+    func addButtonDidTapped() {
+        let authorizationStatus: PHAuthorizationStatus
+        authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+        
+        handleAuthorizationStatus(with: authorizationStatus)
     }
 }
 
