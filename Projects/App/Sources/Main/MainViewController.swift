@@ -43,6 +43,14 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         
         delegate.collectionViewCellDelegate = self
         
+        viewModel.present = { [weak self] viewController in
+            self?.present(viewController, animated: true)
+        }
+        
+        viewModel.alert = { [weak self] message, action in
+            self?.alert(message: message, okHandler: action)
+        }
+        
         myBoxButton.rx.tap.subscribe(onNext: { [weak self] in
             let myBoxViewModel = MyBoxViewModel()
             let myBoxViewController = MyBoxViewController(myBoxViewModel)
@@ -123,8 +131,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
                 }
             }
         case .authorized:
-            presentPhotoPicker()
-            debugPrint("authorized")
+            viewModel.presentPhotoPicker()
         case .limited:
             debugPrint("limited")
         @unknown default:
@@ -132,15 +139,6 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
                 self.alert(message: "관리자에게 문의하세요.")
             }
         }
-    }
-    
-    private func presentPhotoPicker() {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-
-        let picker = PHPickerViewController(configuration: configuration)
-        picker.delegate = self
-        present(picker, animated: true)
     }
 }
 
@@ -156,29 +154,5 @@ extension MainViewController: MainCollectionViewCellDelegate {
     func categoryCellTapped(with category: Category) {
         // TODO: Category에 따라 정렬하기
         debugPrint(#function)
-    }
-}
-
-extension MainViewController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-
-        if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                DispatchQueue.main.async {
-                    guard let self = self, let image = image as? UIImage else {
-                        debugPrint("could not load image", error?.localizedDescription ?? "")
-                        return
-                    }
-                    
-                    self.alert(message: "쿠폰 이미지 분석 중~", okHandler: { _ in
-                        let registerGifticonViewController = RegisterGifticonViewController()
-                        registerGifticonViewController.giftionImage = image
-                        registerGifticonViewController.modalPresentationStyle = .fullScreen
-                        self.present(registerGifticonViewController, animated: true)
-                    })
-                }
-            }
-        }
-        dismiss(animated: true)
     }
 }
