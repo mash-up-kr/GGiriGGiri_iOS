@@ -18,8 +18,6 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     private let disposeBag = DisposeBag()
     
     private let collectionView = MainView()
-    private let delegate = MainCollectionViewDelegate()
-    private let dataSource = MainCollectionViewDataSource()
     private let myBoxButton = TapBarButtons().mybox
     private lazy var navigationBar: DDIPNavigationBar = {
         return  DDIPNavigationBar(
@@ -41,14 +39,17 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         configureCollectionView()
         configureFloatingButton()
         
-        delegate.collectionViewCellDelegate = self
+        viewModel.alert = { [weak self] message, action in
+            self?.alert(message: message, okHandler: action)
+        }
         
         viewModel.present = { [weak self] viewController in
             self?.present(viewController, animated: true)
         }
         
-        viewModel.alert = { [weak self] message, action in
-            self?.alert(message: message, okHandler: action)
+        viewModel.push = { [weak self] viewController in
+            self?.navigationController?.setNavigationBarHidden(true, animated: false)
+            self?.navigationController?.pushViewController(viewController, animated: true)
         }
         
         myBoxButton.rx.tap.subscribe(onNext: { [weak self] in
@@ -69,8 +70,8 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     }
     
     private func configureCollectionView() {
-        collectionView.configureDataSource(dataSource)
-        collectionView.configureDelegate(delegate)
+        collectionView.configureDataSource(viewModel.mainDataSource)
+        collectionView.configureDelegate(viewModel.mainDelegate)
         
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
@@ -139,20 +140,5 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
                 self.alert(message: "관리자에게 문의하세요.")
             }
         }
-    }
-}
-
-extension MainViewController: MainCollectionViewCellDelegate {
-    func gifticonCellTapped(with id: Int) {
-        let applyViewModel = ApplyViewModel(gifticonId: id)
-        let applyViewController = ApplyViewController(applyViewModel)
-        applyViewController.modalPresentationStyle = .fullScreen
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        navigationController?.pushViewController(applyViewController, animated: true)
-    }
-    
-    func categoryCellTapped(with category: Category) {
-        // TODO: Category에 따라 정렬하기
-        debugPrint(#function)
     }
 }

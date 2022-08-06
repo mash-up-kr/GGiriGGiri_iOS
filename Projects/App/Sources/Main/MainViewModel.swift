@@ -14,6 +14,10 @@ protocol MainViewModelProtocol {
     
     var alert: ((String, ((UIAlertAction) -> ())?) -> ())? { get set }
     var present: ((UIViewController) -> ())? { get set }
+    var push: ((UIViewController) -> ())? { get set }
+    
+    var mainDataSource: MainCollectionViewDataSource { get }
+    var mainDelegate: MainCollectionViewDelegate { get }
     
     func presentPhotoPicker()
 }
@@ -23,6 +27,14 @@ final class MainViewModel: MainViewModelProtocol {
     
     var alert: ((String, ((UIAlertAction) -> ())?) -> ())? = nil
     var present: ((UIViewController) -> ())? = nil
+    var push: ((UIViewController) -> ())? = nil
+    
+    let mainDataSource = MainCollectionViewDataSource()
+    lazy var mainDelegate: MainCollectionViewDelegate = {
+        let delegate = MainCollectionViewDelegate()
+        delegate.collectionViewCellDelegate = self
+        return delegate
+    }()
     
     func presentPhotoPicker() {
         var configuration = PHPickerConfiguration()
@@ -54,5 +66,19 @@ extension MainViewModel: PHPickerViewControllerDelegate {
             }
         }
         picker.dismiss(animated: true)
+    }
+}
+
+extension MainViewModel: MainCollectionViewCellDelegate {
+    func gifticonCellTapped(with id: Int) {
+        let applyViewModel = ApplyViewModel(gifticonId: id)
+        let applyViewController = ApplyViewController(applyViewModel)
+        applyViewController.modalPresentationStyle = .fullScreen
+        push?(applyViewController)
+    }
+    
+    func categoryCellTapped(with category: Category) {
+        // TODO: Category에 따라 정렬하기
+        debugPrint(#function)
     }
 }
