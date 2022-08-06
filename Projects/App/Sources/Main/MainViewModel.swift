@@ -11,8 +11,9 @@ import UIKit
 
 /// ViewModel에서 사용될 property와 method 정의
 protocol MainViewModelProtocol {
+    typealias Alert = ((String?, String, String?, ((UIAlertAction) -> Void)?, ((UIAlertAction) -> Void)?) -> ())
     
-    var alert: ((String, ((UIAlertAction) -> ())?) -> ())? { get set }
+    var alert: Alert? { get set }
     var present: ((UIViewController) -> ())? { get set }
     var push: ((UIViewController) -> ())? { get set }
     
@@ -25,7 +26,7 @@ protocol MainViewModelProtocol {
 /// ViewModelProtocol 구현
 final class MainViewModel: MainViewModelProtocol {
     
-    var alert: ((String, ((UIAlertAction) -> ())?) -> ())? = nil
+    var alert: Alert? = nil
     var present: ((UIViewController) -> ())? = nil
     var push: ((UIViewController) -> ())? = nil
     
@@ -56,12 +57,12 @@ extension MainViewModel: PHPickerViewControllerDelegate {
                         return
                     }
                     
-                    self.alert?("쿠폰 이미지 분석 중~") { _ in
+                    self.alert?(nil, "쿠폰 이미지 분석 중~", nil, nil, { _ in
                         let registerGifticonViewController = RegisterGifticonViewController()
                         registerGifticonViewController.giftionImage = image
                         registerGifticonViewController.modalPresentationStyle = .fullScreen
                         self.present?(registerGifticonViewController)
-                    }
+                    })
                 }
             }
         }

@@ -39,7 +39,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         configureCollectionView()
         configureFloatingButton()
         
-        viewModel.alert = { [weak self] message, action in
+        viewModel.alert = { [weak self] _, message, _, _, action in
             self?.alert(message: message, okHandler: action)
         }
         
