@@ -13,39 +13,39 @@ import SnapKit
 
 /// 기프티콘 정보 등록 화면
 final class RegisterGifticonView: BaseView {
-    private(set) var registerGiftionImageView = RegisterGiftionImageView()
+    private let gifticonImageView = RegisterGiftionImageView()
     private let infoMessageView = InfoMessageView()
-    private let registerGifticonInfoView = RegisterGifticonInfoView()
-    private let registerGifticonDDipInfoView = RegisterGifticonDDipInfoView()
+    private let gifticonInfoView = RegisterGifticonInfoView()
+    private let ddipInfoView = RegisterGifticonDDipInfoView()
     
     var showTimeSelectPicker: (() -> ())?
     
     override func setLayout() {
         super.setLayout()
-        addSubviews(with: [registerGiftionImageView,
+        addSubviews(with: [gifticonImageView,
                            infoMessageView,
-                           registerGifticonInfoView,
-                           registerGifticonDDipInfoView])
+                           gifticonInfoView,
+                           ddipInfoView])
         
         
-        registerGiftionImageView.snp.makeConstraints {
+        gifticonImageView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(6)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(294)
         }
         
         infoMessageView.snp.makeConstraints {
-            $0.top.equalTo(registerGiftionImageView.snp.bottom).offset(16)
+            $0.top.equalTo(gifticonImageView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
         
-        registerGifticonInfoView.snp.makeConstraints {
+        gifticonInfoView.snp.makeConstraints {
             $0.top.equalTo(infoMessageView.snp.bottom).offset(40)
             $0.leading.trailing.equalTo(infoMessageView)
         }
         
-        registerGifticonDDipInfoView.snp.makeConstraints {
-            $0.top.equalTo(registerGifticonInfoView.snp.bottom).offset(48)
+        ddipInfoView.snp.makeConstraints {
+            $0.top.equalTo(gifticonInfoView.snp.bottom).offset(48)
             $0.leading.trailing.equalTo(infoMessageView)
             $0.bottom.equalToSuperview()
         }
@@ -54,7 +54,7 @@ final class RegisterGifticonView: BaseView {
     override func configure() {
         super.configure()
         
-        registerGifticonDDipInfoView.didTapTimeSelect = { [weak self] in
+        ddipInfoView.didTapTimeSelect = { [weak self] in
             self?.showTimeSelectPicker?()
         }
     }
@@ -62,7 +62,19 @@ final class RegisterGifticonView: BaseView {
 
 extension RegisterGifticonView {
     func updateTime(_ time: String) {
-        registerGifticonDDipInfoView.update(time: time)
+        ddipInfoView.update(time: time)
+    }
+    
+    func updateCategories(_ categories: [String]) {
+        gifticonInfoView.updateCategoryDataSource(categories)
+    }
+    
+    func updateGifticonImage(_ image: UIImage) {
+        gifticonImageView.imageView.image = image
+    }
+    
+    func originalImageDelegate(_ delegate: RegisterGifticonImageViewButtonDelegate) {
+        gifticonImageView.delegate = delegate
     }
 }
 

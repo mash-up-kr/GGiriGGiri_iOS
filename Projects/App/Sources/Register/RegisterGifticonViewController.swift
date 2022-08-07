@@ -61,6 +61,17 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
         
         setContentViewLayout()
     }
+    
+    override func bind() {
+        super.bind()
+        
+        viewModel.categories
+            .skip(1)
+            .subscribe(onNext: { [weak self] in
+                self?.registerGifticonView.updateCategories($0)
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 // MARK: - Configure
@@ -91,8 +102,8 @@ extension RegisterGifticonViewController {
     }
     
     private func configureGifiticonInfoView() {
-        registerGifticonView.registerGiftionImageView.imageView.image = viewModel.gifticonImage
-        registerGifticonView.registerGiftionImageView.delegate = self
+        registerGifticonView.updateGifticonImage(viewModel.gifticonImage)
+        registerGifticonView.originalImageDelegate(self)
         registerGifticonView.showTimeSelectPicker = { [weak self] in
             self?.showPicker()
         }

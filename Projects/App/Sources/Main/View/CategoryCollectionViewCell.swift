@@ -23,19 +23,6 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     
     private let categoryButton = DDIPCategoryButton()
     
-    func configure(_ category: [Category], with index: Int) {
-        nameLabel.textAlignment = .center
-        nameLabel.clipsToBounds = true
-        
-        categoryType = Category.allCases[index]
-        
-        if category == Category.register {
-            nameLabel.text = Category.register[index].rawValue
-            return
-        }
-        nameLabel.text = Category.allCases[index].rawValue
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -58,5 +45,29 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     
     private func configure() {
         categoryButton.isUserInteractionEnabled = false
+        categoryButton.setHeight(.height_34)
+        self.layer.cornerRadius = 17
+        self.clipsToBounds = true
+    }
+    
+    func updateButton(isSelected: Bool) {
+        categoryButton.isSelected = isSelected
+    }
+    
+    func update(_ category: String) {
+        categoryButton.setButtonTitle(category)
+    }
+    
+    func configure(_ category: [Category], with index: Int) {
+        nameLabel.textAlignment = .center
+        nameLabel.clipsToBounds = true
+        
+        categoryType = Category.allCases[index]
+        
+        if category == Category.register {
+            nameLabel.text = Category.register[index].rawValue
+            return
+        }
+        nameLabel.text = Category.allCases[index].rawValue
     }
 }
