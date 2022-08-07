@@ -56,8 +56,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             let myBoxViewModel = MyBoxViewModel()
             let myBoxViewController = MyBoxViewController(myBoxViewModel)
             myBoxViewController.modalPresentationStyle = .fullScreen
-            self?.navigationController?.setNavigationBarHidden(true, animated: false)
-            self?.navigationController?.pushViewController(myBoxViewController, animated: true)
+            self?.viewModel.push?(myBoxViewController)
         }).disposed(by: disposeBag)
     }
     

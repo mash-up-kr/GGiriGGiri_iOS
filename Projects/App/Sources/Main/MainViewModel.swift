@@ -61,15 +61,13 @@ extension MainViewModel {
     
     /// 현재 PHAuthorizationStatus에 따라 분기해서 처리하는 메서드
     func handleAuthorizationStatus(with authorizationStatus: PHAuthorizationStatus) {
-        switch authorizationStatus {
-        case .notDetermined:
-            requestPHPhotoLibraryAuthorization()
-        case .restricted:
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            switch authorizationStatus {
+            case .notDetermined:
+                self.requestPHPhotoLibraryAuthorization()
+            case .restricted:
                 self.alert?(nil, "라이브러리 권한이 제한되어있습니다.", nil, nil, nil)
-            }
-        case .denied:
-            DispatchQueue.main.async {
+            case .denied:
                 self.alert?(nil, "갤러리 접근 권한이 거부되었습니다.", "권한 설정하러 가기", nil) { _ in
                     if let url = URL(string: UIApplication.openSettingsURLString) {
                         if UIApplication.shared.canOpenURL(url) {
@@ -77,13 +75,11 @@ extension MainViewModel {
                         }
                     }
                 }
-            }
-        case .authorized:
-            presentPhotoPicker()
-        case .limited:
-            debugPrint("limited")
-        @unknown default:
-            DispatchQueue.main.async {
+            case .authorized:
+                self.presentPhotoPicker()
+            case .limited:
+                debugPrint("limited")
+            @unknown default:
                 self.alert?(nil, "관리자에게 문의하세요.", nil, nil, nil)
             }
         }
