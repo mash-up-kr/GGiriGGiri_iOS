@@ -13,6 +13,13 @@ public class DDIPCategoryButton: UIButton {
         case height_34 = 34
         case height_36 = 36
     }
+    
+    public override var isSelected: Bool {
+        didSet {
+            updateFont()
+            updateBorder()
+        }
+    }
 
     public init() {
         super.init(frame: .zero)
@@ -24,8 +31,6 @@ public class DDIPCategoryButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-
-
     private func setButton() {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -33,8 +38,29 @@ public class DDIPCategoryButton: UIButton {
     private func setAttribute() {
         self.layer.cornerRadius = 17
 
-        self.setTitleColor(.designSystem(.neutralWhite), for: .normal)
-        self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._14)
+        self.setTitleColor(.designSystem(.neutralBlack), for: .normal)
+        self.setTitleColor(.designSystem(.neutralWhite), for: .selected)
+        
+        self.setBackgroundColor(.designSystem(.neutralWhite), for: .normal)
+        self.setBackgroundColor(.designSystem(.secondaryBlue), for: .selected)
+        
+        setEdgeInset(topInset: 7, leftInset: 20, rightInset: 20, bottomInset: 7)
+        
+        updateFont()
+        updateBorder()
+    }
+    
+    private func updateFont() {
+        self.titleLabel?.font = isSelected ?
+            .designSystem(.pretendard, family: .bold, size: ._14) :
+            .designSystem(.pretendard, family: .medium, size: ._14)
+    }
+    
+    private func updateBorder() {
+        self.layer.borderWidth = isSelected ? .zero : 0.5
+        self.layer.borderColor = isSelected ?
+            UIColor.clear.cgColor :
+            UIColor.designSystem(.neutralGray300)?.cgColor
     }
 }
 
@@ -53,6 +79,8 @@ extension DDIPCategoryButton {
         NSLayoutConstraint.activate([
             self.heightAnchor.constraint(equalToConstant: height.rawValue),
         ])
+        
+        self.layer.cornerRadius = height == .height_34 ? 17 : 18
     }
 
     public func setEdgeInset(
