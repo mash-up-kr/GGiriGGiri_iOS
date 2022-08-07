@@ -23,7 +23,6 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
     private let contentView = UIView()
     
     private let registerGifticonView = RegisterGifticonView()
-    public var giftionImage = UIImage()
     private let registerButton = DDIPCTAButton()
     
     private let disposeBag = DisposeBag()
@@ -35,36 +34,11 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
         
         configureNavigationBar()
         
-        registerGifticonView.registerGiftionImageView.imageView.image = giftionImage
-        registerGifticonView.registerGiftionImageView.delegate = self
-        registerGifticonView.showTimeSelectPicker = { [weak self] in
-            self?.showPicker()
-        }
+        configureGifiticonInfoView()
         
-        registerButton.setTitle(title: "내용을 입력해야 뿌릴 수 있어요")
-        registerButton.setBackgroundColor(buttonColor: .secondarySkyblue200)
+        configureKeyboardOberver()
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(willShowKeyboard),
-            name: UIWindow.keyboardWillShowNotification,
-            object: nil
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(willHideKeyboard),
-            name: UIWindow.keyboardWillHideNotification,
-            object: nil
-        )
-    }
-    
-    private func configureNavigationBar() {
-        navigationBar.leftButtonTapEvent
-            .subscribe(onNext: { [weak self] in
-                self?.dismiss(animated: true)
-            })
-            .disposed(by: disposeBag)
+        configureRegisterButton()
     }
     
     override func setLayout() {
@@ -86,6 +60,47 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
         }
         
         setContentViewLayout()
+    }
+}
+
+// MARK: - Configure
+
+extension RegisterGifticonViewController {
+    private func configureNavigationBar() {
+        navigationBar.leftButtonTapEvent
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func configureKeyboardOberver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(willShowKeyboard),
+            name: UIWindow.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(willHideKeyboard),
+            name: UIWindow.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+    
+    private func configureGifiticonInfoView() {
+        registerGifticonView.registerGiftionImageView.imageView.image = viewModel.gifticonImage
+        registerGifticonView.registerGiftionImageView.delegate = self
+        registerGifticonView.showTimeSelectPicker = { [weak self] in
+            self?.showPicker()
+        }
+    }
+    
+    private func configureRegisterButton() {
+        registerButton.setTitle(title: "내용을 입력해야 뿌릴 수 있어요")
+        registerButton.setBackgroundColor(buttonColor: .secondarySkyblue200)
     }
 }
 
@@ -167,7 +182,7 @@ extension RegisterGifticonViewController {
 extension RegisterGifticonViewController: RegisterGifticonImageViewButtonDelegate {
     func originalButtonTapped() {
         let gifticonImageViewController = GiftionImageViewController()
-        gifticonImageViewController.giftionImageView.image = giftionImage
+        gifticonImageViewController.giftionImageView.image = viewModel.gifticonImage
         present(gifticonImageViewController, animated: true)
     }
 }

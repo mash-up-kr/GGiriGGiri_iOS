@@ -9,9 +9,13 @@
 import UIKit
 
 protocol RegisterGifticonViewModelProtocol {
-    
+    var gifticonImage: UIImage { get set }
 }
 
 final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
+    var gifticonImage: UIImage
     
+    init(gifticonImage: UIImage) {
+        self.gifticonImage = gifticonImage
+    }
 }
