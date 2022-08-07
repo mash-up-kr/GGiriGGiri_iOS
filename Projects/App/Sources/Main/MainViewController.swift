@@ -18,8 +18,6 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     private let disposeBag = DisposeBag()
     
     private let collectionView = MainView()
-    private let delegate = MainCollectionViewDelegate()
-    private let dataSource = MainCollectionViewDataSource()
     private let myBoxButton = TapBarButtons().mybox
     private lazy var navigationBar: DDIPNavigationBar = {
         return  DDIPNavigationBar(
@@ -41,14 +39,24 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         configureCollectionView()
         configureFloatingButton()
         
-        delegate.collectionViewCellDelegate = self
+        viewModel.alert = { [weak self] _, message, _, _, action in
+            self?.alert(message: message, okHandler: action)
+        }
+        
+        viewModel.present = { [weak self] viewController in
+            self?.present(viewController, animated: true)
+        }
+        
+        viewModel.push = { [weak self] viewController in
+            self?.navigationController?.setNavigationBarHidden(true, animated: false)
+            self?.navigationController?.pushViewController(viewController, animated: true)
+        }
         
         myBoxButton.rx.tap.subscribe(onNext: { [weak self] in
             let myBoxViewModel = MyBoxViewModel()
             let myBoxViewController = MyBoxViewController(myBoxViewModel)
             myBoxViewController.modalPresentationStyle = .fullScreen
-            self?.navigationController?.setNavigationBarHidden(true, animated: false)
-            self?.navigationController?.pushViewController(myBoxViewController, animated: true)
+            self?.viewModel.push?(myBoxViewController)
         }).disposed(by: disposeBag)
     }
     
@@ -61,8 +69,8 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     }
     
     private func configureCollectionView() {
-        collectionView.configureDataSource(dataSource)
-        collectionView.configureDelegate(delegate)
+        collectionView.configureDataSource(viewModel.mainDataSource)
+        collectionView.configureDelegate(viewModel.mainDelegate)
         
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
@@ -88,97 +96,6 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     }
     
     @objc private func addButtonDidTapped() {
-        let authorizationStatus: PHAuthorizationStatus
-        authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
-        
-        handleAuthorizationStatus(with: authorizationStatus)
-    }
-    
-    /// 사용자에게 접근 권한을 요청하는 메서드
-    private func requestPHPhotoLibraryAuthorization() {
-        PHPhotoLibrary.requestAuthorization(for: .readWrite) { authorizationStatus in
-            self.handleAuthorizationStatus(with: authorizationStatus)
-        }
-    }
-    
-    /// 현재 PHAuthorizationStatus에 따라 분기해서 처리하는 메서드
-    private func handleAuthorizationStatus(with authorizationStatus: PHAuthorizationStatus) {
-        switch authorizationStatus {
-        case .notDetermined:
-            requestPHPhotoLibraryAuthorization()
-        case .restricted:
-            DispatchQueue.main.async {
-                self.alert(message: "라이브러리 권한이 제한되어있습니다.")
-            }
-        case .denied:
-            DispatchQueue.main.async {
-                self.alert(message: "갤러리 접근 권한이 거부되었습니다.", okTitle: "권한 설정하러 가기") { _ in
-                    self.dismiss(animated: true)
-                } okHandler: { _ in
-                    if let url = URL(string: UIApplication.openSettingsURLString) {
-                        if UIApplication.shared.canOpenURL(url) {
-                            UIApplication.shared.open(url)
-                        }
-                    }
-                }
-            }
-        case .authorized:
-            presentPhotoPicker()
-            debugPrint("authorized")
-        case .limited:
-            debugPrint("limited")
-        @unknown default:
-            DispatchQueue.main.async {
-                self.alert(message: "관리자에게 문의하세요.")
-            }
-        }
-    }
-    
-    private func presentPhotoPicker() {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-
-        let picker = PHPickerViewController(configuration: configuration)
-        picker.delegate = self
-        present(picker, animated: true)
-    }
-}
-
-extension MainViewController: MainCollectionViewCellDelegate {
-    func gifticonCellTapped(with id: Int) {
-        let applyViewModel = ApplyViewModel(gifticonId: id)
-        let applyViewController = ApplyViewController(applyViewModel)
-        applyViewController.modalPresentationStyle = .fullScreen
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        navigationController?.pushViewController(applyViewController, animated: true)
-    }
-    
-    func categoryCellTapped(with category: Category) {
-        // TODO: Category에 따라 정렬하기
-        debugPrint(#function)
-    }
-}
-
-extension MainViewController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-
-        if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                DispatchQueue.main.async {
-                    guard let self = self, let image = image as? UIImage else {
-                        debugPrint("could not load image", error?.localizedDescription ?? "")
-                        return
-                    }
-                    
-                    self.alert(message: "쿠폰 이미지 분석 중~", okHandler: { _ in
-                        let registerGifticonViewController = RegisterGifticonViewController()
-                        registerGifticonViewController.giftionImage = image
-                        registerGifticonViewController.modalPresentationStyle = .fullScreen
-                        self.present(registerGifticonViewController, animated: true)
-                    })
-                }
-            }
-        }
-        dismiss(animated: true)
+        viewModel.addButtonDidTapped()
     }
 }
