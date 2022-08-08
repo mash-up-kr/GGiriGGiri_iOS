@@ -36,8 +36,8 @@ final class RegisterGifticonInfoView: BaseView {
         return collectionView
     }()
     
-    private let barndInputView = DDIPInputView(title: "브랜드", placeholder: "브랜드명을 입력해주세요.")
-    private let nameInputView = DDIPInputView(title: "제품명", placeholder: "제품명을 입력해주세요.")
+    private let barndInputView = DDIPInputView(title: "브랜드", placeholder: "브랜드명을 입력해주세요")
+    private let nameInputView = DDIPInputView(title: "제품명", placeholder: "제품명을 입력해주세요")
     private let expirationDateInputView = DDIPInputView(inputType: .text,
                                                              title: "유효기간",
                                                              placeholder: "유효기간(YYYY.MM.DD)을 입력해주세요")
