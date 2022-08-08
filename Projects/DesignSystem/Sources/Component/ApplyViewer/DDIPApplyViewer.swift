@@ -8,6 +8,8 @@
 
 import UIKit
 
+import SnapKit
+
 public class DDIPApplyViewer: UIView {
     private var applyViewerLabel: UILabel = UILabel()
     private var applyViewerImageView: UIImageView = UIImageView()
@@ -41,24 +43,20 @@ public class DDIPApplyViewer: UIView {
         self.backgroundColor = .designSystem(.neutralGray500)
         self.layer.cornerRadius = 8
 
-        applyViewerLabel.font = .designSystem(.pretendard, family: .regular, size: ._14)
+        applyViewerLabel.font = .designSystem(.pretendard, family: .regular, size: ._10)
         
-        applyViewerImageView.image = UIImage(systemName: "swift")
-        applyViewerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        applyViewerImageView.image = .designSystem(.iconPersonEmpty10)
         applyViewerLabel.textColor = .white
     }
     
     private func setLayout() {
         self.addSubview(applyViewerStackView)
-        applyViewerStackView.addArrangedSubview(applyViewerImageView)
-        applyViewerStackView.addArrangedSubview(applyViewerLabel)
+        applyViewerStackView.addArrangedSubviews(applyViewerImageView, applyViewerLabel)
         
-        NSLayoutConstraint.activate([
-            applyViewerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            applyViewerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            applyViewerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 6),
-            applyViewerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6),
-        ])
+        applyViewerStackView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(8)
+            $0.top.bottom.equalToSuperview().inset(6)
+        }
     }
 }
 
