@@ -158,7 +158,7 @@ extension RegisterGifticonViewController {
         registerButton.snp.updateConstraints {
             $0.top.equalTo(scrollView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(insetValue + 34)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(insetValue)
         }
         
         UIView.animate(withDuration: keyboardAnimationDuration.doubleValue) { [weak self] in
