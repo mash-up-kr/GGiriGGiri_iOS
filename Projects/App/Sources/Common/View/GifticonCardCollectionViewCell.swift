@@ -17,40 +17,32 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "GifticonCardCollectionViewCell"
     
     private(set) var gifticonId = 0
-    private let brandLabel = TempLabel(color: .black)
-    private let nameLabel = TempLabel(color: .black)
-    private let expirationDateLabel = TempLabel(color: .black)
     private(set) var isParticipatingButton = TempButton(title: "응모하기")
-    private let numberOfParticipantsViewLabel = TempLabel(color: .black)
-    private let remainingTimeLabel = TempLabel(color: .black)
-    
-    private let gifticonImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 10
-        return imageView
-    }()
-    
-    private let verticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 2
-        return stackView
-    }()
     
     private let listCardView = DDIPListCardView(.apply)
     
     func configure(with data: GifticonCard) {
         gifticonId = data.gifticonInfo.id
-        brandLabel.text = data.gifticonInfo.brand
-        nameLabel.text = data.gifticonInfo.name
-        expirationDateLabel.text = data.gifticonInfo.expirationDate
-        numberOfParticipantsViewLabel.text = "\(data.numberOfParticipants)"
-        remainingTimeLabel.text = data.remainingTime
-        gifticonImageView.kf.setImage(with: data.gifticonInfo.url)
+        
+        if data.isParticipating {
+            listCardView.setListCardDeadlineView(buttonColor: .secondarySkyblue200,
+                                                 isHidden: false,
+                                                 buttonTitle: .complete,
+                                                 titleStatus: .complete,
+                                                 leftTime: Date())
+        } else {
+            listCardView.setListCardDeadlineView(buttonColor: .secondaryBlue,
+                                                 isHidden: false,
+                                                 buttonTitle: .apply,
+                                                 titleStatus: .complete,
+                                                 leftTime: Date())
+        }
+        
+        listCardView.setBrandName(brand: data.gifticonInfo.brand)
+        listCardView.setName(name: data.gifticonInfo.name)
+        listCardView.setExpirationDate(expirationDate: Date())
+        listCardView.setApplyViewer(viewer: data.numberOfParticipants)
+        listCardView.setImageIcon(image: .iconRotateCafedesert)
     }
     
     override init(frame: CGRect) {

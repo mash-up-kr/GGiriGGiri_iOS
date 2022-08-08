@@ -17,31 +17,9 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "GifticonDeadLineCollectionViewCell"
     
     private(set) var gifticonId = 0
-    private let brandLabel = TempLabel(color: .black)
-    private let nameLabel = TempLabel(color: .black)
-    private let expirationDateLabel = TempLabel(color: .black)
     private(set) var isParticipatingButton = TempButton(title: "지금 당장 응모할게요!")
-    private let numberOfParticipantsViewLabel = TempLabel(color: .black)
-    private let remainingTimeLabel = TempLabel(color: .black)
     
     private let cardView = DDIPDeadlineCardView()
-    
-    private let gifticonImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 10
-        return imageView
-    }()
-    
-    private let verticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 2
-        return stackView
-    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -75,9 +53,17 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
                 brand: data.gifticonInfo.brand,
                 name: data.gifticonInfo.name,
                 expirationDate: data.gifticonInfo.expirationDate,
-                iconImage: .iconCrossFill48
+                iconImage: .iconCafedesert
             )
         )
+        
+        if data.isParticipating {
+            cardView.update(buttonTitle: "응모 완료", backgroundColor: .secondarySkyblue200)
+        } else {
+            cardView.update(buttonTitle: "지금 당장 응모할게요!", backgroundColor: .secondaryBlue)
+        }
+        cardView.update(viewerCount: data.numberOfParticipants)
         cardView.update(countDownDate: Date())
+        cardView.enableButton()
     }
 }
