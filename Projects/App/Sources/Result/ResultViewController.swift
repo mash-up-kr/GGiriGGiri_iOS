@@ -72,7 +72,7 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
 
 extension ResultViewController: ResultViewButtonDelegate {
     func homeButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
     
     func saveButtonTapped() {

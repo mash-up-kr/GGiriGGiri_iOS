@@ -26,7 +26,8 @@ final class ResultView: BaseView {
             case .win:
                 winView.isHidden = false
                 loseView.isHidden = true
-                button.titleLabel?.text = "갤러리에 저장"
+                button.setTitle(title: "갤러리에 저장")
+                button.setBackgroundColor(buttonColor: .secondaryBlue)
                 winView.configure(gifticon: Gifticon(id: 0,
                                                      brand: "할리스",
                                                      name: "바닐라라떼",
@@ -35,7 +36,8 @@ final class ResultView: BaseView {
             case .lose:
                 winView.isHidden = true
                 loseView.isHidden = false
-                button.titleLabel?.text = "홈으로 이동"
+                button.setTitle(title: "홈으로 이동")
+                button.setBackgroundColor(buttonColor: .secondaryBlue)
             }
         }
     }
