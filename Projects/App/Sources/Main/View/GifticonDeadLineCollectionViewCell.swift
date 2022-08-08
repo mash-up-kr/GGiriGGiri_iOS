@@ -59,11 +59,12 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
         
         if data.isParticipating {
             cardView.update(buttonTitle: "응모 완료", backgroundColor: .secondarySkyblue200)
+            cardView.disableButton()
         } else {
             cardView.update(buttonTitle: "지금 당장 응모할게요!", backgroundColor: .secondaryBlue)
+            cardView.enableButton()
         }
         cardView.update(viewerCount: data.numberOfParticipants)
         cardView.update(countDownDate: Date())
-        cardView.enableButton()
     }
 }
