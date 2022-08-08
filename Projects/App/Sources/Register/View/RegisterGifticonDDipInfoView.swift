@@ -9,6 +9,7 @@
 import UIKit
 
 import DesignSystem
+import RxSwift
 import SnapKit
 
 /// 기프티콘 정보 - 기프티콘 뿌리기 정보 뷰
@@ -29,7 +30,19 @@ final class RegisterGifticonDDipInfoView: BaseView {
         placeholder: "마감시간을 선택해주세요"
     )
     
+    private let disposeBag = DisposeBag()
+    
     var didTapTimeSelect: (() -> ())?
+    var didUpdateDeadLineMinute: ((String?) -> ())?
+    
+    override func configure() {
+        super.configure()
+        timeInputView.textRelay
+            .subscribe(onNext: { [weak self] in
+                self?.didUpdateDeadLineMinute?($0)
+            })
+            .disposed(by: disposeBag)
+    }
     
     override func setLayout() {
         super.setLayout()
