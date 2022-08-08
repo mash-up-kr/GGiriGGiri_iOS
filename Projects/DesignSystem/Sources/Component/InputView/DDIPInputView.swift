@@ -8,6 +8,7 @@
 
 import UIKit
 
+import RxRelay
 import RxSwift
 
 public final class DDIPInputView: UIView {
@@ -49,6 +50,8 @@ public final class DDIPInputView: UIView {
     // MARK: - Binding Property
     
     private var disposeBag = DisposeBag()
+    
+    public let textRelay = BehaviorRelay<String?>(value: nil)
     
     // MARK: - Property Observers
     
@@ -114,7 +117,10 @@ public final class DDIPInputView: UIView {
         update(inputType: inputType)
         update(title: title)
         update(placeholder: placeholder)
-        update(condition: condition)
+        
+        if let condition = condition {
+            update(condition: condition)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -145,6 +151,10 @@ extension DDIPInputView: AddViewsable {
 extension DDIPInputView {
     private func bind() {
         disposeBag = DisposeBag()
+        
+        inputField.textRelay
+            .bind(to: textRelay)
+            .disposed(by: disposeBag)
         
         bindActionButton()
         bindInputFieldState()
