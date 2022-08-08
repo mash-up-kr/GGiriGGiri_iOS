@@ -118,7 +118,7 @@ fileprivate class InfoMessageView: BaseView {
         super.configure()
         
         self.layer.cornerRadius = 8
-        backgroundColor = .yellow
+        backgroundColor = .designSystem(.secondaryYellow)
     }
 }
 

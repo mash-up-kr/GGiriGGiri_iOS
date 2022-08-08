@@ -20,6 +20,8 @@ public enum DDIPColor {
     case secondaryBlue
     case secondarySkyblue200
     case secondarySkyblue100
+    case secondaryYellow
+    
     case dangerRaspberry
     
     /// 컬러를 불러오기 위한 name space
@@ -36,6 +38,7 @@ public enum DDIPColor {
         case .secondaryBlue: return "SecondaryBlue"
         case .secondarySkyblue200: return "SecondarySkyblue200"
         case .secondarySkyblue100: return "SecondarySkyblue100"
+        case .secondaryYellow: return "SecondaryYellow"
         case .dangerRaspberry: return "DangerRaspberry"
         }
     }
