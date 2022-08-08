@@ -53,6 +53,10 @@ public class DDIPApplyViewer: UIView {
         self.addSubview(applyViewerStackView)
         applyViewerStackView.addArrangedSubviews(applyViewerImageView, applyViewerLabel)
         
+        applyViewerImageView.snp.makeConstraints {
+            $0.width.equalTo(applyViewerImageView.snp.height)
+        }
+        
         applyViewerStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(8)
             $0.top.bottom.equalToSuperview().inset(6)
