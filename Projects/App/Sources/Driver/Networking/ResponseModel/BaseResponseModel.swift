@@ -8,9 +8,16 @@
 
 import RxSwift
 
-typealias Response<T: Decodable> = Single<BaseResponseModel<T>>
+typealias Response = Single<BaseResponseModel>
 
-struct BaseResponseModel<T: Decodable>: Decodable {
+struct BaseResponseModel: Decodable {
+    let code: String
+    let message: String
+}
+
+typealias ResponseData<T: Decodable> = Single<BaseDataResponseModel<T>>
+
+struct BaseDataResponseModel<T: Decodable>: Decodable {
     let code: String
     let message: String
     let data: T?
