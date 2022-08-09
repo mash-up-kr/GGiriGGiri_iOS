@@ -25,6 +25,8 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
     private let registerGifticonView = RegisterGifticonView()
     private let registerButton = DDIPCTAButton()
     
+    private let toastView = ToastView()
+    
     private let disposeBag = DisposeBag()
     
     override func configure() {
@@ -71,6 +73,58 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
                 self?.registerGifticonView.updateCategories($0)
             })
             .disposed(by: disposeBag)
+        
+        viewModel.informationValidate
+            .subscribe(onNext: { [weak self] in
+                self?.updateValidate($0)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.toast
+            .subscribe(onNext: { [weak self] in
+                switch $0 {
+                case .registerSuccess:
+                    self?.showRegisterSuccessToast()
+                case .registerFail:
+                    self?.showRegisterFailToast()
+                }
+                self?.registerButton.isEnabled = true
+            })
+            .disposed(by: disposeBag)
+        
+        registerGifticonView.selectedCategoryIndex = { [weak self] in
+            self?.viewModel.update(.category($0))
+        }
+        
+        registerGifticonView.updateBarandName = { [weak self] in
+            self?.viewModel.update(.brandName($0))
+        }
+        
+        registerGifticonView.updateProductName = { [weak self] in
+            self?.viewModel.update(.productName($0))
+        }
+        
+        registerGifticonView.updateExpirationDate = { [weak self] in
+            self?.viewModel.update(.expirationDate($0))
+        }
+        
+        registerGifticonView.updateDeadLineMinute = { [weak self] in
+            self?.viewModel.update(.deadLineMinute($0))
+        }
+        
+        registerButton.rx.tap
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                // TODO: - 인디케이터로 변경할것
+                self?.registerButton.isEnabled = false
+                self?.viewModel.requestRegister()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func updateValidate(_ isValidate: Bool) {
+        registerButton.isEnabled = isValidate
+        updateRegisterButton(isValidate)
     }
 }
 
@@ -110,8 +164,12 @@ extension RegisterGifticonViewController {
     }
     
     private func configureRegisterButton() {
-        registerButton.setTitle(title: "내용을 입력해야 뿌릴 수 있어요")
-        registerButton.setBackgroundColor(buttonColor: .secondarySkyblue200)
+        updateRegisterButton()
+    }
+    
+    private func updateRegisterButton(_ isValidate: Bool = false) {
+        registerButton.setTitle(title: isValidate ? "기프티콘을 뿌려볼까요?" : "내용을 입력해야 뿌릴 수 있어요")
+        registerButton.setBackgroundColor(buttonColor: isValidate ? .secondaryBlue : .secondarySkyblue200)
     }
 }
 
@@ -178,7 +236,7 @@ extension RegisterGifticonViewController: UIScrollViewDelegate {
 // MARK: - Picker
 
 extension RegisterGifticonViewController {
-    func showPicker() {
+    private func showPicker() {
         let pickerViewController = PickerViewController(PickerViewModel(dataSourceType: .title(
             // TODO: - 임의로 넣은 피커 데이터. 확인 필요
             ["30분", "1시간", "1시간30분", "2시간", "2시간 30분"]
@@ -195,5 +253,19 @@ extension RegisterGifticonViewController: RegisterGifticonImageViewButtonDelegat
         let gifticonImageViewController = GiftionImageViewController()
         gifticonImageViewController.giftionImageView.image = viewModel.gifticonImage
         present(gifticonImageViewController, animated: true)
+    }
+}
+
+// MARK: - Toast
+
+extension RegisterGifticonViewController {
+    private func showRegisterSuccessToast() {
+        toastView.configureToastView(with: self.view, style: .register, image: .iconLogoCharacter)
+        toastView.showToastView(with: self.view)
+    }
+    
+    private func showRegisterFailToast() {
+        toastView.configureToastView(with: self.view, style: .registerFail, image: .iconRotateLogoCharacterEmpty)
+        toastView.showToastView(with: self.view)
     }
 }

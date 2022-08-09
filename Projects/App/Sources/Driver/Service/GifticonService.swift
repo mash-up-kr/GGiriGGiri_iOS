@@ -11,8 +11,9 @@ import Foundation
 import RxSwift
 
 struct GifticonService {
-    typealias CategoryListResponse = Response<[String]>
-    typealias CouponListResponse = Response<[CouponEntity]>
+    typealias CategoryListResponse = ResponseData<[String]>
+    typealias CouponListResponse = ResponseData<[CouponEntity]>
+    typealias RegisterSprinkleResponse = Response
     
     private let network: Networking
     
@@ -26,5 +27,13 @@ struct GifticonService {
     
     func list(_ model: GifticonListRequestModel) -> CouponListResponse {
         network.request(GifticonAPI.categoryList(model)).map()
+    }
+    
+    func registerSprinkle(_ entity: SprinkleInformation) -> RegisterSprinkleResponse {
+        network.request(
+            GifticonAPI.registerSprinkle(
+                SprinkleRegisterRequestModel(entity)
+            )
+        ).map()
     }
 }

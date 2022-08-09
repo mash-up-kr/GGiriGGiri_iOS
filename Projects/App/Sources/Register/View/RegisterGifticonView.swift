@@ -19,6 +19,11 @@ final class RegisterGifticonView: BaseView {
     private let ddipInfoView = RegisterGifticonDDipInfoView()
     
     var showTimeSelectPicker: (() -> ())?
+    var selectedCategoryIndex: ((Int) -> ())?
+    var updateBarandName: ((String?) -> ())?
+    var updateProductName: ((String?) -> ())?
+    var updateExpirationDate: ((String?) -> ())?
+    var updateDeadLineMinute: ((String?) -> ())?
     
     override func setLayout() {
         super.setLayout()
@@ -56,6 +61,26 @@ final class RegisterGifticonView: BaseView {
         
         ddipInfoView.didTapTimeSelect = { [weak self] in
             self?.showTimeSelectPicker?()
+        }
+        
+        gifticonInfoView.didSelectCategory = { [weak self] in
+            self?.selectedCategoryIndex?($0)
+        }
+        
+        gifticonInfoView.didUpdateBrandName = { [weak self] in
+            self?.updateBarandName?($0)
+        }
+        
+        gifticonInfoView.didUpdateProductName = { [weak self] in
+            self?.updateProductName?($0)
+        }
+        
+        gifticonInfoView.didUpdateExpirationDate = { [weak self] in
+            self?.updateExpirationDate?($0)
+        }
+        
+        ddipInfoView.didUpdateDeadLineMinute = { [weak self] in
+            self?.updateDeadLineMinute?($0)
         }
     }
 }

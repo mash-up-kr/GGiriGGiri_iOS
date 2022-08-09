@@ -36,7 +36,7 @@ final class RegisterGifticonInfoView: BaseView {
         return collectionView
     }()
     
-    private let barndInputView = DDIPInputView(title: "브랜드", placeholder: "브랜드명을 입력해주세요")
+    private let brandInputView = DDIPInputView(title: "브랜드", placeholder: "브랜드명을 입력해주세요")
     private let nameInputView = DDIPInputView(title: "제품명", placeholder: "제품명을 입력해주세요")
     private let expirationDateInputView = DDIPInputView(inputType: .text,
                                                              title: "유효기간",
@@ -97,6 +97,11 @@ final class RegisterGifticonInfoView: BaseView {
         return stackView
     }()
     
+    var didSelectCategory: ((Int) -> ())?
+    var didUpdateBrandName: ((String?) -> ())?
+    var didUpdateProductName: ((String?) -> ())?
+    var didUpdateExpirationDate: ((String?) -> ())?
+    
     override func setLayout() {
         super.setLayout()
         
@@ -114,7 +119,7 @@ final class RegisterGifticonInfoView: BaseView {
         stackView.setCustomSpacing(24, after: categoryView)
         
         inputStackView.addArrangedSubviews(with: [
-            barndInputView,
+            brandInputView,
             nameInputView,
             expirationDateInputView
         ])
@@ -141,6 +146,24 @@ final class RegisterGifticonInfoView: BaseView {
             .subscribe(onNext: { [weak self] in
                 guard let size = $0, size.height != .zero else { return }
                 self?.updateCategoryViewHeight(size.height)
+            })
+            .disposed(by: disposeBag)
+        
+        brandInputView.textRelay
+            .subscribe(onNext: { [weak self] in
+                self?.didUpdateBrandName?($0)
+            })
+            .disposed(by: disposeBag)
+        
+        nameInputView.textRelay
+            .subscribe(onNext: { [weak self] in
+                self?.didUpdateProductName?($0)
+            })
+            .disposed(by: disposeBag)
+        
+        expirationDateInputView.textRelay
+            .subscribe(onNext: { [weak self] in
+                self?.didUpdateExpirationDate?($0)
             })
             .disposed(by: disposeBag)
         
@@ -173,6 +196,7 @@ extension RegisterGifticonInfoView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else { return }
         cell.updateButton(isSelected: true)
+        didSelectCategory?(indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

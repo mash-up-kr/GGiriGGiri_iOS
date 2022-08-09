@@ -29,7 +29,51 @@ final class Network: Networking {
         .create { [weak self] single in
             do {
                 let endpoint = try model.endpoint()
-                AF.request(endpoint).response { [single] response in
+                let parameters = model.parameters?.requestable ?? [:]
+                AF.request(
+                    endpoint,
+                    method: model.method,
+                    parameters: parameters,
+                    headers: model.headers
+                ).response { [single] response in
+                    if let error = response.error {
+                        single(.failure(NetworkingError.response(error)))
+                    }
+                    guard let data = response.data else {
+                        single(.failure(NetworkingError.emptyResponse))
+                        return
+                    }
+                    single(.success(.success(data)))
+                }
+                return Disposables.create()
+            } catch {
+                self?.requestErrorHandling(error)
+                single(.failure(NetworkingError.wrongRequest))
+                return Disposables.create()
+            }
+        }
+    }
+    
+    func requestMultipartFormData(_ model: NetworkRequestable) -> Single<Response> {
+        .create { [weak self] single in
+            do {
+                let endpoint = try model.endpoint()
+                let parameters = model.parameters?.requestable ?? [:]
+                AF.upload(
+                    multipartFormData: { multipartFormData in
+                        for (key, value) in parameters {
+                            if key == "image", let value = value as? Data {
+                                multipartFormData.append(
+                                    value,
+                                    withName: key,
+                                    fileName: "\(value)"
+                                )
+                            }
+                        }
+                    },
+                    to: endpoint
+                )
+                .response{ [single] response in
                     if let error = response.error {
                         single(.failure(NetworkingError.response(error)))
                     }

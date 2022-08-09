@@ -10,7 +10,7 @@ import UIKit
 
 public class DDIPToastView: UIView, AddViewsable {
     public enum ToastViewOptions {
-        case save, register, apply
+        case save, register, registerFail, apply
 
         var info: (title: String, description: String) {
             switch self {
@@ -18,6 +18,8 @@ public class DDIPToastView: UIView, AddViewsable {
                 return ("저장완료", "기프티콘이 갤러리에 저장되었어요.")
             case .register:
                 return ("등록 완료", "뿌리기 등록이 완료되었어요!\n 설정한 마감 시간이 지나면 자동적으로 기프티콘이 전달됩니다.")
+            case .registerFail:
+                return ("등록 실패", "다시 한 번 시도해주세요.")
             case .apply:
                 return ("응모 완료", "응모가 완료되었어요!\n 응모 결과는 마감 후에 확인할 수 있어요.")
             }

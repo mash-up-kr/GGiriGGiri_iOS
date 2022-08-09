@@ -42,7 +42,8 @@ public final class DDIPInputField: UIView {
     
     private var disposeBag = DisposeBag()
     
-    let state = PublishRelay<DDIPInputField.State>()
+    public let state = PublishRelay<DDIPInputField.State>()
+    public let textRelay = BehaviorRelay<String?>(value: nil)
     
     // MARK: - Property Observers
     
@@ -79,7 +80,9 @@ public final class DDIPInputField: UIView {
         bind()
         
         update(placeholder: placeholder)
-        update(condition: condition)
+        if let condition = condition {
+            update(condition: condition)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -119,6 +122,11 @@ extension DDIPInputField {
 extension DDIPInputField {
     private func bind() {
         disposeBag = DisposeBag()
+        
+        textfield.rx.text
+            .distinctUntilChanged()
+            .bind(to: textRelay)
+            .disposed(by: disposeBag)
         
         if condition != nil {
             bindCheck()
@@ -225,6 +233,7 @@ extension DDIPInputField {
     
     public func update(text: String?) {
         self.text = text
+        self.textRelay.accept(text)
     }
     
     public func update(keyboardType: UIKeyboardType) {
