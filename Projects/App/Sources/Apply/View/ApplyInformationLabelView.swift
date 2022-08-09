@@ -63,12 +63,15 @@ final class ApplyInformationLabelView: BaseView {
         titleLabel.text = title
     }
     
-    func configure(information: String?) {
-        descriptionLabel.text = information
+    func configure(information: Int?) {
+        guard let information = information else {
+            return
+        }
+
+        descriptionLabel.text = String(information)
     }
-    
-    func configure(title: String?, information: String?) {
-        configure(title: title)
-        configure(information: information)
+
+    func configure(name: String?) {
+        descriptionLabel.text = name
     }
 }
