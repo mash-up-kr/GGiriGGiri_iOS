@@ -104,7 +104,10 @@ extension MainViewModel: PHPickerViewControllerDelegate {
                     }
                     
                     self.alert?(nil, "쿠폰 이미지 분석 중~", nil, nil, { _ in
-                        let viewModel = RegisterGifticonViewModel(network: Network(), gifticonImage: image)
+                        let viewModel = RegisterGifticonViewModel(
+                            network: Network(),
+                            categoryRepository: CategoryRepository(),
+                            gifticonImage: image)
                         let registerGifticonViewController = RegisterGifticonViewController(viewModel)
                         registerGifticonViewController.modalPresentationStyle = .fullScreen
                         self.present?(registerGifticonViewController)
