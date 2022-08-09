@@ -236,7 +236,7 @@ extension RegisterGifticonViewController: UIScrollViewDelegate {
 // MARK: - Picker
 
 extension RegisterGifticonViewController {
-    func showPicker() {
+    private func showPicker() {
         let pickerViewController = PickerViewController(PickerViewModel(dataSourceType: .title(
             // TODO: - 임의로 넣은 피커 데이터. 확인 필요
             ["30분", "1시간", "1시간30분", "2시간", "2시간 30분"]
