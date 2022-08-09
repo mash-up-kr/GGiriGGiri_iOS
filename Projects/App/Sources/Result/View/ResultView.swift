@@ -13,7 +13,8 @@ import SnapKit
 
 protocol ResultViewButtonDelegate: AnyObject {
     func homeButtonTapped()
-    func saveButtonTapped()
+    func saveButtonTapped(completion: @escaping (Bool) -> ())
+    func saveFailed()
 }
 
 final class ResultView: BaseView {
@@ -84,7 +85,15 @@ final class ResultView: BaseView {
     @objc private func homeButtonTapped(_ sender: UIButton) {
         switch type {
         case .win:
-            delegate?.saveButtonTapped()
+            delegate?.saveButtonTapped(completion: { saved in
+                if saved {
+                    self.button.setBackgroundColor(buttonColor: .secondarySkyblue200)
+                    self.button.setTitle(title: "저장 완료")
+                    self.button.isEnabled = false
+                } else {
+                    self.delegate?.saveFailed()
+                }
+            })
         case .lose:
             delegate?.homeButtonTapped()
         }

@@ -10,12 +10,14 @@ import UIKit
 
 public class DDIPToastView: UIView, AddViewsable {
     public enum ToastViewOptions {
-        case save, register, apply
+        case save, saveFail, register, apply
 
         var info: (title: String, description: String) {
             switch self {
             case .save:
-                return ("저장완료", "기프티콘이 갤러리에 저장되었어요.")
+                return ("저장 완료!", "기프티콘이 갤러리에 저장되었어요.")
+            case .saveFail:
+                return ("저장 실패", "다시 한 번 시도해주세요.")
             case .register:
                 return ("등록 완료", "뿌리기 등록이 완료되었어요!\n 설정한 마감 시간이 지나면 자동적으로 기프티콘이 전달됩니다.")
             case .apply:
