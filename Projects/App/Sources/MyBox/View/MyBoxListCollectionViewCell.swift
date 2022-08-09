@@ -14,27 +14,24 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "MyBoxListCollectionViewCell"
     
-    var myBoxType: MyBox = .apply
+    var myBoxType: MyBox = .apply {
+        didSet {
+            switch myBoxType {
+            case .apply:
+                listCardView = DDIPListCardView(.progress)
+            case .register:
+                listCardView = DDIPListCardView(.complete)
+            }
+        }
+    }
     
-    private var listCardView: DDIPListCardView? = DDIPListCardView(.progress)
+    private var listCardView: DDIPListCardView? = DDIPListCardView(.complete)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setLayout()
         configure()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        listCardView = nil
-        
-        if myBoxType == .apply {
-            listCardView = DDIPListCardView(.progress)
-        } else {
-            listCardView = DDIPListCardView(.complete)
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -63,7 +60,7 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
     
     func configure(with category: MyBox, data: GifticonCard) {
         
-        guard let listCardView = listCardView else { return }
+        guard var listCardView = listCardView else { return }
         listCardView.setBrandName(brand: data.gifticonInfo.brand)
         listCardView.setName(name: data.gifticonInfo.name)
         listCardView.setExpirationDate(expirationDate: Date())
@@ -71,10 +68,10 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
         listCardView.setApplyViewer(viewer: data.numberOfParticipants)
 
         if category == .apply { // apply
+            listCardView = DDIPListCardView(.progress)
             listCardView.setListCardApplyView(applyDate: Date())
         } else { // register
-//            listCardView = DDIPListCardView(.complete)
-            print("aaaaaa", listCardView.applyStatus)
+            listCardView = DDIPListCardView(.complete)
             listCardView.setListCardCompleteView(drawDate: Date(), registerStatus: .complete)
         }
     }
