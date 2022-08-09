@@ -57,10 +57,6 @@ extension NetworkRequestable {
     }
     
     var headers: HTTPHeaders {
-        HTTPHeaders([
-            "Authorization" : UIDevice.current.identifierForVendor?.description ?? .init().description
-        ])
+        .default
     }
 }
-
-
