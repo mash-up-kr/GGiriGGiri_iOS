@@ -25,6 +25,8 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
     private let registerGifticonView = RegisterGifticonView()
     private let registerButton = DDIPCTAButton()
     
+    private let toastView = ToastView()
+    
     private let disposeBag = DisposeBag()
     
     override func configure() {
@@ -75,6 +77,18 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
         viewModel.informationValidate
             .subscribe(onNext: { [weak self] in
                 self?.updateValidate($0)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.toast
+            .subscribe(onNext: { [weak self] in
+                switch $0 {
+                case .registerSuccess:
+                    self?.showRegisterSuccessToast()
+                case .registerFail:
+                    self?.showRegisterFailToast()
+                }
+                self?.registerButton.isEnabled = true
             })
             .disposed(by: disposeBag)
         
@@ -239,5 +253,19 @@ extension RegisterGifticonViewController: RegisterGifticonImageViewButtonDelegat
         let gifticonImageViewController = GiftionImageViewController()
         gifticonImageViewController.giftionImageView.image = viewModel.gifticonImage
         present(gifticonImageViewController, animated: true)
+    }
+}
+
+// MARK: - Toast
+
+extension RegisterGifticonViewController {
+    private func showRegisterSuccessToast() {
+        toastView.configureToastView(with: self.view, style: .register, image: .iconLogoCharacter)
+        toastView.showToastView(with: self.view)
+    }
+    
+    private func showRegisterFailToast() {
+        toastView.configureToastView(with: self.view, style: .registerFail, image: .iconRotateLogoCharacterEmpty)
+        toastView.showToastView(with: self.view)
     }
 }

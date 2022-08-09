@@ -15,6 +15,7 @@ protocol RegisterGifticonViewModelProtocol {
     var gifticonImage: UIImage { get }
     var categories: BehaviorRelay<[String]> { get }
     var informationValidate: PublishRelay<Bool> { get }
+    var toast: PublishRelay<RegisterGifticonViewModel.Toast> { get }
     
     func update(_ type: RegisterGifticonViewModel.Update)
     func requestRegister()
@@ -28,6 +29,10 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
         case expirationDate(String?)
         case deadLineMinute(String?)
     }
+    enum Toast {
+        case registerSuccess
+        case registerFail
+    }
     private let network: Networking
     private lazy var service = GifticonService(network: network)
     private let disposeBag = DisposeBag()
@@ -37,6 +42,7 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
     }
     var categories = BehaviorRelay<[String]>(value: [])
     var informationValidate = PublishRelay<Bool>()
+    var toast = PublishRelay<Toast>()
     
     private var information: SprinkleInformation
     
@@ -85,8 +91,13 @@ extension RegisterGifticonViewModel {
     
     func requestRegister() {
         service.registerSprinkle(information)
-            .subscribe(onSuccess: { [weak self] _ in
-                // TODO: 로직 추가할것
+            .subscribe(onSuccess: { [weak self] in
+                // TODO: 에러코드별 처리방법 고도화하기
+                guard $0.code == "S001" else {
+                    self?.toast.accept(.registerFail)
+                    return
+                }
+                self?.toast.accept(.registerSuccess)
             })
             .disposed(by: disposeBag)
     }
