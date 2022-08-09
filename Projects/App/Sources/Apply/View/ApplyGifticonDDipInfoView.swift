@@ -59,9 +59,8 @@ final class ApplyGifticonDDipInfoView: BaseView {
             $0.edges.equalToSuperview().inset(20)
         }
     }
-    
-    override func configure() {
-        super.configure()
-        participantsLabelView.configure(information: "24명")
+
+    func setParticipantLabelView(participants: Int) {
+        participantsLabelView.configure(information: participants)
     }
 }
