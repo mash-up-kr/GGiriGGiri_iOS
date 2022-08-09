@@ -10,12 +10,14 @@ import UIKit
 
 import DesignSystem
 import SnapKit
+import RxSwift
 import Kingfisher
 
 final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "GifticonDeadLineCollectionViewCell"
     
+    private let disposeBag = DisposeBag()
     private(set) var gifticonId = 0
     private(set) var isParticipatingButton = TempButton(title: "지금 당장 응모할게요!")
     
@@ -63,6 +65,13 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
         } else {
             cardView.update(buttonTitle: "지금 당장 응모할게요!", backgroundColor: .secondaryBlue)
             cardView.enableButton()
+            cardView.CTAButton.rx.tap.asObservable()
+                .subscribe { _ in
+                    // TODO: 응모 POST 완료 되면 button update 되도록 수정하기. 완료되지 않을 경우는 실패 ToastView 띄우도록 하기
+                    self.cardView.update(buttonTitle: "응모 완료", backgroundColor: .secondarySkyblue200)
+                    self.cardView.disableButton()
+                }.disposed(by: disposeBag)
+
         }
         cardView.update(viewerCount: data.numberOfParticipants)
         cardView.update(countDownDate: Date())

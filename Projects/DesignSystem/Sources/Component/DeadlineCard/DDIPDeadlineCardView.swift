@@ -9,10 +9,11 @@
 import UIKit
 
 import RxSwift
+import RxCocoa
 import SnapKit
 
 public class DDIPDeadlineCardView: UIView, AddViewsable {
-    private let CTAButton = DDIPCTAButton()
+    public let CTAButton = DDIPCTAButton()
     private let applyViewer = DDIPApplyViewer()
     
     private let imageIcon = UIImageView()
@@ -28,6 +29,8 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     
     private let timer = DDIPCountDownTimer(.minute)
     private let disposeBag = DisposeBag()
+    
+    public let buttonTapEvent = PublishRelay<Void>()
     
     private let infoStackView: UIStackView = {
         let stackView = UIStackView()
@@ -177,6 +180,9 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     
     private func bind() {
         bindingTimer()
+        
+        CTAButton.rx.tap.bind(to: buttonTapEvent)
+            .disposed(by: disposeBag)
     }
     
     private func bindingTimer() {
@@ -236,6 +242,4 @@ extension DDIPDeadlineCardView {
     public func enableButton() {
         CTAButton.isEnabled = true
     }
-    
-    // TODO: CTAButton Update Logic 추가해야함
 }
