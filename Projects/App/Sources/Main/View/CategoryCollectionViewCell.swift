@@ -63,11 +63,6 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
         nameLabel.clipsToBounds = true
         
         categoryType = Category.allCases[index]
-        
-        if category == Category.register {
-            nameLabel.text = Category.register[index].rawValue
-            return
-        }
         nameLabel.text = Category.allCases[index].rawValue
     }
 }
