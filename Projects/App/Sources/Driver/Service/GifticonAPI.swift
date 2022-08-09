@@ -11,7 +11,6 @@ import Foundation
 import Alamofire
 
 enum GifticonAPI {
-    case categories
     case categoryList(GifticonListRequestModel)
     case registerSprinkle(SprinkleRegisterRequestModel)
 }
@@ -19,8 +18,6 @@ enum GifticonAPI {
 extension GifticonAPI: NetworkRequestable {
     var path: String {
         switch self {
-        case .categories:
-            return "/api/v1/coupon/category"
         case .categoryList:
             return "/api/v1/sprinkles"
         case .registerSprinkle:
@@ -30,7 +27,7 @@ extension GifticonAPI: NetworkRequestable {
     
     var method: HTTPMethod {
         switch self {
-        case .categories, .categoryList:
+        case .categoryList:
             return .get
         case .registerSprinkle:
             return .post
@@ -39,8 +36,6 @@ extension GifticonAPI: NetworkRequestable {
     
     var parameters: Encodable? {
         switch self {
-        case .categories:
-            return nil
         case let .categoryList(model):
             return model
         case let .registerSprinkle(model):
@@ -50,7 +45,7 @@ extension GifticonAPI: NetworkRequestable {
     
     var headers: HTTPHeaders {
         switch self {
-        case .categories, .categoryList:
+        case .categoryList:
             return .default
         case .registerSprinkle:
             return .multipartHeader
