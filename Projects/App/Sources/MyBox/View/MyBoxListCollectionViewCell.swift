@@ -14,15 +14,27 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "MyBoxListCollectionViewCell"
     
-    var myBoxType: MyBox = .register
+    var myBoxType: MyBox = .apply
     
-    private var listCardView = DDIPListCardView(.apply)
+    private var listCardView: DDIPListCardView? = DDIPListCardView(.progress)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setLayout()
         configure()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        listCardView = nil
+        
+        if myBoxType == .apply {
+            listCardView = DDIPListCardView(.progress)
+        } else {
+            listCardView = DDIPListCardView(.complete)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -33,6 +45,10 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
     }
     
     private func setLayout() {
+        guard let listCardView = listCardView else {
+            return
+        }
+
         contentView.addSubview(listCardView)
         
         listCardView.snp.makeConstraints {
@@ -45,5 +61,21 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
         backgroundColor = .clear
     }
     
-    func configure(with category: MyBox, data: GifticonCard) { }
+    func configure(with category: MyBox, data: GifticonCard) {
+        
+        guard let listCardView = listCardView else { return }
+        listCardView.setBrandName(brand: data.gifticonInfo.brand)
+        listCardView.setName(name: data.gifticonInfo.name)
+        listCardView.setExpirationDate(expirationDate: Date())
+        listCardView.setImageIcon(image: .iconCafedesert)
+        listCardView.setApplyViewer(viewer: data.numberOfParticipants)
+
+        if category == .apply { // apply
+            listCardView.setListCardApplyView(applyDate: Date())
+        } else { // register
+//            listCardView = DDIPListCardView(.complete)
+            print("aaaaaa", listCardView.applyStatus)
+            listCardView.setListCardCompleteView(drawDate: Date(), registerStatus: .complete)
+        }
+    }
 }
