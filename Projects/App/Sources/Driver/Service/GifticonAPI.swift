@@ -14,6 +14,8 @@ enum GifticonAPI {
     case categories
     case categoryList(GifticonListRequestModel)
     case registerSprinkle(SprinkleRegisterRequestModel)
+    case sprinkleApplication(Int)
+    case sprinkleDetail(Int)
 }
 
 extension GifticonAPI: NetworkRequestable {
@@ -25,15 +27,10 @@ extension GifticonAPI: NetworkRequestable {
             return "/api/v1/sprinkles"
         case .registerSprinkle:
             return "/api/v1/sprinkle"
-        }
-    }
-    
-    var method: HTTPMethod {
-        switch self {
-        case .categories, .categoryList:
-            return .get
-        case .registerSprinkle:
-            return .post
+        case .sprinkleApplication(let id):
+            return "/api/v1/sprinkle/\(3)/apply"
+        case .sprinkleDetail(let id):
+            return "/api/v1/sprinkle-info/\(3)"
         }
     }
     
@@ -43,6 +40,10 @@ extension GifticonAPI: NetworkRequestable {
             return nil
         case let .categoryList(model):
             return model
+        case .sprinkleApplication(_):
+            return nil
+        case .sprinkleDetail(_):
+            return nil
         case let .registerSprinkle(model):
             return model
         }
@@ -54,6 +55,25 @@ extension GifticonAPI: NetworkRequestable {
             return .default
         case .registerSprinkle:
             return .multipartHeader
+        case .sprinkleApplication(_):
+            return .default
+        case .sprinkleDetail(_):
+            return .default
+        }
+    }
+
+    var method: HTTPMethod {
+        switch self {
+        case .categoryList(_):
+            return .get
+        case .sprinkleApplication(_):
+            return .post
+        case .sprinkleDetail(_):
+            return .get
+        case .categories:
+            return .get
+        case .registerSprinkle(_):
+            return .post
         }
     }
 }
