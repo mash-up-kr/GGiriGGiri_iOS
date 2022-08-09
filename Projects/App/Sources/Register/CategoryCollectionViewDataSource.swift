@@ -8,16 +8,21 @@
 
 import UIKit
 
-final class CategoryCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+final class CategoryCollectionViewDataSource: NSObject {
+    private var category: [String] = []
     
-    private let category = Category.allCases.filter { return $0 != Category.all }
-    
+    func update(_ category: [String]) {
+        self.category = category
+    }
+}
+
+extension CategoryCollectionViewDataSource: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Category.register.count
+        return category.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -25,7 +30,7 @@ final class CategoryCollectionViewDataSource: NSObject, UICollectionViewDataSour
                                                           for: indexPath) else {
             return UICollectionViewCell()
         }
-        cell.configure(Category.register, with: indexPath.item)
+        cell.update(category[indexPath.row])
         return cell
     }
 }

@@ -21,9 +21,15 @@ final class RegisterGifticonDDipInfoView: BaseView {
         return label
     }()
     
-    private lazy var timeInputView = DDIPInputView(inputType: .custom(action: { [weak self] in
-        self?.showTimeSelectPicker()
-    }), title: "마감시간", placeholder: "1시간")
+    private lazy var timeInputView = DDIPInputView(
+        inputType: .custom(action: { [weak self] in
+            self?.didTapTimeSelect?()
+        }),
+        title: "마감시간",
+        placeholder: "마감시간을 선택해주세요"
+    )
+    
+    var didTapTimeSelect: (() -> ())?
     
     override func setLayout() {
         super.setLayout()
@@ -41,8 +47,10 @@ final class RegisterGifticonDDipInfoView: BaseView {
             $0.bottom.equalToSuperview()
         }
     }
-    
-    private func showTimeSelectPicker() {
-        // TODO: 로직 작성하기
+}
+
+extension RegisterGifticonDDipInfoView {
+    func update(time: String) {
+        timeInputView.update(text: time)
     }
 }
