@@ -9,6 +9,7 @@
 import UIKit
 
 struct SprinkleInformation {
+    let image: UIImage
     var category: String?
     var brandName: String?
     var productName: String?
@@ -27,5 +28,14 @@ struct SprinkleInformation {
         }
         
         return false
+    }
+    
+    func intDeadLineMinute() -> Int {
+        if let deadLineMinute = deadLineMinute, deadLineMinute.isEmpty == false {
+            // TODO: 분, 시간 -> 분으로 변경하는 로직 추가하기
+            return 30
+        }
+        
+        return .zero
     }
 }

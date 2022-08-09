@@ -12,11 +12,12 @@ import RxRelay
 import RxSwift
 
 protocol RegisterGifticonViewModelProtocol {
-    var gifticonImage: UIImage { get set }
+    var gifticonImage: UIImage { get }
     var categories: BehaviorRelay<[String]> { get }
     var informationValidate: PublishRelay<Bool> { get }
     
     func update(_ type: RegisterGifticonViewModel.Update)
+    func requestRegister()
 }
 
 final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
@@ -31,27 +32,21 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
     private lazy var service = GifticonService(network: network)
     private let disposeBag = DisposeBag()
     
-    var gifticonImage: UIImage
+    var gifticonImage: UIImage {
+        information.image
+    }
     var categories = BehaviorRelay<[String]>(value: [])
     var informationValidate = PublishRelay<Bool>()
     
-    private var information = SprinkleInformation()
+    private var information: SprinkleInformation
     
     init(network: Networking, gifticonImage: UIImage) {
         self.network = network
-        self.gifticonImage = gifticonImage
+        self.information = SprinkleInformation(image: gifticonImage)
         
         fetchCategories()
     }
     
-    func fetchCategories() {
-        service.categories()
-            .subscribe(onSuccess: { [weak self] in
-                guard let cateogires = $0.data else { return }
-                self?.categories.accept(cateogires)
-            })
-            .disposed(by: disposeBag)
-    }
     
     func update(_ type: Update) {
         switch type {
@@ -73,5 +68,26 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
     
     private func checkValidation() {
         informationValidate.accept(information.isValidate())
+    }
+}
+
+// MARK: - Networkings
+
+extension RegisterGifticonViewModel {
+    func fetchCategories() {
+        service.categories()
+            .subscribe(onSuccess: { [weak self] in
+                guard let cateogires = $0.data else { return }
+                self?.categories.accept(cateogires)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func requestRegister() {
+        service.registerSprinkle(information)
+            .subscribe(onSuccess: { [weak self] _ in
+                // TODO: 로직 추가할것
+            })
+            .disposed(by: disposeBag)
     }
 }

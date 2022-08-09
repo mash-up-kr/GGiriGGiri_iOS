@@ -97,6 +97,15 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
         registerGifticonView.updateDeadLineMinute = { [weak self] in
             self?.viewModel.update(.deadLineMinute($0))
         }
+        
+        registerButton.rx.tap
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                // TODO: - 인디케이터로 변경할것
+                self?.registerButton.isEnabled = false
+                self?.viewModel.requestRegister()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func updateValidate(_ isValidate: Bool) {
