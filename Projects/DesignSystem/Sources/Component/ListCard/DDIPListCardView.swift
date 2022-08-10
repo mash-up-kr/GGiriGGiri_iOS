@@ -9,10 +9,10 @@
 import UIKit
 
 public class DDIPListCardView: UIView, AddViewsable {
-    public enum ApplyStatus {
-        case apply
-        case progress
-        case complete
+    public enum ViewType {
+        case apply           // 응모하기, 응모완료
+        case appliedStatus   // 결과확인, 응모중, 꽝, 당첨
+        case drawStatus      // 전달완료, 진행중, 받은사람 없음
     }
 
     public enum RegisterStatus: String {
@@ -31,7 +31,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         }
     }
 
-    private var applyStatus: ApplyStatus {
+    private var type: ViewType {
         didSet {
             updateFromApplyStatus()
         }
@@ -91,8 +91,8 @@ public class DDIPListCardView: UIView, AddViewsable {
         return view
     }()
     
-    public init(_ applyStatus: ApplyStatus) {
-        self.applyStatus = applyStatus
+    public init(type: ViewType) {
+        self.type = type
         super.init(frame: .zero)
         setView()
         setUI()
@@ -198,16 +198,16 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
     
     private func updateFromApplyStatus() {
-        switch applyStatus {
+        switch type {
         case .apply:
             deadlineViewComponent.isHidden = false
             applyViewComponent.isHidden = true
             completeViewCmponent.isHidden = true
-        case .progress:
+        case .appliedStatus:
             deadlineViewComponent.isHidden = true
             applyViewComponent.isHidden = false
             completeViewCmponent.isHidden = true
-        case .complete:
+        case .drawStatus:
             deadlineViewComponent.isHidden = true
             applyViewComponent.isHidden = true
             completeViewCmponent.isHidden = false
@@ -218,22 +218,22 @@ public class DDIPListCardView: UIView, AddViewsable {
 // MARK: - 외부 주입 메서드
 
 extension DDIPListCardView {
-    public func setListCardDeadlineView(buttonColor: DDIPColor, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: Date) {
-        applyStatus = .apply
+    public func setApplyViewType(buttonColor: DDIPColor, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: Date) {
+        type = .apply
         
         deadlineViewComponent.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden, isEnabled: true)
 
         deadlineViewComponent.setDrawLabel(titleStatus: titleStatus.rawValue, leftTime: leftTime)
     }
 
-    public func setListCardCompleteView(drawDate: Date? = nil, registerStatus: RegisterStatus) {
-        applyStatus = .complete
+    public func setDrawStatusViewType(drawDate: Date? = nil, registerStatus: RegisterStatus) {
+        type = .drawStatus
         
         completeViewCmponent.setDrawLabel(drawDate: drawDate, registerStatus: registerStatus.rawValue)
     }
 
-    public func setListCardApplyView(applyDate: Date) {
-        applyStatus = .progress
+    public func setAppliedStatusViewType(applyDate: Date) {
+        type = .appliedStatus
         
         applyViewComponent.setDrawLabel(applyDate: applyDate)
     }
