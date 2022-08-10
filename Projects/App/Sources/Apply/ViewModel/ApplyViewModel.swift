@@ -47,7 +47,7 @@ final class ApplyViewModel: ApplyViewModelProtocol {
             .subscribe { [weak self] applyResponse in
                 if applyResponse.code == "S001" {
                     self?.showToastView.accept((true, applyResponse.message, nil))
-                } else if applyResponse.code == "F009" {
+                } else {
                     self?.showToastView.accept((false, applyResponse.message, nil))
                 }
             } onFailure: { [weak self] applyResponse in
