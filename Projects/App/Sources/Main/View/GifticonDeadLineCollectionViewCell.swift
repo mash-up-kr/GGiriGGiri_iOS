@@ -11,7 +11,6 @@ import UIKit
 import DesignSystem
 import SnapKit
 import RxSwift
-import Kingfisher
 
 final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     

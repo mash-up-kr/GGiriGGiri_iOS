@@ -9,7 +9,7 @@
 import UIKit
 
 import RxSwift
-import RxCocoa
+import RxRelay
 import SnapKit
 
 public class DDIPDeadlineCardView: UIView, AddViewsable {
