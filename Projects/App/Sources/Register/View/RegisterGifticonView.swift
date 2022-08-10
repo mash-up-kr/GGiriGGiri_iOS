@@ -13,61 +13,39 @@ import SnapKit
 
 /// 기프티콘 정보 등록 화면
 final class RegisterGifticonView: BaseView {
-    private let scrollView = UIScrollView()
-    private let contentView = UIView()
-    private(set) var registerGiftionImageView = RegisterGiftionImageView()
+    private let gifticonImageView = RegisterGiftionImageView()
     private let infoMessageView = InfoMessageView()
-    private let registerGifticonInfoView = RegisterGifticonInfoView()
-    private let registerGifticonDDipInfoView = RegisterGifticonDDipInfoView()
-    private let registerButton = DDIPCTAButton()
+    private let gifticonInfoView = RegisterGifticonInfoView()
+    private let ddipInfoView = RegisterGifticonDDipInfoView()
+    
+    var showTimeSelectPicker: (() -> ())?
     
     override func setLayout() {
         super.setLayout()
+        addSubviews(with: [gifticonImageView,
+                           infoMessageView,
+                           gifticonInfoView,
+                           ddipInfoView])
         
-        addSubviews(with: [scrollView, registerButton])
         
-        scrollView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-        }
-        registerButton.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(safeAreaLayoutGuide)
-        }
-        
-        contentViewLayout()
-    }
-    
-    private func contentViewLayout() {
-        scrollView.addSubview(contentView)
-        contentView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.width.equalTo(UIScreen.main.bounds.width)
-        }
-        
-        contentView.addSubviews(with: [registerGiftionImageView,
-                                      infoMessageView,
-                                      registerGifticonInfoView,
-                                      registerGifticonDDipInfoView])
-        
-        registerGiftionImageView.snp.makeConstraints {
+        gifticonImageView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(6)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(294)
         }
         
         infoMessageView.snp.makeConstraints {
-            $0.top.equalTo(registerGiftionImageView.snp.bottom).offset(16)
+            $0.top.equalTo(gifticonImageView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
         
-        registerGifticonInfoView.snp.makeConstraints {
+        gifticonInfoView.snp.makeConstraints {
             $0.top.equalTo(infoMessageView.snp.bottom).offset(40)
             $0.leading.trailing.equalTo(infoMessageView)
         }
         
-        registerGifticonDDipInfoView.snp.makeConstraints {
-            $0.top.equalTo(registerGifticonInfoView.snp.bottom).offset(48)
+        ddipInfoView.snp.makeConstraints {
+            $0.top.equalTo(gifticonInfoView.snp.bottom).offset(48)
             $0.leading.trailing.equalTo(infoMessageView)
             $0.bottom.equalToSuperview()
         }
@@ -75,6 +53,28 @@ final class RegisterGifticonView: BaseView {
     
     override func configure() {
         super.configure()
+        
+        ddipInfoView.didTapTimeSelect = { [weak self] in
+            self?.showTimeSelectPicker?()
+        }
+    }
+}
+
+extension RegisterGifticonView {
+    func updateTime(_ time: String) {
+        ddipInfoView.update(time: time)
+    }
+    
+    func updateCategories(_ categories: [String]) {
+        gifticonInfoView.updateCategoryDataSource(categories)
+    }
+    
+    func updateGifticonImage(_ image: UIImage) {
+        gifticonImageView.imageView.image = image
+    }
+    
+    func originalImageDelegate(_ delegate: RegisterGifticonImageViewButtonDelegate) {
+        gifticonImageView.delegate = delegate
     }
 }
 
@@ -118,7 +118,7 @@ fileprivate class InfoMessageView: BaseView {
         super.configure()
         
         self.layer.cornerRadius = 8
-        backgroundColor = .yellow
+        backgroundColor = .designSystem(.secondaryYellow)
     }
 }
 

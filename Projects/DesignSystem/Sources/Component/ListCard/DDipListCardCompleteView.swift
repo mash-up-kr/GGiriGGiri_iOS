@@ -29,6 +29,7 @@ public class DDipListCardCompleteView: DDipListCardApplyBaseView {
     public func setAttribute() {
         drawLabel.font = .designSystem(.pretendard, family: .bold, size: ._14)
         drawLabel.textColor = .designSystem(.secondaryBlue)
+        drawLabel.textAlignment = .left
 
         cardListButton.isHidden = true
     }

@@ -14,18 +14,7 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "MyBoxListCollectionViewCell"
     
-    var myBoxType: MyBox = .apply {
-        didSet {
-            switch myBoxType {
-            case .apply:
-                listCardView = DDIPListCardView(.progress)
-            case .register:
-                listCardView = DDIPListCardView(.complete)
-            }
-        }
-    }
-    
-    private var listCardView: DDIPListCardView? = DDIPListCardView(.complete)
+    private let listCardView: DDIPListCardView = DDIPListCardView(type: .apply)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,10 +31,6 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
     }
     
     private func setLayout() {
-        guard let listCardView = listCardView else {
-            return
-        }
-
         contentView.addSubview(listCardView)
         
         listCardView.snp.makeConstraints {
@@ -59,20 +44,18 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with category: MyBox, data: GifticonCard) {
-        
-        guard var listCardView = listCardView else { return }
         listCardView.setBrandName(brand: data.gifticonInfo.brand)
         listCardView.setName(name: data.gifticonInfo.name)
         listCardView.setExpirationDate(expirationDate: Date())
         listCardView.setImageIcon(image: .iconCafedesert)
         listCardView.setApplyViewer(viewer: data.numberOfParticipants)
 
-        if category == .apply { // apply
-            listCardView = DDIPListCardView(.progress)
-            listCardView.setListCardApplyView(applyDate: Date())
-        } else { // register
-            listCardView = DDIPListCardView(.complete)
-            listCardView.setListCardCompleteView(drawDate: Date(), registerStatus: .complete)
+        if category == .applied {
+            // TODO: 전달받은 값에 따라 결과확인, 응모중, 꽝, 당첨 등 status 변경하기
+            listCardView.setAppliedStatusViewType(status: .confirmResult, applyDate: Date())
+        } else {
+            // TODO: 전달받은 값에 따라 응모진행중, 전달완료(Date와 함께), 받은사람 없음 변경하기
+            listCardView.setDrawStatusViewType(status: .apply)
         }
     }
 }

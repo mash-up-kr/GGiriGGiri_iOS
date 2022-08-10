@@ -70,7 +70,7 @@ final class MyBoxEmptyView: BaseView {
     }
     
     func configureEmptyCategory(with category: MyBox) {
-        if category == MyBox.apply {
+        if category == MyBox.applied {
             titleMessage.text = "응모한 내역이 없어요"
             detailMessage.text = "지금 바로 무료 기프티콘에\n응모해보세요!"
             return

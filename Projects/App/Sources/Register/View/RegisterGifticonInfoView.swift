@@ -9,6 +9,7 @@
 import UIKit
 
 import DesignSystem
+import RxSwift
 import SnapKit
 
 /// 기프티콘 정보 - 기프티콘 정보 뷰
@@ -31,39 +32,53 @@ final class RegisterGifticonInfoView: BaseView {
     
     private lazy var categoryView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: generateLayout())
-        collectionView.backgroundColor = .yellow
         collectionView.register(CategoryCollectionViewCell.self)
         return collectionView
     }()
     
-    private let barndInputView = DDIPInputView(title: "브랜드", placeholder: "브랜드명을 입력해주세요.")
-    private let nameInputView = DDIPInputView(title: "제품명", placeholder: "제품명을 입력해주세요.")
+    private let barndInputView = DDIPInputView(title: "브랜드", placeholder: "브랜드명을 입력해주세요")
+    private let nameInputView = DDIPInputView(title: "제품명", placeholder: "제품명을 입력해주세요")
     private let expirationDateInputView = DDIPInputView(inputType: .text,
                                                              title: "유효기간",
                                                              placeholder: "유효기간(YYYY.MM.DD)을 입력해주세요")
+    
+    private let disposeBag = DisposeBag()
+    
     private func generateLayout() -> UICollectionViewLayout {
-        let layout =
-        UICollectionViewCompositionalLayout { (sectionIndex: Int, _) -> NSCollectionLayoutSection? in
+        let layout = UICollectionViewCompositionalLayout { (_, _) in
             return self.generateCategorySection()
         }
         return layout
     }
     
     private func generateCategorySection() -> NSCollectionLayoutSection {
-        let item = CollectionViewLayoutManager.configureItem(with:
-                                                                CollectionViewConfigureSize(
-                                                                    widthDimension: .estimated(1),
-                                                                    heightDimension: .estimated(1)))
+        let item = CollectionViewLayoutManager.configureItem(
+            with: CollectionViewConfigureSize(
+                widthDimension: .estimated(10),
+                heightDimension: .absolute(34)
+            )
+        )
         
-        let group = CollectionViewLayoutManager.configureGroup(with:
-                                                                CollectionViewConfigureSize(
-                                                                    widthDimension: .fractionalWidth(1),
-                                                                    heightDimension: .estimated(1)),
-                                                               item: item)
+        let group = CollectionViewLayoutManager.configureGroup(
+            with: CollectionViewConfigureSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .absolute(34)
+            ),
+            edgeSpacing: .init(
+                leading: .none,
+                top: .none,
+                trailing: .fixed(10),
+                bottom: .fixed(10)
+            ),
+            item: item
+        )
         
-        let section = CollectionViewLayoutManager.configureSection(with: group,
-                                                                   scrollingBehavior: nil,
-                                                                   header: nil)
+        let section = CollectionViewLayoutManager.configureSection(
+            with: group,
+            scrollingBehavior: nil,
+            header: nil
+        )
+        
         return section
     }
     
@@ -120,6 +135,15 @@ final class RegisterGifticonInfoView: BaseView {
     override func configure() {
         super.configure()
         categoryView.dataSource = categoryCollectionViewDataSource
+        categoryView.delegate = self
+        categoryView.rx.observe(CGSize.self, "contentSize")
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] in
+                guard let size = $0, size.height != .zero else { return }
+                self?.updateCategoryViewHeight(size.height)
+            })
+            .disposed(by: disposeBag)
+        
         expirationDateInputView.update(keyboardType: .numberPad)
         expirationDateInputView.update { [weak self] text in
             let count = text?.count ?? .zero
@@ -130,5 +154,29 @@ final class RegisterGifticonInfoView: BaseView {
             }
             return true
         }
+    }
+    
+    private func updateCategoryViewHeight(_ height: CGFloat) {
+        categoryView.snp.updateConstraints {
+            $0.height.equalTo(height)
+        }
+    }
+    
+    func updateCategoryDataSource(_ data: [String]) {
+        categoryCollectionViewDataSource.update(data)
+        categoryView.reloadData()
+    }
+}
+
+// TODO: datasource와 같은수준으로 빼기
+extension RegisterGifticonInfoView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else { return }
+        cell.updateButton(isSelected: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else { return }
+        cell.updateButton(isSelected: false)
     }
 }
