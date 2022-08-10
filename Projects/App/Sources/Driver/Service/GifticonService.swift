@@ -17,6 +17,8 @@ struct GifticonService {
     typealias CouponPostResponse = Response
     typealias CategoryListResponse = ResponseData<[GifticonResponseModel]>
     typealias RegisterSprinkleResponse = Response
+    typealias ApplyHistoryResponse = ResponseData<[ApplyHistoryResponseModel]>
+    typealias RegisterHistoryResponse = ResponseData<[RegisterHistoryResponseModel]>
     
     private let network: Networking
     
@@ -50,5 +52,13 @@ struct GifticonService {
                 SprinkleRegisterRequestModel(entity)
             )
         ).map()
+    }
+    
+    func applyHistory(_ model: ApplyHistoryResponseModel) -> ApplyHistoryResponse {
+        network.request(GifticonAPI.applyHistory).map()
+    }
+    
+    func registerHistory(_ model: RegisterHistoryResponseModel) -> RegisterHistoryResponse {
+        network.request(GifticonAPI.registerHistory).map()
     }
 }
