@@ -15,7 +15,8 @@ protocol RegisterGifticonViewModelProtocol {
     var categoryRepository: CategotyRepositoryLogic? { get }
     
     var gifticonImage: UIImage { get }
-    var informationValidate: PublishRelay<Bool> { get }
+    var categories: BehaviorRelay<[String]> { get }
+    var informationValidation: PublishRelay<Bool> { get }
     var toast: PublishRelay<RegisterGifticonViewModel.Toast> { get }
     
     func update(_ type: RegisterGifticonViewModel.Update)
@@ -28,7 +29,7 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
         case brandName(String?)
         case productName(String?)
         case expirationDate(String?)
-        case deadLineMinute(String?)
+        case deadlineMinute(String?)
     }
     enum Toast {
         case registerSuccess
@@ -45,7 +46,8 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
     var gifticonImage: UIImage {
         information.image
     }
-    var informationValidate = PublishRelay<Bool>()
+    var categories = BehaviorRelay<[String]>(value: [])
+    var informationValidation = PublishRelay<Bool>()
     var toast = PublishRelay<Toast>()
     
     private var information: SprinkleInformation
@@ -75,15 +77,15 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
             information.productName = name
         case let .expirationDate(date):
             information.expirationDate = date
-        case let .deadLineMinute(minute):
-            information.deadLineMinute = minute
+        case let .deadlineMinute(minute):
+            information.deadlineMinute = minute
         }
         
         checkValidation()
     }
     
     private func checkValidation() {
-        informationValidate.accept(information.isValidate())
+        informationValidation.accept(information.isValidate())
     }
 }
 
