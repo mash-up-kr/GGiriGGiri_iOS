@@ -11,6 +11,7 @@ import Foundation
 import Alamofire
 
 enum GifticonAPI {
+    case categories
     case categoryList(GifticonListRequestModel)
     case registerSprinkle(SprinkleRegisterRequestModel)
     case sprinkleApplication(Int)
