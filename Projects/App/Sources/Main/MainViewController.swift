@@ -61,7 +61,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             }.disposed(by: disposeBag)
         
         myBoxButton.rx.tap.subscribe(onNext: { [weak self] in
-            let myBoxViewModel = MyBoxViewModel()
+            let myBoxViewModel = MyBoxViewModel(network: Network())
             let myBoxViewController = MyBoxViewController(myBoxViewModel)
             myBoxViewController.modalPresentationStyle = .fullScreen
             self?.viewModel.push?(myBoxViewController)
