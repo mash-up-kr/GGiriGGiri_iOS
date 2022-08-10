@@ -11,7 +11,7 @@ import UIKit
 final class MyBoxListCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     var item = MockData.myBox
-    var currentType: MyBox = .register
+    var currentType: MyBox = .registerd
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -31,12 +31,10 @@ final class MyBoxListCollectionViewDataSource: NSObject, UICollectionViewDataSou
         }
         
         switch currentType {
-        case .apply:
-            cell.myBoxType = .apply
-            cell.configure(with: .apply, data: item[indexPath.item])
-        case .register:
-            cell.myBoxType = .register
-            cell.configure(with: .register, data: item[indexPath.item])
+        case .applied:
+            cell.configure(with: .applied, data: item[indexPath.item])
+        case .registerd:
+            cell.configure(with: .registerd, data: item[indexPath.item])
         }
         return cell
     }

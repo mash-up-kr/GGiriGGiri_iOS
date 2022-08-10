@@ -32,6 +32,6 @@ final class RegisterBoxView: BaseView {
         
         backgroundColor = .clear
         
-        emptyView.configureEmptyCategory(with: .register)
+        emptyView.configureEmptyCategory(with: .registerd)
     }
 }

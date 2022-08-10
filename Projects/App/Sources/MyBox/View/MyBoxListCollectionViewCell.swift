@@ -14,8 +14,6 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "MyBoxListCollectionViewCell"
     
-    var myBoxType: MyBox = .apply
-    
     private let listCardView: DDIPListCardView = DDIPListCardView(type: .apply)
     
     override init(frame: CGRect) {
@@ -52,10 +50,10 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
         listCardView.setImageIcon(image: .iconCafedesert)
         listCardView.setApplyViewer(viewer: data.numberOfParticipants)
 
-        if category == .apply { // apply
+        if category == .applied {
             // TODO: 전달받은 값에 따라 결과확인, 응모중, 꽝, 당첨 등 status 변경하기
             listCardView.setAppliedStatusViewType(status: .confirmResult, applyDate: Date())
-        } else { // register
+        } else {
             // TODO: 전달받은 값에 따라 응모진행중, 전달완료(Date와 함께), 받은사람 없음 변경하기
             listCardView.setDrawStatusViewType(status: .apply)
         }

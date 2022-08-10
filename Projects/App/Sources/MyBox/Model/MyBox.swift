@@ -9,6 +9,6 @@
 import Foundation
 
 enum MyBox: CaseIterable {
-    case apply
-    case register
+    case applied
+    case registerd
 }

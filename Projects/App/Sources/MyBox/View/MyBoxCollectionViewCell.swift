@@ -99,9 +99,9 @@ final class MyBoxCollectionViewCell: UICollectionViewCell {
     
     func configure(with category: MyBox) {
         switch category {
-        case .apply:
+        case .applied:
             collectionView.backgroundView = applyBoxView
-        case .register:
+        case .registerd:
             collectionView.backgroundView = registerBoxView
         }
     }
