@@ -23,6 +23,8 @@ protocol MainViewModelProtocol {
     var mainDataSource: MainCollectionViewDataSource { get }
     var mainDelegate: MainCollectionViewDelegate { get }
     
+    var gifticonList: BehaviorRelay<[GifticonCard]?> { get }
+    
     func presentPhotoPicker()
     func requestPHPhotoLibraryAuthorization()
     func handleAuthorizationStatus(with authorizationStatus: PHAuthorizationStatus)
@@ -33,8 +35,8 @@ protocol MainViewModelProtocol {
 final class MainViewModel: MainViewModelProtocol {
     
     private let disposeBag = DisposeBag()
-    var detailData: [GifticonCard] = []
     private let gifticonService: GifticonService
+    var gifticonList = BehaviorRelay<[GifticonCard]?>(value: nil)
     
     var alert: Alert? = nil
     var present: ((UIViewController) -> ())? = nil
@@ -58,6 +60,22 @@ final class MainViewModel: MainViewModelProtocol {
     
     init(network: Networking) {
         self.gifticonService = GifticonService(network: network)
+        
+        deadlineInfo()
+    }
+    
+    private func deadlineInfo() {
+        gifticonService.deadline(.init(orderBy: .deadLine, category: .all))
+            .debug()
+            .subscribe { [weak self] responseModel in
+                guard let responseModel = responseModel.data else {
+                    return
+                }
+                let entity = GifticonEntity.init(responseModel)
+                self?.gifticonList.accept(entity.gifticonList)
+            } onFailure: { error in
+                print(error.localizedDescription)
+            }.disposed(by: disposeBag)
     }
 }
 

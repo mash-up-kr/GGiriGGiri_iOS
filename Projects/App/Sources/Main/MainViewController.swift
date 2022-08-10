@@ -18,6 +18,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     private let disposeBag = DisposeBag()
     
     private let collectionView = MainView()
+    private var gifticonList = [GifticonCard]()
     private let myBoxButton = TapBarButtons().mybox
     private lazy var navigationBar: DDIPNavigationBar = {
         return  DDIPNavigationBar(
@@ -51,6 +52,13 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             self?.navigationController?.setNavigationBarHidden(true, animated: false)
             self?.navigationController?.pushViewController(viewController, animated: true)
         }
+        
+        viewModel.gifticonList
+            .subscribe { [weak self] entity in
+                self?.gifticonList = entity ?? []
+            } onError: { error in
+                print(error.localizedDescription)
+            }.disposed(by: disposeBag)
         
         myBoxButton.rx.tap.subscribe(onNext: { [weak self] in
             let myBoxViewModel = MyBoxViewModel()
