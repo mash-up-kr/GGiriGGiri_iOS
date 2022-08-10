@@ -19,7 +19,6 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     
     private let disposeBag = DisposeBag()
     private(set) var gifticonId = 0
-    private(set) var isParticipatingButton = TempButton(title: "지금 당장 응모할게요!")
     
     private let cardView = DDIPDeadlineCardView()
     

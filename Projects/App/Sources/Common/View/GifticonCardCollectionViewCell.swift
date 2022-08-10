@@ -17,7 +17,6 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "GifticonCardCollectionViewCell"
     
     private(set) var gifticonId = 0
-    private(set) var isParticipatingButton = TempButton(title: "응모하기")
     
     private let listCardView = DDIPListCardView(type: .apply)
     
