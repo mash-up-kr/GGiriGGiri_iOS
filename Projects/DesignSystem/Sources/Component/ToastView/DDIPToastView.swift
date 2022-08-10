@@ -28,8 +28,6 @@ public class DDIPToastView: UIView, AddViewsable {
                 return ("응모 실패", "다시 한번 시도 해주세요.")
             case .saveFail:
                 return ("저장 실패", "다시 한번 시도해주세요.")
-            case .registerFail:
-                return ("등록 실패", "다시 한번 시도해주세요.")
             }
         }
     }
