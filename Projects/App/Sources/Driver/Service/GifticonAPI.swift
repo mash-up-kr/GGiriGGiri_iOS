@@ -17,6 +17,8 @@ enum GifticonAPI {
     case registerSprinkle(SprinkleRegisterRequestModel)
     case sprinkleApplication(Int)
     case sprinkleDetail(Int)
+    case applyHistory // 내 기프티콘 응모 내역 조회
+    case registerHistory // 내 기프티콘 등록 내역 조회
 }
 
 extension GifticonAPI: NetworkRequestable {
@@ -29,15 +31,19 @@ extension GifticonAPI: NetworkRequestable {
         case .registerSprinkle:
             return "/api/v1/sprinkle"
         case .sprinkleApplication(let id):
-            return "/api/v1/sprinkle/\(id)/apply"
+            return "/api/v1/sprinkle/\(3)/apply"
         case .sprinkleDetail(let id):
-            return "/api/v1/sprinkle-info/\(id)"
+            return "/api/v1/sprinkle-info/\(3)"
+        case .applyHistory:
+            return "/api/v1/participant/history"
+        case .registerHistory:
+            return "/api/v1/participant/registration-history"
         }
     }
     
     var parameters: Encodable? {
         switch self {
-        case .sprinkleApplication, .sprinkleDetail, .categories:
+        case .sprinkleApplication, .sprinkleDetail, .categories, .applyHistory, .registerHistory:
             return nil
         case let .categoryList(model), let .deadline(model):
             return model
@@ -48,7 +54,7 @@ extension GifticonAPI: NetworkRequestable {
     
     var headers: HTTPHeaders {
         switch self {
-        case .categories, .categoryList, .deadline, .sprinkleApplication, .sprinkleDetail:
+        case .categories, .categoryList, .deadline, .sprinkleApplication, .sprinkleDetail, .applyHistory, .registerHistory:
             return .default
         case .registerSprinkle:
             return .multipartHeader
@@ -57,7 +63,7 @@ extension GifticonAPI: NetworkRequestable {
 
     var method: HTTPMethod {
         switch self {
-        case .categoryList, .deadline, .sprinkleDetail, .categories:
+        case .categoryList, .deadline, .sprinkleDetail, .categories, .applyHistory, .registerHistory:
             return .get
         case .sprinkleApplication, .registerSprinkle:
             return .post
