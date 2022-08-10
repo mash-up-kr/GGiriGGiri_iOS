@@ -26,7 +26,7 @@ enum Category: String, CaseIterable {
         case .icecream: return "아이스크림"
         case .convenienceStore: return "편의점"
         case .fastfood: return "패스트푸드"
-        case .voucher: return "상품권"
+        case .voucher: return "금액권"
         case .etc: return "기타"
         }
     }
