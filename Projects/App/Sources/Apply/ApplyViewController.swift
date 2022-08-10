@@ -71,20 +71,12 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
 
         viewModel.detailData
             .subscribe(onNext: { [weak self] entity in
-            guard let participants = entity?.participants,
-                  let brandName = entity?.brandName,
-                  let category = entity?.category,
-                  let merchandiseName = entity?.merchandiseName,
-                  let expiredAt = entity?.expiredAt,
-                  let imageName = entity?.imageName
-            else { return }
-
-            self?.applyGifticonView.setParticipant(participants: participants)
-            self?.applyGifticonView.setBrand(name: brandName)
-            self?.applyGifticonView.setCategory(name: category)
-            self?.applyGifticonView.setProductName(name: merchandiseName)
-            self?.applyGifticonView.setExpirationDate(name: expiredAt)
-            self?.applyGifticonView.setImageIcon(imageName: imageName)
+            self?.applyGifticonView.setParticipant(participants: entity?.participants ?? 0)
+            self?.applyGifticonView.setBrand(name: entity?.brandName ?? "")
+                self?.applyGifticonView.setCategory(name: entity?.category ?? "")
+            self?.applyGifticonView.setProductName(name: entity?.merchandiseName ?? "")
+            self?.applyGifticonView.setExpirationDate(name: entity?.expiredAt ?? "")
+                self?.applyGifticonView.setImageIcon(imageName: entity?.imageName ?? .iconLogoCharacter)
 
             // TODO: 형변환 및 로직 필요
 //            self.applyGifticonView.setCountdownDate(date: entity.sprinkleAt)
