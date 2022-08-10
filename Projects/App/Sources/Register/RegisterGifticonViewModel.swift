@@ -14,7 +14,7 @@ import RxSwift
 protocol RegisterGifticonViewModelProtocol {
     var gifticonImage: UIImage { get }
     var categories: BehaviorRelay<[String]> { get }
-    var informationValidate: PublishRelay<Bool> { get }
+    var informationValidation: PublishRelay<Bool> { get }
     var toast: PublishRelay<RegisterGifticonViewModel.Toast> { get }
     
     func update(_ type: RegisterGifticonViewModel.Update)
@@ -41,7 +41,7 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
         information.image
     }
     var categories = BehaviorRelay<[String]>(value: [])
-    var informationValidate = PublishRelay<Bool>()
+    var informationValidation = PublishRelay<Bool>()
     var toast = PublishRelay<Toast>()
     
     private var information: SprinkleInformation
@@ -73,7 +73,7 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
     }
     
     private func checkValidation() {
-        informationValidate.accept(information.isValidate())
+        informationValidation.accept(information.isValidate())
     }
 }
 

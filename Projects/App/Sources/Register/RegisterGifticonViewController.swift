@@ -74,9 +74,9 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
             })
             .disposed(by: disposeBag)
         
-        viewModel.informationValidate
+        viewModel.informationValidation
             .subscribe(onNext: { [weak self] in
-                self?.updateValidate($0)
+                self?.updateRegisterButton(isValidated: $0)
             })
             .disposed(by: disposeBag)
         
@@ -122,9 +122,9 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
             .disposed(by: disposeBag)
     }
     
-    private func updateValidate(_ isValidate: Bool) {
-        registerButton.isEnabled = isValidate
-        updateRegisterButton(isValidate)
+    private func updateRegisterButton(isValidated: Bool) {
+        registerButton.isEnabled = isValidated
+        updateRegisterButton(isValidated)
     }
 }
 
