@@ -84,7 +84,7 @@ extension ResultViewController: ResultViewButtonDelegate {
         completion(true)
     }
     
-    func saveFailed() {
+    func showFailToastView() {
         let toastView = ToastView()
         toastView.configureToastView(with: self.view, style: .saveFail, image: .iconRotateLogoCharacterEmpty)
         toastView.showToastView(with: self.view)

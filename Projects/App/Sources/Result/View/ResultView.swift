@@ -14,7 +14,7 @@ import SnapKit
 protocol ResultViewButtonDelegate: AnyObject {
     func homeButtonTapped()
     func saveButtonTapped(completion: @escaping (Bool) -> ())
-    func saveFailed()
+    func showFailToastView()
 }
 
 final class ResultView: BaseView {
@@ -91,7 +91,7 @@ final class ResultView: BaseView {
                     self?.button.setTitle(title: "저장 완료")
                     self?.button.isEnabled = false
                 } else {
-                    self?.delegate?.saveFailed()
+                    self?.delegate?.showFailToastView()
                 }
             })
         case .lose:
