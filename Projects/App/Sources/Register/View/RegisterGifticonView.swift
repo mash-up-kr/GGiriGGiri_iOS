@@ -101,6 +101,12 @@ extension RegisterGifticonView {
     func originalImageDelegate(_ delegate: RegisterGifticonImageViewButtonDelegate) {
         gifticonImageView.delegate = delegate
     }
+    
+    func updateInformation(_ information: SprinkleInformation) {
+        gifticonInfoView.update(brandName: information.brandName)
+        gifticonInfoView.update(productName: information.productName)
+        gifticonInfoView.update(expirationDate: information.expirationDate)
+    }
 }
 
 

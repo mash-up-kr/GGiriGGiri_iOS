@@ -16,6 +16,22 @@ struct SprinkleInformation {
     var expirationDate: String?
     var deadlineMinute: String?
     
+    init(image: UIImage) {
+        self.image = image
+    }
+    
+    init(
+        image: UIImage,
+        brandName: String,
+        productName: String,
+        expirationDate: String
+    ) {
+        self.image = image
+        self.brandName = brandName
+        self.productName = productName
+        self.expirationDate = expirationDate
+    }
+    
     func isValidate() -> Bool {
         if
             let category = category, category.isEmpty == false,

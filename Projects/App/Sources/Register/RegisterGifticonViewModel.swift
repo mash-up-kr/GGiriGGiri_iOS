@@ -16,6 +16,7 @@ protocol RegisterGifticonViewModelProtocol {
     
     var gifticonImage: UIImage { get }
     var categories: BehaviorRelay<[String]> { get }
+    var informationRelay: BehaviorRelay<SprinkleInformation?> { get }
     var informationValidation: PublishRelay<Bool> { get }
     var toast: PublishRelay<RegisterGifticonViewModel.Toast> { get }
     
@@ -49,13 +50,19 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
     var categories = BehaviorRelay<[String]>(value: [])
     var informationValidation = PublishRelay<Bool>()
     var toast = PublishRelay<Toast>()
+    var informationRelay = BehaviorRelay<SprinkleInformation?>(value: nil)
     
     private var information: SprinkleInformation
     
-    init(network: Networking, categoryRepository: CategoryRepositoryLogic, gifticonImage: UIImage) {
+    init(
+        network: Networking,
+        categoryRepository: CategoryRepositoryLogic,
+        information : SprinkleInformation
+    ) {
         self.network = network
         self.categoryRepository = categoryRepository
-        self.information = SprinkleInformation(image: gifticonImage)
+        self.informationRelay.accept(information)
+        self.information = information
         
         configure()
     }
