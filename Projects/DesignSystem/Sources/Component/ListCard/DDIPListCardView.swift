@@ -8,6 +8,9 @@
 
 import UIKit
 
+import RxSwift
+import RxRelay
+
 public class DDIPListCardView: UIView, AddViewsable {
     public enum ViewType {
         case apply           // 응모하기, 응모완료
@@ -94,12 +97,16 @@ public class DDIPListCardView: UIView, AddViewsable {
         return view
     }()
     
+    public let cardListButtonDidTapped = PublishRelay<ViewType?>()
+    private let disposeBag = DisposeBag()
+    
     public init(type: ViewType) {
         self.type = type
         super.init(frame: .zero)
         setView()
         setUI()
         setAttribute()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -198,6 +205,17 @@ public class DDIPListCardView: UIView, AddViewsable {
             componentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             componentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24)
         ])
+    }
+    
+    private func bind() {
+        Observable.merge(
+            deadlineViewComponent.cardListButton.rx.tap.asObservable(),
+            applyViewComponent.cardListButton.rx.tap.asObservable(),
+            completeViewCmponent.cardListButton.rx.tap.asObservable()
+        )
+        .map { [weak self] in self?.type }
+        .bind(to: cardListButtonDidTapped)
+        .disposed(by: disposeBag)
     }
     
     private func updateFromApplyStatus() {
