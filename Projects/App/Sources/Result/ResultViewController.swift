@@ -96,11 +96,10 @@ extension ResultViewController: ResultViewButtonDelegate {
         
         if error == nil {
             toastView.configureToastView(with: self.view, style: .save, image: .iconLogoCharacter)
-            toastView.showToastView(with: self.view)
         } else {
             toastView.configureToastView(with: self.view, style: .saveFail, image: .iconRotateLogoCharacterEmpty)
-            toastView.showToastView(with: self.view)
         }
+        toastView.showToastView(with: self.view)
     }
 }
 
