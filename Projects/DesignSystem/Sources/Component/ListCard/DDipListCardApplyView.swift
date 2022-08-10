@@ -26,6 +26,7 @@ public class DDipListCardApplyView: DDipListCardApplyBaseView {
     public func setDrawLabelAttribute() {
         drawLabel.textColor = .designSystem(.neutralGray500)
         drawLabel.font = .designSystem(.pretendard, family: .regular, size: ._14)
+        drawLabel.textAlignment = .right
     }
 
     public func setCardListButton() {
