@@ -38,22 +38,16 @@ final class ApplyViewModel: ApplyViewModelProtocol {
                 }
                 self?.detailData.accept(responseData)
             }, onFailure: { error in
-                debugPrint(error)
-            }, onDisposed: {
-
             })
             .disposed(by: disposeBag)
     }
 
     func applyButtonTapped() {
         gifticonService.apply(self.gifticonId)
-            .debug()
             .subscribe { [weak self] _ in
                 self?.showToastView.accept(true)
             } onFailure: { [weak self] _ in
                 self?.showToastView.accept(false)
-            } onDisposed: {
-
             }
             .disposed(by: disposeBag)
     }
