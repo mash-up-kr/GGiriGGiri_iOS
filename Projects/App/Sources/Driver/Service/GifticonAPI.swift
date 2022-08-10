@@ -37,7 +37,7 @@ extension GifticonAPI: NetworkRequestable {
         case .applyHistory:
             return "/api/v1/participant/history"
         case .registerHistory:
-            return "/api/v1/participant/registration-history"
+            return "/api/v1/sprinkle/registration-history"
         }
     }
     

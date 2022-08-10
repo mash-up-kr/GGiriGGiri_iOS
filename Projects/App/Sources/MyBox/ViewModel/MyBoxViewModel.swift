@@ -24,6 +24,7 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
         self.gifticonService = GifticonService(network: network)
         
         applyHistory()
+        registerHistory()
     }
     
     private func applyHistory() {
@@ -32,6 +33,18 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
             .subscribe { [weak self] entity in
                 guard let applyHistoryModel = entity.data else { return }
                 let entity = ApplyHistoryEntity.init(applyHistoryModel)
+                self?.gifticonList.accept(entity.gifticonList)
+            } onFailure: { error in
+                print(error.localizedDescription)
+            }.disposed(by: disposeBag)
+    }
+    
+    private func registerHistory() {
+        gifticonService.registerHistory()
+            .debug()
+            .subscribe { [weak self] entity in
+                guard let registerHistoryModel = entity.data else { return }
+                let entity = RegisterHistoryEntity.init(registerHistoryModel)
                 self?.gifticonList.accept(entity.gifticonList)
             } onFailure: { error in
                 print(error.localizedDescription)
