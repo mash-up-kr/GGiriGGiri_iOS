@@ -53,6 +53,7 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
                 brand: data.gifticonInfo.brand,
                 name: data.gifticonInfo.name,
                 expirationDate: data.gifticonInfo.expirationDate,
+                // TODO: 서버에서 받은 카테고리 데이터에 따라 이미지 표시해야함
                 iconImage: .iconCafedesert
             )
         )

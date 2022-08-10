@@ -85,13 +85,13 @@ final class ResultView: BaseView {
     @objc private func homeButtonTapped(_ sender: UIButton) {
         switch type {
         case .win:
-            delegate?.saveButtonTapped(completion: { saved in
+            delegate?.saveButtonTapped(completion: { [weak self] saved in
                 if saved {
-                    self.button.setBackgroundColor(buttonColor: .secondarySkyblue200)
-                    self.button.setTitle(title: "저장 완료")
-                    self.button.isEnabled = false
+                    self?.button.setBackgroundColor(buttonColor: .secondarySkyblue200)
+                    self?.button.setTitle(title: "저장 완료")
+                    self?.button.isEnabled = false
                 } else {
-                    self.delegate?.saveFailed()
+                    self?.delegate?.saveFailed()
                 }
             })
         case .lose:
