@@ -189,6 +189,18 @@ final class RegisterGifticonInfoView: BaseView {
         categoryCollectionViewDataSource.update(data)
         categoryView.reloadData()
     }
+    
+    func update(brandName: String?) {
+        brandInputView.update(text: brandName)
+    }
+    
+    func update(productName: String?) {
+        nameInputView.update(text: productName)
+    }
+    
+    func update(expirationDate: String?) {
+        expirationDateInputView.update(text: expirationDate)
+    }
 }
 
 // TODO: datasource와 같은수준으로 빼기
