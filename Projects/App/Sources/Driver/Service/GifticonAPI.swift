@@ -11,8 +11,9 @@ import Foundation
 import Alamofire
 
 enum GifticonAPI {
-    case categories
-    case categoryList(GifticonListRequestModel)
+    case categories // 카테고리 목록 조회
+    case categoryList(GifticonListRequestModel) // 쿠폰 카테고리별 조회 목록
+    case deadline(GifticonListRequestModel) // 쿠폰 마감임박 조회
     case registerSprinkle(SprinkleRegisterRequestModel)
     case sprinkleApplication(Int)
     case sprinkleDetail(Int)
@@ -23,7 +24,7 @@ extension GifticonAPI: NetworkRequestable {
         switch self {
         case .categories:
             return "/api/v1/coupon/category"
-        case .categoryList:
+        case .categoryList, .deadline:
             return "/api/v1/sprinkles"
         case .registerSprinkle:
             return "/api/v1/sprinkle"
@@ -32,13 +33,13 @@ extension GifticonAPI: NetworkRequestable {
         case .sprinkleDetail(let id):
             return "/api/v1/sprinkle-info/\(id)"
         }
-    } 
+    }
     
     var parameters: Encodable? {
         switch self {
         case .sprinkleApplication, .sprinkleDetail, .categories:
             return nil
-        case let .categoryList(model):
+        case let .categoryList(model), let .deadline(model):
             return model
         case let .registerSprinkle(model):
             return model
@@ -47,7 +48,7 @@ extension GifticonAPI: NetworkRequestable {
     
     var headers: HTTPHeaders {
         switch self {
-        case .categories, .categoryList, .sprinkleApplication, .sprinkleDetail:
+        case .categories, .categoryList, .deadline, .sprinkleApplication, .sprinkleDetail:
             return .default
         case .registerSprinkle:
             return .multipartHeader
@@ -56,7 +57,7 @@ extension GifticonAPI: NetworkRequestable {
 
     var method: HTTPMethod {
         switch self {
-        case .categoryList, .sprinkleDetail, .categories:
+        case .categoryList, .deadline, .sprinkleDetail, .categories:
             return .get
         case .sprinkleApplication, .registerSprinkle:
             return .post
