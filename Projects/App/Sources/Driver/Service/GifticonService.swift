@@ -11,16 +11,25 @@ import Foundation
 import RxSwift
 
 struct GifticonService {
+    typealias DeadlineResponse = ResponseData<[GifticonResponseModel]>
     typealias CouponListResponse = ResponseData<[CouponEntity]>
     typealias CouponDetailResponse = ResponseData<CouponDatum>
     typealias CouponPostResponse = Response
-    typealias CategoryListResponse = ResponseData<[String]>
+    typealias CategoryListResponse = ResponseData<[GifticonResponseModel]>
     typealias RegisterSprinkleResponse = Response
     
     private let network: Networking
     
     init(network: Networking) {
         self.network = network
+    }
+    
+    func deadline(_ model: GifticonListRequestModel) -> DeadlineResponse {
+        network.request(GifticonAPI.deadline(model)).map()
+    }
+    
+    func categoryList(_ model: GifticonListRequestModel) -> CategoryListResponse {
+        network.request(GifticonAPI.categoryList(model)).map()
     }
     
     func list(_ model: GifticonListRequestModel) -> CouponListResponse {
