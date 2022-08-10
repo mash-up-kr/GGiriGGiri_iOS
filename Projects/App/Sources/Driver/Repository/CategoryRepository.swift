@@ -6,8 +6,8 @@
 //  Copyright © 2022 dvHuni. All rights reserved.
 //
 
-import RxSwift
 import RxRelay
+import RxSwift
 
 protocol CategotyRespositoryProtocol {
     var categoryEntity: BehaviorRelay<CategoryEntity> { get }
