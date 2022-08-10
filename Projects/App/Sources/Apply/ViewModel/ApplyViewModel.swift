@@ -7,8 +7,9 @@
 //
 
 import Foundation
+
+import RxRelay
 import RxSwift
-import RxCocoa
 
 protocol ApplyViewModelProtocol {
     var showToastView: PublishRelay<Bool> { get }

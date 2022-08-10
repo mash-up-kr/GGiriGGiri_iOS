@@ -27,10 +27,6 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
             rightButtonsItem: nil)
     }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     private func showSuccessToast(category: DDIPAsset.name) {
         toastView.configureToastView(with: self.view, style: .apply, image: category)
         toastView.showToastView(with: self.view)
@@ -52,36 +48,38 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
     }
 
     override func bind() {
+        super.bind()
         applyButton.rx.tap.asObservable()
-            .subscribe(onNext: {
-                self.viewModel.applyButtonTapped()
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.applyButtonTapped()
             })
             .disposed(by: disposeBag)
 
         _ = viewModel.showToastView
-            .bind { state in
+            .bind { [weak self] state in
             if state == true {
-                self.setApplyCompletButtonState()
-                self.showSuccessToast(category: self.viewModel.detailData.value.imageName)
-                self.toastView.showToastView(with: self.view)
+                self?.setApplyCompletButtonState()
+                self?.showSuccessToast(category: self?.viewModel.detailData.value.imageName ?? .iconRotateLogoCharacter)
+                self?.toastView.showToastView(with: self?.view ?? UIView())
             } else {
-                self.setFinishButtonState()
-                self.showFailToast()
-                self.toastView.showToastView(with: self.view)
+                self?.setFinishButtonState()
+                self?.showFailToast()
+                self?.toastView.showToastView(with: self?.view ?? UIView())
             }
         }
         .disposed(by: disposeBag)
 
-        _ = viewModel.detailData.subscribe(onNext: { entity in
-            self.applyGifticonView.setParticipant(participants: entity.participants)
-            self.applyGifticonView.setBrand(name: entity.brandName)
-            self.applyGifticonView.setCategory(name: entity.category)
-            self.applyGifticonView.setProductName(name: entity.merchandiseName)
-            self.applyGifticonView.setExpirationDate(name: entity.expiredAt)
-            self.applyGifticonView.setImageIcon(imageName: entity.imageName)
+        _ = viewModel.detailData.subscribe(onNext: { [weak self] entity in
+            self?.applyGifticonView.setParticipant(participants: entity.participants)
+            self?.applyGifticonView.setBrand(name: entity.brandName)
+            self?.applyGifticonView.setCategory(name: entity.category)
+            self?.applyGifticonView.setProductName(name: entity.merchandiseName)
+            self?.applyGifticonView.setExpirationDate(name: entity.expiredAt)
+            self?.applyGifticonView.setImageIcon(imageName: entity.imageName)
 
             // TODO: 형변환 및 로직 필요
-//            self.applyGifticonView.setCountdownDate(date: entity.sprinkleAt.)
+//            self.applyGifticonView.setCountdownDate(date: entity.sprinkleAt)
+
         })
         .disposed(by: disposeBag)
     }
@@ -132,7 +130,7 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
         applyButton.setTitle(title: "지금 당장 응모할게요!")
 
         // TODO: 바꿔야할 로직
-        applyGifticonView.setCountdownDate(date: Date())
+//        applyGifticonView.setCountdownDate(date: Date())
     }
 
     private func configureNavigationBar() {
