@@ -9,6 +9,9 @@
 import PhotosUI
 import UIKit
 
+import RxRelay
+import RxSwift
+
 /// ViewModel에서 사용될 property와 method 정의
 protocol MainViewModelProtocol {
     typealias Alert = ((String?, String, String?, ((UIAlertAction) -> Void)?, ((UIAlertAction) -> Void)?) -> ())
@@ -29,6 +32,10 @@ protocol MainViewModelProtocol {
 /// ViewModelProtocol 구현
 final class MainViewModel: MainViewModelProtocol {
     
+    private let disposeBag = DisposeBag()
+    var detailData: [GifticonCard] = []
+    private let gifticonService: GifticonService
+    
     var alert: Alert? = nil
     var present: ((UIViewController) -> ())? = nil
     var push: ((UIViewController) -> ())? = nil
@@ -47,6 +54,10 @@ final class MainViewModel: MainViewModelProtocol {
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         present?(picker)
+    }
+    
+    init(network: Networking) {
+        self.gifticonService = GifticonService(network: network)
     }
 }
 
