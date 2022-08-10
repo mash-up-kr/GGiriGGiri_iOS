@@ -66,17 +66,18 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
     
     override func bind() {
         super.bind()
-        
-        viewModel.categories
+        viewModel.categoryRepository?.categoryEntity
             .skip(1)
             .subscribe(onNext: { [weak self] in
-                self?.registerGifticonView.updateCategories($0)
+                self?.registerGifticonView.updateCategories(
+                    $0.expectAll.map { $0.description }
+                )
             })
             .disposed(by: disposeBag)
         
-        viewModel.informationValidate
+        viewModel.informationValidation
             .subscribe(onNext: { [weak self] in
-                self?.updateValidate($0)
+                self?.updateRegisterButton(isValidated: $0)
             })
             .disposed(by: disposeBag)
         
@@ -109,7 +110,7 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
         }
         
         registerGifticonView.updateDeadLineMinute = { [weak self] in
-            self?.viewModel.update(.deadLineMinute($0))
+            self?.viewModel.update(.deadlineMinute($0))
         }
         
         registerButton.rx.tap
@@ -122,9 +123,9 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
             .disposed(by: disposeBag)
     }
     
-    private func updateValidate(_ isValidate: Bool) {
-        registerButton.isEnabled = isValidate
-        updateRegisterButton(isValidate)
+    private func updateRegisterButton(isValidated: Bool) {
+        registerButton.isEnabled = isValidated
+        updateRegisterButton(isValidated)
     }
 }
 

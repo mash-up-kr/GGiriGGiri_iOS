@@ -11,7 +11,6 @@ import Foundation
 import Alamofire
 
 enum GifticonAPI {
-    case categories
     case categoryList(GifticonListRequestModel)
     case registerSprinkle(SprinkleRegisterRequestModel)
     case sprinkleApplication(Int)
@@ -32,7 +31,7 @@ extension GifticonAPI: NetworkRequestable {
         case .sprinkleDetail(let id):
             return "/api/v1/sprinkle-info/\(id)"
         }
-    }
+    } 
     
     var parameters: Encodable? {
         switch self {

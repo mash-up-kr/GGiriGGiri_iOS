@@ -16,7 +16,7 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
     
     var myBoxType: MyBox = .register
     
-    private var listCardView = DDIPListCardView(.apply)
+    private var listCardView = DDIPListCardView(type: .apply)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
