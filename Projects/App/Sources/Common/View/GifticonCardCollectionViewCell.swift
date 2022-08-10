@@ -25,17 +25,9 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
         gifticonId = data.gifticonInfo.id
         
         if data.isParticipating {
-            listCardView.setListCardDeadlineView(buttonColor: .secondarySkyblue200,
-                                                 isHidden: false,
-                                                 buttonTitle: .complete,
-                                                 titleStatus: .complete,
-                                                 leftTime: Date())
+            listCardView.setApplyViewType(status: .complete, leftTime: Date())
         } else {
-            listCardView.setListCardDeadlineView(buttonColor: .secondaryBlue,
-                                                 isHidden: false,
-                                                 buttonTitle: .apply,
-                                                 titleStatus: .complete,
-                                                 leftTime: Date())
+            listCardView.setApplyViewType(status: .enable, leftTime: Date())
         }
         
         listCardView.setBrandName(brand: data.gifticonInfo.brand)
