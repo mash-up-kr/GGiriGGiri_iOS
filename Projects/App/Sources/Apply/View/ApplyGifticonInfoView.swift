@@ -66,13 +66,20 @@ final class ApplyGifticonInfoView: BaseView {
             expirationDateLabelView
         ])
     }
-    
-    override func configure() {
-        super.configure()
-        
-        categoryLabelView.configure(information: "카페/디저트")
-        brandLabelView.configure(information: "스타벅스")
-        productNameLabelView.configure(information: "아이스 아메리카노 R")
-        expirationDateLabelView.configure(information: "2022.02.03")
+
+    func setCategoryLabelView(_ name: String) {
+        categoryLabelView.configure(name: name)
+    }
+
+    func setBrandLabelView(_ name: String) {
+        brandLabelView.configure(name: name)
+    }
+
+    func setProductNameLabelView(_ name: String) {
+        productNameLabelView.configure(name: name)
+    }
+
+    func setExpirationDateLabelView(_ name: String) {
+        expirationDateLabelView.configure(name: name)
     }
 }

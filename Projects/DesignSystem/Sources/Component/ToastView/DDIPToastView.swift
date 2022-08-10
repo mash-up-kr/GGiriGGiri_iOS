@@ -10,7 +10,7 @@ import UIKit
 
 public class DDIPToastView: UIView, AddViewsable {
     public enum ToastViewOptions {
-        case save, register, registerFail, apply
+        case save, register, apply, applyMyGifticonFail, applyFail, saveFail, registerFail
 
         var info: (title: String, description: String) {
             switch self {
@@ -24,6 +24,12 @@ public class DDIPToastView: UIView, AddViewsable {
                 return ("등록 실패", "다시 한 번 시도해주세요.")
             case .apply:
                 return ("응모 완료", "응모가 완료되었어요!\n 응모 결과는 마감 후에 확인할 수 있어요.")
+            case .applyMyGifticonFail:
+                return ("응모 실패", "내가 등록한 기프티콘에는\n 응모할 수 없어요!")
+            case .applyFail:
+                return ("응모 실패", "다시 한번 시도 해주세요.")
+            case .saveFail:
+                return ("저장 실패", "다시 한번 시도해주세요.")
             }
         }
         case saveFail

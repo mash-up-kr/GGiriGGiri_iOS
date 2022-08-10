@@ -25,8 +25,8 @@ final class ApplyGifticonView: BaseView {
         view.layer.borderWidth = 1
         return view
     }()
-    private let informationView = ApplyGifticonInfoView()
-    private let ddipInformationView = ApplyGifticonDDipInfoView()
+    private let applyInformationView = ApplyGifticonInfoView()
+    private let gifticonInformationView = ApplyGifticonDDipInfoView()
     
     private let noticeLabel: UILabel = {
         let label = UILabel()
@@ -47,21 +47,45 @@ final class ApplyGifticonView: BaseView {
         
         stackView.addArrangedSubviews(with: [
             countdownView,
-            informationView,
-            ddipInformationView,
+            applyInformationView,
+            gifticonInformationView,
             noticeLabel
         ])
         
         stackView.setCustomSpacing(29, after: countdownView)
-        stackView.setCustomSpacing(24, after: informationView)
-        stackView.setCustomSpacing(28, after: ddipInformationView)
+        stackView.setCustomSpacing(24, after: applyInformationView)
+        stackView.setCustomSpacing(28, after: gifticonInformationView)
         
         countdownView.snp.makeConstraints {
             $0.height.equalTo(394)
         }
     }
     
-    func updateCountdownDate(date: Date) {
+    func setCountdownDate(date: Date) {
         countdownView.update(countdownDate: date)
+    }
+
+    func setImageIcon(imageName: DDIPAsset.name) {
+        countdownView.update(imageName: imageName)
+    }
+
+    func setParticipant(participants: Int) {
+        gifticonInformationView.setParticipantLabelView(participants: participants)
+    }
+
+    func setCategory(name: String) {
+        applyInformationView.setCategoryLabelView(name)
+    }
+
+    func setBrand(name: String) {
+        applyInformationView.setBrandLabelView(name)
+    }
+
+    func setProductName(name: String) {
+        applyInformationView.setProductNameLabelView(name)
+    }
+
+    func setExpirationDate(name: String) {
+        applyInformationView.setExpirationDateLabelView(name)
     }
 }
