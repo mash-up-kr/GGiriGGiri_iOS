@@ -12,7 +12,7 @@ import RxRelay
 import RxSwift
 
 protocol ApplyViewModelProtocol {
-    var showToastView: PublishRelay<Bool> { get }
+    var showToastView: PublishRelay<(Bool, String?, Error?)> { get }
     var detailData: BehaviorRelay<CouponDatum?> { get }
 
     func applyButtonTapped()
@@ -20,7 +20,7 @@ protocol ApplyViewModelProtocol {
 
 final class ApplyViewModel: ApplyViewModelProtocol {
     let detailData = BehaviorRelay<CouponDatum?>(value: nil)
-    let showToastView = PublishRelay<Bool>()
+    let showToastView = PublishRelay<(Bool, String?, Error?)>()
     private let gifticonService: GifticonService
     private let disposeBag = DisposeBag()
 
@@ -44,10 +44,14 @@ final class ApplyViewModel: ApplyViewModelProtocol {
 
     func applyButtonTapped() {
         gifticonService.apply(self.gifticonId)
-            .subscribe { [weak self] _ in
-                self?.showToastView.accept(true)
-            } onFailure: { [weak self] _ in
-                self?.showToastView.accept(false)
+            .subscribe { [weak self] applyResponse in
+                if applyResponse.code == "S001" {
+                    self?.showToastView.accept((true, applyResponse.message, nil))
+                } else {
+                    self?.showToastView.accept((false, applyResponse.message, nil))
+                }
+            } onFailure: { [weak self] applyResponse in
+                self?.showToastView.accept((false, nil, applyResponse))
             }
             .disposed(by: disposeBag)
     }
