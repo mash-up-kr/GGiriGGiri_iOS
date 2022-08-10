@@ -13,13 +13,13 @@ import RxSwift
 
 protocol ApplyViewModelProtocol {
     var showToastView: PublishRelay<Bool> { get }
-    var detailData: BehaviorRelay<CouponDatum> { get }
+    var detailData: BehaviorRelay<CouponDatum?> { get }
 
     func applyButtonTapped()
 }
 
 final class ApplyViewModel: ApplyViewModelProtocol {
-    let detailData = BehaviorRelay<CouponDatum>(value: CouponDatum(sprinkleID: 0, brandName: "dd", merchandiseName: "", category: "", expiredAt: "", participants: 0, sprinkleAt: "", participateIn: nil))
+    let detailData = BehaviorRelay<CouponDatum?>(value: nil)
     let showToastView = PublishRelay<Bool>()
     private let gifticonService: GifticonService
     private let disposeBag = DisposeBag()
@@ -38,7 +38,6 @@ final class ApplyViewModel: ApplyViewModelProtocol {
                 guard let responseData = responseModel.data else { return
                 }
                 self?.detailData.accept(responseData)
-            }, onFailure: { error in
             })
             .disposed(by: disposeBag)
     }

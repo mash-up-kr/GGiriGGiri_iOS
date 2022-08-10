@@ -55,11 +55,11 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
             })
             .disposed(by: disposeBag)
 
-        _ = viewModel.showToastView
+        viewModel.showToastView
             .bind { [weak self] state in
             if state == true {
                 self?.setApplyCompletButtonState()
-                self?.showSuccessToast(category: self?.viewModel.detailData.value.imageName ?? .iconRotateLogoCharacter)
+                self?.showSuccessToast(category: self?.viewModel.detailData.value?.imageName ?? .iconRotateLogoCharacter)
                 self?.toastView.showToastView(with: self?.view ?? UIView())
             } else {
                 self?.setFinishButtonState()
@@ -70,12 +70,20 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
         .disposed(by: disposeBag)
 
         _ = viewModel.detailData.subscribe(onNext: { [weak self] entity in
-            self?.applyGifticonView.setParticipant(participants: entity.participants)
-            self?.applyGifticonView.setBrand(name: entity.brandName)
-            self?.applyGifticonView.setCategory(name: entity.category)
-            self?.applyGifticonView.setProductName(name: entity.merchandiseName)
-            self?.applyGifticonView.setExpirationDate(name: entity.expiredAt)
-            self?.applyGifticonView.setImageIcon(imageName: entity.imageName)
+            guard let participants = entity?.participants,
+                  let brandName = entity?.brandName,
+                  let category = entity?.category,
+                  let merchandiseName = entity?.merchandiseName,
+                  let expiredAt = entity?.expiredAt,
+                  let imageName = entity?.imageName
+            else { return }
+
+            self?.applyGifticonView.setParticipant(participants: participants)
+            self?.applyGifticonView.setBrand(name: brandName)
+            self?.applyGifticonView.setCategory(name: category)
+            self?.applyGifticonView.setProductName(name: merchandiseName)
+            self?.applyGifticonView.setExpirationDate(name: expiredAt)
+            self?.applyGifticonView.setImageIcon(imageName: imageName)
 
             // TODO: 형변환 및 로직 필요
 //            self.applyGifticonView.setCountdownDate(date: entity.sprinkleAt)
