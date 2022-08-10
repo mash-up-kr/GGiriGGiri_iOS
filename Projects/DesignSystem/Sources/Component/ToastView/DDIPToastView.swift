@@ -10,24 +10,27 @@ import UIKit
 
 public class DDIPToastView: UIView, AddViewsable {
     public enum ToastViewOptions {
-        case save, saveFail, register, registerFail, apply, applyMyGifticonFail, applyFail
+        case save, saveFail, register, registerFail, apply, applyMyGifticonFail, networkFail
 
         var info: (title: String, description: String) {
             switch self {
             case .save:
                 return ("저장 완료!", "기프티콘이 갤러리에 저장되었어요.")
+            // TODO: - 서버 메시지 주입으로 변경 후 제거해야할 case
             case .saveFail:
                 return ("저장 실패", "다시 한 번 시도해주세요.")
             case .register:
                 return ("등록 완료", "뿌리기 등록이 완료되었어요!\n 설정한 마감 시간이 지나면 자동적으로 기프티콘이 전달됩니다.")
+            // TODO: - 서버 메시지 주입으로 변경 후 제거해야할 case
             case .registerFail:
                 return ("등록 실패", "다시 한 번 시도해주세요.")
             case .apply:
                 return ("응모 완료", "응모가 완료되었어요!\n 응모 결과는 마감 후에 확인할 수 있어요.")
+            // TODO: - 서버 메시지 주입으로 변경 후 제거해야할 case
             case .applyMyGifticonFail:
                 return ("응모 실패", "내가 등록한 기프티콘에는\n 응모할 수 없어요!")
-            case .applyFail:
-                return ("응모 실패", "다시 한번 시도 해주세요.")
+            case .networkFail:
+                return ("네트워크 실패", "네트워크 에러가 발생했습니다!")
             }
         }
     }
@@ -112,11 +115,19 @@ extension DDIPToastView {
         titleLabel.text = title.info.title
     }
 
+    public func setTitleLabel(_ title: String) {
+        titleLabel.text = title
+    }
+
     public func setIconImageView(_ image: DDIPAsset.name) {
         self.iconImageView.image = .designSystem(image)
     }
 
     public func setDescriptionLabel(_ description: ToastViewOptions) {
         descriptionLabel.text = description.info.description
+    }
+
+    public func setDescriptionLabel(_ description: String) {
+        descriptionLabel.text = description
     }
 }
