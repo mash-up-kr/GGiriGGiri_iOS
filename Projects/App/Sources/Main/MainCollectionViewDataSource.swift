@@ -33,9 +33,6 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             cell.configure(with: items[indexPath.item])
-            cell.isParticipatingButton.addTarget(self,
-                                                 action: #selector(applyDeadLineButtonTapped(_:)),
-                                                 for: .touchUpInside)
             return cell
         case .category(_):
             guard let cell = collectionView.dequeReusableCell(CategoryCollectionViewCell.self,
@@ -50,9 +47,6 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             cell.configure(with: items[indexPath.item])
-            cell.isParticipatingButton.addTarget(self,
-                                                 action: #selector(applyButtonTapped(_:)),
-                                                 for: .touchUpInside)
             return cell
         }
     }
@@ -66,15 +60,5 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         }
         supplementaryView.titleLabel.text = MainSection.allCases[indexPath.section].headerTitle
         return supplementaryView
-    }
-    
-    @objc private func applyDeadLineButtonTapped(_ sender: UIButton) {
-        sender.currentTitle == "지금 당장 응모할게요!" ?
-        sender.setTitle("응모완료", for: .normal) : sender.setTitle("지금 당장 응모할게요!", for: .normal)
-    }
-    
-    @objc private func applyButtonTapped(_ sender: UIButton) {
-        sender.currentTitle == "응모하기" ?
-        sender.setTitle("응모완료", for: .normal) : sender.setTitle("응모하기", for: .normal)
     }
 }

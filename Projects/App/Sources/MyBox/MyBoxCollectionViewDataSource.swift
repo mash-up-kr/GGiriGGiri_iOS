@@ -13,9 +13,9 @@ final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource 
     var item = [[GifticonCard]]()
     
     private let applyDataSource = MyBoxListCollectionViewDataSource()
-    private(set) var applyDelegate = MyBoxListCollectionViewDelegate(type: .apply)
+    private(set) var applyDelegate = MyBoxListCollectionViewDelegate(type: .applied)
     private let registerDatasource = MyBoxListCollectionViewDataSource()
-    private(set) var registerDelegate = MyBoxListCollectionViewDelegate(type: .register)
+    private(set) var registerDelegate = MyBoxListCollectionViewDelegate(type: .registered)
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -31,22 +31,22 @@ final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource 
         }
         
         switch MyBox.allCases[indexPath.item] {
-        case .apply:
+        case .applied:
             guard let applyItem = item.first else { return UICollectionViewCell() }
             applyDataSource.item = applyItem
-            applyDataSource.currentType = .apply
+            applyDataSource.currentType = .applied
             
             cell.configureDataSource(applyDataSource)
             cell.configureDelegate(applyDelegate)
-            cell.configure(with: .apply)
-        case .register:
+            cell.configure(with: .applied)
+        case .registered:
             guard let registerItem = item.last else { return UICollectionViewCell() }
             registerDatasource.item = registerItem
-            registerDatasource.currentType = .register
+            registerDatasource.currentType = .registered
             
             cell.configureDataSource(registerDatasource)
             cell.configureDelegate(registerDelegate)
-            cell.configure(with: .register)
+            cell.configure(with: .registered)
         }
         return cell
     }

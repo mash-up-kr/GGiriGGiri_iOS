@@ -30,6 +30,7 @@ public enum DDIPFont {
     
     /// 폰트 사이즈
     public enum Size: CGFloat {
+        case _10 = 10
         case _12 = 12
         case _14 = 14
         case _16 = 16

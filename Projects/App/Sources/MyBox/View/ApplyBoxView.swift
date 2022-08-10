@@ -32,6 +32,6 @@ final class ApplyBoxView: BaseView {
         
         backgroundColor = .clear
         
-        emptyView.configureEmptyCategory(with: .apply)
+        emptyView.configureEmptyCategory(with: .applied)
     }
 }

@@ -13,7 +13,8 @@ import SnapKit
 
 protocol ResultViewButtonDelegate: AnyObject {
     func homeButtonTapped()
-    func saveButtonTapped()
+    func saveButtonTapped(completion: @escaping (Bool) -> ())
+    func showFailToastView()
 }
 
 final class ResultView: BaseView {
@@ -26,7 +27,8 @@ final class ResultView: BaseView {
             case .win:
                 winView.isHidden = false
                 loseView.isHidden = true
-                button.titleLabel?.text = "갤러리에 저장"
+                button.setTitle(title: "갤러리에 저장")
+                button.setBackgroundColor(buttonColor: .secondaryBlue)
                 winView.configure(gifticon: Gifticon(id: 0,
                                                      brand: "할리스",
                                                      name: "바닐라라떼",
@@ -35,7 +37,8 @@ final class ResultView: BaseView {
             case .lose:
                 winView.isHidden = true
                 loseView.isHidden = false
-                button.titleLabel?.text = "홈으로 이동"
+                button.setTitle(title: "홈으로 이동")
+                button.setBackgroundColor(buttonColor: .secondaryBlue)
             }
         }
     }
@@ -82,7 +85,15 @@ final class ResultView: BaseView {
     @objc private func homeButtonTapped(_ sender: UIButton) {
         switch type {
         case .win:
-            delegate?.saveButtonTapped()
+            delegate?.saveButtonTapped(completion: { [weak self] saved in
+                if saved {
+                    self?.button.setBackgroundColor(buttonColor: .secondarySkyblue200)
+                    self?.button.setTitle(title: "저장 완료")
+                    self?.button.isEnabled = false
+                } else {
+                    self?.delegate?.showFailToastView()
+                }
+            })
         case .lose:
             delegate?.homeButtonTapped()
         }

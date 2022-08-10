@@ -21,17 +21,22 @@ final class MyBoxEmptyView: BaseView {
         return imageView
     }()
     
-    private let titleMessage = TempLabel(
-        color: .designSystem(.neutralGray400),
-        text: "응모한 내역이 없어요",
-        font: .designSystem(.pretendard, family: .bold, size: ._18)
-    )
+    private let titleMessage: UILabel = {
+        let label = UILabel()
+        label.text = "응모한 내역이 없어요"
+        label.textColor = .designSystem(.neutralGray400)
+        label.font = .designSystem(.pretendard, family: .bold, size: ._18)
+        return label
+    }()
     
-    private let detailMessage = TempLabel(
-        color: .designSystem(.neutralGray400),
-        text: "지금 바로 무료 기프티콘에\n응모해보세요!",
-        font: .designSystem(.pretendard, family: .regular, size: ._16)
-    )
+    private let detailMessage: UILabel = {
+        let label = UILabel()
+        label.text = "지금 바로 무료 기프티콘에\n응모해보세요!"
+        label.textColor = .designSystem(.neutralGray400)
+        label.font = .designSystem(.pretendard, family: .regular, size: ._16)
+        label.numberOfLines = 0
+        return label
+    }()
     
     override func setLayout() {
         super.setLayout()
@@ -65,7 +70,7 @@ final class MyBoxEmptyView: BaseView {
     }
     
     func configureEmptyCategory(with category: MyBox) {
-        if category == MyBox.apply {
+        if category == MyBox.applied {
             titleMessage.text = "응모한 내역이 없어요"
             detailMessage.text = "지금 바로 무료 기프티콘에\n응모해보세요!"
             return

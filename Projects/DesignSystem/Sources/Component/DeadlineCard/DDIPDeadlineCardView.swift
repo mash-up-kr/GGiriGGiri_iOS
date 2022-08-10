@@ -9,9 +9,11 @@
 import UIKit
 
 import RxSwift
+import RxRelay
+import SnapKit
 
 public class DDIPDeadlineCardView: UIView, AddViewsable {
-    private let CTAButton = DDIPCTAButton()
+    public let CTAButton = DDIPCTAButton()
     private let applyViewer = DDIPApplyViewer()
     
     private let imageIcon = UIImageView()
@@ -27,6 +29,8 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     
     private let timer = DDIPCountDownTimer(.minute)
     private let disposeBag = DisposeBag()
+    
+    public let buttonTapEvent = PublishRelay<Void>()
     
     private let infoStackView: UIStackView = {
         let stackView = UIStackView()
@@ -126,60 +130,59 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     }
 
     private func setUI() {
-        NSLayoutConstraint.activate([
-            timeStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            timeStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            
-            timeStackView.heightAnchor.constraint(equalToConstant: 34)
-        ])
+        timeStackView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(20)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(34)
+        }
         
-        NSLayoutConstraint.activate([
-            imageIcon.topAnchor.constraint(equalTo: timeStackView.bottomAnchor, constant: 16),
-            imageIcon.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageIcon.widthAnchor.constraint(equalToConstant: 120),
-            imageIcon.heightAnchor.constraint(equalToConstant: 120)
-        ])
+        imageIcon.snp.makeConstraints {
+            $0.top.equalTo(timeStackView.snp.bottom).offset(16)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(120)
+        }
         
-        NSLayoutConstraint.activate([
-            dashedLine.topAnchor.constraint(equalTo: imageIcon.bottomAnchor, constant: 22),
-            dashedLine.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            dashedLine.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            dashedLine.heightAnchor.constraint(equalToConstant: 1)
-        ])
+        dashedLine.snp.makeConstraints {
+            $0.top.equalTo(imageIcon.snp.bottom).offset(22)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(1)
+        }
         
-        NSLayoutConstraint.activate([
-            semiCircleSpaceLeftView.heightAnchor.constraint(equalToConstant: 18),
-            semiCircleSpaceLeftView.widthAnchor.constraint(equalToConstant: 18),
-            semiCircleSpaceLeftView.centerYAnchor.constraint(equalTo: dashedLine.centerYAnchor),
-            semiCircleSpaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: -9),
-            
-            semiCircleSpaceRightView.heightAnchor.constraint(equalToConstant: 18),
-            semiCircleSpaceRightView.widthAnchor.constraint(equalToConstant: 18),
-            semiCircleSpaceRightView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 9),
-            semiCircleSpaceRightView.bottomAnchor.constraint(equalTo: infoStackView.topAnchor, constant: -7),
-        ])
+        semiCircleSpaceLeftView.snp.makeConstraints {
+            $0.width.height.equalTo(18)
+            $0.centerY.equalTo(dashedLine.snp.centerY)
+            $0.leading.equalToSuperview().offset(-9)
+        }
         
-        NSLayoutConstraint.activate([
-            infoStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            infoStackView.topAnchor.constraint(equalTo: dashedLine.bottomAnchor, constant: 16),
-            infoStackView.trailingAnchor.constraint(lessThanOrEqualTo: self.applyViewer.leadingAnchor, constant: -10),
-            infoStackView.bottomAnchor.constraint(equalTo: CTAButton.topAnchor, constant: -16)
-        ])
-
-        NSLayoutConstraint.activate([
-            applyViewer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            applyViewer.topAnchor.constraint(equalTo: infoStackView.topAnchor)
-        ])
-
-        NSLayoutConstraint.activate([
-            CTAButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            CTAButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            CTAButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24),
-        ])
+        semiCircleSpaceRightView.snp.makeConstraints {
+            $0.width.height.equalTo(18)
+            $0.centerY.equalTo(dashedLine.snp.centerY)
+            $0.trailing.equalToSuperview().offset(9)
+        }
+        
+        applyViewer.snp.makeConstraints {
+            $0.top.equalTo(dashedLine.snp.bottom).offset(14)
+            $0.trailing.equalToSuperview().inset(16)
+        }
+        
+        infoStackView.snp.makeConstraints {
+            $0.top.equalTo(dashedLine.snp.bottom).offset(16)
+            $0.leading.equalToSuperview().inset(16)
+            $0.trailing.greaterThanOrEqualTo(applyViewer.snp.leading).inset(16).priority(.low)
+        }
+        
+        CTAButton.snp.makeConstraints {
+            $0.top.equalTo(infoStackView.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(24)
+        }
     }
     
     private func bind() {
         bindingTimer()
+        
+        CTAButton.rx.tap.bind(to: buttonTapEvent)
+            .disposed(by: disposeBag)
     }
     
     private func bindingTimer() {
@@ -239,6 +242,4 @@ extension DDIPDeadlineCardView {
     public func enableButton() {
         CTAButton.isEnabled = true
     }
-    
-    // TODO: CTAButton Update Logic 추가해야함
 }

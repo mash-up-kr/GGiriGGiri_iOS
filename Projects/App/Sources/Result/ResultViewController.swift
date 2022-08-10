@@ -25,8 +25,6 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
     
     private let resultView = ResultView()
     private let toastView = DDIPToastView()
-    private let wrapperView = UIView()
-    private let dimView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,19 +69,36 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
 }
 
 extension ResultViewController: ResultViewButtonDelegate {
+    
     func homeButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
     
-    func saveButtonTapped() {
+    func saveButtonTapped(completion: @escaping (Bool) -> ()) {
         // TODO: 서버에서 받아온 이미지로 저장해줘야함
-        guard let image = UIImage(systemName: "pencil") else { return }
+        guard let image = UIImage(systemName: "pencil") else {
+            completion(false)
+            return
+        }
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(gifticonImageSaved), nil)
+        completion(true)
+    }
+    
+    func showFailToastView() {
+        let toastView = ToastView()
+        toastView.configureToastView(with: self.view, style: .saveFail, image: .iconRotateLogoCharacterEmpty)
+        toastView.showToastView(with: self.view)
     }
     
     @objc private func gifticonImageSaved(image: UIImage, error: Error?, context: UnsafeRawPointer) {
+        
         let toastView = ToastView()
-        toastView.configureToastView(with: self.view, style: .save, image: .iconLogoCharacter)
+        
+        if error == nil {
+            toastView.configureToastView(with: self.view, style: .save, image: .iconLogoCharacter)
+        } else {
+            toastView.configureToastView(with: self.view, style: .saveFail, image: .iconRotateLogoCharacterEmpty)
+        }
         toastView.showToastView(with: self.view)
     }
 }

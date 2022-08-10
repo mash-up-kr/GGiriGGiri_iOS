@@ -17,7 +17,7 @@ struct MockData {
                                              name: "아메리카노",
                                              expirationDate: "20220626",
                                              imageUrl: "https://item.kakaocdn.net/do/c9230634b95167d3f4c177bb02c9f73d4022de826f725e10df604bf1b9725cfd"),
-                                numberOfParticipants: 5,
+                                numberOfParticipants: 10345,
                                 isParticipating: false),
                    GifticonCard(remainingTime: "123초",
                                 gifticonInfo:
@@ -27,7 +27,7 @@ struct MockData {
                                              expirationDate: "20220626",
                                              imageUrl: "https://item.kakaocdn.net/do/c9230634b95167d3f4c177bb02c9f73d4022de826f725e10df604bf1b9725cfd"),
                                 numberOfParticipants: 5,
-                                isParticipating: false),
+                                isParticipating: true),
                    GifticonCard(remainingTime: "123초",
                                 gifticonInfo:
                                     Gifticon(id: 2,
@@ -109,7 +109,7 @@ struct MockData {
                                                  expirationDate: "20220703",
                                                  imageUrl: "https://item.kakaocdn.net/do/c9230634b95167d3f4c177bb02c9f73d4022de826f725e10df604bf1b9725cfd"),
                                     numberOfParticipants: 5,
-                                    isParticipating: false),
+                                    isParticipating: true),
                        GifticonCard(remainingTime: "123초",
                                     gifticonInfo:
                                         Gifticon(id: 11,
@@ -118,7 +118,7 @@ struct MockData {
                                                  expirationDate: "20220704",
                                                  imageUrl: "https://item.kakaocdn.net/do/c9230634b95167d3f4c177bb02c9f73d4022de826f725e10df604bf1b9725cfd"),
                                     numberOfParticipants: 5,
-                                    isParticipating: false),
+                                    isParticipating: true),
                        GifticonCard(remainingTime: "123초",
                                     gifticonInfo:
                                         Gifticon(id: 12,
@@ -365,5 +365,22 @@ struct MockData {
                                                        imageUrl: "https://item.kakaocdn.net/do/c9230634b95167d3f4c177bb02c9f73d4022de826f725e10df604bf1b9725cfd"),
                                           numberOfParticipants: 5,
                                           isParticipating: false)], // Apply
-                            [GifticonCard]()] // Register
+                            [GifticonCard(remainingTime: "123초",
+                                          gifticonInfo:
+                                              Gifticon(id: 13,
+                                                       brand: "스타벅스",
+                                                       name: "아메리카노",
+                                                       expirationDate: "20220704",
+                                                       imageUrl: "https://item.kakaocdn.net/do/c9230634b95167d3f4c177bb02c9f73d4022de826f725e10df604bf1b9725cfd"),
+                                          numberOfParticipants: 5,
+                                          isParticipating: false),
+                             GifticonCard(remainingTime: "123초",
+                                          gifticonInfo:
+                                              Gifticon(id: 14,
+                                                       brand: "스타벅스",
+                                                       name: "아메리카노",
+                                                       expirationDate: "20220705",
+                                                       imageUrl: "https://item.kakaocdn.net/do/c9230634b95167d3f4c177bb02c9f73d4022de826f725e10df604bf1b9725cfd"),
+                                          numberOfParticipants: 5,
+                                          isParticipating: false)]] // Register
 }

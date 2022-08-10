@@ -33,7 +33,7 @@ public class DDIPCTAButton: UIButton {
     
     private func setLayout() {
         NSLayoutConstraint.activate([
-            self.heightAnchor.constraint(equalToConstant: 54)
+            self.heightAnchor.constraint(equalToConstant: 52)
         ])
     }
 }

@@ -25,8 +25,8 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
     
     private let categoryTapView: DDIPCategoryTapView = {
         let view = DDIPCategoryTapView()
-        view.setLeftTitle(.alarm)
-        view.setRightTitle(.alarm)
+        view.setLeftTitle(.box)
+        view.setRightTitle(.box)
         return view
     }()
     
@@ -71,12 +71,15 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
             self?.myBoxView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0),
                                                         at: .centeredHorizontally,
                                                         animated: true)
+            
+            self?.myBoxView.collectionView.reloadData()
         }).disposed(by: disposeBag)
 
         categoryTapView.rightButtonTapEvent.subscribe(onNext: { [weak self] in
             self?.myBoxView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0),
                                                         at: .centeredHorizontally,
                                                         animated: true)
+            self?.myBoxView.collectionView.reloadData()
         }).disposed(by: disposeBag)
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
@@ -105,8 +108,9 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
     
     @objc private func swipeAction(_ gesture: UISwipeGestureRecognizer) {
         if gesture.direction == .left {
-            myBoxView.collectionView.reloadData()
-            return
+            categoryTapView.tapRightButton()
+        } else {
+            categoryTapView.tapLeftButton()        
         }
         myBoxView.collectionView.reloadData()
     }
