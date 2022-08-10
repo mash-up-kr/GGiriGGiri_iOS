@@ -9,14 +9,25 @@
 import Foundation
 
 enum Category: String, CaseIterable {
-    case all = "전체"
-    case cafe = "카페/디저트"
-    case delivery = "치킨/배달음식"
-    case icecream = "아이스크림"
-    case store = "편의점"
-    case fastfood = "패스트푸드"
-    case certificate = "상품권"
-    case etc = "기타"
+    case all = "ALL"
+    case cafe = "CAFE"
+    case delivery = "DELIVERY"
+    case icecream = "ICECREAM"
+    case convenienceStore = "CONVENIENCE_STORE"
+    case fastfood = "FAST_FOOD"
+    case voucher = "VOUCHER"
+    case etc = "ETC"
     
-    static let register: [Category] = Category.allCases.filter { return $0 != Category.all }
+    var description: String {
+        switch self {
+        case .all: return "전체"
+        case .cafe: return "카페/디저트"
+        case .delivery: return "배달음식"
+        case .icecream: return "아이스크림"
+        case .convenienceStore: return "편의점"
+        case .fastfood: return "패스트푸드"
+        case .voucher: return "상품권"
+        case .etc: return "기타"
+        }
+    }
 }

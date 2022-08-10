@@ -12,6 +12,8 @@ import RxRelay
 import RxSwift
 
 protocol RegisterGifticonViewModelProtocol {
+    var categoryRepository: CategotyRepositoryLogic? { get }
+    
     var gifticonImage: UIImage { get }
     var categories: BehaviorRelay<[String]> { get }
     var informationValidation: PublishRelay<Bool> { get }
@@ -33,6 +35,10 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
         case registerSuccess
         case registerFail
     }
+    
+    var categoryRepository: CategotyRepositoryLogic?
+    
+    // TODO: Gifticon API 리팩토링 후 제거할것
     private let network: Networking
     private lazy var service = GifticonService(network: network)
     private let disposeBag = DisposeBag()
@@ -46,18 +52,24 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
     
     private var information: SprinkleInformation
     
-    init(network: Networking, gifticonImage: UIImage) {
+    init(network: Networking, categoryRepository: CategotyRepositoryLogic, gifticonImage: UIImage) {
         self.network = network
+        self.categoryRepository = categoryRepository
         self.information = SprinkleInformation(image: gifticonImage)
         
-        fetchCategories()
+        configure()
     }
     
+    private func configure() {
+        categoryRepository?.fetchCategories()
+    }
     
     func update(_ type: Update) {
         switch type {
         case let .category(index):
-            let category = categories.value[index]
+            guard
+                let category = categoryRepository?.categoryEntity.value.expectAll[index].rawValue
+            else { return }
             information.category = category
         case let .brandName(name):
             information.brandName = name
@@ -80,15 +92,6 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
 // MARK: - Networkings
 
 extension RegisterGifticonViewModel {
-    func fetchCategories() {
-        service.categories()
-            .subscribe(onSuccess: { [weak self] in
-                guard let cateogires = $0.data else { return }
-                self?.categories.accept(cateogires)
-            })
-            .disposed(by: disposeBag)
-    }
-    
     func requestRegister() {
         service.registerSprinkle(information)
             .subscribe(onSuccess: { [weak self] in

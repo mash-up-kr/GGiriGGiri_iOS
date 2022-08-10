@@ -66,11 +66,12 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
     
     override func bind() {
         super.bind()
-        
-        viewModel.categories
+        viewModel.categoryRepository?.categoryEntity
             .skip(1)
             .subscribe(onNext: { [weak self] in
-                self?.registerGifticonView.updateCategories($0)
+                self?.registerGifticonView.updateCategories(
+                    $0.expectAll.map { $0.description }
+                )
             })
             .disposed(by: disposeBag)
         
