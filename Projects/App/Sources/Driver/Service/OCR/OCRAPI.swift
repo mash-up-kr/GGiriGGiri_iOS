@@ -12,27 +12,27 @@ import Alamofire
 import UIKit
 
 enum OCRAPI {
-    case reqeust(OCRRequestModel)
+    case request(OCRRequestModel)
 }
 
 extension OCRAPI: NetworkRequestable {
     var path: String {
         switch self {
-        case .reqeust:
+        case .request:
             return "/ocr"
         }
     }
     
     var headers: HTTPHeaders {
         switch self {
-        case .reqeust:
+        case .request:
             return .multipartHeader
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .reqeust:
+        case .request:
             return .post
         }
     }
