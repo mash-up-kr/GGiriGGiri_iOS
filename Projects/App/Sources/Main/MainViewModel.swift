@@ -118,7 +118,7 @@ extension MainViewModel: PHPickerViewControllerDelegate {
 
 extension MainViewModel: MainCollectionViewCellDelegate {
     func gifticonCellTapped(with id: Int) {
-        let applyViewModel = ApplyViewModel(gifticonId: id)
+        let applyViewModel = ApplyViewModel(gifticonId: id, network: Network())
         let applyViewController = ApplyViewController(applyViewModel)
         applyViewController.modalPresentationStyle = .fullScreen
         push?(applyViewController)
