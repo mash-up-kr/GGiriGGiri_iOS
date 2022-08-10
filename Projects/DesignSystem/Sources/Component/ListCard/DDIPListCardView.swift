@@ -61,37 +61,46 @@ public class DDIPListCardView: UIView, AddViewsable {
         
         return stackView
     }()
-
-    public lazy var drawStackView: DDipListCardApplyBaseView = {
-        let stackView = applyStatus.choose()
+    
+    public let drawStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.distribution = .equalSpacing
-        
         return stackView
     }()
     
-    let semiCircleSpaceLeftView: SpaceView = {
+    private let semiCircleSpaceLeftView: SpaceView = {
         let view = SpaceView(isClockwise: false)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
-    
-    let semiCircleSpaceRightView: SpaceView = {
+    private let semiCircleSpaceRightView: SpaceView = {
         let view = SpaceView(isClockwise: true)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
-    public init(
-        frame: CGRect = .zero,
-        _ applyStatus: ApplyStatus
-    ) {
+    private let applyViewComponent: DDipListCardDeadlineView = {
+        let view = DDipListCardDeadlineView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    private let progressViewComponent: DDipListCardApplyView = {
+        let view = DDipListCardApplyView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    private let completeViewCmponent: DDipListCardCompleteView = {
+        let view = DDipListCardCompleteView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    public init(_ applyStatus: ApplyStatus) {
         self.applyStatus = applyStatus
-        super.init(frame: frame)
+        super.init(frame: .zero)
         setView()
         setUI()
         setAttribute()
@@ -106,8 +115,24 @@ public class DDIPListCardView: UIView, AddViewsable {
         imageIcon.translatesAutoresizingMaskIntoConstraints = false
         dashedLine.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubViews([productStackView, imageIcon, applyViewer, semiCircleSpaceLeftView, semiCircleSpaceRightView, dashedLine, drawStackView])
-        productStackView.addArrangedSubviews(brandLabel, nameLabel, expirationLabel)
+        self.addSubViews([
+            productStackView,
+            imageIcon,
+            applyViewer,
+            dashedLine,
+            semiCircleSpaceLeftView, semiCircleSpaceRightView,
+            drawStackView
+        ])
+        productStackView.addArrangedSubviews(
+            brandLabel,
+            nameLabel,
+            expirationLabel
+        )
+        drawStackView.addArrangedSubviews(
+            applyViewComponent,
+            progressViewComponent,
+            completeViewCmponent
+        )
     }
     
     private func setAttribute() {
@@ -118,57 +143,82 @@ public class DDIPListCardView: UIView, AddViewsable {
         nameLabel.textColor = .designSystem(.neutralBlack)
         expirationLabel.textColor = .designSystem(.neutralGray500)
 
-        brandLabel.font = .designSystem(.pretendard, family: .bold, size: ._12)
+        brandLabel.font = .designSystem(.pretendard, family: .medium, size: ._12)
         nameLabel.font = .designSystem(.pretendard, family: .bold, size: ._18)
-        expirationLabel.font = .designSystem(.pretendard, family: .bold, size: ._12)
+        expirationLabel.font = .designSystem(.pretendard, family: .regular, size: ._12)
+        
+        updateFromApplyStatus()
     }
     
     private func setUI() {
         NSLayoutConstraint.activate([
-            productStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            self.heightAnchor.constraint(equalToConstant: 180)
+        ])
+        
+        NSLayoutConstraint.activate([
             productStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            productStackView.trailingAnchor.constraint(equalTo: imageIcon.leadingAnchor, constant: -17),
-            productStackView.bottomAnchor.constraint(equalTo: dashedLine.topAnchor, constant: -16)
+            productStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            productStackView.trailingAnchor.constraint(equalTo: imageIcon.leadingAnchor, constant: -17)
         ])
         
         NSLayoutConstraint.activate([
-            imageIcon.topAnchor.constraint(equalTo: self.topAnchor, constant: 13),
-            imageIcon.trailingAnchor.constraint(equalTo: applyViewer.leadingAnchor, constant: -1),
-            imageIcon.bottomAnchor.constraint(equalTo: dashedLine.topAnchor, constant: -11),
             imageIcon.widthAnchor.constraint(equalToConstant: 75),
-            imageIcon.heightAnchor.constraint(equalToConstant: 75)
+            imageIcon.heightAnchor.constraint(equalToConstant: 75),
+            
+            imageIcon.topAnchor.constraint(equalTo: self.topAnchor, constant: 13),
+            imageIcon.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -55)
         ])
         
         NSLayoutConstraint.activate([
-            applyViewer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             applyViewer.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-            applyViewer.bottomAnchor.constraint(equalTo: dashedLine.topAnchor, constant: -68)
+            applyViewer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8)
         ])
         
         NSLayoutConstraint.activate([
             dashedLine.heightAnchor.constraint(equalToConstant: 1),
+            
             dashedLine.leadingAnchor.constraint(equalTo: self.semiCircleSpaceLeftView.trailingAnchor),
             dashedLine.trailingAnchor.constraint(equalTo: self.semiCircleSpaceRightView.leadingAnchor),
-            dashedLine.bottomAnchor.constraint(equalTo: drawStackView.topAnchor, constant: -20)
+            dashedLine.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -82)
         ])
         
         NSLayoutConstraint.activate([
             semiCircleSpaceLeftView.heightAnchor.constraint(equalToConstant: 18),
             semiCircleSpaceLeftView.widthAnchor.constraint(equalToConstant: 18),
+            
             semiCircleSpaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: -9),
             semiCircleSpaceLeftView.centerYAnchor.constraint(equalTo: self.dashedLine.centerYAnchor),
             
             semiCircleSpaceRightView.heightAnchor.constraint(equalToConstant: 18),
             semiCircleSpaceRightView.widthAnchor.constraint(equalToConstant: 18),
+            
             semiCircleSpaceRightView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 9),
             semiCircleSpaceRightView.centerYAnchor.constraint(equalTo: self.dashedLine.centerYAnchor)
         ])
         
         NSLayoutConstraint.activate([
+            drawStackView.topAnchor.constraint(equalTo: productStackView.bottomAnchor, constant: 42),
             drawStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             drawStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             drawStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24)
         ])
+    }
+    
+    private func updateFromApplyStatus() {
+        switch applyStatus {
+        case .apply:
+            applyViewComponent.isHidden = false
+            progressViewComponent.isHidden = true
+            completeViewCmponent.isHidden = true
+        case .progress:
+            applyViewComponent.isHidden = true
+            progressViewComponent.isHidden = false
+            completeViewCmponent.isHidden = true
+        case .complete:
+            applyViewComponent.isHidden = true
+            progressViewComponent.isHidden = true
+            completeViewCmponent.isHidden = false
+        }
     }
 }
 
