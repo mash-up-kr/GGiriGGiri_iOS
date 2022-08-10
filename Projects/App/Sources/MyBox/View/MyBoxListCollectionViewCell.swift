@@ -9,11 +9,13 @@
 import UIKit
 
 import DesignSystem
+import RxSwift
 
 final class MyBoxListCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "MyBoxListCollectionViewCell"
     
+    private let disposeBag = DisposeBag()
     private let listCardView: DDIPListCardView = DDIPListCardView(type: .apply)
     
     override init(frame: CGRect) {
@@ -53,6 +55,13 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
         if category == .applied {
             // TODO: 전달받은 값에 따라 결과확인, 응모중, 꽝, 당첨 등 status 변경하기
             listCardView.setAppliedStatusViewType(status: .confirmResult, applyDate: Date())
+            listCardView.cardListButtonDidTapped.subscribe { buttonStatus in
+                guard let buttonStatus = buttonStatus.element else { return }
+                
+                if buttonStatus == .appliedStatus {
+                    self.listCardView.setDrawStatusViewType(status: .complete)
+                }
+            }.disposed(by: disposeBag)
         } else {
             // TODO: 전달받은 값에 따라 응모진행중, 전달완료(Date와 함께), 받은사람 없음 변경하기
             listCardView.setDrawStatusViewType(status: .apply)

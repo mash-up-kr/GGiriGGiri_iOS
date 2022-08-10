@@ -71,12 +71,15 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
             self?.myBoxView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0),
                                                         at: .centeredHorizontally,
                                                         animated: true)
+            
+            self?.myBoxView.collectionView.reloadData()
         }).disposed(by: disposeBag)
 
         categoryTapView.rightButtonTapEvent.subscribe(onNext: { [weak self] in
             self?.myBoxView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0),
                                                         at: .centeredHorizontally,
                                                         animated: true)
+            self?.myBoxView.collectionView.reloadData()
         }).disposed(by: disposeBag)
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
