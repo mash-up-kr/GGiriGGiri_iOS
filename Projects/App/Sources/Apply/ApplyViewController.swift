@@ -69,7 +69,8 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
         }
         .disposed(by: disposeBag)
 
-        _ = viewModel.detailData.subscribe(onNext: { [weak self] entity in
+        viewModel.detailData
+            .subscribe(onNext: { [weak self] entity in
             guard let participants = entity?.participants,
                   let brandName = entity?.brandName,
                   let category = entity?.category,
