@@ -13,17 +13,6 @@ public class DDIPListCardView: UIView, AddViewsable {
         case apply
         case progress
         case complete
-        
-        func choose() -> DDipListCardApplyBaseView {
-            switch self {
-            case .apply:
-                return DDipListCardDeadlineView()
-            case .progress:
-                return DDipListCardApplyView()
-            case .complete:
-                return DDipListCardCompleteView()
-            }
-        }
     }
 
     public enum RegisterStatus: String {
@@ -42,7 +31,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         }
     }
 
-    public let applyStatus: ApplyStatus
+    private var applyStatus: ApplyStatus
     private let applyViewer = DDIPApplyViewer()
     private let nameLabel = UILabel()
     private let brandLabel = UILabel()
@@ -62,7 +51,7 @@ public class DDIPListCardView: UIView, AddViewsable {
         return stackView
     }()
     
-    public let drawStackView: UIStackView = {
+    public let componentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -82,12 +71,12 @@ public class DDIPListCardView: UIView, AddViewsable {
         return view
     }()
     
-    private let applyViewComponent: DDipListCardDeadlineView = {
+    private let deadlineViewComponent: DDipListCardDeadlineView = {
         let view = DDipListCardDeadlineView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let progressViewComponent: DDipListCardApplyView = {
+    private let applyViewComponent: DDipListCardApplyView = {
         let view = DDipListCardApplyView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -121,16 +110,16 @@ public class DDIPListCardView: UIView, AddViewsable {
             applyViewer,
             dashedLine,
             semiCircleSpaceLeftView, semiCircleSpaceRightView,
-            drawStackView
+            componentStackView
         ])
         productStackView.addArrangedSubviews(
             brandLabel,
             nameLabel,
             expirationLabel
         )
-        drawStackView.addArrangedSubviews(
+        componentStackView.addArrangedSubviews(
+            deadlineViewComponent,
             applyViewComponent,
-            progressViewComponent,
             completeViewCmponent
         )
     }
@@ -197,26 +186,26 @@ public class DDIPListCardView: UIView, AddViewsable {
         ])
         
         NSLayoutConstraint.activate([
-            drawStackView.topAnchor.constraint(equalTo: productStackView.bottomAnchor, constant: 42),
-            drawStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            drawStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            drawStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24)
+            componentStackView.topAnchor.constraint(equalTo: productStackView.bottomAnchor, constant: 42),
+            componentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            componentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            componentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24)
         ])
     }
     
     private func updateFromApplyStatus() {
         switch applyStatus {
         case .apply:
-            applyViewComponent.isHidden = false
-            progressViewComponent.isHidden = true
+            deadlineViewComponent.isHidden = false
+            applyViewComponent.isHidden = true
             completeViewCmponent.isHidden = true
         case .progress:
-            applyViewComponent.isHidden = true
-            progressViewComponent.isHidden = false
+            deadlineViewComponent.isHidden = true
+            applyViewComponent.isHidden = false
             completeViewCmponent.isHidden = true
         case .complete:
+            deadlineViewComponent.isHidden = true
             applyViewComponent.isHidden = true
-            progressViewComponent.isHidden = true
             completeViewCmponent.isHidden = false
         }
     }
@@ -226,23 +215,26 @@ public class DDIPListCardView: UIView, AddViewsable {
 
 extension DDIPListCardView {
     public func setListCardDeadlineView(buttonColor: DDIPColor, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: Date) {
-        guard let listCardDeadlineView = drawStackView as? DDipListCardDeadlineView else { return }
+        applyStatus = .apply
+        updateFromApplyStatus()
+        
+        deadlineViewComponent.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden, isEnabled: true)
 
-        listCardDeadlineView.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden, isEnabled: true)
-
-        listCardDeadlineView.setDrawLabel(titleStatus: titleStatus.rawValue, leftTime: leftTime)
+        deadlineViewComponent.setDrawLabel(titleStatus: titleStatus.rawValue, leftTime: leftTime)
     }
 
     public func setListCardCompleteView(drawDate: Date? = nil, registerStatus: RegisterStatus) {
-        guard let listCardCompleteView = drawStackView as? DDipListCardCompleteView else { return }
-
-        listCardCompleteView.setDrawLabel(drawDate: drawDate, registerStatus: registerStatus.rawValue)
+        applyStatus = .complete
+        updateFromApplyStatus()
+        
+        completeViewCmponent.setDrawLabel(drawDate: drawDate, registerStatus: registerStatus.rawValue)
     }
 
     public func setListCardApplyView(applyDate: Date) {
-        guard let listCardApplyView = drawStackView as? DDipListCardApplyView else { return }
-
-        listCardApplyView.setDrawLabel(applyDate: applyDate)
+        applyStatus = .progress
+        updateFromApplyStatus()
+        
+        applyViewComponent.setDrawLabel(applyDate: applyDate)
     }
 
     public func setApplyTitleStatus(applyTitleStatus: ApplyTitleStatus) {
