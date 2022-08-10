@@ -9,13 +9,13 @@
 import RxRelay
 import RxSwift
 
-protocol CategotyRespositoryLogic {
+protocol CategoryRepositoryLogic {
     var categoryEntity: BehaviorRelay<CategoryEntity> { get }
     
     func fetchCategories()
 }
 
-final class CategoryRepository: CategotyRespositoryLogic {
+final class CategoryRepository: CategoryRepositoryLogic {
     private let disposeBag = DisposeBag()
     private let categoryService: CategoryServiceLogic
     
