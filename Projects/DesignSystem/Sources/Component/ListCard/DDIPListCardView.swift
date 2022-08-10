@@ -31,7 +31,11 @@ public class DDIPListCardView: UIView, AddViewsable {
         }
     }
 
-    private var applyStatus: ApplyStatus
+    private var applyStatus: ApplyStatus {
+        didSet {
+            updateFromApplyStatus()
+        }
+    }
     private let applyViewer = DDIPApplyViewer()
     private let nameLabel = UILabel()
     private let brandLabel = UILabel()
@@ -216,7 +220,6 @@ public class DDIPListCardView: UIView, AddViewsable {
 extension DDIPListCardView {
     public func setListCardDeadlineView(buttonColor: DDIPColor, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: Date) {
         applyStatus = .apply
-        updateFromApplyStatus()
         
         deadlineViewComponent.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden, isEnabled: true)
 
@@ -225,14 +228,12 @@ extension DDIPListCardView {
 
     public func setListCardCompleteView(drawDate: Date? = nil, registerStatus: RegisterStatus) {
         applyStatus = .complete
-        updateFromApplyStatus()
         
         completeViewCmponent.setDrawLabel(drawDate: drawDate, registerStatus: registerStatus.rawValue)
     }
 
     public func setListCardApplyView(applyDate: Date) {
         applyStatus = .progress
-        updateFromApplyStatus()
         
         applyViewComponent.setDrawLabel(applyDate: applyDate)
     }
