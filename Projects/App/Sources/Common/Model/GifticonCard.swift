@@ -18,4 +18,18 @@ struct GifticonCard {
     let numberOfParticipants: Int
     /// 참여 중 여부
     let isParticipating: Bool
+    
+    // MARK: 마이박스 > 응모 내역에서만 필요
+    /// 응모 날짜
+    var participateDate: String?
+    /// 결과 확인 여부
+    var isChecked: Bool?
+    /// 응모 상태
+    var drawStatus: DrawStatus?
+    
+    // MARK: 마이박스 > 등록 내역에서만 필요
+    /// 전달 날짜
+    var deliveryDate: String?
+    /// 기프티콘 전달 상태 (NO_PARTICIPANTS, PRORESS, FINISH)
+    var sprinkledStatus: SprinkledStatus?
 }

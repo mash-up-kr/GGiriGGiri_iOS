@@ -13,7 +13,7 @@ struct RegisterHistoryResponseModel: Decodable {
     let brandName, merchandiseName, expiredAt, category: String
     let participants: Int
     let deliveryDate: String
-    let sprinkledStatus: SprinkledStatus
+    let sprinkledStatus: String
 
     enum CodingKeys: String, CodingKey {
         case sprinkleID = "sprinkleId"

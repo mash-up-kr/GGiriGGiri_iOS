@@ -26,15 +26,12 @@ struct GifticonService {
         self.network = network
     }
     
+    // MARK: MAIN
     func deadline(_ model: GifticonListRequestModel) -> DeadlineResponse {
         network.request(GifticonAPI.deadline(model)).map()
     }
     
     func categoryList(_ model: GifticonListRequestModel) -> CategoryListResponse {
-        network.request(GifticonAPI.categoryList(model)).map()
-    }
-    
-    func list(_ model: GifticonListRequestModel) -> CouponListResponse {
         network.request(GifticonAPI.categoryList(model)).map()
     }
 
@@ -54,11 +51,12 @@ struct GifticonService {
         ).map()
     }
     
-    func applyHistory(_ model: ApplyHistoryResponseModel) -> ApplyHistoryResponse {
+    // MARK: 마이박스 - 응모 / 등록
+    func applyHistory() -> ApplyHistoryResponse {
         network.request(GifticonAPI.applyHistory).map()
     }
     
-    func registerHistory(_ model: RegisterHistoryResponseModel) -> RegisterHistoryResponse {
+    func registerHistory() -> RegisterHistoryResponse {
         network.request(GifticonAPI.registerHistory).map()
     }
 }

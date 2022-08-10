@@ -14,7 +14,7 @@ struct ApplyHistoryResponseModel: Decodable {
     let participants: Int
     let participateDate: String
     let isChecked: Bool
-    let drawStatus: DrawStatus
+    let drawStatus: String
 
     enum CodingKeys: String, CodingKey {
         case participantID = "participantId"
