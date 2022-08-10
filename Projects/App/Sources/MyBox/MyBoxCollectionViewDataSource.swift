@@ -15,7 +15,7 @@ final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource 
     private let applyDataSource = MyBoxListCollectionViewDataSource()
     private(set) var applyDelegate = MyBoxListCollectionViewDelegate(type: .applied)
     private let registerDatasource = MyBoxListCollectionViewDataSource()
-    private(set) var registerDelegate = MyBoxListCollectionViewDelegate(type: .registerd)
+    private(set) var registerDelegate = MyBoxListCollectionViewDelegate(type: .registered)
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -39,14 +39,14 @@ final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource 
             cell.configureDataSource(applyDataSource)
             cell.configureDelegate(applyDelegate)
             cell.configure(with: .applied)
-        case .registerd:
+        case .registered:
             guard let registerItem = item.last else { return UICollectionViewCell() }
             registerDatasource.item = registerItem
-            registerDatasource.currentType = .registerd
+            registerDatasource.currentType = .registered
             
             cell.configureDataSource(registerDatasource)
             cell.configureDelegate(registerDelegate)
-            cell.configure(with: .registerd)
+            cell.configure(with: .registered)
         }
         return cell
     }

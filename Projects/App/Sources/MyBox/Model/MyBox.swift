@@ -10,5 +10,5 @@ import Foundation
 
 enum MyBox: CaseIterable {
     case applied
-    case registerd
+    case registered
 }

@@ -101,7 +101,7 @@ final class MyBoxCollectionViewCell: UICollectionViewCell {
         switch category {
         case .applied:
             collectionView.backgroundView = applyBoxView
-        case .registerd:
+        case .registered:
             collectionView.backgroundView = registerBoxView
         }
     }
