@@ -7,15 +7,54 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 protocol ApplyViewModelProtocol {
-    var gifticonId: Int { get }
+    var showToastView: PublishRelay<Bool> { get }
+    var detailData: BehaviorRelay<CouponDatum> { get }
+
+    func applyButtonTapped()
 }
 
 final class ApplyViewModel: ApplyViewModelProtocol {
-    var gifticonId: Int
+    let detailData = BehaviorRelay<CouponDatum>(value: CouponDatum(sprinkleID: 0, brandName: "dd", merchandiseName: "", category: "", expiredAt: "", participants: 0, sprinkleAt: "", participateIn: nil))
+    let showToastView = PublishRelay<Bool>()
+    private let gifticonService: GifticonService
+    private let disposeBag = DisposeBag()
+
+    private let gifticonId: Int
     
-    init(gifticonId: Int) {
+    init(gifticonId: Int, network: Networking) {
         self.gifticonId = gifticonId
+        self.gifticonService = GifticonService(network: network)
+        detailInfo()
+    }
+
+    private func detailInfo() {
+        gifticonService.detail(self.gifticonId)
+            .subscribe(onSuccess: { [weak self] responseModel in
+                guard let responseData = responseModel.data else { return
+                }
+                self?.detailData.accept(responseData)
+            }, onFailure: { error in
+                debugPrint(error)
+            }, onDisposed: {
+
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func applyButtonTapped() {
+        gifticonService.apply(self.gifticonId)
+            .debug()
+            .subscribe { [weak self] _ in
+                self?.showToastView.accept(true)
+            } onFailure: { [weak self] _ in
+                self?.showToastView.accept(false)
+            } onDisposed: {
+
+            }
+            .disposed(by: disposeBag)
     }
 }
