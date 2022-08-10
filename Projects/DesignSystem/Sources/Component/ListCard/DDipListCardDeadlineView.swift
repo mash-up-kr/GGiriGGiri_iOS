@@ -18,14 +18,29 @@ public class DDipListCardDeadlineView: DDipListCardApplyBaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setListCardButton(buttonTitle: DDIPCardListButton.TitleStatus, buttonColor: DDIPColor, isHidden: Bool, isEnabled: Bool) {
-        cardListButton.setButtonAttribute(titleStatus: buttonTitle, buttonColor: buttonColor, isHidden: isHidden, isEnabled: isEnabled)
+    public func setCardListButton(_ status: DDIPCardListButton.ApplyStatus) {
+        switch status {
+        case .enable:
+            cardListButton.setButtonAttribute(
+                title: status.title,
+                buttonColor: .secondaryBlue,
+                isHidden: false,
+                isEnabled: true
+            )
+        case .complete:
+            cardListButton.setButtonAttribute(
+                title: status.title,
+                buttonColor: .secondarySkyblue200,
+                isHidden: false,
+                isEnabled: false
+            )
+        }
     }
-
-    public func setDrawLabel(titleStatus: String, leftTime: Date) {
-        let fullText = "\(titleStatus)까지 \(leftTime.hourString())시간 남았어요!"
+    
+    public func setDrawLabel(title: String, leftTime: Date) {
+        let fullText = "\(title)까지 \(leftTime.hourString())시간 남았어요!"
         let leftTimeText = "\(leftTime.hourString())시간"
-        let resultTitle = "\(titleStatus)"
+        let resultTitle = "\(title)"
         let attributedString = NSMutableAttributedString(string: fullText)
 
         attributedString.setAttributes(
@@ -45,7 +60,7 @@ public class DDipListCardDeadlineView: DDipListCardApplyBaseView {
 
         attributedString.setAttributes(
             [
-            .font: UIFont.designSystem(.pretendard, family: .bold, size: ._14)
+                .font: UIFont.designSystem(.pretendard, family: .bold, size: ._14)
             ],
             range: NSString(string: fullText).range(of: resultTitle))
 
@@ -54,5 +69,6 @@ public class DDipListCardDeadlineView: DDipListCardApplyBaseView {
 
     public func setAttribute() {
         drawLabel.font = .designSystem(.pretendard, family: .regular, size: ._14)
+        drawLabel.textAlignment = .center
     }
 }

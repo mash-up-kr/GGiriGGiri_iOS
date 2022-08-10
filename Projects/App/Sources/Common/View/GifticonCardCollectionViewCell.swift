@@ -41,7 +41,7 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
-    private let listCardView = DDIPListCardView(.apply)
+    private let listCardView = DDIPListCardView(type: .apply)
     
     func configure(with data: GifticonCard) {
         gifticonId = data.gifticonInfo.id
