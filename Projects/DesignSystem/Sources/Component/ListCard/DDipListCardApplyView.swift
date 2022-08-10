@@ -12,7 +12,6 @@ public class DDipListCardApplyView: DDipListCardApplyBaseView {
     public override init() {
         super.init()
         setDrawLabelAttribute()
-        setCardListButton()
     }
 
     required init(coder: NSCoder) {
@@ -29,7 +28,22 @@ public class DDipListCardApplyView: DDipListCardApplyBaseView {
         drawLabel.textAlignment = .right
     }
 
-    public func setCardListButton() {
-        cardListButton.setButtonAttribute(titleStatus: .progress, buttonColor: .secondarySkyblue200, isHidden: false, isEnabled: false)
+    public func setCardListButton(_ status: DDIPCardListButton.AppliedStatus) {
+        switch status {
+        case .confirmResult:
+            cardListButton.setButtonAttribute(
+                title: status.title,
+                buttonColor: .secondaryBlue,
+                isHidden: false,
+                isEnabled: true
+            )
+        case .inprogress, .win, .lose:
+            cardListButton.setButtonAttribute(
+                title: status.title,
+                buttonColor: .secondarySkyblue200,
+                isHidden: false,
+                isEnabled: false
+            )
+        }
     }
 }

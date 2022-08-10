@@ -14,20 +14,24 @@ public class DDIPListCardView: UIView, AddViewsable {
         case appliedStatus   // 결과확인, 응모중, 꽝, 당첨
         case drawStatus      // 전달완료, 진행중, 받은사람 없음
     }
-
-    public enum RegisterStatus: String {
-        case apply = "응모 진행 중"
-        case complete = "전달 완료"
-        case nobody = "받은 사람 없음"
-    }
-
-    public enum ApplyTitleStatus: String {
-        case complete = "마감"
-        case result = "결과"
-        case empty = ""
-
+    
+    public enum DrawStatus: String {
+        /// 응모 진행 중
+        case apply
+        
+        /// 전달 완료
+        case complete
+        
+        /// 받은 사람 없음
+        case nobody
+        
+        /// drawLabel에 적용될 문구
         var description: String {
-            return self.rawValue
+            switch self {
+            case .apply: return "응모 진행 중"
+            case .complete: return "전달 완료"
+            case .nobody: return "받은 사람 없음"
+            }
         }
     }
 
@@ -42,7 +46,6 @@ public class DDIPListCardView: UIView, AddViewsable {
     private let expirationLabel = UILabel()
     private let imageIcon = UIImageView()
     private let dashedLine = DashedLine()
-    public var applyTitleStatus: ApplyTitleStatus = .empty
 
     public let productStackView: UIStackView = {
         let stackView = UIStackView()
@@ -218,28 +221,41 @@ public class DDIPListCardView: UIView, AddViewsable {
 // MARK: - 외부 주입 메서드
 
 extension DDIPListCardView {
-    public func setApplyViewType(buttonColor: DDIPColor, isHidden: Bool, buttonTitle: DDIPCardListButton.TitleStatus, titleStatus: ApplyTitleStatus, leftTime: Date) {
+    public func setApplyViewType(
+        status: DDIPCardListButton.ApplyStatus,
+        leftTime: Date
+    ) {
         type = .apply
         
-        deadlineViewComponent.setListCardButton(buttonTitle: buttonTitle, buttonColor: buttonColor, isHidden: isHidden, isEnabled: true)
-
-        deadlineViewComponent.setDrawLabel(titleStatus: titleStatus.rawValue, leftTime: leftTime)
-    }
-
-    public func setDrawStatusViewType(drawDate: Date? = nil, registerStatus: RegisterStatus) {
-        type = .drawStatus
+        deadlineViewComponent.setCardListButton(status)
         
-        completeViewCmponent.setDrawLabel(drawDate: drawDate, registerStatus: registerStatus.rawValue)
+        let drawLabelTitle: String  = {
+            switch status {
+            case .enable: return "마감"
+            case .complete: return "결과"
+            }
+        }()
+
+        deadlineViewComponent.setDrawLabel(title: drawLabelTitle, leftTime: leftTime)
     }
 
-    public func setAppliedStatusViewType(applyDate: Date) {
+    public func setAppliedStatusViewType(
+        status: DDIPCardListButton.AppliedStatus,
+        applyDate: Date
+    ) {
         type = .appliedStatus
         
+        applyViewComponent.setCardListButton(status)
         applyViewComponent.setDrawLabel(applyDate: applyDate)
     }
-
-    public func setApplyTitleStatus(applyTitleStatus: ApplyTitleStatus) {
-        self.applyTitleStatus = applyTitleStatus
+    
+    public func setDrawStatusViewType(
+        drawDate: Date? = nil,
+        status: DrawStatus
+    ) {
+        type = .drawStatus
+        
+        completeViewCmponent.setDrawLabel(drawDate: drawDate, registerStatus: status.description)
     }
 
     public func setBrandName(brand: String) {
