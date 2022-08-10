@@ -28,22 +28,18 @@ extension GifticonAPI: NetworkRequestable {
         case .registerSprinkle:
             return "/api/v1/sprinkle"
         case .sprinkleApplication(let id):
-            return "/api/v1/sprinkle/\(3)/apply"
+            return "/api/v1/sprinkle/\(id)/apply"
         case .sprinkleDetail(let id):
-            return "/api/v1/sprinkle-info/\(3)"
+            return "/api/v1/sprinkle-info/\(id)"
         }
     }
     
     var parameters: Encodable? {
         switch self {
-        case .categories:
+        case .sprinkleApplication, .sprinkleDetail, .categories:
             return nil
         case let .categoryList(model):
             return model
-        case .sprinkleApplication(_):
-            return nil
-        case .sprinkleDetail(_):
-            return nil
         case let .registerSprinkle(model):
             return model
         }
@@ -51,28 +47,18 @@ extension GifticonAPI: NetworkRequestable {
     
     var headers: HTTPHeaders {
         switch self {
-        case .categories, .categoryList:
+        case .categories, .categoryList, .sprinkleApplication, .sprinkleDetail:
             return .default
         case .registerSprinkle:
             return .multipartHeader
-        case .sprinkleApplication(_):
-            return .default
-        case .sprinkleDetail(_):
-            return .default
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .categoryList(_):
+        case .categoryList, .sprinkleDetail, .categories:
             return .get
-        case .sprinkleApplication(_):
-            return .post
-        case .sprinkleDetail(_):
-            return .get
-        case .categories:
-            return .get
-        case .registerSprinkle(_):
+        case .sprinkleApplication, .registerSprinkle:
             return .post
         }
     }
