@@ -10,9 +10,13 @@ import Foundation
 
 import RxSwift
 
-struct CategoryService {
+protocol CategoryServiceLogic {
     typealias CategoryListResponse = ResponseData<[CategoryResponseModel]>
     
+    func categories() -> CategoryListResponse
+}
+
+struct CategoryService: CategoryServiceLogic {
     private let network: Networking
     
     init(network: Networking) {

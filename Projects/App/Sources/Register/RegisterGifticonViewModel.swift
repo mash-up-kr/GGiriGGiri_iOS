@@ -12,7 +12,7 @@ import RxRelay
 import RxSwift
 
 protocol RegisterGifticonViewModelProtocol {
-    var categoryRepository: CategotyRespositoryProtocol? { get }
+    var categoryRepository: CategotyRespositoryLogic? { get }
     
     var gifticonImage: UIImage { get }
     var informationValidate: PublishRelay<Bool> { get }
@@ -35,8 +35,9 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
         case registerFail
     }
     
-    var categoryRepository: CategotyRespositoryProtocol?
+    var categoryRepository: CategotyRespositoryLogic?
     
+    // TODO: Gifticon API 리팩토링 후 제거할것
     private let network: Networking
     private lazy var service = GifticonService(network: network)
     private let disposeBag = DisposeBag()
@@ -49,7 +50,7 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
     
     private var information: SprinkleInformation
     
-    init(network: Networking, categoryRepository: CategotyRespositoryProtocol, gifticonImage: UIImage) {
+    init(network: Networking, categoryRepository: CategotyRespositoryLogic, gifticonImage: UIImage) {
         self.network = network
         self.categoryRepository = categoryRepository
         self.information = SprinkleInformation(image: gifticonImage)

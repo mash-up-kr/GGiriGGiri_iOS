@@ -9,17 +9,21 @@
 import RxRelay
 import RxSwift
 
-protocol CategotyRespositoryProtocol {
+protocol CategotyRespositoryLogic {
     var categoryEntity: BehaviorRelay<CategoryEntity> { get }
     
     func fetchCategories()
 }
 
-final class CategoryRepository: CategotyRespositoryProtocol {
+final class CategoryRepository: CategotyRespositoryLogic {
     private let disposeBag = DisposeBag()
-    private let categoryService = CategoryService(network: Network())
+    private let categoryService: CategoryServiceLogic
     
     var categoryEntity = BehaviorRelay<CategoryEntity>(value: CategoryEntity())
+    
+    init(_ categoryService: CategoryServiceLogic) {
+        self.categoryService = categoryService
+    }
     
     func fetchCategories() {
         categoryService.categories()
