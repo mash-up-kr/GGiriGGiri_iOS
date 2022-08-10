@@ -109,7 +109,7 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
         }
         
         registerGifticonView.updateDeadLineMinute = { [weak self] in
-            self?.viewModel.update(.deadLineMinute($0))
+            self?.viewModel.update(.deadlineMinute($0))
         }
         
         registerButton.rx.tap

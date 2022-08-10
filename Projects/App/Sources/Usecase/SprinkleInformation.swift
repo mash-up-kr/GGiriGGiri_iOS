@@ -14,7 +14,7 @@ struct SprinkleInformation {
     var brandName: String?
     var productName: String?
     var expirationDate: String?
-    var deadLineMinute: String?
+    var deadlineMinute: String?
     
     func isValidate() -> Bool {
         if
@@ -22,7 +22,7 @@ struct SprinkleInformation {
             let brandName = brandName, brandName.isEmpty == false,
             let productName = productName, productName.isEmpty == false,
             let expirationDate = expirationDate, expirationDate.isEmpty == false,
-            let deadLineMinute = deadLineMinute, deadLineMinute.isEmpty == false
+            let deadlineMinute = deadlineMinute, deadlineMinute.isEmpty == false
         {
             return true
         }
@@ -31,7 +31,7 @@ struct SprinkleInformation {
     }
     
     func intDeadLineMinute() -> Int {
-        if let deadLineMinute = deadLineMinute, deadLineMinute.isEmpty == false {
+        if let deadlineMinute = deadlineMinute, deadlineMinute.isEmpty == false {
             // TODO: 분, 시간 -> 분으로 변경하는 로직 추가하기
             return 30
         }

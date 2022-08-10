@@ -27,7 +27,7 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
         case brandName(String?)
         case productName(String?)
         case expirationDate(String?)
-        case deadLineMinute(String?)
+        case deadlineMinute(String?)
     }
     enum Toast {
         case registerSuccess
@@ -65,8 +65,8 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
             information.productName = name
         case let .expirationDate(date):
             information.expirationDate = date
-        case let .deadLineMinute(minute):
-            information.deadLineMinute = minute
+        case let .deadlineMinute(minute):
+            information.deadlineMinute = minute
         }
         
         checkValidation()
