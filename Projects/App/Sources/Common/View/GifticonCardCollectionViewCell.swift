@@ -19,7 +19,7 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
     private(set) var gifticonId = 0
     private(set) var isParticipatingButton = TempButton(title: "응모하기")
     
-    private let listCardView = DDIPListCardView(.apply)
+    private let listCardView = DDIPListCardView(type: .apply)
     
     func configure(with data: GifticonCard) {
         gifticonId = data.gifticonInfo.id

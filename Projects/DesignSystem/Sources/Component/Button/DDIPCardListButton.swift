@@ -9,16 +9,42 @@
 import UIKit
 
 public class DDIPCardListButton: UIButton {
-    public enum TitleStatus: String {
-        case apply = "응모하기"
-        case complete = "응모완료"
-        case result = "결과확인"
-        case progress = "응모중"
-        case failure = "꽝"
-        case win = "당첨"
+    public enum ApplyStatus {
+        /// 응모하기
+        case enable
+        
+        /// 응모완료
+        case complete
+        
+        /// 버튼에 적용될 문구
+        var title: String {
+            switch self {
+            case .enable: return "응모하기"
+            case .complete: return "응모완료"
+            }
+        }
+    }
 
-        var value: String {
-            return self.rawValue
+    public enum AppliedStatus {
+        /// 결과확인
+        case confirmResult
+        
+        /// 응모중
+        case inprogress
+        
+        /// 당첨
+        case win
+        
+        /// 꽝
+        case lose
+        
+        var title: String {
+            switch self {
+            case .confirmResult: return "결과확인"
+            case .inprogress: return "응모중"
+            case .win: return "당첨"
+            case .lose: return "꽝"
+            }
         }
     }
 
@@ -59,8 +85,8 @@ public class DDIPCardListButton: UIButton {
 // MARK: - 외부 주입 메서드
 
 extension DDIPCardListButton {
-    public func setButtonAttribute(titleStatus: TitleStatus, buttonColor: DDIPColor, isHidden: Bool, isEnabled: Bool) {
-        self.setTitle(titleStatus.value, for: .normal)
+    public func setButtonAttribute(title: String, buttonColor: DDIPColor, isHidden: Bool, isEnabled: Bool) {
+        self.setTitle(title, for: .normal)
         self.isHidden = isHidden
         self.backgroundColor = UIColor.designSystem(buttonColor)
         self.isEnabled = isEnabled
