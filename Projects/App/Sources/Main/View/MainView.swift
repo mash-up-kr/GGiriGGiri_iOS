@@ -189,4 +189,8 @@ final class MainView: BaseView {
         )
         return section
     }
+    
+    func reloadCollectionView() {
+        collectionView.reloadData()
+    }
 }

@@ -24,6 +24,8 @@ protocol MainViewModelProtocol {
     var mainDelegate: MainCollectionViewDelegate { get }
     
     var gifticonList: BehaviorRelay<[GifticonCard]?> { get }
+    var categoryList: BehaviorRelay<[Category]?> { get }
+    var categoryListUpdated: PublishRelay<Void> { get }
     
     func presentPhotoPicker()
     func requestPHPhotoLibraryAuthorization()
@@ -36,7 +38,10 @@ final class MainViewModel: MainViewModelProtocol {
     
     private let disposeBag = DisposeBag()
     private let gifticonService: GifticonService
+    private let categoryRepository: CategoryRepositoryLogic
     var gifticonList = BehaviorRelay<[GifticonCard]?>(value: nil)
+    var categoryList = BehaviorRelay<[Category]?>(value: nil)
+    var categoryListUpdated = PublishRelay<Void>()
     
     var alert: Alert? = nil
     var present: ((UIViewController) -> ())? = nil
@@ -58,10 +63,12 @@ final class MainViewModel: MainViewModelProtocol {
         present?(picker)
     }
     
-    init(network: Networking) {
+    init(network: Networking, repository: CategoryRepositoryLogic) {
         self.gifticonService = GifticonService(network: network)
+        self.categoryRepository = repository
         
         deadlineInfo()
+        category()
     }
     
     private func deadlineInfo() {
@@ -76,6 +83,17 @@ final class MainViewModel: MainViewModelProtocol {
             } onFailure: { error in
                 print(error.localizedDescription)
             }.disposed(by: disposeBag)
+    }
+    
+    private func category() {
+        categoryRepository.fetchCategories()
+        
+        categoryRepository.categoryEntity
+            .subscribe(onNext: { [weak self] list in
+                self?.mainDataSource.updateCategoryData(list.all)
+                self?.categoryListUpdated.accept(Void())
+            })
+            .disposed(by: disposeBag)
     }
 }
 

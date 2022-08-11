@@ -16,10 +16,6 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "CategoryCollectionViewCell"
     
     private(set) var categoryType: Category = .all
-    private let nameLabel = TempLabel(
-        color: .black,
-        font: .designSystem(.pretendard, family: .regular, size: ._14)
-    )
     
     private let categoryButton = DDIPCategoryButton()
     
@@ -58,11 +54,8 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
         categoryButton.setButtonTitle(category)
     }
     
-    func configure(_ category: [Category], with index: Int) {
-        nameLabel.textAlignment = .center
-        nameLabel.clipsToBounds = true
-        
-        categoryType = Category.allCases[index]
-        nameLabel.text = Category.allCases[index].rawValue
+    func configure(_ category: Category) {
+        update(category.description) 
+        categoryType = category
     }
 }

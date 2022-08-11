@@ -10,18 +10,24 @@ import UIKit
 
 final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
+    private var deadLineData: [GifticonCard] = []
+    private var categoryData: [Category] = []
+    private var gifticonListData: [GifticonCard] = []
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return MockData.main.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch MockData.main[section] {
-        case .deadLine(let items):
-            return items.count
-        case .category(let items):
-            return items.count
-        case .gifticonList(let items):
-            return items.count
+        switch section {
+        case 0:
+            return deadLineData.count
+        case 1:
+            return categoryData.count
+        case 2:
+            return gifticonListData.count
+        default:
+            return .zero
         }
     }
     
@@ -39,7 +45,8 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
                                                               for: indexPath) else {
                 return UICollectionViewCell()
             }
-            cell.configure(Category.allCases, with: indexPath.item)
+            let category = categoryData[indexPath.row]
+            cell.configure(category)
             return cell
         case .gifticonList(let items):
             guard let cell = collectionView.dequeReusableCell(GifticonCardCollectionViewCell.self,
@@ -60,5 +67,11 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         }
         supplementaryView.titleLabel.text = MainSection.allCases[indexPath.section].headerTitle
         return supplementaryView
+    }
+}
+
+extension MainCollectionViewDataSource {
+    func updateCategoryData(_ list: [Category]) {
+        categoryData = list
     }
 }

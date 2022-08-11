@@ -60,6 +60,13 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
                 print(error.localizedDescription)
             }.disposed(by: disposeBag)
         
+        viewModel.categoryListUpdated
+            .debug()
+            .subscribe(onNext: { [weak self] in
+                self?.collectionView.reloadCollectionView()
+            })
+            .disposed(by: disposeBag)
+        
         myBoxButton.rx.tap.subscribe(onNext: { [weak self] in
             let myBoxViewModel = MyBoxViewModel(network: Network())
             let myBoxViewController = MyBoxViewController(myBoxViewModel)
