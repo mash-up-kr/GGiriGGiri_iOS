@@ -65,7 +65,11 @@ final class ApplyGifticonView: BaseView {
         countdownView.update(countdownDate: date)
     }
 
-    func setImageIcon(imageName: DDIPAsset.name) {
+    func setImageIcon(imageName: DDIPAsset.name? = nil) {
+        guard let imageName = imageName else {
+            return
+        }
+
         countdownView.update(imageName: imageName)
     }
 
@@ -86,6 +90,6 @@ final class ApplyGifticonView: BaseView {
     }
 
     func setExpirationDate(name: String) {
-        applyInformationView.setExpirationDateLabelView(name)
+        applyInformationView.setExpirationDateLabelView(name.format(.yearMonthDay))
     }
 }

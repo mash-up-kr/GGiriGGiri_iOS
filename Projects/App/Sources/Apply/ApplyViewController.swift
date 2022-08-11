@@ -92,11 +92,8 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
                 self?.applyGifticonView.setCategory(name: entity?.category ?? "")
                 self?.applyGifticonView.setProductName(name: entity?.merchandiseName ?? "")
                 self?.applyGifticonView.setExpirationDate(name: entity?.expiredAt ?? "")
-                self?.applyGifticonView.setImageIcon(imageName: entity?.imageName ?? .iconLogoCharacter)
-
-                // TODO: 형변환 및 로직 필요
-                //            self.applyGifticonView.setCountdownDate(date: entity.sprinkleAt)
-
+                self?.applyGifticonView.setImageIcon(imageName: entity?.imageName)
+                self?.applyGifticonView.setCountdownDate(date: entity?.sprinkleAt.fullStringDate() ?? Date())
             })
             .disposed(by: disposeBag)
     }
@@ -145,9 +142,6 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
 
         applyButton.setBackgroundColor(buttonColor: .secondaryBlue)
         applyButton.setTitle(title: "지금 당장 응모할게요!")
-
-        // TODO: 바꿔야할 로직
-        applyGifticonView.setCountdownDate(date: Date())
     }
 
     private func configureNavigationBar() {

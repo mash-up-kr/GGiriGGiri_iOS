@@ -95,7 +95,7 @@ public final class DDIPCountDownTimer {
         guard let usageDate = usageDate else {
             return
         }
-        let components = calendar.dateComponents([.hour, .minute, .second], from: usageDate)
+        let components = calendar.dateComponents([.hour, .minute, .second], from: Date(), to: usageDate)
         
         hour.accept(components.hour)
         minute.accept(components.minute)
