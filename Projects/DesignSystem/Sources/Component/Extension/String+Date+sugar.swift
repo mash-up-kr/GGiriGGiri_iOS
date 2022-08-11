@@ -21,3 +21,13 @@ extension Date {
         return dateString
     }
 }
+
+extension String {
+    func fullStringDate() -> Date {
+        Formatter.date.dateFormat = "YYYY-MM-DD HH:mm:SS"
+        guard let dateData = Formatter.date.date(from: self) else {
+            return Date()
+        }
+        return dateData
+    }
+}
