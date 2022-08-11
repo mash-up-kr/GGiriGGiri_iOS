@@ -31,9 +31,9 @@ extension GifticonAPI: NetworkRequestable {
         case .registerSprinkle:
             return "/api/v1/sprinkle"
         case .sprinkleApplication(let id):
-            return "/api/v1/sprinkle/\(3)/apply"
+            return "/api/v1/sprinkle/\(id)/apply"
         case .sprinkleDetail(let id):
-            return "/api/v1/sprinkle-info/\(3)"
+            return "/api/v1/sprinkle-info/\(id)"
         case .applyHistory:
             return "/api/v1/participant/history"
         case .registerHistory:
