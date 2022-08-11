@@ -9,14 +9,23 @@
 import Foundation
 
 extension Date {
+    public enum FormatType: String {
+        case dot = "YYYY.MM.dd"
+        case plain = "YYYYMMdd"
+
+        var displayName: String {
+            return self.rawValue
+        }
+    }
+
     func hourString() -> String {
         Formatter.date.dateFormat = "HH"
         guard let dateString = Formatter.date.string(for: self) else { return "" }
         return dateString
     }
 
-    func fullDateString() -> String {
-        Formatter.date.dateFormat = "yyyy.MM.dd"
+    func fullDateString(_ type: FormatType) -> String {
+        Formatter.date.dateFormat = type.displayName
         guard let dateString = Formatter.date.string(for: self) else { return "" }
         return dateString
     }
