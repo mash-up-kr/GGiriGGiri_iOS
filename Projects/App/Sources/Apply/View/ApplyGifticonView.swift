@@ -61,7 +61,11 @@ final class ApplyGifticonView: BaseView {
         }
     }
     
-    func setCountdownDate(date: Date) {
+    func setCountdownDate(date: Date?) {
+        guard let date = date else {
+            return
+        }
+
         countdownView.update(countdownDate: date)
     }
 
