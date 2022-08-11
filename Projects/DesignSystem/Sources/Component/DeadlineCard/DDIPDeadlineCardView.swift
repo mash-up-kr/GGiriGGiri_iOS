@@ -223,7 +223,7 @@ extension DDIPDeadlineCardView {
         imageIcon.image = .designSystem(style.iconImage)
         nameLabel.text = style.name
         brandLabel.text = style.brand
-        expirationLabel.text = "유효기간 : \(style.expirationDate)"
+        expirationLabel.text = "유효기간 : \(style.expirationDate.format(.yearMonthDay))"
     }
     
     public func update(buttonTitle: String, backgroundColor: DDIPColor) {

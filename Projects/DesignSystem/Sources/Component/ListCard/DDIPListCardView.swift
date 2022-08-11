@@ -285,7 +285,7 @@ extension DDIPListCardView {
     }
 
     public func setExpirationDate(expirationDate: Date) {
-        expirationLabel.text = "유효기간 : \(expirationDate.fullDateString())"
+        expirationLabel.text = "유효기간 : \(expirationDate.fullDateString(.dot))"
     }
 
     public func setImageIcon(image: DDIPAsset.name) {

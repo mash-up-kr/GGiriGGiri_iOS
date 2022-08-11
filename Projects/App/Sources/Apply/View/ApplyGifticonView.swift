@@ -90,6 +90,6 @@ final class ApplyGifticonView: BaseView {
     }
 
     func setExpirationDate(name: String) {
-        applyInformationView.setExpirationDateLabelView(name)
+        applyInformationView.setExpirationDateLabelView(name.format(.yearMonthDay))
     }
 }
