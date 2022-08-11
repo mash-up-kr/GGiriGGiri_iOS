@@ -90,7 +90,7 @@ final class MainView: BaseView {
         let header = CollectionViewLayoutManager.configureHeader(
             with: CollectionViewConfigureSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(1)
+                heightDimension: .absolute(58)
             ),
             elementKind: MainViewController.sectionHeaderElementKind
         )
@@ -134,7 +134,7 @@ final class MainView: BaseView {
         let header = CollectionViewLayoutManager.configureHeader(
             with: CollectionViewConfigureSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .estimated(1)
+                    heightDimension: .absolute(86)
             ),
             elementKind: MainViewController.sectionHeaderElementKind
         )

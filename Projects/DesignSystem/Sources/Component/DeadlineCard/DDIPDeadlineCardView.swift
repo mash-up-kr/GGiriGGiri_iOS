@@ -111,13 +111,6 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     }
     
     private func setView() {
-        applyViewer.translatesAutoresizingMaskIntoConstraints = false
-        imageIcon.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        brandLabel.translatesAutoresizingMaskIntoConstraints = false
-        expirationLabel.translatesAutoresizingMaskIntoConstraints = false
-        dashedLine.translatesAutoresizingMaskIntoConstraints = false
-        
         self.addSubViews([timeStackView, imageIcon, applyViewer, CTAButton, infoStackView, dashedLine, semiCircleSpaceLeftView, semiCircleSpaceRightView])
         infoStackView.addArrangedSubviews(brandLabel, nameLabel, expirationLabel)
         timeStackView.addArrangedSubviews(firstTimeView, secondTimeView, numberLabel, firstMinuteView, secondMinuteView)
@@ -163,12 +156,13 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
         applyViewer.snp.makeConstraints {
             $0.top.equalTo(dashedLine.snp.bottom).offset(14)
             $0.trailing.equalToSuperview().inset(16)
+            $0.leading.greaterThanOrEqualTo(infoStackView.snp.trailing).inset(16)
         }
         
         infoStackView.snp.makeConstraints {
             $0.top.equalTo(dashedLine.snp.bottom).offset(16)
             $0.leading.equalToSuperview().inset(16)
-            $0.trailing.greaterThanOrEqualTo(applyViewer.snp.leading).inset(16).priority(.low)
+            $0.trailing.lessThanOrEqualTo(applyViewer.snp.leading).inset(-10)
         }
         
         CTAButton.snp.makeConstraints {
