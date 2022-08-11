@@ -65,7 +65,11 @@ final class ApplyGifticonView: BaseView {
         countdownView.update(countdownDate: date)
     }
 
-    func setImageIcon(imageName: DDIPAsset.name) {
+    func setImageIcon(imageName: DDIPAsset.name? = nil) {
+        guard let imageName = imageName else {
+            return
+        }
+
         countdownView.update(imageName: imageName)
     }
 

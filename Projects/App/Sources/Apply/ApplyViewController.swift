@@ -92,7 +92,7 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
                 self?.applyGifticonView.setCategory(name: entity?.category ?? "")
                 self?.applyGifticonView.setProductName(name: entity?.merchandiseName ?? "")
                 self?.applyGifticonView.setExpirationDate(name: entity?.expiredAt ?? "")
-                self?.applyGifticonView.setImageIcon(imageName: entity?.imageName ?? .iconLogoCharacter)
+                self?.applyGifticonView.setImageIcon(imageName: entity?.imageName)
 
                 // TODO: 형변환 및 로직 필요
                 //            self.applyGifticonView.setCountdownDate(date: entity.sprinkleAt)
