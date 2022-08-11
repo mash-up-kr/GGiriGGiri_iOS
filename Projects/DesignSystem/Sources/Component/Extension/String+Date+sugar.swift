@@ -23,7 +23,7 @@ extension Date {
 }
 
 extension String {
-    enum FormatType: String {
+    public enum FormatType: String {
         case yearMonthDay = "YYYYMMDD"
         case hourMinuteSecond = "HH:mm:SS"
 
@@ -32,7 +32,7 @@ extension String {
         }
     }
 
-    func format(_ type: FormatType) -> String {
+    public func format(_ type: FormatType) -> String {
         let dateData = fullStringDate()
 
         Formatter.date.dateFormat = type.displayName
@@ -41,7 +41,7 @@ extension String {
         return dateString
     }
 
-    func fullStringDate() -> Date {
+    public func fullStringDate() -> Date {
         Formatter.date.dateFormat = "YYYY-MM-DD HH:mm:SS"
         guard let dateData = Formatter.date.date(from: self) else {
             return Date()
