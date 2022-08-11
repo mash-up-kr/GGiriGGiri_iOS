@@ -15,8 +15,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         let rootViewController = MainViewController(
-            MainViewModel(OCRRepository: OCRRepository(OCRService(network: Network())))
-        )
+            MainViewModel(
+                network: Network(),
+                repository: CategoryRepository(CategoryService(network: Network())),
+            OCRRepository: OCRRepository(OCRService(network: Network()))
+        ))
+        
         let navigationController = UINavigationController(rootViewController: rootViewController)
         navigationController.setNavigationBarHidden(true, animated: false)
         window.rootViewController = navigationController

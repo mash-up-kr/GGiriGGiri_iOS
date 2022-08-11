@@ -93,6 +93,15 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         myBoxView.collectionView.addGestureRecognizer(swipeRight)
     }
     
+    override func bind() {
+        super.bind()
+        
+        viewModel.gifticonList
+            .bind { [weak self] data in
+                // TODO: API 연도
+            }
+    }
+    
     private func configureNavigationBar() {
         view.addSubview(navigationBar)
         

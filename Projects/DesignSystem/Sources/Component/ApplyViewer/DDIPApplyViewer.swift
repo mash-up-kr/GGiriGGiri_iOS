@@ -20,8 +20,6 @@ public class DDIPApplyViewer: UIView {
         stackView.alignment = .fill
         stackView.axis = .horizontal
         stackView.spacing = 2
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         return stackView
     }()
     
@@ -54,7 +52,7 @@ public class DDIPApplyViewer: UIView {
         applyViewerStackView.addArrangedSubviews(applyViewerImageView, applyViewerLabel)
         
         applyViewerImageView.snp.makeConstraints {
-            $0.width.equalTo(applyViewerImageView.snp.height)
+            $0.width.height.equalTo(10)
         }
         
         applyViewerStackView.snp.makeConstraints {

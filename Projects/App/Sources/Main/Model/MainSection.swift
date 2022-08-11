@@ -10,21 +10,21 @@ import Foundation
 
 enum MainSection: CaseIterable {
     static var allCases: [MainSection] {
-        return [.deadLine([GifticonCard(remainingTime: "",
+        return [.deadLine([GifticonCard(sprinkleTime: "",
                                         gifticonInfo: Gifticon(id: 0,
                                                                brand: "",
                                                                name: "",
                                                                expirationDate: "",
-                                                               imageUrl: ""),
+                                                               category: .all),
                                         numberOfParticipants: 0,
                                         isParticipating: true)]),
                 .category(Category.allCases),
-                .gifticonList([GifticonCard(remainingTime: "",
+                .gifticonList([GifticonCard(sprinkleTime: "",
                                             gifticonInfo: Gifticon(id: 0,
                                                                    brand: "",
                                                                    name: "",
                                                                    expirationDate: "",
-                                                                   imageUrl: ""),
+                                                                   category: .all),
                                             numberOfParticipants: 0,
                                             isParticipating: true)])]
     }

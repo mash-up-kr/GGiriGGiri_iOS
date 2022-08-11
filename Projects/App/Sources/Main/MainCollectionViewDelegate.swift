@@ -28,11 +28,26 @@ final class MainCollectionViewDelegate: NSObject, UICollectionViewDelegate {
                 return
             }
             collectionViewCellDelegate?.categoryCellTapped(with: cell.categoryType)
+            cell.updateButton(isSelected: true)
         case .gifticonList:
             guard let cell = collectionView.cellForItem(at: indexPath) as? GifticonCardCollectionViewCell else {
                 return
             }
             collectionViewCellDelegate?.gifticonCellTapped(with: cell.gifticonId)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        switch MainSection.allCases[indexPath.section] {
+        case .deadLine:
+            break
+        case .category:
+            guard let cell = collectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else {
+                return
+            }
+            cell.updateButton(isSelected: false)
+        case .gifticonList:
+            break
         }
     }
 }

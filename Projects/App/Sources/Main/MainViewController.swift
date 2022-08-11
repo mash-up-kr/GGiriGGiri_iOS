@@ -18,6 +18,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     private let disposeBag = DisposeBag()
     
     private let collectionView = MainView()
+    private var gifticonList = [GifticonCard]()
     private let myBoxButton = TapBarButtons().mybox
     private lazy var navigationBar: DDIPNavigationBar = {
         return  DDIPNavigationBar(
@@ -52,8 +53,26 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             self?.navigationController?.pushViewController(viewController, animated: true)
         }
         
+        viewModel.deadlineListUpdated
+            .subscribe (onNext: { [weak self] in
+                self?.collectionView.reloadCollectionView()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.categoryListUpdated
+            .subscribe(onNext: { [weak self] in
+                self?.collectionView.reloadCollectionView()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.gifticonListUpdated
+            .subscribe (onNext: { [weak self] in
+                self?.collectionView.reloadCollectionView()
+            })
+            .disposed(by: disposeBag)
+        
         myBoxButton.rx.tap.subscribe(onNext: { [weak self] in
-            let myBoxViewModel = MyBoxViewModel()
+            let myBoxViewModel = MyBoxViewModel(network: Network())
             let myBoxViewController = MyBoxViewController(myBoxViewModel)
             myBoxViewController.modalPresentationStyle = .fullScreen
             self?.viewModel.push?(myBoxViewController)

@@ -9,6 +9,7 @@
 import PhotosUI
 import UIKit
 
+import RxRelay
 import RxSwift
 
 /// ViewModel에서 사용될 property와 method 정의
@@ -22,6 +23,10 @@ protocol MainViewModelProtocol {
     var mainDataSource: MainCollectionViewDataSource { get }
     var mainDelegate: MainCollectionViewDelegate { get }
     
+    var deadlineListUpdated: PublishRelay<Void> { get }
+    var categoryListUpdated: PublishRelay<Void> { get }
+    var gifticonListUpdated: PublishRelay<Void> { get }
+    
     func presentPhotoPicker()
     func requestPHPhotoLibraryAuthorization()
     func handleAuthorizationStatus(with authorizationStatus: PHAuthorizationStatus)
@@ -30,6 +35,13 @@ protocol MainViewModelProtocol {
 
 /// ViewModelProtocol 구현
 final class MainViewModel: MainViewModelProtocol {
+    
+    private let disposeBag = DisposeBag()
+    private let gifticonService: GifticonService
+    private let categoryRepository: CategoryRepositoryLogic
+    var deadlineListUpdated = PublishRelay<Void>()
+    var categoryListUpdated = PublishRelay<Void>()
+    var gifticonListUpdated = PublishRelay<Void>()
     
     var alert: Alert? = nil
     var present: ((UIViewController) -> ())? = nil
@@ -43,11 +55,15 @@ final class MainViewModel: MainViewModelProtocol {
     }()
     
     private let OCRRepository: OCRRepositoryLogic
-    private let disposeBag = DisposeBag()
     
-    init(OCRRepository: OCRRepositoryLogic) {
+    init(network: Networking, repository: CategoryRepositoryLogic, OCRRepository: OCRRepositoryLogic) {
+        self.gifticonService = GifticonService(network: network)
+        self.categoryRepository = repository
         self.OCRRepository = OCRRepository
         
+        deadlineInfo()
+        category()
+        gifticonList()
         bind()
     }
     
@@ -58,6 +74,43 @@ final class MainViewModel: MainViewModelProtocol {
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         present?(picker)
+    }
+    
+    private func deadlineInfo() {
+        gifticonService.deadline(.init(orderBy: .deadLine, category: .all))
+            .subscribe { [weak self] responseModel in
+                guard let responseModel = responseModel.data else {
+                    return
+                }
+                let entity = GifticonEntity.init(responseModel)
+                self?.mainDataSource.updateDeadLineData(entity.gifticonList)
+                self?.deadlineListUpdated.accept(Void())
+            } onFailure: { error in
+                print(error.localizedDescription)
+            }.disposed(by: disposeBag)
+    }
+    
+    private func category() {
+        categoryRepository.fetchCategories()
+        
+        categoryRepository.categoryEntity
+            .subscribe(onNext: { [weak self] list in
+                self?.mainDataSource.updateCategoryData(list.all)
+                self?.categoryListUpdated.accept(Void())
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func gifticonList() {
+        gifticonService.gifticonList(.init(orderBy: .create, category: .all))
+            .subscribe { [weak self] responseModel in
+                guard let responseModel = responseModel.data else { return }
+                let entity = GifticonEntity.init(responseModel)
+                self?.mainDataSource.updateGifticonListData(entity.gifticonList)
+                self?.gifticonListUpdated.accept(Void())
+            } onFailure: { error in
+                print(error.localizedDescription)
+            }.disposed(by: disposeBag)
     }
 }
 

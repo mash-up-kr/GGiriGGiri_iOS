@@ -11,11 +11,14 @@ import Foundation
 import RxSwift
 
 struct GifticonService {
+    typealias DeadlineResponse = ResponseData<[GifticonResponseModel]>
     typealias CouponListResponse = ResponseData<[CouponEntity]>
     typealias CouponDetailResponse = ResponseData<CouponDatum>
     typealias CouponPostResponse = Response
-    typealias CategoryListResponse = ResponseData<[String]>
+    typealias GifticonListResponse = ResponseData<[GifticonResponseModel]>
     typealias RegisterSprinkleResponse = Response
+    typealias ApplyHistoryResponse = ResponseData<[ApplyHistoryResponseModel]>
+    typealias RegisterHistoryResponse = ResponseData<[RegisterHistoryResponseModel]>
     
     private let network: Networking
     
@@ -23,7 +26,12 @@ struct GifticonService {
         self.network = network
     }
     
-    func list(_ model: GifticonListRequestModel) -> CouponListResponse {
+    // MARK: MAIN
+    func deadline(_ model: GifticonListRequestModel) -> DeadlineResponse {
+        network.request(GifticonAPI.deadline(model)).map()
+    }
+    
+    func gifticonList(_ model: GifticonListRequestModel) -> GifticonListResponse {
         network.request(GifticonAPI.categoryList(model)).map()
     }
 
@@ -41,5 +49,14 @@ struct GifticonService {
                 SprinkleRegisterRequestModel(entity)
             )
         ).map()
+    }
+    
+    // MARK: 마이박스 - 응모 / 등록
+    func applyHistory() -> ApplyHistoryResponse {
+        network.request(GifticonAPI.applyHistory).map()
+    }
+    
+    func registerHistory() -> RegisterHistoryResponse {
+        network.request(GifticonAPI.registerHistory).map()
     }
 }

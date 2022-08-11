@@ -10,12 +10,14 @@ import UIKit
 
 import DesignSystem
 import Kingfisher
+import RxSwift
 import SnapKit
 
 final class GifticonCardCollectionViewCell: UICollectionViewCell {
    
     static let reuseIdentifier = "GifticonCardCollectionViewCell"
     
+    private let disposeBag = DisposeBag()
     private(set) var gifticonId = 0
     
     private let listCardView = DDIPListCardView(type: .apply)
@@ -23,6 +25,7 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
     func configure(with data: GifticonCard) {
         gifticonId = data.gifticonInfo.id
         
+        // TODO: 현재로부터 뿌리기까지 남은 시간으로 바꿔줘야함
         if data.isParticipating {
             listCardView.setApplyViewType(status: .complete, leftTime: Date())
         } else {
@@ -34,6 +37,10 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
         listCardView.setExpirationDate(expirationDate: Date())
         listCardView.setApplyViewer(viewer: data.numberOfParticipants)
         listCardView.setImageIcon(image: .iconRotateCafedesert)
+        listCardView.cardListButtonDidTapped.subscribe { [weak self] _ in
+            // TODO: 현재로부터 뿌리기까지 남은 시간으로 바꿔줘야함
+            self?.listCardView.setApplyViewType(status: .complete, leftTime: Date())
+        }.disposed(by: disposeBag)
     }
     
     override init(frame: CGRect) {
