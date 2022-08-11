@@ -15,7 +15,8 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     private var gifticonListData: [GifticonCard] = []
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return MockData.main.count
+        // TODO: 마감임박 데이터 없을 때의 경우 처리 필요
+        return MainSection.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -33,27 +34,29 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch MockData.main[indexPath.section] {
-        case .deadLine(let items):
+        case .deadLine:
             guard let cell = collectionView.dequeReusableCell(GifticonDeadLineCollectionViewCell.self,
                                                               for: indexPath) else {
                 return UICollectionViewCell()
             }
-            cell.configure(with: items[indexPath.item])
+            let deadlineData = deadLineData[indexPath.item]
+            cell.configure(with: deadlineData)
             return cell
-        case .category(_):
+        case .category:
             guard let cell = collectionView.dequeReusableCell(CategoryCollectionViewCell.self,
                                                               for: indexPath) else {
                 return UICollectionViewCell()
             }
-            let category = categoryData[indexPath.row]
+            let category = categoryData[indexPath.item]
             cell.configure(category)
             return cell
-        case .gifticonList(let items):
+        case .gifticonList:
             guard let cell = collectionView.dequeReusableCell(GifticonCardCollectionViewCell.self,
                                                               for: indexPath) else {
                 return UICollectionViewCell()
             }
-            cell.configure(with: items[indexPath.item])
+            let gifticonListData = gifticonListData[indexPath.item]
+            cell.configure(with: gifticonListData)
             return cell
         }
     }
@@ -71,7 +74,16 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
 }
 
 extension MainCollectionViewDataSource {
+    
+    func updateDeadLineData(_ list: [GifticonCard]) {
+        deadLineData = list
+    }
+    
     func updateCategoryData(_ list: [Category]) {
         categoryData = list
+    }
+    
+    func updateGifticonListData(_ list: [GifticonCard]) {
+        gifticonListData = list
     }
 }

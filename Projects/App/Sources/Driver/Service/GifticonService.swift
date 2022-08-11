@@ -15,7 +15,7 @@ struct GifticonService {
     typealias CouponListResponse = ResponseData<[CouponEntity]>
     typealias CouponDetailResponse = ResponseData<CouponDatum>
     typealias CouponPostResponse = Response
-    typealias CategoryListResponse = ResponseData<[GifticonResponseModel]>
+    typealias GifticonListResponse = ResponseData<[GifticonResponseModel]>
     typealias RegisterSprinkleResponse = Response
     typealias ApplyHistoryResponse = ResponseData<[ApplyHistoryResponseModel]>
     typealias RegisterHistoryResponse = ResponseData<[RegisterHistoryResponseModel]>
@@ -31,7 +31,7 @@ struct GifticonService {
         network.request(GifticonAPI.deadline(model)).map()
     }
     
-    func categoryList(_ model: GifticonListRequestModel) -> CategoryListResponse {
+    func gifticonList(_ model: GifticonListRequestModel) -> GifticonListResponse {
         network.request(GifticonAPI.categoryList(model)).map()
     }
 

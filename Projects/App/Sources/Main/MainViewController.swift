@@ -53,16 +53,20 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             self?.navigationController?.pushViewController(viewController, animated: true)
         }
         
-        viewModel.gifticonList
-            .subscribe { [weak self] entity in
-                self?.gifticonList = entity ?? []
-            } onError: { error in
-                print(error.localizedDescription)
-            }.disposed(by: disposeBag)
+        viewModel.deadlineListUpdated
+            .subscribe (onNext: { [weak self] in
+                self?.collectionView.reloadCollectionView()
+            })
+            .disposed(by: disposeBag)
         
         viewModel.categoryListUpdated
-            .debug()
             .subscribe(onNext: { [weak self] in
+                self?.collectionView.reloadCollectionView()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.gifticonListUpdated
+            .subscribe (onNext: { [weak self] in
                 self?.collectionView.reloadCollectionView()
             })
             .disposed(by: disposeBag)

@@ -23,9 +23,9 @@ protocol MainViewModelProtocol {
     var mainDataSource: MainCollectionViewDataSource { get }
     var mainDelegate: MainCollectionViewDelegate { get }
     
-    var gifticonList: BehaviorRelay<[GifticonCard]?> { get }
-    var categoryList: BehaviorRelay<[Category]?> { get }
+    var deadlineListUpdated: PublishRelay<Void> { get }
     var categoryListUpdated: PublishRelay<Void> { get }
+    var gifticonListUpdated: PublishRelay<Void> { get }
     
     func presentPhotoPicker()
     func requestPHPhotoLibraryAuthorization()
@@ -39,9 +39,9 @@ final class MainViewModel: MainViewModelProtocol {
     private let disposeBag = DisposeBag()
     private let gifticonService: GifticonService
     private let categoryRepository: CategoryRepositoryLogic
-    var gifticonList = BehaviorRelay<[GifticonCard]?>(value: nil)
-    var categoryList = BehaviorRelay<[Category]?>(value: nil)
+    var deadlineListUpdated = PublishRelay<Void>()
     var categoryListUpdated = PublishRelay<Void>()
+    var gifticonListUpdated = PublishRelay<Void>()
     
     var alert: Alert? = nil
     var present: ((UIViewController) -> ())? = nil
@@ -69,17 +69,18 @@ final class MainViewModel: MainViewModelProtocol {
         
         deadlineInfo()
         category()
+        gifticonList()
     }
     
     private func deadlineInfo() {
         gifticonService.deadline(.init(orderBy: .deadLine, category: .all))
-            .debug()
             .subscribe { [weak self] responseModel in
                 guard let responseModel = responseModel.data else {
                     return
                 }
                 let entity = GifticonEntity.init(responseModel)
-                self?.gifticonList.accept(entity.gifticonList)
+                self?.mainDataSource.updateDeadLineData(entity.gifticonList)
+                self?.deadlineListUpdated.accept(Void())
             } onFailure: { error in
                 print(error.localizedDescription)
             }.disposed(by: disposeBag)
@@ -94,6 +95,18 @@ final class MainViewModel: MainViewModelProtocol {
                 self?.categoryListUpdated.accept(Void())
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func gifticonList() {
+        gifticonService.gifticonList(.init(orderBy: .create, category: .all))
+            .subscribe { [weak self] responseModel in
+                guard let responseModel = responseModel.data else { return }
+                let entity = GifticonEntity.init(responseModel)
+                self?.mainDataSource.updateGifticonListData(entity.gifticonList)
+                self?.gifticonListUpdated.accept(Void())
+            } onFailure: { error in
+                print(error.localizedDescription)
+            }.disposed(by: disposeBag)
     }
 }
 
