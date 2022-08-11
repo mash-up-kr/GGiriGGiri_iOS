@@ -24,7 +24,7 @@ extension Date {
 
 extension String {
     public enum FormatType: String {
-        case yearMonthDay = "YYYYMMdd"
+        case yearMonthDay = "YYYY.MM.dd"
         case hourMinuteSecond = "HH:mm:SS"
 
         var displayName: String {
