@@ -38,10 +38,17 @@ final class BaseHeaderView: UICollectionReusableView {
         addSubview(titleLabel)
         
         titleLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
-            $0.top.equalTo(self.snp.top).offset(14)
-            $0.bottom.equalTo(self.snp.bottom).offset(-24)
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().inset(14)
+            $0.bottom.equalToSuperview().inset(24)
+        }
+    }
+    
+    func updateLayout(_ inset: CGFloat) {
+        titleLabel.snp.remakeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().inset(inset)
+            $0.bottom.equalToSuperview().inset(24)
         }
     }
 }

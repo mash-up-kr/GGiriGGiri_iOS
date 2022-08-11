@@ -68,6 +68,12 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
                                               for: indexPath) as? BaseHeaderView else {
             return UICollectionReusableView()
         }
+        
+        if indexPath.section == 1 {
+            supplementaryView.updateLayout(40)
+        } else {
+            supplementaryView.updateLayout(14)
+        }
         supplementaryView.titleLabel.text = MainSection.allCases[indexPath.section].headerTitle
         return supplementaryView
     }

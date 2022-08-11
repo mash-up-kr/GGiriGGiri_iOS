@@ -29,7 +29,6 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
     
     private func applyHistory() {
         gifticonService.applyHistory()
-            .debug()
             .subscribe { [weak self] entity in
                 guard let applyHistoryModel = entity.data else { return }
                 let entity = ApplyHistoryEntity.init(applyHistoryModel)
@@ -41,7 +40,6 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
     
     private func registerHistory() {
         gifticonService.registerHistory()
-            .debug()
             .subscribe { [weak self] entity in
                 guard let registerHistoryModel = entity.data else { return }
                 let entity = RegisterHistoryEntity.init(registerHistoryModel)
