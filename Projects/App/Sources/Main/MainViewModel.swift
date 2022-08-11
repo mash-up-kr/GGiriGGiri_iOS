@@ -54,6 +54,19 @@ final class MainViewModel: MainViewModelProtocol {
         return delegate
     }()
     
+    private let OCRRepository: OCRRepositoryLogic
+    
+    init(network: Networking, repository: CategoryRepositoryLogic, OCRRepository: OCRRepositoryLogic) {
+        self.gifticonService = GifticonService(network: network)
+        self.categoryRepository = repository
+        self.OCRRepository = OCRRepository
+        
+        deadlineInfo()
+        category()
+        gifticonList()
+        bind()
+    }
+    
     func presentPhotoPicker() {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
@@ -61,15 +74,6 @@ final class MainViewModel: MainViewModelProtocol {
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         present?(picker)
-    }
-    
-    init(network: Networking, repository: CategoryRepositoryLogic) {
-        self.gifticonService = GifticonService(network: network)
-        self.categoryRepository = repository
-        
-        deadlineInfo()
-        category()
-        gifticonList()
     }
     
     private func deadlineInfo() {
@@ -151,28 +155,60 @@ extension MainViewModel {
         
         handleAuthorizationStatus(with: authorizationStatus)
     }
+    
 }
+
+// MARK: - Private Method
+
+extension MainViewModel {
+    private func bind() {
+        OCRRepository.sprinkleInformation
+            .skip(1)
+            .subscribe(onNext: { [weak self] in
+                if let sprinkleInformation = $0 {
+                    self?.routeToRegisterViewController(sprinkleInformation)
+                } else {
+                    self?.alert?(
+                        "쿠폰 정보 생성 실패",
+                        "쿠폰번호를 가져오는 데 실패했습니다.\n더 쉬운 쿠폰사용을 위해 바코드 또는 쿠폰 번호가 잘 보이는 이미지로 다시 시도해주세요!",
+                        nil,
+                        nil,
+                        nil
+                    )
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func requestOCR(_ image: UIImage) {
+        OCRRepository.request(image)
+    }
+    
+    private func routeToRegisterViewController(_ information: SprinkleInformation) {
+        alert?(nil, "쿠폰 이미지 분석 완료!", nil, nil, { [weak self] _ in
+            let viewModel = RegisterGifticonViewModel(
+                network: Network(),
+                categoryRepository: CategoryRepository(CategoryService(network: Network())),
+                information: information
+            )
+            let registerGifticonViewController = RegisterGifticonViewController(viewModel)
+            registerGifticonViewController.modalPresentationStyle = .fullScreen
+            self?.present?(registerGifticonViewController)
+        })
+    }
+}
+
+// MARK: - Deleagte
 
 extension MainViewModel: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                DispatchQueue.main.async {
-                    guard let self = self, let image = image as? UIImage else {
-                        debugPrint("could not load image", error?.localizedDescription ?? "")
-                        return
-                    }
-                    
-                    self.alert?(nil, "쿠폰 이미지 분석 중~", nil, nil, { _ in
-                        let viewModel = RegisterGifticonViewModel(
-                            network: Network(),
-                            categoryRepository: CategoryRepository(CategoryService(network: Network())),
-                            gifticonImage: image)
-                        let registerGifticonViewController = RegisterGifticonViewController(viewModel)
-                        registerGifticonViewController.modalPresentationStyle = .fullScreen
-                        self.present?(registerGifticonViewController)
-                    })
+                guard let image = image as? UIImage else {
+                    debugPrint("could not load image", error?.localizedDescription ?? "")
+                    return
                 }
+                self?.requestOCR(image)
             }
         }
         picker.dismiss(animated: true)

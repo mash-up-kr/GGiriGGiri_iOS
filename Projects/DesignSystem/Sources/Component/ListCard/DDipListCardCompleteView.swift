@@ -20,7 +20,7 @@ public class DDipListCardCompleteView: DDipListCardApplyBaseView {
 
     public func setDrawLabel(drawDate: Date?, registerStatus: String) {
         if let drawDate = drawDate {
-            drawLabel.text = "\(drawDate.fullDateString()) \(registerStatus)"
+            drawLabel.text = "\(drawDate.fullDateString(.dot)) \(registerStatus)"
         } else {
             drawLabel.text = "\(registerStatus)"
         }

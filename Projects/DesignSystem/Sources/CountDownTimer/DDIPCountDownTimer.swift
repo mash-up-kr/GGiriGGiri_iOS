@@ -95,6 +95,7 @@ public final class DDIPCountDownTimer {
         guard let usageDate = usageDate else {
             return
         }
+        
         let components = calendar.dateComponents([.hour, .minute, .second], from: usageDate)
         
         hour.accept(components.hour)
@@ -106,9 +107,14 @@ public final class DDIPCountDownTimer {
 extension DDIPCountDownTimer {
     func update(date: Date?) {
         disposeBag = DisposeBag()
-        
-        standardDate = date
-        usageDate = date
+
+        guard let date = date else { return }
+
+        let components = calendar.dateComponents([.hour, .minute, .second], from: Date(), to: date)
+        let calculatedDate = calendar.date(from: components)
+
+        standardDate = calculatedDate
+        usageDate = calculatedDate
         bind()
     }
 }

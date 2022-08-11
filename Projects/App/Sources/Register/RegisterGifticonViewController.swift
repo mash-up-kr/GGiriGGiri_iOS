@@ -93,6 +93,13 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
             })
             .disposed(by: disposeBag)
         
+        viewModel.informationRelay
+            .subscribe(onNext: { [weak self] in
+                guard let information = $0 else { return }
+                self?.registerGifticonView.updateInformation(information)
+            })
+            .disposed(by: disposeBag)
+        
         registerGifticonView.selectedCategoryIndex = { [weak self] in
             self?.viewModel.update(.category($0))
         }
