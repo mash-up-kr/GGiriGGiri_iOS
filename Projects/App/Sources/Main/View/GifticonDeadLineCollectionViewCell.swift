@@ -49,7 +49,7 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
         gifticonId = data.gifticonInfo.id
         cardView.update(
             style: .init(
-                time: "-",
+                time: data.sprinkleTime,
                 brand: data.gifticonInfo.brand,
                 name: data.gifticonInfo.name,
                 expirationDate: data.gifticonInfo.expirationDate,
