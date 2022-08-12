@@ -40,7 +40,7 @@ public class DDIPCardListButton: UIButton {
         
         var title: String {
             switch self {
-            case .confirmResult: return "결과확인"
+            case .confirmResult: return "결과 확인"
             case .inprogress: return "응모중"
             case .win: return "당첨"
             case .lose: return "꽝"
