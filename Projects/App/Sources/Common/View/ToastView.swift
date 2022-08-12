@@ -21,6 +21,11 @@ final class ToastView {
         toastView.setDescriptionLabel(description)
         toastView.setIconImageView(image)
 
+        self.dimView.alpha = 1
+        self.toastView.alpha = 1
+        self.wrapperView.removeFromSuperview()
+        self.dimView.removeFromSuperview()
+
         setToastView(view: view)
     }
 
@@ -28,6 +33,11 @@ final class ToastView {
         toastView.setTitleLabel(style)
         toastView.setDescriptionLabel(style)
         toastView.setIconImageView(image)
+
+        self.dimView.alpha = 1
+        self.toastView.alpha = 1
+        self.wrapperView.removeFromSuperview()
+        self.dimView.removeFromSuperview()
 
         setToastView(view: view)
     }
@@ -66,13 +76,11 @@ final class ToastView {
             }, completion: nil)
         }
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 4) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
             UIView.transition(with: view, duration: 0.3, options: [.curveEaseInOut], animations: {
                 self.toastView.alpha = 0
-            }, completion: { _ in
-                self.dimView.removeFromSuperview()
-                self.wrapperView.removeFromSuperview()
-            })
+                self.dimView.alpha = 0
+            }, completion: { _ in })
         }
     }
     
