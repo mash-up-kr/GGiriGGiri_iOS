@@ -1,5 +1,5 @@
 //
-//  TempButton.swift
+//  FloatingButton.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/06/26.
@@ -8,7 +8,9 @@
 
 import UIKit
 
-final class TempButton: UIButton {
+import DesignSystem
+
+final class FloatingButton: UIButton {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -34,7 +36,7 @@ final class TempButton: UIButton {
         self.layer.masksToBounds = false
         self.layer.cornerRadius = self.layer.frame.size.width / 2
         self.backgroundColor = .black
-        self.setImage(UIImage(systemName: "plus"), for: .normal)
+        self.setImage(.designSystem(.iconCrossFill48), for: .normal)
         self.tintColor = .designSystem(.neutralWhite)
     }
     
