@@ -60,4 +60,8 @@ extension DDIPAlarmButton {
     public func setTitle(_ title: TitleStatus) {
         self.setTitle(title.rawValue, for: .normal)
     }
+
+    public func isEnable(_ enable: Bool) {
+        self.isEnabled = enable
+    }
 }

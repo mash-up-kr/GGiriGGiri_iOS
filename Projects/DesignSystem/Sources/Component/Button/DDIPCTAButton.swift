@@ -48,4 +48,8 @@ extension DDIPCTAButton {
     public func setTitle(title: String) {
         self.setTitle(title, for: .normal)
     }
+
+    public func isEnable(_ enable: Bool) {
+        self.isEnabled = enable
+    }
 }

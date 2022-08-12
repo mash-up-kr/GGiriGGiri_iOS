@@ -45,16 +45,19 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
     private func setApplyCompletButtonState() {
         applyButton.setBackgroundColor(buttonColor: .secondarySkyblue200)
         applyButton.setTitle(title: "응모 완료!")
+        applyButton.isEnable(false)
     }
 
     private func setFinishButtonState() {
         applyButton.setBackgroundColor(buttonColor: .secondarySkyblue200)
         applyButton.setTitle(title: "응모 마감")
+        applyButton.isEnable(false)
     }
 
     private func setFailButtonState() {
         applyButton.setBackgroundColor(buttonColor: .secondarySkyblue200)
         applyButton.setTitle(title: "응모 실패")
+        applyButton.isEnable(false)
     }
 
     override func bind() {
