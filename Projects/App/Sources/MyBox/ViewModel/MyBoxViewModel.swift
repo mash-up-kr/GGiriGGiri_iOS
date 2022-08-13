@@ -52,6 +52,7 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
             .subscribe { [weak self] entity in
                 guard let applyHistoryModel = entity.data else { return }
                 let entity = ApplyHistoryEntity.init(applyHistoryModel)
+                self?.dataSource.updateApplyList(entity.gifticonList)
                 self?.applyListUpdated.accept(entity.gifticonList)
             } onFailure: { error in
                 print(error.localizedDescription)
@@ -64,6 +65,7 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
             .subscribe { [weak self] entity in
                 guard let registerHistoryModel = entity.data else { return }
                 let entity = RegisterHistoryEntity.init(registerHistoryModel)
+                self?.dataSource.updateRegisterList(entity.gifticonList)
                 self?.registerListUpdated.accept(entity.gifticonList)
             } onFailure: { error in
                 print(error.localizedDescription)

@@ -51,3 +51,13 @@ final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource 
         return cell
     }
 }
+
+extension MyBoxCollectionViewDataSource {
+    func updateApplyList(_ list: [GifticonCard]) {
+        item[0] = list
+    }
+    
+    func updateRegisterList(_ list: [GifticonCard]) {
+        item[1] = list
+    }
+}

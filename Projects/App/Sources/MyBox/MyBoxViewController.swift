@@ -97,6 +97,17 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         }
         
         viewModel.applyListUpdated
+            .subscribe(onNext: { [weak self] _ in
+                self?.myBoxView.collectionView.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.registerListUpdated
+            .subscribe(onNext: { [weak self] _ in
+                self?.myBoxView.collectionView.reloadData()
+            })
+                      
+        viewModel.applyListUpdated
             .bind { [weak self] data in
                 // TODO: API 연동
             }
