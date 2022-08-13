@@ -61,21 +61,6 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         
         myBoxView.configureDataSource(viewModel.dataSource)
         myBoxView.configureDelegate(viewModel.delegate)
-
-        categoryTapView.leftButtonTapEvent.subscribe(onNext: { [weak self] in
-            self?.myBoxView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0),
-                                                        at: .centeredHorizontally,
-                                                        animated: true)
-            
-            self?.myBoxView.collectionView.reloadData()
-        }).disposed(by: disposeBag)
-
-        categoryTapView.rightButtonTapEvent.subscribe(onNext: { [weak self] in
-            self?.myBoxView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0),
-                                                        at: .centeredHorizontally,
-                                                        animated: true)
-            self?.myBoxView.collectionView.reloadData()
-        }).disposed(by: disposeBag)
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
         swipeLeft.direction = .left
@@ -90,6 +75,21 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
     
     override func bind() {
         super.bind()
+        
+        categoryTapView.leftButtonTapEvent.subscribe(onNext: { [weak self] in
+            self?.myBoxView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0),
+                                                        at: .centeredHorizontally,
+                                                        animated: true)
+            
+            self?.myBoxView.collectionView.reloadData()
+        }).disposed(by: disposeBag)
+
+        categoryTapView.rightButtonTapEvent.subscribe(onNext: { [weak self] in
+            self?.myBoxView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0),
+                                                        at: .centeredHorizontally,
+                                                        animated: true)
+            self?.myBoxView.collectionView.reloadData()
+        }).disposed(by: disposeBag)
         
         viewModel.push = { [weak self] viewController in
             self?.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -106,16 +106,7 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
             .subscribe(onNext: { [weak self] _ in
                 self?.myBoxView.collectionView.reloadData()
             })
-                      
-        viewModel.applyListUpdated
-            .bind { [weak self] data in
-                // TODO: API 연동
-            }
-        
-        viewModel.registerListUpdated
-            .bind { [weak self] data in
-                // TODO: API 연동
-            }
+            .disposed(by: disposeBag)
     }
     
     private func configureNavigationBar() {
