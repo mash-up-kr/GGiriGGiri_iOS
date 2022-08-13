@@ -31,8 +31,6 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
     }()
     
     private let myBoxView = MyBoxView()
-    private let dataSource = MyBoxCollectionViewDataSource()
-    private let delegate = MyBoxCollectionViewDelegate()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,12 +59,9 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         
         view.backgroundColor = .designSystem(.primaryYellow)
         
-        dataSource.item = MockData.myBoxItem
-        myBoxView.configureDataSource(dataSource)
-        myBoxView.configureDelegate(delegate)
-        dataSource.applyDelegate.collectionViewCellDelegate = self
-        dataSource.registerDelegate.collectionViewCellDelegate = self
-        
+        myBoxView.configureDataSource(viewModel.dataSource)
+        myBoxView.configureDelegate(viewModel.delegate)
+
         categoryTapView.leftButtonTapEvent.subscribe(onNext: { [weak self] in
             self?.myBoxView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0),
                                                         at: .centeredHorizontally,
@@ -96,9 +91,19 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
     override func bind() {
         super.bind()
         
-        viewModel.gifticonList
+        viewModel.push = { [weak self] viewController in
+            self?.navigationController?.setNavigationBarHidden(true, animated: false)
+            self?.navigationController?.pushViewController(viewController, animated: true)
+        }
+        
+        viewModel.applyListUpdated
             .bind { [weak self] data in
-                // TODO: API 연도
+                // TODO: API 연동
+            }
+        
+        viewModel.registerListUpdated
+            .bind { [weak self] data in
+                // TODO: API 연동
             }
     }
     
@@ -129,15 +134,5 @@ extension MyBoxViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
-    }
-}
-
-extension MyBoxViewController: MyBoxListCollectionViewCellDelegate {
-    func cellTapped(type: MyBox, with index: Int) {
-        let resultViewModel = ResultViewModel()
-        resultViewModel.type = .win
-        let resultViewController = ResultViewController(resultViewModel)
-        resultViewController.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(resultViewController, animated: true)
     }
 }

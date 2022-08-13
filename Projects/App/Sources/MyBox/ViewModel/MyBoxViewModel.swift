@@ -6,19 +6,38 @@
 //  Copyright © 2022 dvHuni. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 import RxRelay
 import RxSwift
 
 protocol MyBoxViewModelProtocol {
-    var gifticonList: BehaviorRelay<[GifticonCard]?> { get }
+    var applyListUpdated: BehaviorRelay<[GifticonCard]?> { get }
+    var registerListUpdated: BehaviorRelay<[GifticonCard]?> { get }
+    
+    var push: ((UIViewController) -> ())? { get set }
+    
+    var dataSource: MyBoxCollectionViewDataSource { get }
+    var delegate: MyBoxCollectionViewDelegate { get }
 }
 
 final class MyBoxViewModel: MyBoxViewModelProtocol {
     private let disposeBag = DisposeBag()
     private let gifticonService: GifticonService
-    var gifticonList = BehaviorRelay<[GifticonCard]?>(value: nil)
+    
+    var push: ((UIViewController) -> ())? = nil
+    
+    var applyListUpdated = BehaviorRelay<[GifticonCard]?>(value: nil)
+    var registerListUpdated = BehaviorRelay<[GifticonCard]?>(value: nil)
+    
+    lazy var dataSource: MyBoxCollectionViewDataSource = {
+        let dataSource = MyBoxCollectionViewDataSource()
+        dataSource.item = MockData.myBoxItem
+        dataSource.applyDelegate.collectionViewCellDelegate = self
+        dataSource.registerDelegate.collectionViewCellDelegate = self
+        return dataSource
+    }()
+    let delegate = MyBoxCollectionViewDelegate()
     
     init(network: Networking) {
         self.gifticonService = GifticonService(network: network)
@@ -29,10 +48,11 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
     
     private func applyHistory() {
         gifticonService.applyHistory()
+            .debug()
             .subscribe { [weak self] entity in
                 guard let applyHistoryModel = entity.data else { return }
                 let entity = ApplyHistoryEntity.init(applyHistoryModel)
-                self?.gifticonList.accept(entity.gifticonList)
+                self?.applyListUpdated.accept(entity.gifticonList)
             } onFailure: { error in
                 print(error.localizedDescription)
             }.disposed(by: disposeBag)
@@ -40,12 +60,23 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
     
     private func registerHistory() {
         gifticonService.registerHistory()
+            .debug()
             .subscribe { [weak self] entity in
                 guard let registerHistoryModel = entity.data else { return }
                 let entity = RegisterHistoryEntity.init(registerHistoryModel)
-                self?.gifticonList.accept(entity.gifticonList)
+                self?.registerListUpdated.accept(entity.gifticonList)
             } onFailure: { error in
                 print(error.localizedDescription)
             }.disposed(by: disposeBag)
+    }
+}
+
+extension MyBoxViewModel: MyBoxListCollectionViewCellDelegate {
+    func cellTapped(type: MyBox, with index: Int) {
+        let resultViewModel = ResultViewModel()
+        resultViewModel.type = .win
+        let resultViewController = ResultViewController(resultViewModel)
+        resultViewController.modalPresentationStyle = .fullScreen
+        push?(resultViewController)
     }
 }
