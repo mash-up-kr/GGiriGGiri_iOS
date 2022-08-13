@@ -11,14 +11,29 @@ import Foundation
 import Alamofire
 
 enum GifticonAPI {
-    case categories // 카테고리 목록 조회
-    case categoryList(GifticonListRequestModel) // 쿠폰 카테고리별 조회 목록
-    case deadline(GifticonListRequestModel) // 쿠폰 마감임박 조회
+    /// 카테고리 목록 조회
+    case categories
+    
+    /// 쿠폰 카테고리별 조회 목록
+    case categoryGifticonList(GifticonListRequestModel)
+    
+    /// 쿠폰 마감임박 조회
+    case deadlineGifticonList(GifticonListRequestModel)
+    
+    /// 뿌리기 등록
     case registerSprinkle(SprinkleRegisterRequestModel)
+    
+    /// 응모하기
     case sprinkleApplication(Int)
+    
+    /// 쿠폰 상세
     case sprinkleDetail(Int)
-    case applyHistory // 내 기프티콘 응모 내역 조회
-    case registerHistory // 내 기프티콘 등록 내역 조회
+    
+    /// 내 기프티콘 응모 내역 조회
+    case applyHistory
+    
+    /// 내 기프티콘 등록 내역 조회
+    case registerHistory
 }
 
 extension GifticonAPI: NetworkRequestable {
@@ -26,7 +41,7 @@ extension GifticonAPI: NetworkRequestable {
         switch self {
         case .categories:
             return "/api/v1/coupon/category"
-        case .categoryList, .deadline:
+        case .categoryGifticonList, .deadlineGifticonList:
             return "/api/v1/sprinkles"
         case .registerSprinkle:
             return "/api/v1/sprinkle"
@@ -45,7 +60,7 @@ extension GifticonAPI: NetworkRequestable {
         switch self {
         case .sprinkleApplication, .sprinkleDetail, .categories, .applyHistory, .registerHistory:
             return nil
-        case let .categoryList(model), let .deadline(model):
+        case let .categoryGifticonList(model), let .deadlineGifticonList(model):
             return model
         case let .registerSprinkle(model):
             return model
@@ -54,7 +69,7 @@ extension GifticonAPI: NetworkRequestable {
     
     var headers: HTTPHeaders {
         switch self {
-        case .categories, .categoryList, .deadline, .sprinkleApplication, .sprinkleDetail, .applyHistory, .registerHistory:
+        case .categories, .categoryGifticonList, .deadlineGifticonList, .sprinkleApplication, .sprinkleDetail, .applyHistory, .registerHistory:
             return .default
         case .registerSprinkle:
             return .multipartHeader
@@ -63,7 +78,7 @@ extension GifticonAPI: NetworkRequestable {
 
     var method: HTTPMethod {
         switch self {
-        case .categoryList, .deadline, .sprinkleDetail, .categories, .applyHistory, .registerHistory:
+        case .categoryGifticonList, .deadlineGifticonList, .sprinkleDetail, .categories, .applyHistory, .registerHistory:
             return .get
         case .sprinkleApplication, .registerSprinkle:
             return .post

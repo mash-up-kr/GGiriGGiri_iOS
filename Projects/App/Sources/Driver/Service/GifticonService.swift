@@ -28,11 +28,11 @@ struct GifticonService {
     
     // MARK: MAIN
     func deadline(_ model: GifticonListRequestModel) -> DeadlineResponse {
-        network.request(GifticonAPI.deadline(model)).map()
+        network.request(GifticonAPI.deadlineGifticonList(model)).map()
     }
     
     func gifticonList(_ model: GifticonListRequestModel) -> GifticonListResponse {
-        network.request(GifticonAPI.categoryList(model)).map()
+        network.request(GifticonAPI.categoryGifticonList(model)).map()
     }
 
     func detail(_ id: Int) -> CouponDetailResponse {
