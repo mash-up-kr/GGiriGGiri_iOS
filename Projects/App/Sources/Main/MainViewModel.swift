@@ -19,6 +19,7 @@ protocol MainViewModelProtocol {
     var alert: Alert? { get set }
     var present: ((UIViewController) -> ())? { get set }
     var push: ((UIViewController) -> ())? { get set }
+    var applyToast: PublishRelay<Bool> { get }
     
     var mainDataSource: MainCollectionViewDataSource { get }
     var mainDelegate: MainCollectionViewDelegate { get }
@@ -39,13 +40,12 @@ final class MainViewModel: MainViewModelProtocol {
     private let disposeBag = DisposeBag()
     private let gifticonService: GifticonService
     private let categoryRepository: CategoryRepositoryLogic
-    var deadlineListUpdated = PublishRelay<Void>()
-    var categoryListUpdated = PublishRelay<Void>()
-    var gifticonListUpdated = PublishRelay<Void>()
-    
+    private let OCRRepository: OCRRepositoryLogic
+   
     var alert: Alert? = nil
     var present: ((UIViewController) -> ())? = nil
     var push: ((UIViewController) -> ())? = nil
+    let applyToast = PublishRelay<Bool>()
     
     let mainDataSource = MainCollectionViewDataSource()
     lazy var mainDelegate: MainCollectionViewDelegate = {
@@ -54,7 +54,9 @@ final class MainViewModel: MainViewModelProtocol {
         return delegate
     }()
     
-    private let OCRRepository: OCRRepositoryLogic
+    var deadlineListUpdated = PublishRelay<Void>()
+    var categoryListUpdated = PublishRelay<Void>()
+    var gifticonListUpdated = PublishRelay<Void>()
     
     init(network: Networking, repository: CategoryRepositoryLogic, OCRRepository: OCRRepositoryLogic) {
         self.gifticonService = GifticonService(network: network)
@@ -111,6 +113,17 @@ final class MainViewModel: MainViewModelProtocol {
             } onFailure: { error in
                 print(error.localizedDescription)
             }.disposed(by: disposeBag)
+    }
+    
+    private func apply(gifticonId: Int) {
+        gifticonService.apply(gifticonId)
+            .subscribe(onSuccess: { [weak self] _ in
+                self?.applyToast.accept(true)
+                self?.deadlineInfo()
+            }, onFailure: { [weak self] _ in
+                self?.applyToast.accept(false)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -176,6 +189,12 @@ extension MainViewModel {
                         nil
                     )
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        mainDataSource.didTapDeadLineApplyButton
+            .subscribe(onNext: { [weak self] in
+                self?.apply(gifticonId: $0)
             })
             .disposed(by: disposeBag)
     }

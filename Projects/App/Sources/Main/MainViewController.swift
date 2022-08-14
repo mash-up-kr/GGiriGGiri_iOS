@@ -26,7 +26,9 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             title: nil,
             rightButtonsItem: [myBoxButton])
     }()
+
     private let floatingButton = FloatingButton()
+    private let toastView = ToastView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +70,12 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         viewModel.gifticonListUpdated
             .subscribe (onNext: { [weak self] in
                 self?.collectionView.reloadCollectionView()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.applyToast
+            .subscribe(onNext: { [weak self] in
+                self?.showApplyToast(isSuccessed: $0)
             })
             .disposed(by: disposeBag)
         
@@ -116,5 +124,18 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     
     @objc private func addButtonDidTapped() {
         viewModel.addButtonDidTapped()
+    }
+}
+
+// MARK: - Toast
+
+extension MainViewController {
+    private func showApplyToast(isSuccessed: Bool) {
+        toastView.configureToastView(
+            with: self.view,
+            style: isSuccessed ? .apply : .applyMyGifticonFail,
+            image: isSuccessed ? .iconLogoCharacter : .iconRotateLogoCharacterEmpty
+        )
+        toastView.showToastView(with: self.view)
     }
 }

@@ -8,6 +8,8 @@
 
 import Foundation
 
+import DesignSystem
+
 enum Category: String, CaseIterable {
     case all = "ALL"
     case cafe = "CAFE"
@@ -28,6 +30,19 @@ enum Category: String, CaseIterable {
         case .fastfood: return "패스트푸드"
         case .voucher: return "금액권"
         case .etc: return "기타"
+        }
+    }
+    
+    var assetName: DDIPAsset.name {
+        switch self {
+        case .all: return .iconLogoCharacter
+        case .cafe: return .iconCafedesert
+        case .delivery: return .iconChicken
+        case .icecream: return .iconIcecream
+        case .convenienceStore: return .iconDrugStore
+        case .fastfood: return .iconFastfood
+        case .voucher: return .iconCoupon
+        case .etc: return .iconGuitar
         }
     }
 }

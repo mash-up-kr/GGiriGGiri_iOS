@@ -13,17 +13,49 @@ enum BaseRequestModel {
         case deadLine
         case create
         
-        enum CodingKeys: String, CodingKey {
-            case deadLine = "DEADLINE"
-            case create = "CREATED_AT"
+        func encode(to encoder: Encoder) throws {
+            var contrainer = encoder.singleValueContainer()
+            
+            switch self {
+            case .deadLine:
+                try contrainer.encode("DEADLINE")
+            case .create:
+                try contrainer.encode("CREATED_AT")
+            }
         }
     }
     
     enum Category: Encodable {
         case all
+        case cafe
+        case delivery
+        case icecream
+        case convenienceStore
+        case fastfood
+        case voucher
+        case etc
         
-        enum CodingKeys: String, CodingKey {
-            case all = "ALL"
+        func encode(to encoder: Encoder) throws {
+            var contrainer = encoder.singleValueContainer()
+            
+            switch self {
+            case .all:
+                try contrainer.encode("ALL")
+            case .cafe:
+                try contrainer.encode("CAFE")
+            case .delivery:
+                try contrainer.encode("DELIVERY")
+            case .icecream:
+                try contrainer.encode("ICECREAM")
+            case .convenienceStore:
+                try contrainer.encode("CONVENIENCE_STORE")
+            case .fastfood:
+                try contrainer.encode("FAST_FOOD")
+            case .voucher:
+                try contrainer.encode("VOUCHER")
+            case .etc:
+                try contrainer.encode("ETC")
+            }
         }
     }
 }

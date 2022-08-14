@@ -8,11 +8,18 @@
 
 import UIKit
 
+import RxSwift
+import RxRelay
+
 final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     private var deadLineData: [GifticonCard] = []
     private var categoryData: [Category] = []
     private var gifticonListData: [GifticonCard] = []
+    
+    var didTapDeadLineApplyButton = PublishRelay<Int>()
+    
+    private let disposeBag = DisposeBag()
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         // TODO: 마감임박 데이터 없을 때의 경우 처리 필요
@@ -41,6 +48,9 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             }
             let deadlineData = deadLineData[indexPath.item]
             cell.configure(with: deadlineData)
+            cell.didApplyButtonTapped
+                .bind(to: didTapDeadLineApplyButton)
+                .disposed(by: disposeBag)
             return cell
         case .category:
             guard let cell = collectionView.dequeReusableCell(CategoryCollectionViewCell.self,
