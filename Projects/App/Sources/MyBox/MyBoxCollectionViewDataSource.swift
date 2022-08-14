@@ -10,7 +10,7 @@ import UIKit
 
 final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
-    var item = [[GifticonCard]]()
+    var item = [[GifticonCard](), [GifticonCard]()]
     
     private let applyDataSource = MyBoxListCollectionViewDataSource()
     private(set) var applyDelegate = MyBoxListCollectionViewDelegate(type: .applied)
@@ -32,7 +32,7 @@ final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource 
         
         switch MyBox.allCases[indexPath.item] {
         case .applied:
-            guard let applyItem = item.first else { return UICollectionViewCell() }
+            guard let applyItem = item.first else { return cell }
             applyDataSource.item = applyItem
             applyDataSource.currentType = .applied
             
@@ -40,7 +40,7 @@ final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource 
             cell.configureDelegate(applyDelegate)
             cell.configure(with: .applied)
         case .registered:
-            guard let registerItem = item.last else { return UICollectionViewCell() }
+            guard let registerItem = item.last else { return cell }
             registerDatasource.item = registerItem
             registerDatasource.currentType = .registered
             
@@ -54,10 +54,14 @@ final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource 
 
 extension MyBoxCollectionViewDataSource {
     func updateApplyList(_ list: [GifticonCard]) {
-        item[0] = list
+        if item.count != 0 {
+            item[0] = list
+        }
     }
     
     func updateRegisterList(_ list: [GifticonCard]) {
-        item[1] = list
+        if item.count != 0 {
+            item[1] = list
+        }
     }
 }

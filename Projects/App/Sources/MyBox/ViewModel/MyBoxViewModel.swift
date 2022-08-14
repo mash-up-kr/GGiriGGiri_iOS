@@ -32,7 +32,6 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
     
     lazy var dataSource: MyBoxCollectionViewDataSource = {
         let dataSource = MyBoxCollectionViewDataSource()
-        dataSource.item = MockData.myBoxItem
         dataSource.applyDelegate.collectionViewCellDelegate = self
         dataSource.registerDelegate.collectionViewCellDelegate = self
         return dataSource
