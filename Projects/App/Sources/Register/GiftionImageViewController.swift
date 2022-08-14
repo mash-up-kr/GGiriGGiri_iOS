@@ -21,12 +21,30 @@ final class GiftionImageViewController: UIViewController {
         setLayout()
         configure()
     }
+
+    private let grabberView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .designSystem(.neutralGray300)
+        view.layer.cornerRadius = 3
+
+        return view
+    }()
     
     private func setLayout() {
         view.addSubview(giftionImageView)
+        view.addSubview(grabberView)
 
         giftionImageView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(grabberView.snp.bottom).offset(10)
+        }
+
+        grabberView.snp.makeConstraints {
+            $0.height.equalTo(6)
+            $0.width.equalTo(60)
+            $0.top.equalToSuperview().inset(10)
+            $0.centerX.equalToSuperview()
         }
     }
     

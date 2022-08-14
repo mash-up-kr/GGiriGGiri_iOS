@@ -121,9 +121,30 @@ fileprivate class InfoMessageView: BaseView {
     
     private let infoLabel: UILabel = {
         let label = UILabel()
-        label.text = "등록해주신 기프티콘 이미지는 당첨자에게 전송될 때 사용되며, 등록 시 화면에는 카테고리 아이콘으로 대체됩니다. 미사용 기프티콘인지 다시 한번 확인해주세요."
-        label.font = .designSystem(.pretendard, family: .regular, size: ._12)
-        label.textColor = .designSystem(.neutralGray500)
+
+        let categoryText = "카테고리 캐릭터"
+        let warningText = "미사용 기프티콘인지 다시 한번 확인해주세요."
+        let fullText = "등록해주신 기프티콘 이미지는 당첨자에게 전송될 때 사용되며, 등록 시 화면에는 \(categoryText)로 대체됩니다. \(warningText)"
+
+        let attributedString = NSMutableAttributedString(string: fullText)
+
+        attributedString.setAttributes([
+            .font: UIFont.designSystem(.pretendard, family: .regular, size: ._12),
+            .foregroundColor: UIColor.designSystem(.neutralGray500)
+
+        ], range: NSString(string: fullText).range(of: fullText))
+
+        attributedString.setAttributes([
+            .font: UIFont.designSystem(.pretendard, family: .bold, size: ._12),
+            .foregroundColor: UIColor.designSystem(.neutralGray500)
+        ], range: NSString(string: fullText).range(of: categoryText))
+
+        attributedString.setAttributes([
+            .font: UIFont.designSystem(.pretendard, family: .bold, size: ._12),
+            .foregroundColor: UIColor.designSystem(.neutralGray500)
+        ], range: NSString(string: fullText).range(of: warningText))
+
+        label.attributedText = attributedString
         label.numberOfLines = .zero
         return label
     }()

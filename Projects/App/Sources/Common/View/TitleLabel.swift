@@ -1,5 +1,5 @@
 //
-//  TempLabel.swift
+//  TitleLabel.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/06/25.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class TempLabel: UILabel {
+final class TitleLabel: UILabel {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)

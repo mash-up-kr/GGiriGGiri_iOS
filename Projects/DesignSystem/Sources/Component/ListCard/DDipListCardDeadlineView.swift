@@ -69,6 +69,6 @@ public class DDipListCardDeadlineView: DDipListCardApplyBaseView {
 
     public func setAttribute() {
         drawLabel.font = .designSystem(.pretendard, family: .regular, size: ._14)
-        drawLabel.textAlignment = .center
+        drawLabel.textAlignment = .right
     }
 }

@@ -26,7 +26,8 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             title: nil,
             rightButtonsItem: [myBoxButton])
     }()
-    private let floatingButton = TempButton()
+
+    private let floatingButton = FloatingButton()
     private let toastView = ToastView()
 
     override func viewDidLoad() {
