@@ -6,19 +6,36 @@
 //  Copyright © 2022 dvHuni. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 import RxRelay
 import RxSwift
 
 protocol MyBoxViewModelProtocol {
-    var gifticonList: BehaviorRelay<[GifticonCard]?> { get }
+    var applyListUpdated: BehaviorRelay<[GifticonCard]?> { get }
+    var registerListUpdated: BehaviorRelay<[GifticonCard]?> { get }
+    
+    var push: ((UIViewController) -> ())? { get set }
+    
+    var dataSource: MyBoxCollectionViewDataSource { get }
+    var delegate: MyBoxCollectionViewDelegate { get }
 }
 
 final class MyBoxViewModel: MyBoxViewModelProtocol {
     private let disposeBag = DisposeBag()
     private let gifticonService: GifticonService
-    var gifticonList = BehaviorRelay<[GifticonCard]?>(value: nil)
+    
+    var push: ((UIViewController) -> ())? = nil
+    
+    var applyListUpdated = BehaviorRelay<[GifticonCard]?>(value: nil)
+    var registerListUpdated = BehaviorRelay<[GifticonCard]?>(value: nil)
+    
+    lazy var dataSource: MyBoxCollectionViewDataSource = {
+        let dataSource = MyBoxCollectionViewDataSource()
+        dataSource.applyDataSource.resultButtonDelegate = self
+        return dataSource
+    }()
+    let delegate = MyBoxCollectionViewDelegate()
     
     init(network: Networking) {
         self.gifticonService = GifticonService(network: network)
@@ -32,7 +49,8 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
             .subscribe { [weak self] entity in
                 guard let applyHistoryModel = entity.data else { return }
                 let entity = ApplyHistoryEntity.init(applyHistoryModel)
-                self?.gifticonList.accept(entity.gifticonList)
+                self?.dataSource.updateApplyList(entity.gifticonList)
+                self?.applyListUpdated.accept(entity.gifticonList)
             } onFailure: { error in
                 print(error.localizedDescription)
             }.disposed(by: disposeBag)
@@ -43,9 +61,27 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
             .subscribe { [weak self] entity in
                 guard let registerHistoryModel = entity.data else { return }
                 let entity = RegisterHistoryEntity.init(registerHistoryModel)
-                self?.gifticonList.accept(entity.gifticonList)
+                self?.dataSource.updateRegisterList(entity.gifticonList)
+                self?.registerListUpdated.accept(entity.gifticonList)
             } onFailure: { error in
                 print(error.localizedDescription)
             }.disposed(by: disposeBag)
+    }
+}
+
+extension MyBoxViewModel: MyBoxListCollectionViewButtonDelegate {
+    
+    func resultButtonTapped(with id: Int, result: DrawStatus) {
+        let resultViewModel = ResultViewModel()
+        if result == .win {
+            resultViewModel.type = .win
+        } else if result == .lose {
+            resultViewModel.type = .lose
+        }
+        
+        let resultViewController = ResultViewController(resultViewModel)
+        resultViewController.modalPresentationStyle = .fullScreen
+        // TODO: 결과 확인 API 호출 필요
+        push?(resultViewController)
     }
 }

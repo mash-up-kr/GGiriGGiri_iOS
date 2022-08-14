@@ -8,6 +8,8 @@
 
 import Foundation
 
+import DesignSystem
+
 /// 순수 기프티콘 정보
 struct Gifticon {
     let id: Int
@@ -15,4 +17,25 @@ struct Gifticon {
     let name: String
     let expirationDate: String
     let category: Category
+    
+    var rotateImageName: DDIPAsset.name {
+        switch category {
+        case .all:
+            return .iconRotateLogoCharacter
+        case .cafe:
+            return .iconRotateCafedesert
+        case .delivery:
+            return .iconRotateChicken
+        case .icecream:
+            return .iconRotateIcecream
+        case .convenienceStore:
+            return .iconRotateDrugStore
+        case .fastfood:
+            return .iconRotateFastfood
+        case .voucher:
+            return .iconRotateCoupon
+        case .etc:
+            return .iconRotateGuitar
+        }
+    }
 }
