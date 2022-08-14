@@ -54,7 +54,7 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
         listCardView.setBrandName(brand: data.gifticonInfo.brand)
         listCardView.setName(name: data.gifticonInfo.name)
         listCardView.setExpirationDate(expirationDate: data.gifticonInfo.expirationDate.fullStringDate())
-        listCardView.setImageIcon(image: data.gifticonInfo.imageName)
+        listCardView.setImageIcon(image: data.gifticonInfo.rotateImageName)
         listCardView.setApplyViewer(viewer: data.numberOfParticipants)
 
         // MARK: 응모 BOX

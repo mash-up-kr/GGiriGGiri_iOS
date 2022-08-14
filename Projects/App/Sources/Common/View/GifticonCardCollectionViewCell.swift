@@ -36,7 +36,7 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
         listCardView.setName(name: data.gifticonInfo.name)
         listCardView.setExpirationDate(expirationDate: data.gifticonInfo.expirationDate.fullStringDate())
         listCardView.setApplyViewer(viewer: data.numberOfParticipants)
-        listCardView.setImageIcon(image: data.gifticonInfo.imageName)
+        listCardView.setImageIcon(image: data.gifticonInfo.rotateImageName)
         listCardView.cardListButtonDidTapped.subscribe { [weak self] _ in
             // TODO: 현재로부터 뿌리기까지 남은 시간으로 바꿔줘야함
             self?.listCardView.setApplyViewType(status: .complete, leftTime: Date())

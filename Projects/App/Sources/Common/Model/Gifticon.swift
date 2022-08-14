@@ -18,24 +18,24 @@ struct Gifticon {
     let expirationDate: String
     let category: Category
     
-    var imageName: DDIPAsset.name {
+    var rotateImageName: DDIPAsset.name {
         switch category {
         case .all:
-            return .iconLogoCharacter
+            return .iconRotateLogoCharacter
         case .cafe:
-            return .iconCafedesert
+            return .iconRotateCafedesert
         case .delivery:
-            return .iconChicken
+            return .iconRotateChicken
         case .icecream:
-            return .iconIcecream
+            return .iconRotateIcecream
         case .convenienceStore:
-            return .iconDrugStore
+            return .iconRotateDrugStore
         case .fastfood:
-            return .iconFastfood
+            return .iconRotateFastfood
         case .voucher:
-            return .iconCoupon
+            return .iconRotateCoupon
         case .etc:
-            return .iconGuitar
+            return .iconRotateGuitar
         }
     }
 }
