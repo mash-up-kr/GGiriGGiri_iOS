@@ -33,6 +33,7 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
     lazy var dataSource: MyBoxCollectionViewDataSource = {
         let dataSource = MyBoxCollectionViewDataSource()
         dataSource.applyDelegate.collectionViewCellDelegate = self
+        dataSource.applyDataSource.resultButtonDelegate = self
         dataSource.registerDelegate.collectionViewCellDelegate = self
         return dataSource
     }()
@@ -47,7 +48,6 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
     
     private func applyHistory() {
         gifticonService.applyHistory()
-            .debug()
             .subscribe { [weak self] entity in
                 guard let applyHistoryModel = entity.data else { return }
                 let entity = ApplyHistoryEntity.init(applyHistoryModel)
@@ -60,7 +60,6 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
     
     private func registerHistory() {
         gifticonService.registerHistory()
-            .debug()
             .subscribe { [weak self] entity in
                 guard let registerHistoryModel = entity.data else { return }
                 let entity = RegisterHistoryEntity.init(registerHistoryModel)
@@ -78,6 +77,23 @@ extension MyBoxViewModel: MyBoxListCollectionViewCellDelegate {
         resultViewModel.type = .win
         let resultViewController = ResultViewController(resultViewModel)
         resultViewController.modalPresentationStyle = .fullScreen
+        push?(resultViewController)
+    }
+}
+
+extension MyBoxViewModel: MyBoxListCollectionViewButtonDelegate {
+    
+    func resultButtonTapped(with id: Int, result: DrawStatus) {
+        let resultViewModel = ResultViewModel()
+        if result == .win {
+            resultViewModel.type = .win
+        } else if result == .lose {
+            resultViewModel.type = .lose
+        }
+        
+        let resultViewController = ResultViewController(resultViewModel)
+        resultViewController.modalPresentationStyle = .fullScreen
+        // TODO: 결과 확인 API 호출 필요
         push?(resultViewController)
     }
 }

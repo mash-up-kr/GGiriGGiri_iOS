@@ -12,7 +12,7 @@ final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource 
     
     var item = [[GifticonCard](), [GifticonCard]()]
     
-    private let applyDataSource = MyBoxListCollectionViewDataSource()
+    private(set) var applyDataSource = MyBoxListCollectionViewDataSource()
     private(set) var applyDelegate = MyBoxListCollectionViewDelegate(type: .applied)
     private let registerDatasource = MyBoxListCollectionViewDataSource()
     private(set) var registerDelegate = MyBoxListCollectionViewDelegate(type: .registered)

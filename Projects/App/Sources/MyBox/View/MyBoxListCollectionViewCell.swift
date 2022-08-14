@@ -11,8 +11,13 @@ import UIKit
 import DesignSystem
 import RxSwift
 
+protocol MyBoxListResultButtonDelegate: AnyObject {
+    func resultButtonTapped(with id: Int, result: DrawStatus)
+}
+
 final class MyBoxListCollectionViewCell: UICollectionViewCell {
     
+    weak var resultButtonDelegate: MyBoxListResultButtonDelegate?
     static let reuseIdentifier = "MyBoxListCollectionViewCell"
     
     private let disposeBag = DisposeBag()
@@ -73,12 +78,8 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
             } else { // 결과를 아직 확인하지 않은 경우, 결과 확인 버튼 표시
                 listCardView.setAppliedStatusViewType(status: .confirmResult, applyDate: participateDate.fullStringDate())
                 listCardView.cardListButtonDidTapped.subscribe { buttonStatus in
-                    guard let buttonStatus = buttonStatus.element else { return }
-                    
-                    // TODO: 결과 확인 화면으로 이동
-                    if buttonStatus == .appliedStatus {
-                        
-                    }
+                    // 결과에 따라 이동
+                    self.resultButtonDelegate?.resultButtonTapped(with: data.gifticonInfo.id, result: result)
                 }.disposed(by: disposeBag)
             }
         } else { // MARK: 등록 BOX

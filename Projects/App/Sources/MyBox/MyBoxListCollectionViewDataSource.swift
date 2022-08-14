@@ -8,8 +8,13 @@
 
 import UIKit
 
+protocol MyBoxListCollectionViewButtonDelegate: AnyObject {
+    func resultButtonTapped(with id: Int, result: DrawStatus)
+}
+
 final class MyBoxListCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
+    weak var resultButtonDelegate: MyBoxListCollectionViewButtonDelegate?
     var item = [GifticonCard]()
     var currentType: MyBox = .registered
     
@@ -32,10 +37,17 @@ final class MyBoxListCollectionViewDataSource: NSObject, UICollectionViewDataSou
         
         switch currentType {
         case .applied:
+            cell.resultButtonDelegate = self
             cell.configure(with: .applied, data: item[indexPath.item])
         case .registered:
             cell.configure(with: .registered, data: item[indexPath.item])
         }
         return cell
+    }
+}
+
+extension MyBoxListCollectionViewDataSource: MyBoxListResultButtonDelegate {
+    func resultButtonTapped(with id: Int, result: DrawStatus) {
+        resultButtonDelegate?.resultButtonTapped(with: id, result: result)
     }
 }
