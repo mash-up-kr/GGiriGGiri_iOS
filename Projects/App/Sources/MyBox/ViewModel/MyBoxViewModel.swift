@@ -32,9 +32,7 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
     
     lazy var dataSource: MyBoxCollectionViewDataSource = {
         let dataSource = MyBoxCollectionViewDataSource()
-        dataSource.applyDelegate.myBoxListCollectionViewCellDelegate = self
         dataSource.applyDataSource.resultButtonDelegate = self
-        dataSource.registerDelegate.myBoxListCollectionViewCellDelegate = self
         return dataSource
     }()
     let delegate = MyBoxCollectionViewDelegate()
@@ -68,16 +66,6 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
             } onFailure: { error in
                 print(error.localizedDescription)
             }.disposed(by: disposeBag)
-    }
-}
-
-extension MyBoxViewModel: MyBoxListCollectionViewCellDelegate {
-    func cellTapped(type: MyBox, with index: Int) {
-        let resultViewModel = ResultViewModel()
-        resultViewModel.type = .win
-        let resultViewController = ResultViewController(resultViewModel)
-        resultViewController.modalPresentationStyle = .fullScreen
-        push?(resultViewController)
     }
 }
 
