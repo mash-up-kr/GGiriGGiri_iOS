@@ -13,7 +13,7 @@ protocol MyBoxListCollectionViewCellDelegate: AnyObject {
 }
 
 final class MyBoxListCollectionViewDelegate: NSObject, UICollectionViewDelegate {
-    weak var collectionViewCellDelegate: MyBoxListCollectionViewCellDelegate?
+    weak var myBoxListCollectionViewCellDelegate: MyBoxListCollectionViewCellDelegate?
     var type: MyBox
     
     init(type: MyBox) {
@@ -22,6 +22,6 @@ final class MyBoxListCollectionViewDelegate: NSObject, UICollectionViewDelegate 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? MyBoxListCollectionViewCell else { return }
-        collectionViewCellDelegate?.cellTapped(type: type, with: indexPath.item)
+        myBoxListCollectionViewCellDelegate?.cellTapped(type: type, with: indexPath.item)
     }
 }
