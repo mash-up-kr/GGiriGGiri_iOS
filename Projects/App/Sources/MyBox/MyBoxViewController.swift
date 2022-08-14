@@ -125,8 +125,14 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
     @objc private func swipeAction(_ gesture: UISwipeGestureRecognizer) {
         if gesture.direction == .left {
             categoryTapView.tapRightButton()
+            myBoxView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0),
+                                                  at: .centeredHorizontally,
+                                                  animated: false)
         } else {
-            categoryTapView.tapLeftButton()        
+            categoryTapView.tapLeftButton()
+            myBoxView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0),
+                                                  at: .centeredHorizontally,
+                                                  animated: false)
         }
         myBoxView.collectionView.reloadData()
     }
