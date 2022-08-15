@@ -138,9 +138,9 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
     
     override func configure() {
         super.configure()
-        
         configureNavigationBar()
-        
+
+        scrollView.showsVerticalScrollIndicator = false
         view.backgroundColor = .designSystem(.neutralWhite)
 
         applyButton.setBackgroundColor(buttonColor: .secondaryBlue)
