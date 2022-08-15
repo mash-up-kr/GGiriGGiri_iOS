@@ -14,17 +14,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let rootViewController = MainViewController(
-            MainViewModel(
-                network: Network(),
-                repository: CategoryRepository(CategoryService(network: Network())),
-            OCRRepository: OCRRepository(OCRService(network: Network()))
-        ))
         
-        let navigationController = UINavigationController(rootViewController: rootViewController)
+        let splashViewController = SplashViewController(SplashViewModel(network: Network()))
+        
+        let navigationController = UINavigationController(rootViewController: splashViewController)
         navigationController.setNavigationBarHidden(true, animated: false)
+        
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
+        
         self.window = window
     }
 }

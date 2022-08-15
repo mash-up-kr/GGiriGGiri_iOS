@@ -1,0 +1,67 @@
+//
+//  SplashViewModel.swift
+//  GGiriGGiri
+//
+//  Created by 안상희 on 2022/08/15.
+//  Copyright © 2022 dvHuni. All rights reserved.
+//
+
+import Foundation
+
+import RxRelay
+import RxSwift
+import UIKit
+
+protocol SplashViewModelProtocol {
+    var deadlineDataUpdated: PublishRelay<Int> { get }
+}
+
+final class SplashViewModel: SplashViewModelProtocol {
+    
+    private let disposeBag = DisposeBag()
+    private let gifticonService: GifticonService
+    
+    init(network: Networking) {
+        self.gifticonService = GifticonService(network: network)
+        
+        deadlineInfo()
+    }
+    
+    var deadlineDataUpdated = PublishRelay<Int>()
+    
+    private func deadlineInfo() {
+        gifticonService.deadline(.init(orderBy: .deadLine, category: .all))
+            .subscribe { [weak self] responseModel in
+                guard let responseModel = responseModel.data else {
+                    return
+                }
+                let entity = GifticonEntity.init(responseModel)
+                self?.deadlineDataUpdated.accept(entity.gifticonList.count)
+                
+                self?.changeRootViewController(deadlineData: entity.gifticonList.count)
+            } onFailure: { error in
+                print(error.localizedDescription)
+            }.disposed(by: disposeBag)
+    }
+    
+    private func changeRootViewController(deadlineData: Int) {
+        
+        var deadlineDataExist = true
+        
+        if deadlineData == 0 {
+            deadlineDataExist = false
+        }
+        
+        let rootViewController = MainViewController(
+            MainViewModel(
+                network: Network(),
+                repository: CategoryRepository(CategoryService(network: Network())),
+                OCRRepository: OCRRepository(OCRService(network: Network())),
+                deadlineDataExist: deadlineDataExist
+            ))
+        
+        let navigationController = UINavigationController(rootViewController: rootViewController)
+        navigationController.setNavigationBarHidden(true, animated: false)
+        UIApplication.shared.keyWindow?.replaceRootViewController(navigationController, animated: true, completion: nil)
+    }
+}
