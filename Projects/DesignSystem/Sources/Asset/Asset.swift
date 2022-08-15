@@ -59,6 +59,8 @@ public enum DDIPAsset {
         
         case iconLose
         
+        case logoMain
+        
         public var description: String {
             switch self {
             case .iconAngelBracket24:
@@ -133,6 +135,8 @@ public enum DDIPAsset {
                 return "chatBubble"
             case .iconLose:
                 return "icon_lose"
+            case .logoMain:
+                return "logo_main"
             }
         }
     }
