@@ -33,6 +33,8 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
     lazy var dataSource: MyBoxCollectionViewDataSource = {
         let dataSource = MyBoxCollectionViewDataSource()
         dataSource.applyDataSource.resultButtonDelegate = self
+        dataSource.applyDelegate.myBoxApplyListCardDelegate = self
+        dataSource.registerDelegate.myBoxApplyListCardDelegate = self
         return dataSource
     }()
     let delegate = MyBoxCollectionViewDelegate()
@@ -83,5 +85,17 @@ extension MyBoxViewModel: MyBoxListCollectionViewButtonDelegate {
         resultViewController.modalPresentationStyle = .fullScreen
         // TODO: 결과 확인 API 호출 필요
         push?(resultViewController)
+    }
+}
+
+extension MyBoxViewModel: MyBoxListCardDelegate {
+    func cellTapped(type: MyBox, with index: Int) {
+        if type == .applied {
+            let resultViewModel = ResultViewModel()
+            resultViewModel.type = .win
+            let resultViewController = ResultViewController(resultViewModel)
+            resultViewController.modalPresentationStyle = .fullScreen
+            push?(resultViewController)
+        }
     }
 }
