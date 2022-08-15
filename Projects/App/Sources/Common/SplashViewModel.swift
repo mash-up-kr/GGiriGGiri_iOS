@@ -6,11 +6,10 @@
 //  Copyright © 2022 dvHuni. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 import RxRelay
 import RxSwift
-import UIKit
 
 protocol SplashViewModelProtocol {
     var deadlineDataCountUpdated: PublishRelay<Int> { get }
