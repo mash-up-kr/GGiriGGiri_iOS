@@ -62,6 +62,7 @@ final class SplashViewModel: SplashViewModelProtocol {
         
         let navigationController = UINavigationController(rootViewController: rootViewController)
         navigationController.setNavigationBarHidden(true, animated: false)
-        UIApplication.shared.keyWindow?.replaceRootViewController(navigationController, animated: true, completion: nil)
+        
+        UIApplication.shared.windows.first?.replaceRootViewController(navigationController, animated: true, completion: nil)
     }
 }
