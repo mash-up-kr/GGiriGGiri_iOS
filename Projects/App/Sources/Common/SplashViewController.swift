@@ -47,10 +47,9 @@ final class SplashViewController: BaseViewController<SplashViewModelProtocol> {
     override func bind() {
         super.bind()
         
-        viewModel.deadlineDataUpdated
+        viewModel.deadlineDataCountUpdated
             .subscribe (onNext: { [weak self] dataCount in
                 self?.deadlineDataCount = dataCount
-                print("데드라인데이터수,,", self?.deadlineDataCount)
             })
             .disposed(by: disposeBag)
     }

@@ -79,7 +79,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             })
             .disposed(by: disposeBag)
         
-        collectionView.isDeadlineDataExist = viewModel.deadlineDataExist
+        collectionView.isDeadlineDataExist = viewModel.isDeadlineDataExist
         
         myBoxButton.rx.tap.subscribe(onNext: { [weak self] in
             let myBoxViewModel = MyBoxViewModel(network: Network())

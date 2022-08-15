@@ -30,20 +30,21 @@ extension UIWindow {
             }
         }
         
-        if self.rootViewController!.presentedViewController != nil {
-            self.rootViewController!.dismiss(animated: true, completion: dismissCompletion)
-        } else {
+        guard let _ = self.rootViewController?.presentedViewController else {
             dismissCompletion()
+            return
         }
+        
+        self.rootViewController?.dismiss(animated: true, completion: dismissCompletion)
     }
     
     func snapshot() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
         drawHierarchy(in: bounds, afterScreenUpdates: true)
         
-        guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return UIImage.init() }
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return UIImage.init() }
         UIGraphicsEndImageContext()
         
-        return result
+        return image
     }
 }

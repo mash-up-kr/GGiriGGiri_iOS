@@ -28,7 +28,7 @@ protocol MainViewModelProtocol {
     var categoryListUpdated: PublishRelay<Void> { get }
     var gifticonListUpdated: PublishRelay<Void> { get }
     
-    var deadlineDataExist: Bool { get }
+    var isDeadlineDataExist: Bool { get }
     
     func presentPhotoPicker()
     func requestPHPhotoLibraryAuthorization()
@@ -60,7 +60,7 @@ final class MainViewModel: MainViewModelProtocol {
     var categoryListUpdated = PublishRelay<Void>()
     var gifticonListUpdated = PublishRelay<Void>()
     
-    var deadlineDataExist: Bool
+    var isDeadlineDataExist: Bool
     
     init(
         network: Networking,
@@ -71,7 +71,7 @@ final class MainViewModel: MainViewModelProtocol {
         self.gifticonService = GifticonService(network: network)
         self.categoryRepository = repository
         self.OCRRepository = OCRRepository
-        self.deadlineDataExist = deadlineDataExist
+        self.isDeadlineDataExist = deadlineDataExist
         
         deadlineInfo()
         category()

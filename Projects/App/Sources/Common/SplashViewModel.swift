@@ -13,7 +13,7 @@ import RxSwift
 import UIKit
 
 protocol SplashViewModelProtocol {
-    var deadlineDataUpdated: PublishRelay<Int> { get }
+    var deadlineDataCountUpdated: PublishRelay<Int> { get }
 }
 
 final class SplashViewModel: SplashViewModelProtocol {
@@ -27,7 +27,7 @@ final class SplashViewModel: SplashViewModelProtocol {
         deadlineInfo()
     }
     
-    var deadlineDataUpdated = PublishRelay<Int>()
+    var deadlineDataCountUpdated = PublishRelay<Int>()
     
     private func deadlineInfo() {
         gifticonService.deadline(.init(orderBy: .deadLine, category: .all))
@@ -36,7 +36,7 @@ final class SplashViewModel: SplashViewModelProtocol {
                     return
                 }
                 let entity = GifticonEntity.init(responseModel)
-                self?.deadlineDataUpdated.accept(entity.gifticonList.count)
+                self?.deadlineDataCountUpdated.accept(entity.gifticonList.count)
                 
                 self?.changeRootViewController(deadlineData: entity.gifticonList.count)
             } onFailure: { error in
@@ -46,10 +46,10 @@ final class SplashViewModel: SplashViewModelProtocol {
     
     private func changeRootViewController(deadlineData: Int) {
         
-        var deadlineDataExist = true
+        var isDeadlineDataExist = true
         
         if deadlineData == 0 {
-            deadlineDataExist = false
+            isDeadlineDataExist = false
         }
         
         let rootViewController = MainViewController(
@@ -57,7 +57,7 @@ final class SplashViewModel: SplashViewModelProtocol {
                 network: Network(),
                 repository: CategoryRepository(CategoryService(network: Network())),
                 OCRRepository: OCRRepository(OCRService(network: Network())),
-                deadlineDataExist: deadlineDataExist
+                deadlineDataExist: isDeadlineDataExist
             ))
         
         let navigationController = UINavigationController(rootViewController: rootViewController)
