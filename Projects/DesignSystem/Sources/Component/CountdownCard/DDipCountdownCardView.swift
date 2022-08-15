@@ -151,6 +151,8 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     private func setValue() {
         self.layer.cornerRadius = 15
         self.backgroundColor = .designSystem(.neutralWhite)
+        firstSecondView.numberLabel.textColor = .designSystem(.dangerRaspberry)
+        secondSecondView.numberLabel.textColor = .designSystem(.dangerRaspberry)
     }
     
     private func setStackView() {
