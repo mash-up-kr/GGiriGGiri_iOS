@@ -38,4 +38,25 @@ struct Gifticon {
             return .iconRotateGuitar
         }
     }
+
+    var standardImageName: DDIPAsset.name {
+        switch category {
+        case .all:
+            return .iconLogoCharacter
+        case .cafe:
+            return .iconCafedesert
+        case .delivery:
+            return .iconChicken
+        case .icecream:
+            return .iconIcecream
+        case .convenienceStore:
+            return .iconDrugStore
+        case .fastfood:
+            return .iconFastfood
+        case .voucher:
+            return .iconCoupon
+        case .etc:
+            return .iconGuitar
+        }
+    }
 }
