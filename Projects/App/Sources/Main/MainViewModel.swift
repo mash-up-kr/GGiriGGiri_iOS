@@ -253,7 +253,35 @@ extension MainViewModel: MainCollectionViewCellDelegate {
     }
     
     func categoryCellTapped(with category: Category) {
-        // TODO: Category에 따라 정렬하기
-        debugPrint(#function)
+        gifticonService.gifticonList(.init(orderBy: .create, category: categoryToBaseRequestModel(with: category)))
+            .subscribe { [weak self] responseModel in
+                guard let responseModel = responseModel.data else { return }
+                let entity = GifticonEntity.init(responseModel)
+                self?.mainDataSource.updateGifticonListData(entity.gifticonList)
+                self?.gifticonListUpdated.accept(Void())
+            } onFailure: { error in
+                print(error.localizedDescription)
+            }.disposed(by: disposeBag)
+    }
+    
+    private func categoryToBaseRequestModel(with category: Category) -> BaseRequestModel.Category {
+        switch category {
+        case .all:
+            return .all
+        case .cafe:
+            return .cafe
+        case .delivery:
+            return .delivery
+        case .icecream:
+            return .icecream
+        case .convenienceStore:
+            return .convenienceStore
+        case .fastfood:
+            return .fastfood
+        case .voucher:
+            return .voucher
+        case .etc:
+            return .etc
+        }
     }
 }
