@@ -22,4 +22,23 @@ extension Encodable {
             return [:]
         }
     }
+    
+    var multiPartRequestable: [String: Data] {
+        do {
+            let data = try JSONEncoder().encode(self)
+            guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any] else {
+                return [:]
+            }
+            
+            var dictionary: [String: Data] = [:]
+            for (key, value) in jsonObject {
+                guard let valueString = value as? String else { continue }
+                dictionary.updateValue(Data(base64Encoded: valueString) ?? Data(), forKey: key)
+            }
+            
+            return dictionary
+        } catch {
+            return [:]
+        }
+    }
 }
