@@ -19,6 +19,8 @@ protocol MyBoxViewModelProtocol {
     
     var dataSource: MyBoxCollectionViewDataSource { get }
     var delegate: MyBoxCollectionViewDelegate { get }
+    
+    func updateHistory()
 }
 
 final class MyBoxViewModel: MyBoxViewModelProtocol {
@@ -38,6 +40,8 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
         return dataSource
     }()
     let delegate = MyBoxCollectionViewDelegate()
+    
+    var onUpdate: (() -> Void)? = nil
     
     init(network: Networking) {
         self.gifticonService = GifticonService(network: network)
@@ -68,6 +72,11 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
             } onFailure: { error in
                 print(error.localizedDescription)
             }.disposed(by: disposeBag)
+    }
+    
+    func updateHistory() {
+        applyHistory()
+        registerHistory()
     }
 }
 

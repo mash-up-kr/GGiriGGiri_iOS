@@ -24,7 +24,6 @@ final class MyBoxListCollectionViewDelegate: NSObject, UICollectionViewDelegate 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? MyBoxListCollectionViewCell else { return }
         guard let drawStatus = data[indexPath.item].drawStatus else { return }
         myBoxApplyListCardDelegate?.cellTapped(type: type, id: data[indexPath.item].gifticonInfo.id, drawStatus: drawStatus)
     }

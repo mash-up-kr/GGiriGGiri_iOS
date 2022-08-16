@@ -36,6 +36,12 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.updateHistory()
+    }
+    
     override func setLayout() {
         super.setLayout()
         
