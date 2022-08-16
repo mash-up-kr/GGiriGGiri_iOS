@@ -67,7 +67,6 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
         listCardView.cardListButtonDidTapped
             .withUnretained(self)
             .subscribe { [weak self] _ in
-            print("기프티콘카드컬렉션뷰셀 이미지", data.gifticonInfo.standardImageName)
             self?.gifticonApplyButtonDelegate?.applyButtonTapped(with: data.gifticonInfo.id,
                                                                  categoryImage: data.gifticonInfo.standardImageName,
                                                                  completion: { status in

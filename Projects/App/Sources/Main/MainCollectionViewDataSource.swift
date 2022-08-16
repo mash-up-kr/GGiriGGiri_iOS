@@ -54,6 +54,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             cell.didApplyButtonTapped
                 .bind(to: didTapDeadLineApplyButton)
                 .disposed(by: disposeBag)
+            cell.gifticonApplyButtonDelegate = self
             return cell
         case .category:
             guard let cell = collectionView.dequeReusableCell(CategoryCollectionViewCell.self,
