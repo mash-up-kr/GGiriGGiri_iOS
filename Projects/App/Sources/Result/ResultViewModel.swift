@@ -39,7 +39,6 @@ final class ResultViewModel: ResultViewModelProtocol {
     
     private func drawResult() {
         gifticonService.drawResult(self.gifticonId)
-            .debug()
             .subscribe(onSuccess: { [weak self] responseModel in
                 guard let responseData = responseModel.data else {
                     return

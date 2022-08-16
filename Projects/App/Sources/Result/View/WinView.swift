@@ -100,6 +100,6 @@ final class WinView: BaseView {
         brandWrapperView.configure(title: "브랜드", info: gifticon.brand)
         productWrapperView.configure(title: "제품명", info: gifticon.name)
         expirationDateWrapperView.configure(title: "유효기간", info: gifticon.expirationDate)
-        iconView.imageView.image = .designSystem(gifticon.rotateImageName) // TODO: develop에 있는 standardImageName으로 변경해야함
+        iconView.imageView.image = .designSystem(gifticon.rotateImageName) // TODO: rotateImage가 아닌 똑바로 되어있는 아이콘 이미지로 변경해야함
     }
 }
