@@ -29,7 +29,13 @@ struct SprinkleInformation {
         self.image = image
         self.brandName = brandName
         self.productName = productName
-        self.expirationDate = expirationDate
+        self.expirationDate = expirationDate.format(.yearMonthDay)
+    }
+    
+    mutating
+    func requestable() -> SprinkleInformation {
+        self.expirationDate = expirationDate?.format(.dashYearMonthDay)
+        return self
     }
     
     func isValidate() -> Bool {
