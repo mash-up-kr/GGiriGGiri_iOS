@@ -51,7 +51,7 @@ extension String {
     }
 
     public func fullStringDate() -> Date {
-        Formatter.date.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        Formatter.date.dateFormat = "yyyy-MM-dd'T'HH:mm"
 
         guard let dateData = Formatter.date.date(from: self) else {
             return Date()
