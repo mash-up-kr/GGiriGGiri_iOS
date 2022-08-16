@@ -80,6 +80,7 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
                     self?.setApplyCompletButtonState()
                     self?.showSuccessToast(category: self?.viewModel.detailData.value?.imageName ?? .iconRotateLogoCharacter)
                     self?.toastView.showToastView(with: self?.view ?? UIView())
+                    self?.viewModel.updateDetailInfo()
                 } else {
                     self?.setFailButtonState()
                     self?.showFailToast(message: message)
