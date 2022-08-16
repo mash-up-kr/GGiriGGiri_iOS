@@ -156,7 +156,7 @@ final class MainView: BaseView {
             edgeSpacing: .init(
                 leading: .none,
                 top: .none,
-                trailing: .fixed(8),
+                trailing: .fixed(4),
                 bottom: .none
             ),
             item: item
@@ -176,7 +176,7 @@ final class MainView: BaseView {
                 top: .zero,
                 leading: 16,
                 bottom: .zero,
-                trailing: .zero
+                trailing: 8
             ),
             scrollingBehavior: .continuous,
             header: header
