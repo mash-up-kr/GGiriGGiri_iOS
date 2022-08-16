@@ -8,6 +8,7 @@
 
 import UIKit
 
+import RxRelay
 import RxSwift
 
 public class DDipCountdownCardView: UIView, AddViewsable {
@@ -87,6 +88,7 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     }()
     
     private var timer = DDIPCountDownTimer(.second)
+    public let countDownTimeOver = PublishRelay<Void>()
     
     private let disposeBag = DisposeBag()
     
@@ -136,6 +138,11 @@ public class DDipCountdownCardView: UIView, AddViewsable {
                 guard let second = $0 else { return }
                 self?.update(second: second)
             })
+            .disposed(by: disposeBag)
+        
+        timer.invalidDate
+            .skip(1)
+            .bind(to: countDownTimeOver)
             .disposed(by: disposeBag)
     }
     
