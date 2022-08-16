@@ -16,6 +16,7 @@ protocol ApplyViewModelProtocol {
     var detailData: BehaviorRelay<CouponDatum?> { get }
 
     func applyButtonTapped()
+    func updateDetailInfo()
 }
 
 final class ApplyViewModel: ApplyViewModelProtocol {
@@ -40,6 +41,10 @@ final class ApplyViewModel: ApplyViewModelProtocol {
                 self?.detailData.accept(responseData)
             })
             .disposed(by: disposeBag)
+    }
+
+    func updateDetailInfo() {
+        detailInfo()
     }
 
     func applyButtonTapped() {
