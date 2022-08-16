@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct OCRRequestModel: Decodable {
+struct OCRRequestModel: Encodable {
     let imageData: Data
     
     enum CodingKeys: String, CodingKey {
