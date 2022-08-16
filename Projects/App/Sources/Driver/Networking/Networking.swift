@@ -13,6 +13,7 @@ import RxSwift
 
 protocol Networking {
     func request(_ model: NetworkRequestable) -> Single<Network.Response>
+    func requestMultipartFormData(_ model: NetworkRequestable) -> Single<Network.Response>
 }
 
 final class Network: Networking {
@@ -58,20 +59,21 @@ final class Network: Networking {
         .create { [weak self] single in
             do {
                 let endpoint = try model.endpoint()
-                let parameters = model.parameters?.requestable ?? [:]
+                let parameters = model.parameters?.multiPartRequestable ?? [:]
                 AF.upload(
                     multipartFormData: { multipartFormData in
                         for (key, value) in parameters {
-                            if key == "image", let value = value as? Data {
-                                multipartFormData.append(
-                                    value,
-                                    withName: key,
-                                    fileName: "\(value)"
-                                )
-                            }
+                            guard key == "image" else { continue }
+                            multipartFormData.append(
+                                value,
+                                withName: "image",
+                                fileName: "file.png",
+                                mimeType: "image/png"
+                            )
                         }
                     },
-                    to: endpoint
+                    to: endpoint,
+                    headers: model.headers
                 )
                 .response{ [single] response in
                     if let error = response.error {

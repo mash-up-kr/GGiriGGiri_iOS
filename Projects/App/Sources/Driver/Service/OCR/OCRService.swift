@@ -22,6 +22,6 @@ struct OCRService: OCRServiceLogic {
     }
     
     func request(_ model: OCRRequestModel) -> ResultResponse {
-        network.request(OCRAPI.request(model)).map()
+        network.requestMultipartFormData(OCRAPI.request(model)).map()
     }
 }
