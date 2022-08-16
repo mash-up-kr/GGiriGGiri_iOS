@@ -41,6 +41,10 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         configureNavigationBar()
         configureCollectionView()
         configureFloatingButton()
+    }
+    
+    override func bind() {
+        super.bind()
         
         viewModel.alert = { [weak self] _, message, _, _, action in
             self?.alert(message: message, okHandler: action)
