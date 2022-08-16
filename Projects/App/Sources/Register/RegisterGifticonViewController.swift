@@ -33,6 +33,7 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
         super.configure()
         view.backgroundColor = .designSystem(.neutralWhite)
         scrollView.delegate = self
+        scrollView.showsVerticalScrollIndicator = false
         
         configureNavigationBar()
         
