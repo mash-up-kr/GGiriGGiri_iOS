@@ -29,19 +29,19 @@ struct CouponDatum: Decodable {
 
     var imageName: DDIPAsset.name {
         switch category {
-        case "CAFE":
+        case "카페/디저트":
             return .iconCafedesert
-        case "DELIVERY":
+        case "치킨/배달음식":
             return .iconChicken
-        case "ICECREAM":
+        case "아이스크림":
             return .iconIcecream
-        case "CONVENIENCE_STORE":
+        case "편의점":
             return .iconDrugStore
-        case "FAST_FOOD":
+        case "패스트푸드":
             return .iconFastfood
-        case "VOUCHER":
+        case "금액권":
             return .iconCoupon
-        case "ETC":
+        case "기타":
             return .iconGuitar
         default:
             return .iconLogoCharacter

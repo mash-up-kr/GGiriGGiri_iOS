@@ -23,8 +23,6 @@ final class ToastView {
 
         self.dimView.alpha = 1
         self.toastView.alpha = 1
-        self.wrapperView.removeFromSuperview()
-        self.dimView.removeFromSuperview()
 
         setToastView(view: view)
     }
@@ -36,8 +34,6 @@ final class ToastView {
 
         self.dimView.alpha = 1
         self.toastView.alpha = 1
-        self.wrapperView.removeFromSuperview()
-        self.dimView.removeFromSuperview()
 
         setToastView(view: view)
     }
@@ -80,7 +76,12 @@ final class ToastView {
             UIView.transition(with: view, duration: 0.3, options: [.curveEaseInOut], animations: {
                 self.toastView.alpha = 0
                 self.dimView.alpha = 0
-            }, completion: { _ in })
+            }, completion: { _ in
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1, execute: {
+                    self.dimView.removeFromSuperview()
+                    self.wrapperView.removeFromSuperview()
+                })
+            })
         }
     }
     
