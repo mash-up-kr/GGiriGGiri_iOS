@@ -19,6 +19,7 @@ struct GifticonService {
     typealias RegisterSprinkleResponse = Response
     typealias ApplyHistoryResponse = ResponseData<[ApplyHistoryResponseModel]>
     typealias RegisterHistoryResponse = ResponseData<[RegisterHistoryResponseModel]>
+    typealias DrawResultResponse = ResponseData<DrawResultResponseModel>
     
     private let network: Networking
     
@@ -51,12 +52,18 @@ struct GifticonService {
         ).map()
     }
     
-    // MARK: 마이박스 - 응모 / 등록
+    /// 마이박스 - 응모
     func applyHistory() -> ApplyHistoryResponse {
         network.request(GifticonAPI.applyHistory).map()
     }
     
+    /// 마이박스 - 등록
     func registerHistory() -> RegisterHistoryResponse {
         network.request(GifticonAPI.registerHistory).map()
+    }
+    
+    /// 마이박스 - 응모 결과 조회
+    func drawResult(_ id: Int) -> DrawResultResponse {
+        network.request(GifticonAPI.drawResult(id)).map()
     }
 }

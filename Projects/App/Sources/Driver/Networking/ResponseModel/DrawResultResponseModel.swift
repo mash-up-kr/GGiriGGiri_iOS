@@ -1,5 +1,5 @@
 //
-//  ApplyResultResponseModel.swift
+//  DrawResultResponseModel.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/08/16.
@@ -8,13 +8,11 @@
 
 import Foundation
 
-// MARK: - DataClass
 struct DrawResultResponseModel: Decodable {
-    let drawStatus: String
-    let couponInfo: CouponInfo
+    let drawStatus: DrawStatus
+    let couponInfo: CouponInfo?
 }
 
-// MARK: - CouponInfo
 struct CouponInfo: Decodable {
     let brandName, merchandiseName, expiredAt: String
     let imageURL: String

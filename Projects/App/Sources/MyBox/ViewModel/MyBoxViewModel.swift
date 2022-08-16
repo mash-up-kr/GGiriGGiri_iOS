@@ -74,7 +74,8 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
 extension MyBoxViewModel: MyBoxListCollectionViewButtonDelegate {
     
     func resultButtonTapped(with id: Int, result: DrawStatus) {
-        let resultViewModel = ResultViewModel()
+        let resultViewModel = ResultViewModel(gifticonId: id, type: result.gifticonResult, network: Network())
+        
         if result == .win {
             resultViewModel.type = .win
         } else if result == .lose {
@@ -83,19 +84,32 @@ extension MyBoxViewModel: MyBoxListCollectionViewButtonDelegate {
         
         let resultViewController = ResultViewController(resultViewModel)
         resultViewController.modalPresentationStyle = .fullScreen
-        // TODO: 결과 확인 API 호출 필요
         push?(resultViewController)
     }
 }
 
 extension MyBoxViewModel: MyBoxListCardDelegate {
-    func cellTapped(type: MyBox, with index: Int) {
+    
+    func cellTapped(type: MyBox, id: Int, drawStatus: DrawStatus) {
         if type == .applied {
-            let resultViewModel = ResultViewModel()
-            resultViewModel.type = .win
+            
+            // 진행 중
+            if drawStatus == .progress {
+                let applyViewModel = ApplyViewModel(gifticonId: id, network: Network())
+                let applyViewController = ApplyViewController(applyViewModel)
+                applyViewController.modalPresentationStyle = .fullScreen
+                push?(applyViewController)
+                return
+            }
+            
+            // 응모 결과 나왔을 경우
+            let resultViewModel = ResultViewModel(gifticonId: id, type: drawStatus.gifticonResult, network: Network())
+            
             let resultViewController = ResultViewController(resultViewModel)
             resultViewController.modalPresentationStyle = .fullScreen
             push?(resultViewController)
+            return
         }
+        
     }
 }

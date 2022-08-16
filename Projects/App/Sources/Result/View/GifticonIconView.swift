@@ -27,8 +27,7 @@ final class GifticonIconView: BaseView {
         return imageView
     }()
     
-    // TODO: 서버에서 내려준 카테고리에 따라 에셋 사용하기
-    private let imageView = UIImageView()
+    private(set) var imageView = UIImageView()
     
     override func setLayout() {
         super.setLayout()

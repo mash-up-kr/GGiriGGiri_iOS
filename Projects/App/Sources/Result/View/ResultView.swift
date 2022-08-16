@@ -39,12 +39,15 @@ final class ResultView: BaseView {
                 loseView.isHidden = false
                 button.setTitle(title: "홈으로 이동")
                 button.setBackgroundColor(buttonColor: .secondaryBlue)
+            case .progress:
+                break
             }
         }
     }
     
-    private let winView = WinView()
+    private(set) var winView = WinView()
     private let loseView = LoseView()
+    var imageUrl: String?
     
     private let button = DDIPCTAButton()
     
@@ -85,6 +88,8 @@ final class ResultView: BaseView {
     @objc private func homeButtonTapped(_ sender: UIButton) {
         switch type {
         case .win:
+            guard let imageUrl = imageUrl else { return }
+
             delegate?.saveButtonTapped(completion: { [weak self] saved in
                 if saved {
                     self?.button.setBackgroundColor(buttonColor: .secondarySkyblue200)
@@ -96,6 +101,8 @@ final class ResultView: BaseView {
             })
         case .lose:
             delegate?.homeButtonTapped()
+        case .progress:
+            break
         }
     }
 }

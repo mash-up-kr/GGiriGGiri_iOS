@@ -11,4 +11,5 @@ import Foundation
 enum GifticonResult {
     case win
     case lose
+    case progress
 }

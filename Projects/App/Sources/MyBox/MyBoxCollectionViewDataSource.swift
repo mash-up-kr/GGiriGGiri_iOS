@@ -35,6 +35,7 @@ final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource 
             guard let applyItem = item.first else { return cell }
             applyDataSource.item = applyItem
             applyDataSource.currentType = .applied
+            applyDelegate.data = applyItem
             
             cell.configureDataSource(applyDataSource)
             cell.configureDelegate(applyDelegate)

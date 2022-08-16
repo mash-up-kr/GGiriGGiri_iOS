@@ -34,6 +34,9 @@ enum GifticonAPI {
     
     /// 내 기프티콘 등록 내역 조회
     case registerHistory
+    
+    /// 응모 결과 조회
+    case drawResult(Int)
 }
 
 extension GifticonAPI: NetworkRequestable {
@@ -53,12 +56,14 @@ extension GifticonAPI: NetworkRequestable {
             return "/api/v1/participant/history"
         case .registerHistory:
             return "/api/v1/sprinkle/registration-history"
+        case .drawResult(let id):
+            return "/api/v1/participant/draw-result/\(id)"
         }
     }
     
     var parameters: Encodable? {
         switch self {
-        case .sprinkleApplication, .sprinkleDetail, .categories, .applyHistory, .registerHistory:
+        case .sprinkleApplication, .sprinkleDetail, .categories, .applyHistory, .registerHistory, .drawResult:
             return nil
         case let .categoryGifticonList(model), let .deadlineGifticonList(model):
             return model
@@ -69,7 +74,7 @@ extension GifticonAPI: NetworkRequestable {
     
     var headers: HTTPHeaders {
         switch self {
-        case .categories, .categoryGifticonList, .deadlineGifticonList, .sprinkleApplication, .sprinkleDetail, .applyHistory, .registerHistory:
+        case .categories, .categoryGifticonList, .deadlineGifticonList, .sprinkleApplication, .sprinkleDetail, .applyHistory, .registerHistory, .drawResult:
             return .default
         case .registerSprinkle:
             return .multipartHeader
@@ -78,7 +83,7 @@ extension GifticonAPI: NetworkRequestable {
 
     var method: HTTPMethod {
         switch self {
-        case .categoryGifticonList, .deadlineGifticonList, .sprinkleDetail, .categories, .applyHistory, .registerHistory:
+        case .categoryGifticonList, .deadlineGifticonList, .sprinkleDetail, .categories, .applyHistory, .registerHistory, .drawResult:
             return .get
         case .sprinkleApplication, .registerSprinkle:
             return .post

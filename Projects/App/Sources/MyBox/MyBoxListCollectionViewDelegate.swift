@@ -9,13 +9,15 @@
 import UIKit
 
 protocol MyBoxListCardDelegate: AnyObject {
-    func cellTapped(type: MyBox, with index: Int)
+    func cellTapped(type: MyBox, id: Int, drawStatus: DrawStatus)
 }
 
 final class MyBoxListCollectionViewDelegate: NSObject, UICollectionViewDelegate {
     weak var myBoxApplyListCardDelegate: MyBoxListCardDelegate?
     
     var type: MyBox
+    var id: Int = 0
+    var data = [GifticonCard]()
     
     init(type: MyBox) {
         self.type = type
@@ -23,6 +25,7 @@ final class MyBoxListCollectionViewDelegate: NSObject, UICollectionViewDelegate 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? MyBoxListCollectionViewCell else { return }
-        myBoxApplyListCardDelegate?.cellTapped(type: type, with: indexPath.item)
+        guard let drawStatus = data[indexPath.item].drawStatus else { return }
+        myBoxApplyListCardDelegate?.cellTapped(type: type, id: data[indexPath.item].gifticonInfo.id, drawStatus: drawStatus)
     }
 }
