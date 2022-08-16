@@ -9,6 +9,8 @@
 import UIKit
 
 import DesignSystem
+import RxRelay
+import RxSwift
 import SnapKit
 
 /// 기프티콘 응모 뷰
@@ -36,6 +38,17 @@ final class ApplyGifticonView: BaseView {
         label.textAlignment = .center
         return label
     }()
+    
+    private let disposeBag = DisposeBag()
+    let countDownTimeOver = PublishRelay<Void>()
+    
+    override func configure() {
+        super.configure()
+        
+        countdownView.countDownTimeOver
+            .bind(to: countDownTimeOver)
+            .disposed(by: disposeBag)
+    }
     
     override func setLayout() {
         super.setLayout()
