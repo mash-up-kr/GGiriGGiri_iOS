@@ -9,6 +9,7 @@
 import PhotosUI
 import UIKit
 
+import DesignSystem
 import RxRelay
 import RxSwift
 
@@ -20,6 +21,7 @@ protocol MainViewModelProtocol {
     var present: ((UIViewController) -> ())? { get set }
     var push: ((UIViewController) -> ())? { get set }
     var applyToast: PublishRelay<Bool> { get }
+    var _applyToast: PublishRelay<(Bool, String?, Error?, DDIPAsset.name?)> { get } // Apply Toast (상희)
     
     var mainDataSource: MainCollectionViewDataSource { get }
     var mainDelegate: MainCollectionViewDelegate { get }
@@ -48,8 +50,14 @@ final class MainViewModel: MainViewModelProtocol {
     var present: ((UIViewController) -> ())? = nil
     var push: ((UIViewController) -> ())? = nil
     let applyToast = PublishRelay<Bool>()
+    let _applyToast = PublishRelay<(Bool, String?, Error?, DDIPAsset.name?)>()
     
-    let mainDataSource = MainCollectionViewDataSource()
+    lazy var mainDataSource: MainCollectionViewDataSource = {
+        let dataSource = MainCollectionViewDataSource()
+        dataSource.buttonDelegate = self
+        return dataSource
+    }()
+    
     lazy var mainDelegate: MainCollectionViewDelegate = {
         let delegate = MainCollectionViewDelegate()
         delegate.collectionViewCellDelegate = self
@@ -283,5 +291,24 @@ extension MainViewModel: MainCollectionViewCellDelegate {
         case .etc:
             return .etc
         }
+    }
+}
+
+extension MainViewModel: GifticonApplyButtonDelegate {
+    func applyButtonTapped(with id: Int, categoryImage: DDIPAsset.name, completion: @escaping (Bool) -> ()) {
+        gifticonService.apply(id)
+            .subscribe { [weak self] applyResponse in
+                if applyResponse.code == "S001" { // 응모 성공
+                    self?._applyToast.accept((true, applyResponse.message, nil, categoryImage))
+                    completion(true)
+                } else { // 응모 실패 - 본인이 등록한 뿌리기 또는 그 외의 경우
+                    self?._applyToast.accept((false, applyResponse.message, nil, nil))
+                    completion(false)
+                }
+            } onFailure: { [weak self] error in // 네트워크 통신 실패
+                self?._applyToast.accept((false, nil, nil, nil))
+                completion(false)
+            }
+            .disposed(by: disposeBag)
     }
 }

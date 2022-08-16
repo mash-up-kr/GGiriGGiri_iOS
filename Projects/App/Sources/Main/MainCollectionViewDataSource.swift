@@ -8,10 +8,13 @@
 
 import UIKit
 
+import DesignSystem
 import RxSwift
 import RxRelay
 
 final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+    
+    weak var buttonDelegate: GifticonApplyButtonDelegate?
     
     private var deadLineData: [GifticonCard] = []
     private var categoryData: [Category] = []
@@ -67,6 +70,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             }
             let gifticonListData = gifticonListData[indexPath.item]
             cell.configure(with: gifticonListData)
+            cell.gifticonApplyButtonDelegate = self
             return cell
         }
     }
@@ -95,5 +99,13 @@ extension MainCollectionViewDataSource {
     
     func updateGifticonListData(_ list: [GifticonCard]) {
         gifticonListData = list
+    }
+}
+
+extension MainCollectionViewDataSource: GifticonApplyButtonDelegate {
+    func applyButtonTapped(with id: Int, categoryImage: DDIPAsset.name, completion: @escaping (Bool) -> ()) {
+        buttonDelegate?.applyButtonTapped(with: id, categoryImage: categoryImage, completion: { [weak self] status in
+            completion(status)
+        })
     }
 }

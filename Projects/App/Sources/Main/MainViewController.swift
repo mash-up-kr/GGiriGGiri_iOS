@@ -83,6 +83,12 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             })
             .disposed(by: disposeBag)
         
+        viewModel._applyToast
+            .subscribe(onNext: { [weak self] isSuccess, message, error, image in
+                self?._showApplyToast(isSuccessed: isSuccess, message: message, error: error, image: image ?? .iconRotateLogoCharacterEmpty)
+            })
+            .disposed(by: disposeBag)
+        
         collectionView.isDeadlineDataExist = viewModel.isDeadlineDataExist
         
         myBoxButton.rx.tap.subscribe(onNext: { [weak self] in
@@ -142,6 +148,35 @@ extension MainViewController {
             style: isSuccessed ? .apply : .applyMyGifticonFail,
             image: isSuccessed ? .iconLogoCharacter : .iconRotateLogoCharacterEmpty
         )
+        toastView.showToastView(with: self.view)
+    }
+    
+    private func _showApplyToast(isSuccessed: Bool, message: String?, error: Error?, image: DDIPAsset.name) {
+        if isSuccessed {
+            showSuccessToast(image: image)
+            return
+        } else {
+            if let message = message {
+                showFailToast(message: message)
+                return
+            }
+            showNetworkFailToast()
+            return
+        }
+    }
+    
+    private func showSuccessToast(image: DDIPAsset.name) {
+        toastView.configureToastView(with: self.view, style: .apply, image: image)
+        toastView.showToastView(with: self.view)
+    }
+    
+    private func showNetworkFailToast() {
+        toastView.configureToastView(with: self.view, style: .networkFail, image: .iconRotateLogoCharacterEmpty)
+        toastView.showToastView(with: self.view)
+    }
+    
+    private func showFailToast(message: String) {
+        toastView.configureToastView(with: self.view, title: "응모 실패", description: message, image: .iconRotateLogoCharacterEmpty)
         toastView.showToastView(with: self.view)
     }
 }
