@@ -28,5 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     private func initialize() {
         DDIPFont.registerFonts()
+        configurationKeyboardToolBar()
+    }
+    
+    private func configurationKeyboardToolBar() {
+        let toolBar = KeyboardAccessoryToolbar()
+        UITextField.appearance().inputAccessoryView = toolBar
     }
 }
