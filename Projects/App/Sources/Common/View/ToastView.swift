@@ -23,8 +23,6 @@ final class ToastView {
 
         self.dimView.alpha = 1
         self.toastView.alpha = 1
-        self.wrapperView.removeFromSuperview()
-        self.dimView.removeFromSuperview()
 
         setToastView(view: view)
     }
@@ -36,8 +34,6 @@ final class ToastView {
 
         self.dimView.alpha = 1
         self.toastView.alpha = 1
-        self.wrapperView.removeFromSuperview()
-        self.dimView.removeFromSuperview()
 
         setToastView(view: view)
     }
