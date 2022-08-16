@@ -13,6 +13,7 @@ import RxSwift
 
 protocol Networking {
     func request(_ model: NetworkRequestable) -> Single<Network.Response>
+    func requestMultipartFormData(_ model: NetworkRequestable) -> Single<Network.Response>
 }
 
 final class Network: Networking {
