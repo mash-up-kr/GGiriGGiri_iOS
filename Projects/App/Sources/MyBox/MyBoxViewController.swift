@@ -81,6 +81,16 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
             self?.myBoxView.collectionView.reloadData()
         }).disposed(by: disposeBag)
         
+        myBoxView.pageRelay
+            .subscribe(onNext: { [weak self] in
+                if $0 == 1 {
+                    self?.categoryTapView.tapRightButton()
+                } else {
+                    self?.categoryTapView.tapLeftButton()
+                }
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.push = { [weak self] viewController in
             self?.navigationController?.setNavigationBarHidden(true, animated: false)
             self?.navigationController?.pushViewController(viewController, animated: true)

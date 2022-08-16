@@ -10,6 +10,7 @@ import UIKit
 
 import DesignSystem
 import SnapKit
+import RxRelay
 
 final class MyBoxView: BaseView {
 
@@ -18,9 +19,10 @@ final class MyBoxView: BaseView {
         collectionView.backgroundColor = .designSystem(.primaryYellow)
         collectionView.register(MyBoxCollectionViewCell.self)
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isUserInteractionEnabled = false
         return collectionView
     }()
+    
+    let pageRelay = PublishRelay<Int>()
     
     private func generateLayout() -> UICollectionViewLayout {
         let layout =
@@ -45,6 +47,10 @@ final class MyBoxView: BaseView {
         let section = CollectionViewLayoutManager.configureSection(with: group,
                                                                    scrollingBehavior: .groupPaging,
                                                                    header: nil)
+        section.visibleItemsInvalidationHandler = { [weak self] visibleItems, point, environment in
+            let pointee = round(point.x / UIScreen.main.bounds.width)
+            self?.pageRelay.accept(Int(pointee))
+        }
         return section
     }
     
