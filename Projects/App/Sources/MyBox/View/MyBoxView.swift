@@ -18,6 +18,7 @@ final class MyBoxView: BaseView {
         collectionView.backgroundColor = .designSystem(.primaryYellow)
         collectionView.register(MyBoxCollectionViewCell.self)
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isUserInteractionEnabled = false
         return collectionView
     }()
     
