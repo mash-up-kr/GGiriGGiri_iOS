@@ -41,8 +41,6 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
     }()
     let delegate = MyBoxCollectionViewDelegate()
     
-    var onUpdate: (() -> Void)? = nil
-    
     init(network: Networking) {
         self.gifticonService = GifticonService(network: network)
         
