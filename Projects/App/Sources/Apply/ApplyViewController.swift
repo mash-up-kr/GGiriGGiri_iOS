@@ -97,6 +97,11 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
                 self?.applyGifticonView.setExpirationDate(name: entity?.expiredAt ?? "")
                 self?.applyGifticonView.setImageIcon(imageName: entity?.imageName)
                 self?.applyGifticonView.setCountdownDate(date: entity?.sprinkleAt.fullStringDate())
+
+                if entity?.participateIn == true {
+                    self?.setApplyCompletButtonState()
+                }
+
             })
             .disposed(by: disposeBag)
     }
