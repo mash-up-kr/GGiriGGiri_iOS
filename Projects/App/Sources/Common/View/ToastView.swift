@@ -12,7 +12,7 @@ import DesignSystem
 import SnapKit
 
 final class ToastView {
-    private let toastView = DDIPToastView()
+    private let toastView = DDIPToastView(.result)
     private let wrapperView = UIView()
     private let dimView = UIView()
 

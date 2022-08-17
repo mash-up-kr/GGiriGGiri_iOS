@@ -9,6 +9,13 @@
 import UIKit
 
 public class DDIPToastView: UIView, AddViewsable {
+    public enum ToastType {
+        case result
+        case imageCheck
+    }
+
+    private let type: ToastType
+
     public enum ToastViewOptions {
         case save, saveFail, register, registerFail, apply, applyMyGifticonFail, networkFail
 
@@ -66,10 +73,26 @@ public class DDIPToastView: UIView, AddViewsable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public init() {
+    public init(_ toastType: ToastType) {
+        self.type = toastType
         super.init(frame: .zero)
         setView()
         setAttribute()
+        updateFromToastStatus()
+    }
+
+    private func updateFromToastStatus() {
+        switch type {
+        case .result:
+            titleLabel.isHidden = false
+            iconImageView.isHidden = false
+            descriptionLabel.isHidden = false
+        case .imageCheck:
+            titleLabel.removeFromSuperview()
+            iconImageView.removeFromSuperview()
+            descriptionLabel.isHidden = false
+
+        }
     }
 
     private func setView() {
