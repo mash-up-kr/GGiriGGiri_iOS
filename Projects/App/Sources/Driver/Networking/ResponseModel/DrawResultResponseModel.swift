@@ -14,11 +14,11 @@ struct DrawResultResponseModel: Decodable {
 }
 
 struct CouponInfo: Decodable {
-    let brandName, merchandiseName, expiredAt: String
+    let brandName, merchandiseName, expiredAt, category: String
     let imageURL: String
 
     enum CodingKeys: String, CodingKey {
-        case brandName, merchandiseName, expiredAt
+        case brandName, merchandiseName, expiredAt, category
         case imageURL = "imageUrl"
     }
 }

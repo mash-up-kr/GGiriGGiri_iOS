@@ -77,7 +77,8 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
                                                          brand: entity.brandName,
                                                          name: entity.merchandiseName,
                                                          expirationDate: entity.expiredAt.format(.yearMonthDay),
-                                                         category: .cafe)) // TODO: 서버에서 오는 카테고리 데이터 넣어줘야함.
+                                                         category: Category(rawValue: entity.category) ?? .all
+                                                        ))
                 self?.resultView.imageUrl = entity.imageURL
                 self?.imageUrl = entity.imageURL
             })
