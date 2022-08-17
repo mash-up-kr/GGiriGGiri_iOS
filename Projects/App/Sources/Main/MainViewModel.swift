@@ -208,7 +208,7 @@ extension MainViewModel {
             })
             .disposed(by: disposeBag)
         
-        mainDataSource.didDeadLineCountDownTimeOver
+        mainDataSource.didDeadLineCountdownTimeOver
             .subscribe(onNext: { [weak self] in
                 self?.deadlineInfo()
             })

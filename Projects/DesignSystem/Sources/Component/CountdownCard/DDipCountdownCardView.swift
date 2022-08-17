@@ -88,7 +88,7 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     }()
     
     private var timer = DDIPCountDownTimer(.second)
-    public let countDownTimeOver = PublishRelay<Void>()
+    public let countdownTimeOver = PublishRelay<Void>()
     
     private let disposeBag = DisposeBag()
     
@@ -142,7 +142,7 @@ public class DDipCountdownCardView: UIView, AddViewsable {
         
         timer.invalidDate
             .skip(1)
-            .bind(to: countDownTimeOver)
+            .bind(to: countdownTimeOver)
             .disposed(by: disposeBag)
     }
     

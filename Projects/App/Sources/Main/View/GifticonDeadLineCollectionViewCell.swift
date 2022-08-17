@@ -23,7 +23,7 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     private let cardView = DDIPDeadlineCardView()
     
     let didApplyButtonTapped = PublishRelay<Int>()
-    let countDownTimeOver = PublishRelay<Void>()
+    let countdownTimeOver = PublishRelay<Void>()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,8 +60,8 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
             .bind(to: didApplyButtonTapped)
             .disposed(by: disposeBag)
         
-        cardView.countDownTimeOver
-            .bind(to: countDownTimeOver)
+        cardView.countdownTimeOver
+            .bind(to: countdownTimeOver)
             .disposed(by: disposeBag)
     }
     

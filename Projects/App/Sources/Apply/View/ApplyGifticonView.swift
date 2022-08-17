@@ -40,13 +40,13 @@ final class ApplyGifticonView: BaseView {
     }()
     
     private let disposeBag = DisposeBag()
-    let countDownTimeOver = PublishRelay<Void>()
+    let countdownTimeOver = PublishRelay<Void>()
     
     override func configure() {
         super.configure()
         
-        countdownView.countDownTimeOver
-            .bind(to: countDownTimeOver)
+        countdownView.countdownTimeOver
+            .bind(to: countdownTimeOver)
             .disposed(by: disposeBag)
     }
     

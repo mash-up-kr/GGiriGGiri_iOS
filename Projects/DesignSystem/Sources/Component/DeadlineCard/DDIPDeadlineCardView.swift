@@ -31,7 +31,7 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     private let disposeBag = DisposeBag()
     
     public let buttonTapEvent = PublishRelay<Void>()
-    public let countDownTimeOver = PublishRelay<Void>()
+    public let countdownTimeOver = PublishRelay<Void>()
     
     private let infoStackView: UIStackView = {
         let stackView = UIStackView()
@@ -199,7 +199,7 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
         
         timer.invalidDate
             .skip(1)
-            .bind(to: countDownTimeOver)
+            .bind(to: countdownTimeOver)
             .disposed(by: disposeBag)
     }
     
