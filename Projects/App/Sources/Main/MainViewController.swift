@@ -31,7 +31,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     private let toastView = ToastView()
     private let couponIndicatorToastView = DDIPToastView(.imageCheck)
 
-    lazy var activityIndicator: UIActivityIndicatorView = {
+    private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.transform = CGAffineTransform.init(scaleX: 3, y: 3)
 
@@ -185,8 +185,6 @@ extension MainViewController {
 
     private func setToastView() {
         couponIndicatorToastView.setDescriptionLabel("쿠폰 이미지 분석 중이에요!\n 잠시만 기다려주세요!")
-        couponIndicatorToastView.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
 
         self.view.addSubview(couponIndicatorToastView)
         couponIndicatorToastView.addSubview(activityIndicator)
