@@ -29,6 +29,14 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
 
     private let floatingButton = FloatingButton()
     private let toastView = ToastView()
+    private let couponIndicatorToastView = DDIPToastView(.imageCheck)
+
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.transform = CGAffineTransform.init(scaleX: 3, y: 3)
+
+        return activityIndicator
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,10 +50,34 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         configureCollectionView()
         configureFloatingButton()
         
-        viewModel.alert = { [weak self] _, message, _, _, action in
-            self?.alert(message: message, okHandler: action)
+        viewModel.alert = { [weak self] title, message, _, _, action in
+            self?.alert(title: title, message: message, okHandler: action)
         }
-        
+
+        viewModel.toastRequestRelay
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.showToastView()
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.OCRRequestRelay
+            .subscribe(onNext: { [weak self] sprinkleInformation in
+                self?.dismissActivityIndicator()
+                if let sprinkleInformation = sprinkleInformation {
+                    self?.showRegisterView(information: sprinkleInformation)
+                } else {
+                    self?.viewModel.alert?(
+                        "쿠폰 정보 생성 실패",
+                        "쿠폰번호를 가져오는 데 실패했습니다.\n더 쉬운 쿠폰사용을 위해 바코드 또는 쿠폰 번호가 잘 보이는 이미지로 다시 시도해주세요!",
+                        nil,
+                        nil,
+                        nil
+                    )
+                }
+            })
+            .disposed(by: disposeBag)
+
         viewModel.present = { [weak self] viewController in
             self?.present(viewController, animated: true)
         }
@@ -86,7 +118,8 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             let myBoxViewController = MyBoxViewController(myBoxViewModel)
             myBoxViewController.modalPresentationStyle = .fullScreen
             self?.viewModel.push?(myBoxViewController)
-        }).disposed(by: disposeBag)
+        })
+        .disposed(by: disposeBag)
     }
     
     private func configureNavigationBar() {
@@ -139,5 +172,50 @@ extension MainViewController {
             image: isSuccessed ? .iconLogoCharacter : .iconRotateLogoCharacterEmpty
         )
         toastView.showToastView(with: self.view)
+    }
+}
+
+// MARK: - Indicator Toast
+
+extension MainViewController {
+    private func showToastView() {
+        setToastView()
+        activityIndicator.startAnimating()
+    }
+
+    private func setToastView() {
+        couponIndicatorToastView.setDescriptionLabel("쿠폰 이미지 분석 중이에요!\n 잠시만 기다려주세요!")
+        couponIndicatorToastView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+
+        self.view.addSubview(couponIndicatorToastView)
+        couponIndicatorToastView.addSubview(activityIndicator)
+
+        couponIndicatorToastView.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+            $0.width.equalTo(229)
+            $0.height.equalTo(193)
+        }
+
+        activityIndicator.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().offset(-21)
+        }
+    }
+
+    private func dismissActivityIndicator() {
+        activityIndicator.stopAnimating()
+        couponIndicatorToastView.removeFromSuperview()
+    }
+
+    private func showRegisterView(information: SprinkleInformation) {
+        let viewModel = RegisterGifticonViewModel(
+            network: Network(),
+            categoryRepository: CategoryRepository(CategoryService(network: Network())),
+            information: information
+        )
+        let registerGifticonViewController = RegisterGifticonViewController(viewModel)
+        registerGifticonViewController.modalPresentationStyle = .fullScreen
+        self.present(registerGifticonViewController, animated: true)
     }
 }
