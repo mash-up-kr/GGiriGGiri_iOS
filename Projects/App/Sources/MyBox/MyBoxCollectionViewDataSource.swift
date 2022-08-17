@@ -10,7 +10,7 @@ import UIKit
 
 final class MyBoxCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
-    var item = [[GifticonCard](), [GifticonCard]()]
+    private var item = [[GifticonCard](), [GifticonCard]()]
     
     private(set) var applyDataSource = MyBoxListCollectionViewDataSource()
     private(set) var applyDelegate = MyBoxListCollectionViewDelegate(type: .applied)

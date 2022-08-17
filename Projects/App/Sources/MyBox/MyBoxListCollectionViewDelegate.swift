@@ -15,8 +15,7 @@ protocol MyBoxListCardDelegate: AnyObject {
 final class MyBoxListCollectionViewDelegate: NSObject, UICollectionViewDelegate {
     weak var myBoxApplyListCardDelegate: MyBoxListCardDelegate?
     
-    var type: MyBox
-    var id: Int = 0
+    private let type: MyBox
     var data = [GifticonCard]()
     
     init(type: MyBox) {

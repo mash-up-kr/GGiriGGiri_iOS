@@ -9,8 +9,8 @@
 import UIKit
 
 import DesignSystem
-import SnapKit
 import RxRelay
+import SnapKit
 
 final class MyBoxView: BaseView {
 
