@@ -30,20 +30,24 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return deadLineData.count
-        case 1:
-            return categoryData.count
-        case 2:
-            return gifticonListData.count
-        default:
+        guard let sectionType = MainSection(rawValue: section) else {
             return .zero
+        }
+        switch sectionType {
+        case .deadLine:
+            return deadLineData.count
+        case .category:
+            return categoryData.count
+        case .gifticonList:
+            return gifticonListData.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch MockData.main[indexPath.section] {
+        guard let section = MainSection(rawValue: indexPath.section) else {
+            return UICollectionViewCell()
+        }
+        switch section {
         case .deadLine:
             guard let cell = collectionView.dequeReusableCell(GifticonDeadLineCollectionViewCell.self,
                                                               for: indexPath) else {
@@ -77,19 +81,22 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let supplementaryView = collectionView
-            .dequeueReusableSupplementaryView(ofKind: kind,
-                                              withReuseIdentifier: BaseHeaderView.reuseIdentifier,
-                                              for: indexPath) as? BaseHeaderView else {
+        guard
+            let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: BaseHeaderView.reuseIdentifier,
+                for: indexPath
+            ) as? BaseHeaderView,
+            let sectionType = MainSection(rawValue: indexPath.section)
+        else {
             return UICollectionReusableView()
         }
-        supplementaryView.titleLabel.text = MainSection.allCases[indexPath.section].headerTitle
+        supplementaryView.titleLabel.text = sectionType.headerTitle
         return supplementaryView
     }
 }
 
 extension MainCollectionViewDataSource {
-    
     func updateDeadLineData(_ list: [GifticonCard]) {
         deadLineData = list
     }
