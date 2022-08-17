@@ -24,7 +24,7 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
     }()
     
     private let resultView = ResultView()
-    private let toastView = DDIPToastView()
+    private let toastView = DDIPToastView(.result)
     
     override func viewDidLoad() {
         super.viewDidLoad()
