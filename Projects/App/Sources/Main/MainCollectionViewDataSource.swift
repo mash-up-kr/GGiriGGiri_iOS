@@ -21,6 +21,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     private var gifticonListData: [GifticonCard] = []
     
     var didTapDeadLineApplyButton = PublishRelay<Int>()
+    var selectedCategoryIndexPath: IndexPath? = nil
     
     private let disposeBag = DisposeBag()
     
@@ -66,7 +67,11 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             let category = categoryData[indexPath.item]
-            cell.configure(category)
+            let isAlreadySelectedRow = selectedCategoryIndexPath?.row ?? .zero == indexPath.row
+            cell.configure(
+                category,
+                isAlreadySelected: isAlreadySelectedRow
+            )
             return cell
         case .gifticonList:
             guard let cell = collectionView.dequeReusableCell(GifticonCardCollectionViewCell.self,
@@ -110,9 +115,15 @@ extension MainCollectionViewDataSource {
     }
 }
 
+extension MainCollectionViewDataSource {
+    func category() -> [Category] {
+        categoryData
+    }
+}
+
 extension MainCollectionViewDataSource: GifticonApplyButtonDelegate {
     func applyButtonTapped(with id: Int, categoryImage: DDIPAsset.name, completion: @escaping (Bool) -> ()) {
-        buttonDelegate?.applyButtonTapped(with: id, categoryImage: categoryImage, completion: { [weak self] status in
+        buttonDelegate?.applyButtonTapped(with: id, categoryImage: categoryImage, completion: { status in
             completion(status)
         })
     }

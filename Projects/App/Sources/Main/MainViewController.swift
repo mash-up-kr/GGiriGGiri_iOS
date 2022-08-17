@@ -59,23 +59,15 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             self?.navigationController?.pushViewController(viewController, animated: true)
         }
         
-        viewModel.deadlineListUpdated
-            .subscribe (onNext: { [weak self] in
-                self?.collectionView.reloadCollectionView()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.categoryListUpdated
-            .subscribe(onNext: { [weak self] in
-                self?.collectionView.reloadCollectionView()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.gifticonListUpdated
-            .subscribe (onNext: { [weak self] in
-                self?.collectionView.reloadCollectionView()
-            })
-            .disposed(by: disposeBag)
+        Observable.merge(
+            viewModel.deadlineListUpdated.map { MainSection.deadLine }.asObservable(),
+            viewModel.categoryListUpdated.map { MainSection.category }.asObservable(),
+            viewModel.gifticonListUpdated.map { MainSection.gifticonList}.asObservable()
+        )
+        .subscribe(onNext: { [weak self] section in
+            self?.mainView.reloadCollectionViewSection(section)
+        })
+        .disposed(by: disposeBag)
         
         viewModel.applyToast
             .subscribe(onNext: { [weak self] in

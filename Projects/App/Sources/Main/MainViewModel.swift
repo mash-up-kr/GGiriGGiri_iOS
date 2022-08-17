@@ -259,17 +259,24 @@ extension MainViewModel: MainCollectionViewCellDelegate {
         applyViewController.modalPresentationStyle = .fullScreen
         push?(applyViewController)
     }
-    
-    func categoryCellTapped(with category: Category) {
-        gifticonService.gifticonList(.init(orderBy: .create, category: categoryToBaseRequestModel(with: category)))
-            .subscribe { [weak self] responseModel in
-                guard let responseModel = responseModel.data else { return }
-                let entity = GifticonEntity.init(responseModel)
-                self?.mainDataSource.updateGifticonListData(entity.gifticonList)
-                self?.gifticonListUpdated.accept(Void())
-            } onFailure: { error in
-                print(error.localizedDescription)
-            }.disposed(by: disposeBag)
+
+    func categoryCellTapped(indexPath: IndexPath) {
+        mainDataSource.selectedCategoryIndexPath = mainDelegate.selectedCategoryIndexPath
+        let category = mainDataSource.category()[indexPath.row]
+        
+        gifticonService.gifticonList(
+            .init(
+                orderBy: .create,
+                category: categoryToBaseRequestModel(with: category)
+            )
+        )
+        .subscribe(onSuccess: { [weak self] response in
+            guard let responseModel = response.data else { return }
+            let entity = GifticonEntity.init(responseModel)
+            self?.mainDataSource.updateGifticonListData(entity.gifticonList)
+            self?.gifticonListUpdated.accept(Void())
+        })
+        .disposed(by: disposeBag)
     }
     
     private func categoryToBaseRequestModel(with category: Category) -> BaseRequestModel.Category {

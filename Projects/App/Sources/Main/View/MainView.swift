@@ -221,7 +221,9 @@ final class MainView: BaseView {
         return section
     }
     
-    func reloadCollectionView() {
-        collectionView.reloadData()
+    /// 메인 collectionView 중 필요한 섹션만 리로드
+    /// - Parameter section: 리로드할 MainSection Enum
+    func reloadCollectionViewSection(_ section: MainSection) {
+        collectionView.reloadSections([section.rawValue])
     }
 }
