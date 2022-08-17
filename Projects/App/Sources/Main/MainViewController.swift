@@ -17,7 +17,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     
     private let disposeBag = DisposeBag()
     
-    private let collectionView = MainView()
+    private let mainView = MainView()
     private var gifticonList = [GifticonCard]()
     private let myBoxButton = TapBarButtons().mybox
     private lazy var navigationBar: DDIPNavigationBar = {
@@ -89,8 +89,6 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             })
             .disposed(by: disposeBag)
         
-        collectionView.isDeadlineDataExist = viewModel.isDeadlineDataExist
-        
         myBoxButton.rx.tap.subscribe(onNext: { [weak self] in
             let myBoxViewModel = MyBoxViewModel(network: Network())
             let myBoxViewController = MyBoxViewController(myBoxViewModel)
@@ -108,11 +106,13 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     }
     
     private func configureCollectionView() {
-        collectionView.configureDataSource(viewModel.mainDataSource)
-        collectionView.configureDelegate(viewModel.mainDelegate)
+        mainView.configureDataSource(viewModel.mainDataSource)
+        mainView.configureDelegate(viewModel.mainDelegate)
         
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints {
+        mainView.isDeadlineDataExist = viewModel.isDeadlineDataExist
+        
+        view.addSubview(mainView)
+        mainView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
