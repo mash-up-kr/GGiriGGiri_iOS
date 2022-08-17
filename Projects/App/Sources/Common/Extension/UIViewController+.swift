@@ -9,19 +9,17 @@
 import UIKit
 
 extension UIViewController {
-    
-    func alert(title: String = "알림",
+    func alert(title: String? = nil,
                message: String,
                okTitle: String = "확인",
                cancelHandler: ((UIAlertAction) -> Void)? = nil,
                okHandler: ((UIAlertAction) -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
+
         if let _ = cancelHandler {
             let cancelAction = UIAlertAction(title: "취소", style: .cancel)
             alert.addAction(cancelAction)
         }
-        
         let okAction = UIAlertAction(title: okTitle, style: .default, handler: okHandler)
         alert.addAction(okAction)
         
