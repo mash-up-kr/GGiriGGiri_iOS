@@ -7,7 +7,7 @@
 //
 
 import PhotosUI
-import UIKit
+import Foundation
 
 import DesignSystem
 import RxRelay
@@ -25,13 +25,16 @@ protocol MainViewModelProtocol {
     
     var mainDataSource: MainCollectionViewDataSource { get }
     var mainDelegate: MainCollectionViewDelegate { get }
+
+    var toastRequestRelay: PublishRelay<Void> { get }
+    var OCRRequestRelay: BehaviorRelay<SprinkleInformation?> { get }
     
     var deadlineListUpdated: PublishRelay<Void> { get }
     var categoryListUpdated: PublishRelay<Void> { get }
     var gifticonListUpdated: PublishRelay<Void> { get }
     
     var isDeadlineDataExist: Bool { get }
-    
+
     func presentPhotoPicker()
     func requestPHPhotoLibraryAuthorization()
     func handleAuthorizationStatus(with authorizationStatus: PHAuthorizationStatus)
@@ -40,12 +43,11 @@ protocol MainViewModelProtocol {
 
 /// ViewModelProtocol 구현
 final class MainViewModel: MainViewModelProtocol {
-    
     private let disposeBag = DisposeBag()
     private let gifticonService: GifticonService
     private let categoryRepository: CategoryRepositoryLogic
     private let OCRRepository: OCRRepositoryLogic
-   
+
     var alert: Alert? = nil
     var present: ((UIViewController) -> ())? = nil
     var push: ((UIViewController) -> ())? = nil
@@ -63,6 +65,11 @@ final class MainViewModel: MainViewModelProtocol {
         delegate.collectionViewCellDelegate = self
         return delegate
     }()
+    
+    var toastRequestRelay = PublishRelay<Void>()
+    var OCRRequestRelay: BehaviorRelay<SprinkleInformation?> {
+        return OCRRepository.sprinkleInformation
+    }
     
     var deadlineListUpdated = PublishRelay<Void>()
     var categoryListUpdated = PublishRelay<Void>()
@@ -107,7 +114,8 @@ final class MainViewModel: MainViewModelProtocol {
                 self?.deadlineListUpdated.accept(Void())
             } onFailure: { error in
                 print(error.localizedDescription)
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func category() {
@@ -130,7 +138,8 @@ final class MainViewModel: MainViewModelProtocol {
                 self?.gifticonListUpdated.accept(Void())
             } onFailure: { error in
                 print(error.localizedDescription)
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func apply(gifticonId: Int) {
@@ -186,52 +195,27 @@ extension MainViewModel {
         
         handleAuthorizationStatus(with: authorizationStatus)
     }
-    
 }
 
 // MARK: - Private Method
 
 extension MainViewModel {
     private func bind() {
-        OCRRepository.sprinkleInformation
-            .skip(1)
-            .subscribe(onNext: { [weak self] in
-                if let sprinkleInformation = $0 {
-                    self?.routeToRegisterViewController(sprinkleInformation)
-                } else {
-                    self?.alert?(
-                        "쿠폰 정보 생성 실패",
-                        "쿠폰번호를 가져오는 데 실패했습니다.\n더 쉬운 쿠폰사용을 위해 바코드 또는 쿠폰 번호가 잘 보이는 이미지로 다시 시도해주세요!",
-                        nil,
-                        nil,
-                        nil
-                    )
-                }
-            })
-            .disposed(by: disposeBag)
-        
         mainDataSource.didTapDeadLineApplyButton
             .subscribe(onNext: { [weak self] in
                 self?.apply(gifticonId: $0)
+            })
+            .disposed(by: disposeBag)
+        
+        mainDataSource.didDeadLineCountdownTimeOver
+            .subscribe(onNext: { [weak self] in
+                self?.deadlineInfo()
             })
             .disposed(by: disposeBag)
     }
     
     private func requestOCR(_ image: UIImage) {
         OCRRepository.request(image)
-    }
-    
-    private func routeToRegisterViewController(_ information: SprinkleInformation) {
-        alert?(nil, "쿠폰 이미지 분석 완료!", nil, nil, { [weak self] _ in
-            let viewModel = RegisterGifticonViewModel(
-                network: Network(),
-                categoryRepository: CategoryRepository(CategoryService(network: Network())),
-                information: information
-            )
-            let registerGifticonViewController = RegisterGifticonViewController(viewModel)
-            registerGifticonViewController.modalPresentationStyle = .fullScreen
-            self?.present?(registerGifticonViewController)
-        })
     }
 }
 
@@ -246,6 +230,7 @@ extension MainViewModel: PHPickerViewControllerDelegate {
                     return
                 }
                 self?.requestOCR(image)
+                self?.toastRequestRelay.accept(())
             }
         }
         picker.dismiss(animated: true)

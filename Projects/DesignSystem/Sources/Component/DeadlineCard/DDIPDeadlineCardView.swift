@@ -31,6 +31,7 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     private let disposeBag = DisposeBag()
     
     public let buttonTapEvent = PublishRelay<Void>()
+    public let countdownTimeOver = PublishRelay<Void>()
     
     private let infoStackView: UIStackView = {
         let stackView = UIStackView()
@@ -195,6 +196,11 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
                 self?.update(minute: minute)
             })
             .disposed(by: disposeBag)
+        
+        timer.invalidDate
+            .skip(1)
+            .bind(to: countdownTimeOver)
+            .disposed(by: disposeBag)
     }
     
     private func update(hour: Int) {
@@ -217,7 +223,7 @@ extension DDIPDeadlineCardView {
         imageIcon.image = .designSystem(style.iconImage)
         nameLabel.text = style.name
         brandLabel.text = style.brand
-        expirationLabel.text = "유효기간 : \(style.expirationDate.format(.yearMonthDay))"
+        expirationLabel.text = "유효기간 : \(style.expirationDate.format(.dotYearMonthDay))"
         update(countDownDate: style.time.fullStringDate())
     }
     

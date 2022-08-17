@@ -39,7 +39,7 @@ final class OCRRepository: OCRRepositoryLogic {
                         image: image,
                         brandName: model.brandName,
                         productName: model.productName,
-                        expirationDate: model.expirationDate
+                        expirationDate: model.expirationDate.format(.yearMonthDay)
                     )
                 )
             })

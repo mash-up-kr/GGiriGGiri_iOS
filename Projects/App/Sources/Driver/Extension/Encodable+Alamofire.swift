@@ -32,10 +32,13 @@ extension Encodable {
             
             var dictionary: [String: Data] = [:]
             for (key, value) in jsonObject {
-                guard let valueString = value as? String else { continue }
-                dictionary.updateValue(Data(base64Encoded: valueString) ?? Data(), forKey: key)
+                if let valueString = value as? String {
+                    dictionary.updateValue(Data(base64Encoded: valueString) ?? Data(), forKey: key)
+                } else {
+                    let serializedData = try? JSONSerialization.data(withJSONObject: value, options: .fragmentsAllowed)
+                    dictionary.updateValue(serializedData ?? Data(), forKey: key)
+                }
             }
-            
             return dictionary
         } catch {
             return [:]

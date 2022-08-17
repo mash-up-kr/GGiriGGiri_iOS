@@ -21,6 +21,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     private var gifticonListData: [GifticonCard] = []
     
     var didTapDeadLineApplyButton = PublishRelay<Int>()
+    var didDeadLineCountdownTimeOver = PublishRelay<Void>()
     var selectedCategoryIndexPath: IndexPath? = nil
     
     private let disposeBag = DisposeBag()
@@ -56,10 +57,13 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             }
             let deadlineData = deadLineData[indexPath.item]
             cell.configure(with: deadlineData)
+            cell.gifticonApplyButtonDelegate = self
             cell.didApplyButtonTapped
                 .bind(to: didTapDeadLineApplyButton)
                 .disposed(by: disposeBag)
-            cell.gifticonApplyButtonDelegate = self
+            cell.countdownTimeOver
+                .bind(to: didDeadLineCountdownTimeOver)
+                .disposed(by: disposeBag)
             return cell
         case .category:
             guard let cell = collectionView.dequeReusableCell(CategoryCollectionViewCell.self,
