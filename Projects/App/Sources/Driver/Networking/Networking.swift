@@ -63,13 +63,21 @@ final class Network: Networking {
                 AF.upload(
                     multipartFormData: { multipartFormData in
                         for (key, value) in parameters {
-                            guard key == "image" else { continue }
-                            multipartFormData.append(
-                                value,
-                                withName: "image",
-                                fileName: "file.png",
-                                mimeType: "image/png"
-                            )
+                            if key == "image" {
+                                multipartFormData.append(
+                                    value,
+                                    withName: "image",
+                                    fileName: "file.png",
+                                    mimeType: "image/png"
+                                )
+                            } else {
+                                multipartFormData.append(
+                                    value,
+                                    withName: key,
+                                    fileName: key,
+                                    mimeType: "application/json"
+                                )
+                            }
                         }
                     },
                     to: endpoint,

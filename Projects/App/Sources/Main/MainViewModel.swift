@@ -197,6 +197,12 @@ extension MainViewModel {
                 self?.apply(gifticonId: $0)
             })
             .disposed(by: disposeBag)
+        
+        mainDataSource.didDeadLineCountdownTimeOver
+            .subscribe(onNext: { [weak self] in
+                self?.deadlineInfo()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func requestOCR(_ image: UIImage) {

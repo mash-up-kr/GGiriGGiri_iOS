@@ -45,6 +45,7 @@ public final class DDIPCountDownTimer {
     public let hour = BehaviorRelay<Int?>(value: nil)
     public let minute = BehaviorRelay<Int?>(value: nil)
     public let second = BehaviorRelay<Int?>(value: nil)
+    public let invalidDate = PublishRelay<Void>()
     
     private var disposeBag = DisposeBag()
     
@@ -98,9 +99,41 @@ public final class DDIPCountDownTimer {
         
         let components = calendar.dateComponents([.hour, .minute, .second], from: usageDate)
         
+        guard isValidComponents(
+            hour: components.hour,
+            minute: components.minute,
+            second: components.second
+        )
+        else {
+            invalidDate.accept(Void())
+            disposeBag = DisposeBag()
+            return
+        }
+        
         hour.accept(components.hour)
         minute.accept(components.minute)
         second.accept(components.second)
+    }
+    
+    private func isValidComponents(hour: Int?, minute: Int?, second: Int?) -> Bool {
+        guard
+            let hour = hour,
+            let minute = minute,
+            let second = second,
+            isValidTime(hour: hour, minute: minute, second: second)
+        else {
+            return false
+        }
+        
+        return true
+    }
+    
+    private func isValidTime(hour: Int, minute: Int, second: Int) -> Bool {
+        if hour == .zero, minute == .zero, second == .zero {
+            return false
+        } else {
+            return true
+        }
     }
 }
 

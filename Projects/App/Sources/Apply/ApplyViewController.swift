@@ -105,6 +105,18 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
 
             })
             .disposed(by: disposeBag)
+        
+        applyGifticonView.countdownTimeOver
+            .subscribe(onNext: { [weak self] in
+                self?.alert(
+                    title: "응모 마감",
+                    message: "응모 가능시간이 초과되었습니다.",
+                    okTitle: "뒤로",
+                    cancelHandler: nil) { _ in
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+            })
+            .disposed(by: disposeBag)
     }
 
     override func setLayout() {
