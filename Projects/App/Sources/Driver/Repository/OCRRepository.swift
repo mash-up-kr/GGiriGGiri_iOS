@@ -42,6 +42,8 @@ final class OCRRepository: OCRRepositoryLogic {
                         expirationDate: model.expirationDate.format(.yearMonthDay)
                     )
                 )
+            }, onFailure: { [weak self] _ in
+                self?.sprinkleInformation.accept(nil)
             })
             .disposed(by: disposeBag)
     }
