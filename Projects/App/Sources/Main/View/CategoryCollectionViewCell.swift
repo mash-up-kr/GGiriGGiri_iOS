@@ -15,8 +15,6 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "CategoryCollectionViewCell"
     
-    private(set) var categoryType: Category = .all
-    
     private let categoryButton = DDIPCategoryButton()
     
     override init(frame: CGRect) {
@@ -30,6 +28,12 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
         setLayout()
         configure()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        categoryButton.setButtonTitle("")
+        categoryButton.isSelected = false
     }
     
     private func setLayout() {
@@ -46,16 +50,16 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
         self.clipsToBounds = true
     }
     
+    func configure(_ category: Category, isAlreadySelected: Bool = false) {
+        update(categoryButtonTitle: category.description)
+        updateButton(isSelected: isAlreadySelected)
+    }
+    
+    private func update(categoryButtonTitle: String) {
+        categoryButton.setButtonTitle(categoryButtonTitle)
+    }
+    
     func updateButton(isSelected: Bool) {
         categoryButton.isSelected = isSelected
-    }
-    
-    func update(_ category: String) {
-        categoryButton.setButtonTitle(category)
-    }
-    
-    func configure(_ category: Category) {
-        update(category.description) 
-        categoryType = category
     }
 }

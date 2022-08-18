@@ -70,9 +70,7 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
         viewModel.categoryRepository?.categoryEntity
             .skip(1)
             .subscribe(onNext: { [weak self] in
-                self?.registerGifticonView.updateCategories(
-                    $0.expectAll.map { $0.description }
-                )
+                self?.registerGifticonView.updateCategories($0.expectAll)
             })
             .disposed(by: disposeBag)
         

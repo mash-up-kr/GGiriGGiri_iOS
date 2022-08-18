@@ -17,7 +17,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     
     private let disposeBag = DisposeBag()
     
-    private let collectionView = MainView()
+    private let mainView = MainView()
     private var gifticonList = [GifticonCard]()
     private let myBoxButton = TapBarButtons().mybox
     private lazy var navigationBar: DDIPNavigationBar = {
@@ -49,6 +49,10 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         configureNavigationBar()
         configureCollectionView()
         configureFloatingButton()
+    }
+    
+    override func bind() {
+        super.bind()
         
         viewModel.alert = { [weak self] title, message, _, _, action in
             self?.alert(title: title, message: message, okHandler: action)
@@ -87,31 +91,26 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             self?.navigationController?.pushViewController(viewController, animated: true)
         }
         
-        viewModel.deadlineListUpdated
-            .subscribe (onNext: { [weak self] in
-                self?.collectionView.reloadCollectionView()
-            })
-            .disposed(by: disposeBag)
+        Observable.merge(
+            viewModel.deadlineListUpdated.map { MainSection.deadLine }.asObservable(),
+            viewModel.categoryListUpdated.map { MainSection.category }.asObservable(),
+            viewModel.gifticonListUpdated.map { MainSection.gifticonList}.asObservable()
+        )
+        .subscribe(onNext: { [weak self] section in
+            self?.mainView.reloadCollectionViewSection(section)
+        })
+        .disposed(by: disposeBag)
         
-        viewModel.categoryListUpdated
+        viewModel.applyToastModel
             .subscribe(onNext: { [weak self] in
-                self?.collectionView.reloadCollectionView()
+                self?.showApplyToast(
+                    isSuccessed: $0.isSucceeded,
+                    message: $0.message,
+                    error: $0.error,
+                    image: $0.image ?? .iconRotateLogoCharacterEmpty
+                )
             })
             .disposed(by: disposeBag)
-        
-        viewModel.gifticonListUpdated
-            .subscribe (onNext: { [weak self] in
-                self?.collectionView.reloadCollectionView()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.applyToast
-            .subscribe(onNext: { [weak self] in
-                self?.showApplyToast(isSuccessed: $0)
-            })
-            .disposed(by: disposeBag)
-        
-        collectionView.isDeadlineDataExist = viewModel.isDeadlineDataExist
         
         myBoxButton.rx.tap.subscribe(onNext: { [weak self] in
             let myBoxViewModel = MyBoxViewModel(network: Network())
@@ -131,11 +130,13 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
     }
     
     private func configureCollectionView() {
-        collectionView.configureDataSource(viewModel.mainDataSource)
-        collectionView.configureDelegate(viewModel.mainDelegate)
+        mainView.configureDataSource(viewModel.mainDataSource)
+        mainView.configureDelegate(viewModel.mainDelegate)
         
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints {
+        mainView.isDeadlineDataExist = viewModel.isDeadlineDataExist
+        
+        view.addSubview(mainView)
+        mainView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
@@ -165,12 +166,37 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
 // MARK: - Toast
 
 extension MainViewController {
-    private func showApplyToast(isSuccessed: Bool) {
-        toastView.configureToastView(
-            with: self.view,
-            style: isSuccessed ? .apply : .applyMyGifticonFail,
-            image: isSuccessed ? .iconLogoCharacter : .iconRotateLogoCharacterEmpty
-        )
+    private func showApplyToast(
+        isSuccessed: Bool,
+        message: String?,
+        error: Error?,
+        image: DDIPAsset.name
+    ) {
+        if isSuccessed {
+            showSuccessToast(image: image)
+            return
+        } else {
+            if let message = message {
+                showFailToast(message: message)
+                return
+            }
+            showNetworkFailToast()
+            return
+        }
+    }
+    
+    private func showSuccessToast(image: DDIPAsset.name) {
+        toastView.configureToastView(with: self.view, style: .apply, image: image)
+        toastView.showToastView(with: self.view)
+    }
+    
+    private func showNetworkFailToast() {
+        toastView.configureToastView(with: self.view, style: .networkFail, image: .iconRotateLogoCharacterEmpty)
+        toastView.showToastView(with: self.view)
+    }
+    
+    private func showFailToast(message: String) {
+        toastView.configureToastView(with: self.view, title: "응모 실패", description: message, image: .iconRotateLogoCharacterEmpty)
         toastView.showToastView(with: self.view)
     }
 }

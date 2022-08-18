@@ -156,7 +156,7 @@ final class MainView: BaseView {
             edgeSpacing: .init(
                 leading: .none,
                 top: .none,
-                trailing: .fixed(8),
+                trailing: .fixed(4),
                 bottom: .none
             ),
             item: item
@@ -176,7 +176,7 @@ final class MainView: BaseView {
                 top: .zero,
                 leading: 16,
                 bottom: .zero,
-                trailing: .zero
+                trailing: 8
             ),
             scrollingBehavior: .continuous,
             header: header
@@ -221,7 +221,9 @@ final class MainView: BaseView {
         return section
     }
     
-    func reloadCollectionView() {
-        collectionView.reloadData()
+    /// 메인 collectionView 중 필요한 섹션만 리로드
+    /// - Parameter section: 리로드할 MainSection Enum
+    func reloadCollectionViewSection(_ section: MainSection) {
+        collectionView.reloadSections([section.rawValue])
     }
 }
