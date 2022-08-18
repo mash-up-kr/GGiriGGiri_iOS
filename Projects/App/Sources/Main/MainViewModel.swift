@@ -20,8 +20,7 @@ protocol MainViewModelProtocol {
     var alert: Alert? { get set }
     var present: ((UIViewController) -> ())? { get set }
     var push: ((UIViewController) -> ())? { get set }
-    var applyToast: PublishRelay<Bool> { get }
-    var _applyToast: PublishRelay<(Bool, String?, Error?, DDIPAsset.name?)> { get } // Apply Toast (상희)
+    var applyToastModel: PublishRelay<MainViewModel.ApplyToastModel> { get }
     
     var mainDataSource: MainCollectionViewDataSource { get }
     var mainDelegate: MainCollectionViewDelegate { get }
@@ -43,6 +42,25 @@ protocol MainViewModelProtocol {
 
 /// ViewModelProtocol 구현
 final class MainViewModel: MainViewModelProtocol {
+    struct ApplyToastModel {
+        let isSucceeded: Bool
+        let message: String?
+        let error: Error?
+        let image: DesignSystem.DDIPAsset.name?
+        
+        init(
+            isSucceeded: Bool,
+            message: String? = nil,
+            error: Error? = nil,
+            image: DesignSystem.DDIPAsset.name? = nil
+        ) {
+            self.isSucceeded = isSucceeded
+            self.message = message
+            self.error = error
+            self.image = image
+        }
+    }
+    
     private let disposeBag = DisposeBag()
     private let gifticonService: GifticonService
     private let categoryRepository: CategoryRepositoryLogic
@@ -51,8 +69,7 @@ final class MainViewModel: MainViewModelProtocol {
     var alert: Alert? = nil
     var present: ((UIViewController) -> ())? = nil
     var push: ((UIViewController) -> ())? = nil
-    let applyToast = PublishRelay<Bool>()
-    let _applyToast = PublishRelay<(Bool, String?, Error?, DDIPAsset.name?)>()
+    var applyToastModel = PublishRelay<MainViewModel.ApplyToastModel>()
     
     lazy var mainDataSource: MainCollectionViewDataSource = {
         let dataSource = MainCollectionViewDataSource()
@@ -145,10 +162,10 @@ final class MainViewModel: MainViewModelProtocol {
     private func apply(gifticonId: Int) {
         gifticonService.apply(gifticonId)
             .subscribe(onSuccess: { [weak self] _ in
-                self?.applyToast.accept(true)
+                self?.applyToastModel.accept(.init(isSucceeded: true))
                 self?.deadlineInfo()
             }, onFailure: { [weak self] _ in
-                self?.applyToast.accept(false)
+                self?.applyToastModel.accept(.init(isSucceeded: false))
             })
             .disposed(by: disposeBag)
     }
@@ -291,14 +308,24 @@ extension MainViewModel: GifticonApplyButtonDelegate {
         gifticonService.apply(id)
             .subscribe { [weak self] applyResponse in
                 if applyResponse.code == "S001" { // 응모 성공
-                    self?._applyToast.accept((true, applyResponse.message, nil, categoryImage))
+                    self?.applyToastModel.accept(.init(
+                        isSucceeded: true,
+                        message: applyResponse.message,
+                        error: nil,
+                        image: categoryImage
+                    ))
                     completion(true)
                 } else { // 응모 실패 - 본인이 등록한 뿌리기 또는 그 외의 경우
-                    self?._applyToast.accept((false, applyResponse.message, nil, nil))
+                    self?.applyToastModel.accept(.init(
+                        isSucceeded: false,
+                        message: applyResponse.message,
+                        error: nil,
+                        image: nil
+                    ))
                     completion(false)
                 }
             } onFailure: { [weak self] error in // 네트워크 통신 실패
-                self?._applyToast.accept((false, nil, nil, nil))
+                self?.applyToastModel.accept(.init(isSucceeded: false))
                 completion(false)
             }
             .disposed(by: disposeBag)

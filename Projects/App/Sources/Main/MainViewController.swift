@@ -101,15 +101,14 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         })
         .disposed(by: disposeBag)
         
-        viewModel.applyToast
+        viewModel.applyToastModel
             .subscribe(onNext: { [weak self] in
-                self?.showApplyToast(isSuccessed: $0)
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel._applyToast
-            .subscribe(onNext: { [weak self] isSuccess, message, error, image in
-                self?._showApplyToast(isSuccessed: isSuccess, message: message, error: error, image: image ?? .iconRotateLogoCharacterEmpty)
+                self?.showApplyToast(
+                    isSuccessed: $0.isSucceeded,
+                    message: $0.message,
+                    error: $0.error,
+                    image: $0.image ?? .iconRotateLogoCharacterEmpty
+                )
             })
             .disposed(by: disposeBag)
         
@@ -167,16 +166,12 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
 // MARK: - Toast
 
 extension MainViewController {
-    private func showApplyToast(isSuccessed: Bool) {
-        toastView.configureToastView(
-            with: self.view,
-            style: isSuccessed ? .apply : .applyMyGifticonFail,
-            image: isSuccessed ? .iconLogoCharacter : .iconRotateLogoCharacterEmpty
-        )
-        toastView.showToastView(with: self.view)
-    }
-    
-    private func _showApplyToast(isSuccessed: Bool, message: String?, error: Error?, image: DDIPAsset.name) {
+    private func showApplyToast(
+        isSuccessed: Bool,
+        message: String?,
+        error: Error?,
+        image: DDIPAsset.name
+    ) {
         if isSuccessed {
             showSuccessToast(image: image)
             return
