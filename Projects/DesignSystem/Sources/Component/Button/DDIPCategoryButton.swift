@@ -8,6 +8,8 @@
 
 import UIKit
 
+import SnapKit
+
 public class DDIPCategoryButton: UIButton {
     public enum ButtonHeight: CGFloat {
         case height_34 = 34
@@ -23,7 +25,6 @@ public class DDIPCategoryButton: UIButton {
 
     public init() {
         super.init(frame: .zero)
-        setButton()
         setAttribute()
     }
     
@@ -31,10 +32,6 @@ public class DDIPCategoryButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setButton() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
     private func setAttribute() {
         self.layer.cornerRadius = 17
 
@@ -76,10 +73,10 @@ extension DDIPCategoryButton {
     }
 
     public func setHeight(_ height: ButtonHeight) {
-        NSLayoutConstraint.activate([
-            self.heightAnchor.constraint(equalToConstant: height.rawValue),
-        ])
-        
+        self.snp.makeConstraints {
+            $0.height.equalTo(height.rawValue)
+        }
+
         self.layer.cornerRadius = height == .height_34 ? 17 : 18
     }
 

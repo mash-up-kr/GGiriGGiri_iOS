@@ -8,20 +8,17 @@
 
 import UIKit
 
+import SnapKit
+
 public class DDIPCTAButton: UIButton {
     public init() {
         super.init(frame: .zero)
-        setButton()
         setAttribute()
         setLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setButton() {
-        self.translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func setAttribute() {
@@ -32,9 +29,9 @@ public class DDIPCTAButton: UIButton {
     }
     
     private func setLayout() {
-        NSLayoutConstraint.activate([
-            self.heightAnchor.constraint(equalToConstant: 52)
-        ])
+        self.snp.makeConstraints {
+            $0.height.equalTo(52)
+        }
     }
 }
 

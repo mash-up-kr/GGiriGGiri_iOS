@@ -11,6 +11,7 @@ import UIKit
 
 import RxCocoa
 import RxSwift
+import SnapKit
 
 public class DDIPCategoryTapView: UIView, AddViewsable {
     public enum TapCategoryOptions {
@@ -64,10 +65,6 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
     }
     
     private func setView() {
-        self.leftTabButton.translatesAutoresizingMaskIntoConstraints = false
-        self.rightTapButton.translatesAutoresizingMaskIntoConstraints = false
-        self.moveBarView.translatesAutoresizingMaskIntoConstraints = false
-        
         self.addSubViews([leftTabButton, rightTapButton, moveBarView])
     }
     
@@ -100,28 +97,28 @@ public class DDIPCategoryTapView: UIView, AddViewsable {
     }
     
     private func setLayout() {
-        NSLayoutConstraint.activate([
-            self.heightAnchor.constraint(equalToConstant: 38)
-        ])
+        self.snp.makeConstraints {
+            $0.height.equalTo(38)
+        }
 
-        NSLayoutConstraint.activate([
-            leftTabButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            leftTabButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            leftTabButton.trailingAnchor.constraint(equalTo: self.rightTapButton.leadingAnchor, constant: -30),
-            leftTabButton.bottomAnchor.constraint(equalTo: moveBarView.topAnchor)
-        ])
+        leftTabButton.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(10)
+            $0.trailing.equalTo(rightTapButton.snp.leading).inset(-30)
+            $0.bottom.equalTo(moveBarView.snp.top)
+        }
 
-        NSLayoutConstraint.activate([
-            rightTapButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            rightTapButton.bottomAnchor.constraint(equalTo: self.moveBarView.topAnchor)
-        ])
+        rightTapButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(10)
+            $0.bottom.equalTo(moveBarView.snp.top)
+        }
 
-        NSLayoutConstraint.activate([
-            moveBarView.leadingAnchor.constraint(equalTo: self.leftTabButton.leadingAnchor),
-            moveBarView.trailingAnchor.constraint(equalTo: self.leftTabButton.trailingAnchor),
-            moveBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            moveBarView.heightAnchor.constraint(equalToConstant: 2),
-        ])
+        moveBarView.snp.makeConstraints {
+            $0.leading.equalTo(leftTabButton.snp.leading)
+            $0.trailing.equalTo(leftTabButton.snp.trailing)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(2)
+        }
     }
     
     private func bind() {

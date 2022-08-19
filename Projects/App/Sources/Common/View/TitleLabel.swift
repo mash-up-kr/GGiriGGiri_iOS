@@ -13,7 +13,7 @@ final class TitleLabel: UILabel {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -24,7 +24,6 @@ final class TitleLabel: UILabel {
                                                  weight: .regular)) {
         self.init()
 
-        self.translatesAutoresizingMaskIntoConstraints = false
         self.numberOfLines = 0
         self.textColor = color
         self.attributedText = NSMutableAttributedString(string: text)

@@ -10,6 +10,7 @@ import UIKit
 
 import RxRelay
 import RxSwift
+import SnapKit
 
 public class DDipCountdownCardView: UIView, AddViewsable {
     private let firstTimeView = DDIPTimeView(displayType: .second)
@@ -21,7 +22,6 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     
     public let timeStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
         
         return stackView
@@ -29,7 +29,6 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     
     public let minuteStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
         
         return stackView
@@ -37,7 +36,6 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     
     public let secondStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
         
         return stackView
@@ -45,14 +43,12 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     
     public let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .designSystem(.pretendard, family: .bold, size: ._20)
         label.textColor = .designSystem(.neutralBlack)
         label.text = "응모 마감까지"
@@ -82,7 +78,6 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     
     public let entireTimeStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
@@ -175,28 +170,27 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     }
     
     private func setUI() {
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 28),
-            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 0),
-            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor, constant: 0)
-        ])
-        
-        NSLayoutConstraint.activate([
-            entireTimeStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            entireTimeStackView.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 0),
-            entireTimeStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            entireTimeStackView.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor, constant: 0),
-            entireTimeStackView.bottomAnchor.constraint(equalTo: self.iconImageView.topAnchor, constant: -30)
-        ])
-        
-        NSLayoutConstraint.activate([
-            iconImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            iconImageView.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 10),
-            iconImageView.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor, constant: -10),
-            iconImageView.widthAnchor.constraint(equalToConstant: 200),
-            iconImageView.heightAnchor.constraint(equalToConstant: 200)
-        ])
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(28)
+            $0.centerX.equalToSuperview()
+            $0.leading.greaterThanOrEqualToSuperview().inset(0)
+            $0.trailing.lessThanOrEqualToSuperview().inset(0)
+        }
+
+        entireTimeStackView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.leading.greaterThanOrEqualToSuperview().inset(0)
+            $0.trailing.lessThanOrEqualToSuperview().inset(0)
+            $0.top.equalTo(titleLabel.snp.bottom).inset(-20)
+            $0.bottom.equalTo(iconImageView.snp.top).inset(-30)
+        }
+
+        iconImageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.leading.greaterThanOrEqualToSuperview().inset(10)
+            $0.trailing.lessThanOrEqualToSuperview().inset(10)
+            $0.width.height.equalTo(200)
+        }
     }
     
     private func update(hour: Int) {

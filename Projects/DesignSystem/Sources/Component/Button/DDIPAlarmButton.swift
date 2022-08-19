@@ -8,6 +8,8 @@
 
 import UIKit
 
+import SnapKit
+
 public class DDIPAlarmButton: UIButton {
     public enum TitleStatus: String {
         case checkResult = "결과 확인"
@@ -16,7 +18,6 @@ public class DDIPAlarmButton: UIButton {
 
     public init() {
         super.init(frame: .zero)
-        setButton()
         setAttribute()
         setLayout()
     }
@@ -32,21 +33,18 @@ public class DDIPAlarmButton: UIButton {
         bottomInset: CGFloat) {
             self.contentEdgeInsets = .init(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
     }
-    
-    private func setButton() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
 
     private func setAttribute() {
         self.layer.cornerRadius = 5
         self.setTitleColor(.designSystem(.neutralWhite), for: .normal)
         self.titleLabel?.font = .designSystem(.pretendard, family: .bold, size: ._12)
     }
-    
+
+
     private func setLayout() {
-        NSLayoutConstraint.activate([
-            self.heightAnchor.constraint(equalToConstant: 34)
-        ])
+        self.snp.makeConstraints {
+            $0.height.equalTo(34)
+        }
     }
 }
 

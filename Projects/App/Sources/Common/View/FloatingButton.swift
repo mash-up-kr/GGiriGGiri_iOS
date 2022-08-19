@@ -32,7 +32,6 @@ final class FloatingButton: UIButton {
     
     private func configure() {
         self.frame = CGRect(x: 0, y: 0, width: 48, height: 48)
-        self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.masksToBounds = false
         self.layer.cornerRadius = self.layer.frame.size.width / 2
         self.backgroundColor = .black
@@ -41,7 +40,6 @@ final class FloatingButton: UIButton {
     }
     
     private func configureFloatingButton(with title: String) {
-        self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.masksToBounds = false
         self.layer.cornerRadius = self.layer.frame.size.width / 2
         self.backgroundColor = .black

@@ -24,7 +24,6 @@ final class GiftionImageViewController: UIViewController {
 
     private let grabberView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .designSystem(.neutralGray300)
         view.layer.cornerRadius = 3
 
