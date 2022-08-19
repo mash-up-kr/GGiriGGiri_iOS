@@ -41,6 +41,13 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         case .category:
             return categoryData.count
         case .gifticonList:
+            let itemCount = gifticonListData.count
+            if itemCount == 0 {
+                let boxView = GifticonListEmptyView()
+                collectionView.backgroundView = boxView
+            } else {
+                collectionView.backgroundView = nil
+            }
             return gifticonListData.count
         }
     }
