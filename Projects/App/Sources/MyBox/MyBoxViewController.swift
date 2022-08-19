@@ -36,6 +36,12 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.updateHistory()
+    }
+    
     override func setLayout() {
         super.setLayout()
         
@@ -61,16 +67,6 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         
         myBoxView.configureDataSource(viewModel.dataSource)
         myBoxView.configureDelegate(viewModel.delegate)
-        
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
-        swipeLeft.direction = .left
-        swipeLeft.delegate = self
-        myBoxView.collectionView.addGestureRecognizer(swipeLeft)
-        
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
-        swipeRight.direction = .right
-        swipeRight.delegate = self
-        myBoxView.collectionView.addGestureRecognizer(swipeRight)
     }
     
     override func bind() {
@@ -90,6 +86,16 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
                                                         animated: true)
             self?.myBoxView.collectionView.reloadData()
         }).disposed(by: disposeBag)
+        
+        myBoxView.pageRelay
+            .subscribe(onNext: { [weak self] in
+                if $0 == 1 {
+                    self?.categoryTapView.tapRightButton()
+                } else {
+                    self?.categoryTapView.tapLeftButton()
+                }
+            })
+            .disposed(by: disposeBag)
         
         viewModel.push = { [weak self] viewController in
             self?.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -120,21 +126,6 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         navigationBar.leftButtonTapEvent.subscribe(onNext: { [weak self] in
             self?.navigationController?.popViewController(animated: true)
         }).disposed(by: disposeBag)
-    }
-    
-    @objc private func swipeAction(_ gesture: UISwipeGestureRecognizer) {
-        if gesture.direction == .left {
-            categoryTapView.tapRightButton()
-            myBoxView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0),
-                                                  at: .centeredHorizontally,
-                                                  animated: false)
-        } else {
-            categoryTapView.tapLeftButton()
-            myBoxView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0),
-                                                  at: .centeredHorizontally,
-                                                  animated: false)
-        }
-        myBoxView.collectionView.reloadData()
     }
 }
 

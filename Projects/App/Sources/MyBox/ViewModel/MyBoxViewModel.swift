@@ -19,6 +19,8 @@ protocol MyBoxViewModelProtocol {
     
     var dataSource: MyBoxCollectionViewDataSource { get }
     var delegate: MyBoxCollectionViewDelegate { get }
+    
+    func updateHistory()
 }
 
 final class MyBoxViewModel: MyBoxViewModelProtocol {
@@ -33,6 +35,8 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
     lazy var dataSource: MyBoxCollectionViewDataSource = {
         let dataSource = MyBoxCollectionViewDataSource()
         dataSource.applyDataSource.resultButtonDelegate = self
+        dataSource.applyDelegate.myBoxApplyListCardDelegate = self
+        dataSource.registerDelegate.myBoxApplyListCardDelegate = self
         return dataSource
     }()
     let delegate = MyBoxCollectionViewDelegate()
@@ -67,12 +71,18 @@ final class MyBoxViewModel: MyBoxViewModelProtocol {
                 print(error.localizedDescription)
             }.disposed(by: disposeBag)
     }
+    
+    func updateHistory() {
+        applyHistory()
+        registerHistory()
+    }
 }
 
 extension MyBoxViewModel: MyBoxListCollectionViewButtonDelegate {
     
     func resultButtonTapped(with id: Int, result: DrawStatus) {
-        let resultViewModel = ResultViewModel()
+        let resultViewModel = ResultViewModel(gifticonId: id, type: result.gifticonResult, network: Network())
+        
         if result == .win {
             resultViewModel.type = .win
         } else if result == .lose {
@@ -81,7 +91,32 @@ extension MyBoxViewModel: MyBoxListCollectionViewButtonDelegate {
         
         let resultViewController = ResultViewController(resultViewModel)
         resultViewController.modalPresentationStyle = .fullScreen
-        // TODO: 결과 확인 API 호출 필요
         push?(resultViewController)
+    }
+}
+
+extension MyBoxViewModel: MyBoxListCardDelegate {
+    
+    func cellTapped(type: MyBox, id: Int, drawStatus: DrawStatus) {
+        if type == .applied {
+            
+            // 진행 중
+            if drawStatus == .progress {
+                let applyViewModel = ApplyViewModel(gifticonId: id, network: Network())
+                let applyViewController = ApplyViewController(applyViewModel)
+                applyViewController.modalPresentationStyle = .fullScreen
+                push?(applyViewController)
+                return
+            }
+            
+            // 응모 결과 나왔을 경우
+            let resultViewModel = ResultViewModel(gifticonId: id, type: drawStatus.gifticonResult, network: Network())
+            
+            let resultViewController = ResultViewController(resultViewModel)
+            resultViewController.modalPresentationStyle = .fullScreen
+            push?(resultViewController)
+            return
+        }
+        
     }
 }

@@ -9,6 +9,7 @@
 import UIKit
 
 import DesignSystem
+import Kingfisher
 import RxSwift
 import SnapKit
 
@@ -25,6 +26,13 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
     
     private let resultView = ResultView()
     private let toastView = DDIPToastView(.result)
+    private var imageUrl = ""
+    
+    private var gifticonImage: UIImage? {
+        didSet {
+            saveImage()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +66,25 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
         resultView.iconDelegate = self
     }
     
+    override func bind() {
+        super.bind()
+        
+        viewModel.couponInfo
+            .subscribe(onNext: { [weak self] entity in
+                guard let entity = entity else { return }
+                self?.resultView.winView.configure(gifticon:
+                                                Gifticon(id: 0,
+                                                         brand: entity.brandName,
+                                                         name: entity.merchandiseName,
+                                                         expirationDate: entity.expiredAt.format(.yearMonthDay),
+                                                         category: Category(rawValue: entity.category) ?? .all
+                                                        ))
+                self?.resultView.imageUrl = entity.imageURL
+                self?.imageUrl = entity.imageURL
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func configureNavigationBar() {
         view.addSubview(navigationBar)
         
@@ -75,19 +102,23 @@ extension ResultViewController: ResultViewButtonDelegate {
     }
     
     func saveButtonTapped(completion: @escaping (Bool) -> ()) {
-        // TODO: 서버에서 받아온 이미지로 저장해줘야함
-        guard let image = UIImage(systemName: "pencil") else {
-            completion(false)
-            return
-        }
-        UIImageWriteToSavedPhotosAlbum(image, self, #selector(gifticonImageSaved), nil)
-        completion(true)
+        guard let imageUrl = URL(string: imageUrl) else { return }
+        
+        KingfisherManager.shared.retrieveImage(with: imageUrl, completionHandler: { [weak self] result in
+            switch(result) {
+            case .success(let imageResult):
+                let image = imageResult.image.withRenderingMode(.alwaysOriginal)
+                self?.gifticonImage = image
+                completion(true)
+            case .failure:
+                completion(false)
+            }
+        })
     }
-    
-    func showFailToastView() {
-        let toastView = ToastView()
-        toastView.configureToastView(with: self.view, style: .saveFail, image: .iconRotateLogoCharacterEmpty)
-        toastView.showToastView(with: self.view)
+ 
+    private func saveImage() {
+        guard let image = gifticonImage else { return }
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(gifticonImageSaved), nil)
     }
     
     @objc private func gifticonImageSaved(image: UIImage, error: Error?, context: UnsafeRawPointer) {
@@ -101,13 +132,19 @@ extension ResultViewController: ResultViewButtonDelegate {
         }
         toastView.showToastView(with: self.view)
     }
+    
+    func showFailToastView() {
+        let toastView = ToastView()
+        toastView.configureToastView(with: self.view, style: .saveFail, image: .iconRotateLogoCharacterEmpty)
+        toastView.showToastView(with: self.view)
+    }
 }
 
 extension ResultViewController: GifticonIconViewDelegate {
     func gifticonIconDidTapped() {
         let gifticonImageViewController = GiftionImageViewController()
-        // TODO: 서버에서 받아온 이미지로 보여줘야함
-        gifticonImageViewController.giftionImageView.image = UIImage(systemName: "pencil")
+        guard let url = URL(string: imageUrl) else { return }
+        gifticonImageViewController.giftionImageView.kf.setImage(with: url)
         present(gifticonImageViewController, animated: true)
     }
 }

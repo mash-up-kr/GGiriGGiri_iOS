@@ -27,4 +27,15 @@ enum DrawStatus: String, Codable {
     case lose = "LOSE"
     case progress = "PROGRESS"
     case win = "WIN"
+    
+    var gifticonResult: GifticonResult {
+        switch self {
+        case .lose:
+            return .lose
+        case .win:
+            return .win
+        case .progress:
+            return .progress
+        }
+    }
 }
