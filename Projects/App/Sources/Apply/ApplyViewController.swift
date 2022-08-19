@@ -107,6 +107,7 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
             .disposed(by: disposeBag)
         
         applyGifticonView.countdownTimeOver
+            .skip(1)
             .subscribe(onNext: { [weak self] in
                 self?.alert(
                     title: "응모 마감",

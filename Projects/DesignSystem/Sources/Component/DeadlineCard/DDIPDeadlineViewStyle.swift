@@ -9,11 +9,11 @@
 import Foundation
 
 public struct DDIPDeadlineViewStyle {
-    public let time: String
-    public let brand: String
-    public let name: String
-    public let expirationDate: String
-    public let iconImage: DDIPAsset.name
+    let time: String
+    let brand: String
+    let name: String
+    let expirationDate: String
+    let iconImage: DDIPAsset.name
     
     public init(
         time: String,

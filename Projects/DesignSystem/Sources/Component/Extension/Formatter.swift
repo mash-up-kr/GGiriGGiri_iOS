@@ -9,10 +9,10 @@
 import Foundation
 
 struct Formatter {
-    static let date: DateFormatter = {
+    static let shared: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier:"ko_KR")
-        
+        dateFormatter.locale = Locale.autoupdatingCurrent
+        dateFormatter.timeZone = .current
         return dateFormatter
     }()
     

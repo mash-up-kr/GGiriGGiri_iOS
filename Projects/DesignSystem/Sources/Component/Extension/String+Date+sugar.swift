@@ -19,14 +19,14 @@ extension Date {
     }
 
     func hourString() -> String {
-        Formatter.date.dateFormat = "HH"
-        guard let dateString = Formatter.date.string(for: self) else { return "" }
+        Formatter.shared.dateFormat = "HH"
+        guard let dateString = Formatter.shared.string(for: self) else { return "" }
         return dateString
     }
 
     func fullDateString(_ type: FormatType) -> String {
-        Formatter.date.dateFormat = type.displayName
-        guard let dateString = Formatter.date.string(for: self) else { return "" }
+        Formatter.shared.dateFormat = type.displayName
+        guard let dateString = Formatter.shared.string(for: self) else { return "" }
         return dateString
     }
 }
@@ -46,8 +46,8 @@ extension String {
     public func format(_ type: FormatType) -> String {
         let dateData = fullStringDate(type)
 
-        Formatter.date.dateFormat = type.displayName
-        let dateString = Formatter.date.string(from: dateData)
+        Formatter.shared.dateFormat = type.displayName
+        let dateString = Formatter.shared.string(from: dateData)
 
         return dateString
     }
@@ -56,15 +56,15 @@ extension String {
         var formatString: String {
             switch type {
             case .yearMonthDay, .dashYearMonthDay, .hourMinuteSecond:
-                return "yyyy-MM-dd'T'HH:mm"
+                return "yyyy-MM-dd'T'HH:mm:ss.SSS"
             case .dotYearMonthDay:
-                return "yyyy.MM.dd'T'HH:mm"
+                return "yyyy.MM.dd'T'HH:mm:ss.SSS"
             }
         }
         
-        Formatter.date.dateFormat = formatString
+        Formatter.shared.dateFormat = formatString
 
-        guard let dateData = Formatter.date.date(from: self) else {
+        guard let dateData = Formatter.shared.date(from: self) else {
             return Date()
         }
         return dateData

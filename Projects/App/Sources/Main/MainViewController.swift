@@ -66,6 +66,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             .disposed(by: disposeBag)
 
         viewModel.OCRRequestRelay
+            .skip(1)
             .subscribe(onNext: { [weak self] sprinkleInformation in
                 self?.dismissActivityIndicator()
                 if let sprinkleInformation = sprinkleInformation {

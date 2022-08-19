@@ -22,13 +22,13 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     private let expirationLabel = UILabel()
     private let dashedLine = DashedLine()
     
-    private let firstTimeView = DDIPTimeView(displayType: .minute)
-    private let secondTimeView = DDIPTimeView(displayType: .minute)
     private let firstMinuteView = DDIPTimeView(displayType: .minute)
-    private let secondMinuteView = DDIPTimeView(displayType: .minute)
+    private let lastMinuteView = DDIPTimeView(displayType: .minute)
+    private let firstSecondView = DDIPTimeView(displayType: .minute)
+    private let lastSecondView = DDIPTimeView(displayType: .minute)
     
-    private let timer = DDIPCountDownTimer(.minute)
-    private let disposeBag = DisposeBag()
+    private let timer = DDIPCountDownTimer(.second)
+    private var disposeBag = DisposeBag()
     
     public let buttonTapEvent = PublishRelay<Void>()
     public let countdownTimeOver = PublishRelay<Void>()
@@ -91,10 +91,10 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     }
     
     private func setAttribute() {        
-        firstTimeView.numberLabel.textColor = .designSystem(.neutralBlack)
-        secondTimeView.numberLabel.textColor = .designSystem(.neutralBlack)
-        firstMinuteView.numberLabel.textColor = .designSystem(.dangerRaspberry)
-        secondMinuteView.numberLabel.textColor = .designSystem(.dangerRaspberry)
+        firstMinuteView.numberLabel.textColor = .designSystem(.neutralBlack)
+        lastMinuteView.numberLabel.textColor = .designSystem(.neutralBlack)
+        firstSecondView.numberLabel.textColor = .designSystem(.dangerRaspberry)
+        lastSecondView.numberLabel.textColor = .designSystem(.dangerRaspberry)
         brandLabel.textColor = .designSystem(.neutralBlack)
         nameLabel.textColor = .designSystem(.neutralBlack)
         expirationLabel.textColor = .designSystem(.neutralGray500)
@@ -105,16 +105,26 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
         nameLabel.font = .designSystem(.pretendard, family: .bold, size: ._18)
         brandLabel.font = .designSystem(.pretendard, family: .regular, size: ._12)
         expirationLabel.font = .designSystem(.pretendard, family: .regular, size: ._12)
-        firstTimeView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
-        secondTimeView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
         firstMinuteView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
-        secondMinuteView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
+        lastMinuteView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
+        firstSecondView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
+        lastSecondView.numberLabel.font = .designSystem(.chakrapeth, family: .bold, size: ._20)
     }
     
     private func setView() {
         self.addSubViews([timeStackView, imageIcon, applyViewer, CTAButton, infoStackView, dashedLine, semiCircleSpaceLeftView, semiCircleSpaceRightView])
-        infoStackView.addArrangedSubviews(brandLabel, nameLabel, expirationLabel)
-        timeStackView.addArrangedSubviews(firstTimeView, secondTimeView, numberLabel, firstMinuteView, secondMinuteView)
+        infoStackView.addArrangedSubviews(
+            brandLabel,
+            nameLabel,
+            expirationLabel
+        )
+        timeStackView.addArrangedSubviews(
+            firstMinuteView,
+            lastMinuteView,
+            numberLabel,
+            firstSecondView,
+            lastSecondView
+        )
     }
     
     private func setValue() {
@@ -181,14 +191,6 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     }
     
     private func bindingTimer() {
-        timer.hour
-            .distinctUntilChanged()
-            .subscribe(onNext: { [weak self] in
-                guard let hour = $0 else { return }
-                self?.update(hour: hour)
-            })
-            .disposed(by: disposeBag)
-        
         timer.minute
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] in
@@ -197,34 +199,44 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
             })
             .disposed(by: disposeBag)
         
+        timer.second
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] in
+                guard let second = $0 else { return }
+                self?.update(second: second)
+            })
+            .disposed(by: disposeBag)
+        
         timer.invalidDate
-            .skip(1)
             .bind(to: countdownTimeOver)
             .disposed(by: disposeBag)
     }
     
-    private func update(hour: Int) {
-        firstTimeView.update(text: "\(hour / 10)")
-        secondTimeView.update(text: "\(hour % 10)")
-    }
-    
     private func update(minute: Int) {
         firstMinuteView.update(text: "\(minute / 10)")
-        secondMinuteView.update(text: "\(minute % 10)")
+        lastMinuteView.update(text: "\(minute % 10)")
+    }
+    
+    private func update(second: Int) {
+        firstSecondView.update(text: "\(second / 10)")
+        lastSecondView.update(text: "\(second % 10)")
     }
 }
 
 extension DDIPDeadlineCardView {
-    public func update(countDownDate: Date?) {
-        timer.update(date: countDownDate)
-    }
-    
     public func update(style: DDIPDeadlineViewStyle) {
+        disposeBag = DisposeBag()
+        bind()
+        
         imageIcon.image = .designSystem(style.iconImage)
         nameLabel.text = style.name
         brandLabel.text = style.brand
         expirationLabel.text = "유효기간 : \(style.expirationDate.format(.dotYearMonthDay))"
         update(countDownDate: style.time.fullStringDate())
+    }
+    
+    public func update(countDownDate: Date?) {
+        timer.update(date: countDownDate)
     }
     
     public func update(buttonTitle: String, backgroundColor: DDIPColor) {
