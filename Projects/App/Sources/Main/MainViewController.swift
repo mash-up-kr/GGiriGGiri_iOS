@@ -42,6 +42,11 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         super.viewDidLoad()
         view.backgroundColor = .designSystem(.primaryYellow)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.reload()
+    }
 
     override func configure() {
         super.configure()

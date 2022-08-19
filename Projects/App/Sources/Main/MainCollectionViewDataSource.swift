@@ -123,6 +123,10 @@ extension MainCollectionViewDataSource {
     func category() -> [Category] {
         categoryData
     }
+    
+    func category(_ indexPath: IndexPath) -> Category {
+        categoryData[indexPath.row]
+    }
 }
 
 extension MainCollectionViewDataSource: GifticonApplyButtonDelegate {
