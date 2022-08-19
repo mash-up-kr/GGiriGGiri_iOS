@@ -8,6 +8,7 @@
 
 import UIKit
 
+import RxRelay
 import RxSwift
 
 public class DDipCountdownCardView: UIView, AddViewsable {
@@ -87,6 +88,7 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     }()
     
     private var timer = DDIPCountDownTimer(.second)
+    public let countdownTimeOver = PublishRelay<Void>()
     
     private let disposeBag = DisposeBag()
     
@@ -137,6 +139,11 @@ public class DDipCountdownCardView: UIView, AddViewsable {
                 self?.update(second: second)
             })
             .disposed(by: disposeBag)
+        
+        timer.invalidDate
+            .skip(1)
+            .bind(to: countdownTimeOver)
+            .disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {
@@ -151,6 +158,8 @@ public class DDipCountdownCardView: UIView, AddViewsable {
     private func setValue() {
         self.layer.cornerRadius = 15
         self.backgroundColor = .designSystem(.neutralWhite)
+        firstSecondView.numberLabel.textColor = .designSystem(.dangerRaspberry)
+        secondSecondView.numberLabel.textColor = .designSystem(.dangerRaspberry)
     }
     
     private func setStackView() {

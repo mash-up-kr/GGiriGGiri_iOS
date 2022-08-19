@@ -43,12 +43,4 @@ final class BaseHeaderView: UICollectionReusableView {
             $0.bottom.equalToSuperview().inset(24)
         }
     }
-    
-    func updateLayout(_ inset: CGFloat) {
-        titleLabel.snp.remakeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalToSuperview().inset(inset)
-            $0.bottom.equalToSuperview().inset(24)
-        }
-    }
 }

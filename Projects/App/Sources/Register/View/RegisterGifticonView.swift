@@ -90,7 +90,7 @@ extension RegisterGifticonView {
         ddipInfoView.update(time: time)
     }
     
-    func updateCategories(_ categories: [String]) {
+    func updateCategories(_ categories: [Category]) {
         gifticonInfoView.updateCategoryDataSource(categories)
     }
     

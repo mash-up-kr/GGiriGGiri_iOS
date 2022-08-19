@@ -45,7 +45,7 @@ struct GifticonService {
     }
     
     func registerSprinkle(_ entity: SprinkleInformation) -> RegisterSprinkleResponse {
-        network.request(
+        network.requestMultipartFormData(
             GifticonAPI.registerSprinkle(
                 SprinkleRegisterRequestModel(entity)
             )

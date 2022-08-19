@@ -12,6 +12,8 @@ import SnapKit
 
 final class MainView: BaseView {
     
+    var isDeadlineDataExist: Bool = false
+    
     override func setLayout() {
         super.setLayout()
         
@@ -38,6 +40,7 @@ final class MainView: BaseView {
             BaseHeaderView.self,
             elementKind: MainViewController.sectionHeaderElementKind
         )
+        collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
     
@@ -55,7 +58,11 @@ final class MainView: BaseView {
             let sectionLayoutKind = MainSection.allCases[sectionIndex]
             switch sectionLayoutKind {
             case .deadLine:
-                return self.generateDeadLineSection()
+                if self.isDeadlineDataExist {
+                    return self.generateDeadlineSection()
+                } else {
+                    return self.generateEmptySection()
+                }
             case .category:
                 return self.generateCategorySection()
             case .gifticonList:
@@ -65,7 +72,31 @@ final class MainView: BaseView {
         return layout
     }
     
-    private func generateDeadLineSection() -> NSCollectionLayoutSection {
+    private func generateEmptySection() -> NSCollectionLayoutSection {
+        let item = CollectionViewLayoutManager.configureItem(
+            with: CollectionViewConfigureSize(
+                widthDimension: .absolute(0.00001),
+                heightDimension: .absolute(0.00001)
+            )
+        )
+        
+        let group = CollectionViewLayoutManager.configureGroup(
+            with: CollectionViewConfigureSize(
+                widthDimension: .absolute(0.00001),
+                heightDimension: .absolute(0.00001)
+            ),
+            item: item
+        )
+        
+        let section = CollectionViewLayoutManager.configureSection(
+            with: group,
+            scrollingBehavior: .continuous,
+            header: nil
+        )
+        return section
+    }
+    
+    private func generateDeadlineSection() -> NSCollectionLayoutSection {
         let item = CollectionViewLayoutManager.configureItem(
             with: CollectionViewConfigureSize(
                 widthDimension: .absolute(310),
@@ -100,7 +131,7 @@ final class MainView: BaseView {
             contentInsets: .init(
                 top: .zero,
                 leading: 16,
-                bottom: .zero,
+                bottom: 26,
                 trailing: .zero
             ),
             scrollingBehavior: .groupPaging,
@@ -125,7 +156,7 @@ final class MainView: BaseView {
             edgeSpacing: .init(
                 leading: .none,
                 top: .none,
-                trailing: .fixed(8),
+                trailing: .fixed(4),
                 bottom: .none
             ),
             item: item
@@ -134,7 +165,7 @@ final class MainView: BaseView {
         let header = CollectionViewLayoutManager.configureHeader(
             with: CollectionViewConfigureSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(86)
+                    heightDimension: .absolute(58)
             ),
             elementKind: MainViewController.sectionHeaderElementKind
         )
@@ -145,7 +176,7 @@ final class MainView: BaseView {
                 top: .zero,
                 leading: 16,
                 bottom: .zero,
-                trailing: .zero
+                trailing: 8
             ),
             scrollingBehavior: .continuous,
             header: header
@@ -190,7 +221,9 @@ final class MainView: BaseView {
         return section
     }
     
-    func reloadCollectionView() {
-        collectionView.reloadData()
+    /// 메인 collectionView 중 필요한 섹션만 리로드
+    /// - Parameter section: 리로드할 MainSection Enum
+    func reloadCollectionViewSection(_ section: MainSection) {
+        collectionView.reloadSections([section.rawValue])
     }
 }

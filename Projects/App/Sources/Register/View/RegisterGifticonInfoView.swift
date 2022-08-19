@@ -185,7 +185,7 @@ final class RegisterGifticonInfoView: BaseView {
         }
     }
     
-    func updateCategoryDataSource(_ data: [String]) {
+    func updateCategoryDataSource(_ data: [Category]) {
         categoryCollectionViewDataSource.update(data)
         categoryView.reloadData()
     }

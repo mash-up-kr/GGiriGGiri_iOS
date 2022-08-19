@@ -36,4 +36,11 @@ extension OCRAPI: NetworkRequestable {
             return .post
         }
     }
+    
+    var parameters: Encodable? {
+        switch self {
+        case .request(let model):
+            return model
+        }
+    }
 }

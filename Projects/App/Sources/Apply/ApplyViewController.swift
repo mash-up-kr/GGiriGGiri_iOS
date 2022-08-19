@@ -80,6 +80,7 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
                     self?.setApplyCompletButtonState()
                     self?.showSuccessToast(category: self?.viewModel.detailData.value?.imageName ?? .iconRotateLogoCharacter)
                     self?.toastView.showToastView(with: self?.view ?? UIView())
+                    self?.viewModel.updateDetailInfo()
                 } else {
                     self?.setFailButtonState()
                     self?.showFailToast(message: message)
@@ -97,6 +98,23 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
                 self?.applyGifticonView.setExpirationDate(name: entity?.expiredAt ?? "")
                 self?.applyGifticonView.setImageIcon(imageName: entity?.imageName)
                 self?.applyGifticonView.setCountdownDate(date: entity?.sprinkleAt.fullStringDate())
+
+                if entity?.participateIn == true {
+                    self?.setApplyCompletButtonState()
+                }
+
+            })
+            .disposed(by: disposeBag)
+        
+        applyGifticonView.countdownTimeOver
+            .subscribe(onNext: { [weak self] in
+                self?.alert(
+                    title: "응모 마감",
+                    message: "응모 가능시간이 초과되었습니다.",
+                    okTitle: "뒤로",
+                    cancelHandler: nil) { _ in
+                        self?.navigationController?.popViewController(animated: true)
+                    }
             })
             .disposed(by: disposeBag)
     }
@@ -138,9 +156,9 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
     
     override func configure() {
         super.configure()
-        
         configureNavigationBar()
-        
+
+        scrollView.showsVerticalScrollIndicator = false
         view.backgroundColor = .designSystem(.neutralWhite)
 
         applyButton.setBackgroundColor(buttonColor: .secondaryBlue)

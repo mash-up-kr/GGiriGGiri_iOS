@@ -7,8 +7,9 @@
 //
 
 import PhotosUI
-import UIKit
+import Foundation
 
+import DesignSystem
 import RxRelay
 import RxSwift
 
@@ -19,15 +20,20 @@ protocol MainViewModelProtocol {
     var alert: Alert? { get set }
     var present: ((UIViewController) -> ())? { get set }
     var push: ((UIViewController) -> ())? { get set }
-    var applyToast: PublishRelay<Bool> { get }
+    var applyToastModel: PublishRelay<MainViewModel.ApplyToastModel> { get }
     
     var mainDataSource: MainCollectionViewDataSource { get }
     var mainDelegate: MainCollectionViewDelegate { get }
+
+    var toastRequestRelay: PublishRelay<Void> { get }
+    var OCRRequestRelay: BehaviorRelay<SprinkleInformation?> { get }
     
     var deadlineListUpdated: PublishRelay<Void> { get }
     var categoryListUpdated: PublishRelay<Void> { get }
     var gifticonListUpdated: PublishRelay<Void> { get }
     
+    var isDeadlineDataExist: Bool { get }
+
     func presentPhotoPicker()
     func requestPHPhotoLibraryAuthorization()
     func handleAuthorizationStatus(with authorizationStatus: PHAuthorizationStatus)
@@ -36,32 +42,68 @@ protocol MainViewModelProtocol {
 
 /// ViewModelProtocol 구현
 final class MainViewModel: MainViewModelProtocol {
+    struct ApplyToastModel {
+        let isSucceeded: Bool
+        let message: String?
+        let error: Error?
+        let image: DesignSystem.DDIPAsset.name?
+        
+        init(
+            isSucceeded: Bool,
+            message: String? = nil,
+            error: Error? = nil,
+            image: DesignSystem.DDIPAsset.name? = nil
+        ) {
+            self.isSucceeded = isSucceeded
+            self.message = message
+            self.error = error
+            self.image = image
+        }
+    }
     
     private let disposeBag = DisposeBag()
     private let gifticonService: GifticonService
     private let categoryRepository: CategoryRepositoryLogic
     private let OCRRepository: OCRRepositoryLogic
-   
+
     var alert: Alert? = nil
     var present: ((UIViewController) -> ())? = nil
     var push: ((UIViewController) -> ())? = nil
-    let applyToast = PublishRelay<Bool>()
+    var applyToastModel = PublishRelay<MainViewModel.ApplyToastModel>()
     
-    let mainDataSource = MainCollectionViewDataSource()
+    lazy var mainDataSource: MainCollectionViewDataSource = {
+        let dataSource = MainCollectionViewDataSource()
+        dataSource.buttonDelegate = self
+        return dataSource
+    }()
+    
     lazy var mainDelegate: MainCollectionViewDelegate = {
         let delegate = MainCollectionViewDelegate()
         delegate.collectionViewCellDelegate = self
         return delegate
     }()
     
+    var toastRequestRelay = PublishRelay<Void>()
+    var OCRRequestRelay: BehaviorRelay<SprinkleInformation?> {
+        return OCRRepository.sprinkleInformation
+    }
+    
     var deadlineListUpdated = PublishRelay<Void>()
     var categoryListUpdated = PublishRelay<Void>()
     var gifticonListUpdated = PublishRelay<Void>()
     
-    init(network: Networking, repository: CategoryRepositoryLogic, OCRRepository: OCRRepositoryLogic) {
+    var isDeadlineDataExist: Bool
+    
+    init(
+        network: Networking,
+        repository: CategoryRepositoryLogic,
+        OCRRepository: OCRRepositoryLogic,
+        deadlineDataExist: Bool
+    ) {
         self.gifticonService = GifticonService(network: network)
         self.categoryRepository = repository
         self.OCRRepository = OCRRepository
+        self.isDeadlineDataExist = deadlineDataExist
         
         deadlineInfo()
         category()
@@ -89,7 +131,8 @@ final class MainViewModel: MainViewModelProtocol {
                 self?.deadlineListUpdated.accept(Void())
             } onFailure: { error in
                 print(error.localizedDescription)
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func category() {
@@ -112,16 +155,17 @@ final class MainViewModel: MainViewModelProtocol {
                 self?.gifticonListUpdated.accept(Void())
             } onFailure: { error in
                 print(error.localizedDescription)
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func apply(gifticonId: Int) {
         gifticonService.apply(gifticonId)
             .subscribe(onSuccess: { [weak self] _ in
-                self?.applyToast.accept(true)
+                self?.applyToastModel.accept(.init(isSucceeded: true))
                 self?.deadlineInfo()
             }, onFailure: { [weak self] _ in
-                self?.applyToast.accept(false)
+                self?.applyToastModel.accept(.init(isSucceeded: false))
             })
             .disposed(by: disposeBag)
     }
@@ -168,52 +212,27 @@ extension MainViewModel {
         
         handleAuthorizationStatus(with: authorizationStatus)
     }
-    
 }
 
 // MARK: - Private Method
 
 extension MainViewModel {
     private func bind() {
-        OCRRepository.sprinkleInformation
-            .skip(1)
-            .subscribe(onNext: { [weak self] in
-                if let sprinkleInformation = $0 {
-                    self?.routeToRegisterViewController(sprinkleInformation)
-                } else {
-                    self?.alert?(
-                        "쿠폰 정보 생성 실패",
-                        "쿠폰번호를 가져오는 데 실패했습니다.\n더 쉬운 쿠폰사용을 위해 바코드 또는 쿠폰 번호가 잘 보이는 이미지로 다시 시도해주세요!",
-                        nil,
-                        nil,
-                        nil
-                    )
-                }
-            })
-            .disposed(by: disposeBag)
-        
         mainDataSource.didTapDeadLineApplyButton
             .subscribe(onNext: { [weak self] in
                 self?.apply(gifticonId: $0)
+            })
+            .disposed(by: disposeBag)
+        
+        mainDataSource.didDeadLineCountdownTimeOver
+            .subscribe(onNext: { [weak self] in
+                self?.deadlineInfo()
             })
             .disposed(by: disposeBag)
     }
     
     private func requestOCR(_ image: UIImage) {
         OCRRepository.request(image)
-    }
-    
-    private func routeToRegisterViewController(_ information: SprinkleInformation) {
-        alert?(nil, "쿠폰 이미지 분석 완료!", nil, nil, { [weak self] _ in
-            let viewModel = RegisterGifticonViewModel(
-                network: Network(),
-                categoryRepository: CategoryRepository(CategoryService(network: Network())),
-                information: information
-            )
-            let registerGifticonViewController = RegisterGifticonViewController(viewModel)
-            registerGifticonViewController.modalPresentationStyle = .fullScreen
-            self?.present?(registerGifticonViewController)
-        })
     }
 }
 
@@ -228,6 +247,7 @@ extension MainViewModel: PHPickerViewControllerDelegate {
                     return
                 }
                 self?.requestOCR(image)
+                self?.toastRequestRelay.accept(())
             }
         }
         picker.dismiss(animated: true)
@@ -241,9 +261,73 @@ extension MainViewModel: MainCollectionViewCellDelegate {
         applyViewController.modalPresentationStyle = .fullScreen
         push?(applyViewController)
     }
+
+    func categoryCellTapped(indexPath: IndexPath) {
+        mainDataSource.selectedCategoryIndexPath = mainDelegate.selectedCategoryIndexPath
+        let category = mainDataSource.category()[indexPath.row]
+        
+        gifticonService.gifticonList(
+            .init(
+                orderBy: .create,
+                category: categoryToBaseRequestModel(with: category)
+            )
+        )
+        .subscribe(onSuccess: { [weak self] response in
+            guard let responseModel = response.data else { return }
+            let entity = GifticonEntity.init(responseModel)
+            self?.mainDataSource.updateGifticonListData(entity.gifticonList)
+            self?.gifticonListUpdated.accept(Void())
+        })
+        .disposed(by: disposeBag)
+    }
     
-    func categoryCellTapped(with category: Category) {
-        // TODO: Category에 따라 정렬하기
-        debugPrint(#function)
+    private func categoryToBaseRequestModel(with category: Category) -> BaseRequestModel.Category {
+        switch category {
+        case .all:
+            return .all
+        case .cafe:
+            return .cafe
+        case .delivery:
+            return .delivery
+        case .icecream:
+            return .icecream
+        case .convenienceStore:
+            return .convenienceStore
+        case .fastfood:
+            return .fastfood
+        case .voucher:
+            return .voucher
+        case .etc:
+            return .etc
+        }
+    }
+}
+
+extension MainViewModel: GifticonApplyButtonDelegate {
+    func applyButtonTapped(with id: Int, categoryImage: DDIPAsset.name, completion: @escaping (Bool) -> ()) {
+        gifticonService.apply(id)
+            .subscribe { [weak self] applyResponse in
+                if applyResponse.code == "S001" { // 응모 성공
+                    self?.applyToastModel.accept(.init(
+                        isSucceeded: true,
+                        message: applyResponse.message,
+                        error: nil,
+                        image: categoryImage
+                    ))
+                    completion(true)
+                } else { // 응모 실패 - 본인이 등록한 뿌리기 또는 그 외의 경우
+                    self?.applyToastModel.accept(.init(
+                        isSucceeded: false,
+                        message: applyResponse.message,
+                        error: nil,
+                        image: nil
+                    ))
+                    completion(false)
+                }
+            } onFailure: { [weak self] error in // 네트워크 통신 실패
+                self?.applyToastModel.accept(.init(isSucceeded: false))
+                completion(false)
+            }
+            .disposed(by: disposeBag)
     }
 }

@@ -100,7 +100,7 @@ final class RegisterGifticonViewModel: RegisterGifticonViewModelProtocol {
 
 extension RegisterGifticonViewModel {
     func requestRegister() {
-        service.registerSprinkle(information)
+        service.registerSprinkle(information.requestable())
             .subscribe(onSuccess: { [weak self] in
                 // TODO: 에러코드별 처리방법 고도화하기
                 guard $0.code == "S001" else {

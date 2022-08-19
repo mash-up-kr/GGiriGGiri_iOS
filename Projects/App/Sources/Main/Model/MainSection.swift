@@ -8,30 +8,10 @@
 
 import Foundation
 
-enum MainSection: CaseIterable {
-    static var allCases: [MainSection] {
-        return [.deadLine([GifticonCard(sprinkleTime: "",
-                                        gifticonInfo: Gifticon(id: 0,
-                                                               brand: "",
-                                                               name: "",
-                                                               expirationDate: "",
-                                                               category: .all),
-                                        numberOfParticipants: 0,
-                                        isParticipating: true)]),
-                .category(Category.allCases),
-                .gifticonList([GifticonCard(sprinkleTime: "",
-                                            gifticonInfo: Gifticon(id: 0,
-                                                                   brand: "",
-                                                                   name: "",
-                                                                   expirationDate: "",
-                                                                   category: .all),
-                                            numberOfParticipants: 0,
-                                            isParticipating: true)])]
-    }
-    
-    case deadLine([GifticonCard])
-    case category([Category])
-    case gifticonList([GifticonCard])
+enum MainSection: Int, CaseIterable {
+    case deadLine
+    case category
+    case gifticonList
 }
 
 extension MainSection {

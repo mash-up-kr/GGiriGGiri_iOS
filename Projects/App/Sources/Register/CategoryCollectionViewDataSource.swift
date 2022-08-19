@@ -9,9 +9,9 @@
 import UIKit
 
 final class CategoryCollectionViewDataSource: NSObject {
-    private var category: [String] = []
+    private var category: [Category] = []
     
-    func update(_ category: [String]) {
+    func update(_ category: [Category]) {
         self.category = category
     }
 }
@@ -30,7 +30,7 @@ extension CategoryCollectionViewDataSource: UICollectionViewDataSource {
                                                           for: indexPath) else {
             return UICollectionViewCell()
         }
-        cell.update(category[indexPath.row])
+        cell.configure(category[indexPath.row])
         return cell
     }
 }

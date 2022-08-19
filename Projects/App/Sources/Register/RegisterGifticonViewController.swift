@@ -33,6 +33,7 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
         super.configure()
         view.backgroundColor = .designSystem(.neutralWhite)
         scrollView.delegate = self
+        scrollView.showsVerticalScrollIndicator = false
         
         configureNavigationBar()
         
@@ -69,9 +70,7 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
         viewModel.categoryRepository?.categoryEntity
             .skip(1)
             .subscribe(onNext: { [weak self] in
-                self?.registerGifticonView.updateCategories(
-                    $0.expectAll.map { $0.description }
-                )
+                self?.registerGifticonView.updateCategories($0.expectAll)
             })
             .disposed(by: disposeBag)
         
@@ -86,6 +85,7 @@ final class RegisterGifticonViewController: BaseViewController<RegisterGifticonV
                 switch $0 {
                 case .registerSuccess:
                     self?.showRegisterSuccessToast()
+                    self?.dismissRegister()
                 case .registerFail:
                     self?.showRegisterFailToast()
                 }
@@ -178,6 +178,13 @@ extension RegisterGifticonViewController {
     private func updateRegisterButton(_ isValidate: Bool = false) {
         registerButton.setTitle(title: isValidate ? "기프티콘을 뿌려볼까요?" : "내용을 입력해야 뿌릴 수 있어요")
         registerButton.setBackgroundColor(buttonColor: isValidate ? .secondaryBlue : .secondarySkyblue200)
+    }
+    
+    private func dismissRegister() {
+        // TODO: 임시로 2초 뒤에 동작하게함, Toast의 completion으로 넘겨야함
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { [weak self] in
+            self?.dismiss(animated: true)
+        }
     }
 }
 
