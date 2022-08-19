@@ -102,7 +102,7 @@ extension ResultViewController: ResultViewButtonDelegate {
     }
     
     func saveButtonTapped(completion: @escaping (Bool) -> ()) {
-        guard let imageUrl = URL(string: "https://item.kakaocdn.net/do/e27878b2d7c30103f76bfb73833ffaab9f17e489affba0627eb1eb39695f93dd") else { return }
+        guard let imageUrl = URL(string: imageUrl) else { return }
         
         KingfisherManager.shared.retrieveImage(with: imageUrl, completionHandler: { [weak self] result in
             switch(result) {
