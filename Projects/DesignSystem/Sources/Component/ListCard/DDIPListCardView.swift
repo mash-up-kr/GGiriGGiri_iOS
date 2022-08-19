@@ -10,6 +10,7 @@ import UIKit
 
 import RxSwift
 import RxRelay
+import SnapKit
 
 public class DDIPListCardView: UIView, AddViewsable {
     public enum ViewType {
@@ -52,7 +53,6 @@ public class DDIPListCardView: UIView, AddViewsable {
 
     public let productStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fillProportionally
@@ -64,36 +64,34 @@ public class DDIPListCardView: UIView, AddViewsable {
     public let componentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+
         return stackView
     }()
     
     private let semiCircleSpaceLeftView: SpaceView = {
         let view = SpaceView(isClockwise: false)
-        view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     private let semiCircleSpaceRightView: SpaceView = {
         let view = SpaceView(isClockwise: true)
-        view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
     private let deadlineViewComponent: DDipListCardDeadlineView = {
         let view = DDipListCardDeadlineView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+
         return view
     }()
     private let applyViewComponent: DDipListCardApplyView = {
         let view = DDipListCardApplyView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+
         return view
     }()
     private let completeViewCmponent: DDipListCardCompleteView = {
         let view = DDipListCardCompleteView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+
         return view
     }()
     
@@ -114,10 +112,6 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
     
     private func setView() {
-        applyViewer.translatesAutoresizingMaskIntoConstraints = false
-        imageIcon.translatesAutoresizingMaskIntoConstraints = false
-        dashedLine.translatesAutoresizingMaskIntoConstraints = false
-        
         self.addSubViews([
             productStackView,
             imageIcon,
@@ -154,57 +148,52 @@ public class DDIPListCardView: UIView, AddViewsable {
     }
     
     private func setUI() {
-        NSLayoutConstraint.activate([
-            self.heightAnchor.constraint(equalToConstant: 180)
-        ])
-        
-        NSLayoutConstraint.activate([
-            productStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            productStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            productStackView.trailingAnchor.constraint(equalTo: imageIcon.leadingAnchor, constant: -17)
-        ])
-        
-        NSLayoutConstraint.activate([
-            imageIcon.widthAnchor.constraint(equalToConstant: 75),
-            imageIcon.heightAnchor.constraint(equalToConstant: 75),
-            
-            imageIcon.topAnchor.constraint(equalTo: self.topAnchor, constant: 13),
-            imageIcon.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -55)
-        ])
-        
-        NSLayoutConstraint.activate([
-            applyViewer.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-            applyViewer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8)
-        ])
-        
-        NSLayoutConstraint.activate([
-            dashedLine.heightAnchor.constraint(equalToConstant: 1),
-            
-            dashedLine.leadingAnchor.constraint(equalTo: self.semiCircleSpaceLeftView.trailingAnchor),
-            dashedLine.trailingAnchor.constraint(equalTo: self.semiCircleSpaceRightView.leadingAnchor),
-            dashedLine.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -82)
-        ])
-        
-        NSLayoutConstraint.activate([
-            semiCircleSpaceLeftView.heightAnchor.constraint(equalToConstant: 18),
-            semiCircleSpaceLeftView.widthAnchor.constraint(equalToConstant: 18),
-            
-            semiCircleSpaceLeftView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: -9),
-            semiCircleSpaceLeftView.centerYAnchor.constraint(equalTo: self.dashedLine.centerYAnchor),
-            
-            semiCircleSpaceRightView.heightAnchor.constraint(equalToConstant: 18),
-            semiCircleSpaceRightView.widthAnchor.constraint(equalToConstant: 18),
-            
-            semiCircleSpaceRightView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 9),
-            semiCircleSpaceRightView.centerYAnchor.constraint(equalTo: self.dashedLine.centerYAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            componentStackView.topAnchor.constraint(equalTo: productStackView.bottomAnchor, constant: 42),
-            componentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            componentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            componentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24)
-        ])
+        self.snp.makeConstraints {
+            $0.height.equalTo(180)
+        }
+
+        productStackView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(20)
+            $0.leading.equalToSuperview().inset(16)
+            $0.trailing.equalTo(imageIcon.snp.leading).inset(-17)
+        }
+
+        imageIcon.snp.makeConstraints {
+            $0.width.height.equalTo(75)
+            $0.top.equalToSuperview().inset(13)
+            $0.trailing.equalToSuperview().inset(55)
+        }
+
+        applyViewer.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(8)
+            $0.trailing.equalToSuperview().inset(8)
+        }
+
+        dashedLine.snp.makeConstraints {
+            $0.height.equalTo(1)
+            $0.leading.equalTo(semiCircleSpaceLeftView.snp.trailing)
+            $0.trailing.equalTo(semiCircleSpaceRightView.snp.leading)
+            $0.bottom.equalToSuperview().inset(82)
+        }
+
+        semiCircleSpaceLeftView.snp.makeConstraints {
+            $0.height.width.equalTo(18)
+            $0.leading.equalToSuperview().inset(-9)
+            $0.centerY.equalTo(dashedLine.snp.centerY)
+        }
+
+        semiCircleSpaceRightView.snp.makeConstraints {
+            $0.height.width.equalTo(18)
+            $0.trailing.equalToSuperview().inset(-9)
+            $0.centerY.equalTo(dashedLine.snp.centerY)
+        }
+
+        componentStackView.snp.makeConstraints {
+            $0.top.equalTo(productStackView.snp.bottom).inset(-42)
+            $0.leading.equalToSuperview().inset(16)
+            $0.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(24)
+        }
     }
     
     private func bind() {

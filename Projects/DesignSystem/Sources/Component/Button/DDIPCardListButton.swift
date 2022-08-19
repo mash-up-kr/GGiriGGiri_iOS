@@ -8,6 +8,8 @@
 
 import UIKit
 
+import SnapKit
+
 public class DDIPCardListButton: UIButton {
     public enum ApplyStatus {
         /// 응모하기
@@ -50,17 +52,12 @@ public class DDIPCardListButton: UIButton {
 
     public init() {
         super.init(frame: .zero)
-        setButton()
         setAttribute()
         setLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setButton() {
-        self.translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func setAttribute() {
@@ -75,10 +72,10 @@ public class DDIPCardListButton: UIButton {
     private func setLayout() {
         self.titleLabel?.widthAnchor.constraint(equalToConstant: 52).isActive = true
 
-        NSLayoutConstraint.activate([
-            self.heightAnchor.constraint(equalToConstant: 34),
-            self.widthAnchor.constraint(equalToConstant: 96)
-        ])
+        self.snp.makeConstraints {
+            $0.width.equalTo(96)
+            $0.height.equalTo(34)
+        }
     }
 }
 

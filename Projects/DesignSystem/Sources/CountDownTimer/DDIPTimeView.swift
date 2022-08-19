@@ -34,7 +34,6 @@ final class DDIPTimeView: UIView {
     
     public let numberLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "-"
         label.textAlignment = .center
 

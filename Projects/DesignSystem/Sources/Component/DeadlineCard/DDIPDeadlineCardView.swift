@@ -35,7 +35,6 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     
     private let infoStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.spacing = 8
@@ -45,7 +44,6 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     
     private let timeStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
         
         return stackView
@@ -53,7 +51,6 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     
     private let numberLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = ":"
         label.textAlignment = .center
         label.textColor = .designSystem(.neutralBlack)
@@ -64,14 +61,12 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
     
     private let semiCircleSpaceLeftView: SpaceView = {
         let view = SpaceView(isClockwise: false)
-        view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
     private let semiCircleSpaceRightView: SpaceView = {
         let view = SpaceView(isClockwise: true)
-        view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()

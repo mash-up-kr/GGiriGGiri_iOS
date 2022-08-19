@@ -8,6 +8,8 @@
 
 import UIKit
 
+import SnapKit
+
 public class DDIPToastView: UIView, AddViewsable {
     public enum ToastType {
         case result
@@ -44,7 +46,6 @@ public class DDIPToastView: UIView, AddViewsable {
     
     public let titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textColor = .designSystem(.neutralBlack)
         titleLabel.font = .designSystem(.pretendard, family: .bold, size: ._18)
         
@@ -53,14 +54,12 @@ public class DDIPToastView: UIView, AddViewsable {
     
     public let iconImageView: UIImageView = {
         let iconImageView = UIImageView()
-        iconImageView.translatesAutoresizingMaskIntoConstraints = false
         
         return iconImageView
     }()
     
     public let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .center
         descriptionLabel.textColor = .designSystem(.neutralGray400)
@@ -107,27 +106,26 @@ public class DDIPToastView: UIView, AddViewsable {
     }
     
     private func setLayout() {
-        NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 0),
-            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor, constant: 0),
-            titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 28),
-            titleLabel.bottomAnchor.constraint(equalTo: self.iconImageView.topAnchor, constant: -16),
-            titleLabel.heightAnchor.constraint(equalToConstant: 24),
-        ])
+        titleLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.leading.greaterThanOrEqualToSuperview().inset(0)
+            $0.trailing.lessThanOrEqualToSuperview().inset(0)
+            $0.top.equalToSuperview().inset(28)
+            $0.bottom.equalTo(iconImageView.snp.top).offset(-16)
+            $0.height.equalTo(24)
+        }
 
-        NSLayoutConstraint.activate([
-            iconImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            iconImageView.bottomAnchor.constraint(equalTo: self.descriptionLabel.topAnchor, constant: -16),
-            iconImageView.widthAnchor.constraint(equalToConstant: 128),
-            iconImageView.heightAnchor.constraint(equalToConstant: 128),
-        ])
+        iconImageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(descriptionLabel.snp.top).inset(-16)
+            $0.width.height.equalTo(128)
+        }
 
-        NSLayoutConstraint.activate([
-            descriptionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            descriptionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            descriptionLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -28)
-        ])
+        descriptionLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(20)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(28)
+        }
     }
 }
 
