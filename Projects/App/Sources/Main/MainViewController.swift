@@ -115,6 +115,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
                     error: $0.error,
                     image: $0.image ?? .iconRotateLogoCharacterEmpty
                 )
+                self?.viewModel.reload()
             })
             .disposed(by: disposeBag)
         
