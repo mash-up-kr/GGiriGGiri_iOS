@@ -1,5 +1,5 @@
 //
-//  MyBoxEmptyView.swift
+//  EmptyView.swift
 //  GGiriGGiri
 //
 //  Created by 안상희 on 2022/07/28.
@@ -11,7 +11,7 @@ import UIKit
 import DesignSystem
 import SnapKit
 
-final class MyBoxEmptyView: BaseView {
+final class EmptyView: BaseView {
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -76,6 +76,11 @@ final class MyBoxEmptyView: BaseView {
             return
         }
         titleMessage.text = "등록한 내역이 없어요"
+        detailMessage.text = "필요없는 기프티콘이 있다면\n지금 바로 등록해볼까요?"
+    }
+    
+    func configureEmptyCategory() {
+        titleMessage.text = "아직 등록되지 않았어요"
         detailMessage.text = "필요없는 기프티콘이 있다면\n지금 바로 등록해볼까요?"
     }
 }

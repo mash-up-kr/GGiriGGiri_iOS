@@ -13,7 +13,7 @@ import SnapKit
 
 final class ApplyBoxView: BaseView {
 
-    private let emptyView = MyBoxEmptyView()
+    private let emptyView = EmptyView()
     
     override func setLayout() {
         super.setLayout()
