@@ -82,6 +82,8 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with data: GifticonCard) {
+        bind()
+        
         gifticonId = data.gifticonInfo.id
         cardView.update(
             style: .init(

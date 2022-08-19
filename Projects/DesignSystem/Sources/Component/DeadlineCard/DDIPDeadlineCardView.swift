@@ -208,7 +208,6 @@ public class DDIPDeadlineCardView: UIView, AddViewsable {
             .disposed(by: disposeBag)
         
         timer.invalidDate
-            .skip(1)
             .bind(to: countdownTimeOver)
             .disposed(by: disposeBag)
     }
