@@ -33,3 +33,20 @@ struct GifticonCard {
     /// 기프티콘 전달 상태 (NO_PARTICIPANTS, PRORESS, FINISH)
     var sprinkledStatus: SprinkledStatus?
 }
+
+// MARK: - Computed Property
+
+extension GifticonCard {
+    /// 뿌리기까지 남은 시간
+    var leftSprikleTime: Date {
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents(
+            [
+                .hour, .minute, .second
+            ],
+            from: Date(),
+            to: sprinkleTime.fullStringDate()
+        )
+        return calendar.date(from: components) ?? Date()
+    }
+}

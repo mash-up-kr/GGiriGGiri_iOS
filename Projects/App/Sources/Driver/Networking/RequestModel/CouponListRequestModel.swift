@@ -9,6 +9,6 @@
 import Foundation
 
 struct GifticonListRequestModel: Encodable {
-    let orderBy: BaseRequestModel.Order
-    let category: BaseRequestModel.Category
+    let orderBy: CommonRequest.OrderCase
+    let category: CommonRequest.CategoryCase
 }

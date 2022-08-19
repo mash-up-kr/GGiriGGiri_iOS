@@ -31,11 +31,16 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
     func configure(with data: GifticonCard) {
         gifticonId = data.gifticonInfo.id
         
-        // TODO: 현재로부터 뿌리기까지 남은 시간으로 바꿔줘야함
         if data.isParticipating {
-            listCardView.setApplyViewType(status: .complete, leftTime: Date())
+            listCardView.setApplyViewType(
+                status: .complete,
+                leftTime: data.leftSprikleTime
+            )
         } else {
-            listCardView.setApplyViewType(status: .enable, leftTime: Date())
+            listCardView.setApplyViewType(
+                status: .enable,
+                leftTime: data.leftSprikleTime
+            )
         }
         
         bind(with: data)
@@ -70,13 +75,17 @@ final class GifticonCardCollectionViewCell: UICollectionViewCell {
             self?.gifticonApplyButtonDelegate?.applyButtonTapped(with: data.gifticonInfo.id,
                                                                  categoryImage: data.gifticonInfo.standardImageName,
                                                                  completion: { status in
-                // TODO: 현재로부터 뿌리기까지 남은 시간으로 바꿔줘야함
                 if status {
-                    self?.listCardView.setApplyViewType(status: .complete, leftTime: data.sprinkleTime.fullStringDate())
+                    self?.listCardView.setApplyViewType(
+                        status: .complete,
+                        leftTime: data.leftSprikleTime
+                    )
                     self?.listCardView.setApplyViewer(viewer: data.numberOfParticipants + 1)
                 } else {
-                    // TODO: 응모 실패했을 경우 처리해야함
-                    self?.listCardView.setApplyViewType(status: .enable, leftTime: data.sprinkleTime.fullStringDate())
+                    self?.listCardView.setApplyViewType(
+                        status: .enable,
+                        leftTime: data.leftSprikleTime
+                    )
                 }
             })
         }.disposed(by: disposeBag)

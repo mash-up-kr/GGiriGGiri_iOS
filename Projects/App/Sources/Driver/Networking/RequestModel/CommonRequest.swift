@@ -1,5 +1,5 @@
 //
-//  BaseRequestModel.swift
+//  CommonRequest.swift
 //  GGiriGGiri
 //
 //  Created by AhnSangHoon on 2022/07/31.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-enum BaseRequestModel {
-    enum Order: Encodable {
+enum CommonRequest {
+    enum OrderCase: Encodable {
         case deadLine
         case create
         
@@ -25,7 +25,7 @@ enum BaseRequestModel {
         }
     }
     
-    enum Category: Encodable {
+    enum CategoryCase: Encodable {
         case all
         case cafe
         case delivery
@@ -34,6 +34,19 @@ enum BaseRequestModel {
         case fastfood
         case voucher
         case etc
+        
+        init(categoryModel: Category) {
+            switch categoryModel {
+            case .all: self = .all
+            case .cafe: self = .cafe
+            case .delivery: self = .delivery
+            case .icecream: self = .icecream
+            case .convenienceStore: self = .convenienceStore
+            case .fastfood: self = .fastfood
+            case .voucher: self = .voucher
+            case .etc: self = .etc
+            }
+        }
         
         func encode(to encoder: Encoder) throws {
             var contrainer = encoder.singleValueContainer()

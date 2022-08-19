@@ -35,6 +35,7 @@ protocol MainViewModelProtocol {
     var isDeadlineDataExist: Bool { get }
 
     func presentPhotoPicker()
+    func reload()
     func requestPHPhotoLibraryAuthorization()
     func handleAuthorizationStatus(with authorizationStatus: PHAuthorizationStatus)
     func addButtonDidTapped()
@@ -120,6 +121,15 @@ final class MainViewModel: MainViewModelProtocol {
         present?(picker)
     }
     
+    func reload() {
+        deadlineInfo()
+        gifticonList()
+    }
+}
+
+// MARK: - Private Method
+
+extension MainViewModel {
     private func deadlineInfo() {
         gifticonService.deadline(.init(orderBy: .deadLine, category: .all))
             .subscribe { [weak self] responseModel in
@@ -147,7 +157,16 @@ final class MainViewModel: MainViewModelProtocol {
     }
     
     private func gifticonList() {
-        gifticonService.gifticonList(.init(orderBy: .create, category: .all))
+        var requestCategory: CommonRequest.CategoryCase {
+            if let selectedCategoryIndex = mainDataSource.selectedCategoryIndexPath {
+                let categoryModel = mainDataSource.category(selectedCategoryIndex)
+                return .init(categoryModel: categoryModel)
+            } else {
+                return .all
+            }
+        }
+        
+        gifticonService.gifticonList(.init(orderBy: .create, category: requestCategory))
             .subscribe { [weak self] responseModel in
                 guard let responseModel = responseModel.data else { return }
                 let entity = GifticonEntity.init(responseModel)
@@ -169,7 +188,27 @@ final class MainViewModel: MainViewModelProtocol {
             })
             .disposed(by: disposeBag)
     }
+    
+    private func bind() {
+        mainDataSource.didTapDeadLineApplyButton
+            .subscribe(onNext: { [weak self] in
+                self?.apply(gifticonId: $0)
+            })
+            .disposed(by: disposeBag)
+        
+        mainDataSource.didDeadLineCountdownTimeOver
+            .subscribe(onNext: { [weak self] in
+                self?.deadlineInfo()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func requestOCR(_ image: UIImage) {
+        OCRRepository.request(image)
+    }
 }
+
+// MARK: - Photo
 
 extension MainViewModel {
     
@@ -211,28 +250,6 @@ extension MainViewModel {
         authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         
         handleAuthorizationStatus(with: authorizationStatus)
-    }
-}
-
-// MARK: - Private Method
-
-extension MainViewModel {
-    private func bind() {
-        mainDataSource.didTapDeadLineApplyButton
-            .subscribe(onNext: { [weak self] in
-                self?.apply(gifticonId: $0)
-            })
-            .disposed(by: disposeBag)
-        
-        mainDataSource.didDeadLineCountdownTimeOver
-            .subscribe(onNext: { [weak self] in
-                self?.deadlineInfo()
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func requestOCR(_ image: UIImage) {
-        OCRRepository.request(image)
     }
 }
 
@@ -281,7 +298,7 @@ extension MainViewModel: MainCollectionViewCellDelegate {
         .disposed(by: disposeBag)
     }
     
-    private func categoryToBaseRequestModel(with category: Category) -> BaseRequestModel.Category {
+    private func categoryToBaseRequestModel(with category: Category) -> CommonRequest.CategoryCase {
         switch category {
         case .all:
             return .all
