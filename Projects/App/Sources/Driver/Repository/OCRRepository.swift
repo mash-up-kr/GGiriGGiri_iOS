@@ -60,7 +60,7 @@ final class OCRRepository: OCRRepositoryLogic {
                             expirationDate: $0.data?.expirationDate.format(.yearMonthDay) ?? ""
                         ), .default
                     ))
-                case "C002":
+                case "F002":
                     self?.sprinkleInformation.accept((
                         SprinkleInformation(
                             image: image
