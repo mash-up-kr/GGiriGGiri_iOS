@@ -62,9 +62,9 @@ extension String {
         var formatString: String {
             switch type {
             case .yearMonthDay, .dashYearMonthDay, .hourMinuteSecond:
-                return "yyyy-MM-dd'T'HH:mm:ss.SSS"
+                return "yyyy-MM-dd'T'HH:mm:ss"
             case .dotYearMonthDay:
-                return "yyyy.MM.dd'T'HH:mm:ss.SSS"
+                return "yyyy.MM.dd'T'HH:mm:ss"
             }
         }
         
