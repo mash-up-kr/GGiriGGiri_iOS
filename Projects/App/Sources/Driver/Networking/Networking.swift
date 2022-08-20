@@ -82,7 +82,9 @@ final class Network: Networking {
                     },
                     to: endpoint,
                     headers: model.headers
-                )
+                ) {
+                    $0.timeoutInterval = 10
+                }
                 .response{ [single] response in
                     if let error = response.error {
                         single(.failure(NetworkingError.response(error)))
