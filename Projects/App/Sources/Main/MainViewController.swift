@@ -126,6 +126,10 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             self?.viewModel.push?(myBoxViewController)
         })
         .disposed(by: disposeBag)
+        
+        viewModel.isDeadlineDataExist
+            .bind(to: mainView.isDeadlineDataExist)
+            .disposed(by: disposeBag)
     }
     
     private func configureNavigationBar() {
@@ -140,7 +144,7 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         mainView.configureDataSource(viewModel.mainDataSource)
         mainView.configureDelegate(viewModel.mainDelegate)
         
-        mainView.isDeadlineDataExist = viewModel.isDeadlineDataExist
+        mainView.isDeadlineDataExist.accept(viewModel.isDeadlineDataExist.value)
         
         view.addSubview(mainView)
         mainView.snp.makeConstraints {
