@@ -211,7 +211,12 @@ public class DDipCountdownCardView: UIView, AddViewsable {
 
 extension DDipCountdownCardView {
     public func update(imageName: DDIPAsset.name) {
-        iconImageView.image = .designSystem(imageName)
+        do {
+            let gif = try UIImage(gifName: imageName.description)
+            iconImageView.setGifImage(gif)
+        } catch {
+            print(error)
+        }
     }
     
     public func update(countdownDate: Date) {

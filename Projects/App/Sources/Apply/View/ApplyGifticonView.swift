@@ -12,6 +12,7 @@ import DesignSystem
 import RxRelay
 import RxSwift
 import SnapKit
+import SwiftyGif
 
 /// 기프티콘 응모 뷰
 final class ApplyGifticonView: BaseView {
