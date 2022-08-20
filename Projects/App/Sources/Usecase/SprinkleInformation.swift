@@ -29,7 +29,7 @@ struct SprinkleInformation {
         self.image = image
         self.brandName = brandName
         self.productName = productName
-        self.expirationDate = expirationDate.format(.yearMonthDay)
+        self.expirationDate = expirationDate
     }
     
     mutating

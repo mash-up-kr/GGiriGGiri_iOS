@@ -105,7 +105,10 @@ extension RegisterGifticonView {
     func updateInformation(_ information: SprinkleInformation) {
         gifticonInfoView.update(brandName: information.brandName)
         gifticonInfoView.update(productName: information.productName)
-        gifticonInfoView.update(expirationDate: information.expirationDate)
+        
+        if let expirationDate = information.expirationDate, expirationDate.count == 8 {
+            gifticonInfoView.update(expirationDate: information.expirationDate)
+        }
     }
 }
 

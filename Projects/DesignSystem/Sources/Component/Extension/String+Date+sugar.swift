@@ -39,7 +39,7 @@ extension Date {
 
 extension String {
     public enum FormatType: String {
-        case yearMonthDay = "YYYYMMDD"
+        case yearMonthDay = "YYYYMMdd"
         case dashYearMonthDay = "YYYY-MM-dd"
         case dotYearMonthDay = "YYYY.MM.dd"
         case hourMinuteSecond = "HH:mm:SS"
