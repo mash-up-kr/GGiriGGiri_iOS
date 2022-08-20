@@ -74,12 +74,12 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
             .skip(1)
             .subscribe(onNext: { [weak self] sprinkleInformation in
                 self?.dismissActivityIndicator()
-                if let sprinkleInformation = sprinkleInformation {
+                if let sprinkleInformation = sprinkleInformation.0 {
                     self?.showRegisterView(information: sprinkleInformation)
                 } else {
                     self?.viewModel.alert?(
-                        "쿠폰 정보 생성 실패",
-                        "쿠폰번호를 가져오는 데 실패했습니다.\n더 쉬운 쿠폰사용을 위해 바코드 또는 쿠폰 번호가 잘 보이는 이미지로 다시 시도해주세요!",
+                        sprinkleInformation.1.info.toastTitle,
+                        sprinkleInformation.1.info.toastDescription,
                         nil,
                         nil,
                         nil
@@ -217,7 +217,7 @@ extension MainViewController {
     }
 
     private func setToastView() {
-        couponIndicatorToastView.setDescriptionLabel("쿠폰 이미지 분석 중이에요!\n 잠시만 기다려주세요!")
+        couponIndicatorToastView.setDescriptionLabel("잠시만 기다려주세요!")
 
         self.view.addSubview(couponIndicatorToastView)
         couponIndicatorToastView.addSubview(activityIndicator)

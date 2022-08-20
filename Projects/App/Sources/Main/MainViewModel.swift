@@ -26,7 +26,7 @@ protocol MainViewModelProtocol {
     var mainDelegate: MainCollectionViewDelegate { get }
 
     var toastRequestRelay: PublishRelay<Void> { get }
-    var OCRRequestRelay: BehaviorRelay<SprinkleInformation?> { get }
+    var OCRRequestRelay: BehaviorRelay<(SprinkleInformation?, ResponseError)> { get }
     
     var deadlineListUpdated: PublishRelay<Void> { get }
     var categoryListUpdated: PublishRelay<Void> { get }
@@ -85,7 +85,7 @@ final class MainViewModel: MainViewModelProtocol {
     }()
     
     var toastRequestRelay = PublishRelay<Void>()
-    var OCRRequestRelay: BehaviorRelay<SprinkleInformation?> {
+    var OCRRequestRelay: BehaviorRelay<(SprinkleInformation?, ResponseError)> {
         return OCRRepository.sprinkleInformation
     }
     
