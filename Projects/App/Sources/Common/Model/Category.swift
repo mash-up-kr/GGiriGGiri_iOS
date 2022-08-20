@@ -45,4 +45,25 @@ enum Category: String, CaseIterable {
         case .etc: return .iconGuitar
         }
     }
+    
+    var gifName: DDIPAsset.name {
+        switch self {
+        case .cafe:
+            return .gifCafedesert
+        case .delivery:
+            return .gifChicken
+        case .icecream:
+            return .gifIcecream
+        case .convenienceStore:
+            return .gifDrugstore
+        case .fastfood:
+            return .gifFastfood
+        case .voucher:
+            return .gifCoupon
+        case .etc:
+            return .gifGuitar
+        case .all:
+            return .gifGuitar
+        }
+    }
 }

@@ -11,6 +11,7 @@ import UIKit
 import RxSwift
 import RxRelay
 import SnapKit
+import SwiftyGif
 
 public class DDIPDeadlineCardView: UIView, AddViewsable {
     public let CTAButton = DDIPCTAButton()
@@ -223,7 +224,13 @@ extension DDIPDeadlineCardView {
         disposeBag = DisposeBag()
         bind()
         
-        imageIcon.image = .designSystem(style.iconImage)
+        do {
+            let gif = try UIImage(gifName: style.iconImage.description)
+            imageIcon.setGifImage(gif)
+        } catch {
+            print(error)
+        }
+        
         nameLabel.text = style.name
         brandLabel.text = style.brand
         expirationLabel.text = "유효기간 : \(style.expirationDate.format(.dotYearMonthDay))"

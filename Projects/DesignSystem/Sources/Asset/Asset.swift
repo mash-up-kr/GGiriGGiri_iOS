@@ -61,6 +61,14 @@ public enum DDIPAsset {
         
         case logoMain
         
+        case gifCafedesert
+        case gifChicken
+        case gifCoupon
+        case gifDrugstore
+        case gifFastfood
+        case gifGuitar
+        case gifIcecream
+        
         public var description: String {
             switch self {
             case .iconAngelBracket24:
@@ -137,6 +145,20 @@ public enum DDIPAsset {
                 return "icon_lose"
             case .logoMain:
                 return "logo_main"
+            case .gifCafedesert:
+                return "gif_cafedessert"
+            case .gifChicken:
+                return "gif_chicken"
+            case .gifCoupon:
+                return "gif_coupon"
+            case .gifDrugstore:
+                return "gif_drugstore"
+            case .gifFastfood:
+                return "gif_fastfood"
+            case .gifGuitar:
+                return "gif_guitar"
+            case .gifIcecream:
+                return "gif_icecream"
             }
         }
     }
