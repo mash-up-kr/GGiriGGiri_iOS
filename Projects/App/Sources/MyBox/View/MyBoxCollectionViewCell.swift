@@ -54,7 +54,7 @@ final class MyBoxCollectionViewCell: UICollectionViewCell {
         let section = CollectionViewLayoutManager.configureSection(with: group,
                                                                    contentInsets: .init(top: .zero,
                                                                                         leading: 16,
-                                                                                        bottom: .zero,
+                                                                                        bottom: 32,
                                                                                         trailing: 16),
                                                                    scrollingBehavior: nil,
                                                                    header: nil)
