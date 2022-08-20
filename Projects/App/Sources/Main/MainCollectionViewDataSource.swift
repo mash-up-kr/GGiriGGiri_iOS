@@ -64,7 +64,6 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             }
             let deadlineData = deadLineData[indexPath.item]
             cell.configure(with: deadlineData)
-            cell.gifticonApplyButtonDelegate = self
             cell.didApplyButtonTapped
                 .bind(to: didTapDeadLineApplyButton)
                 .disposed(by: disposeBag)

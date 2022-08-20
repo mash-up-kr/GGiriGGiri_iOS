@@ -20,8 +20,6 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
     private var disposeBag = DisposeBag()
     private(set) var gifticonId = 0
     
-    weak var gifticonApplyButtonDelegate: GifticonApplyButtonDelegate?
-    
     private let cardView = DDIPDeadlineCardView()
     
     let didApplyButtonTapped = PublishRelay<Int>()
@@ -95,18 +93,7 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
             )
         )
         
-        cardView.update(viewerCount: data.numberOfParticipants)
-        cardView.CTAButton.rx.tap.asObservable()
-            .subscribe { _ in
-                self.gifticonApplyButtonDelegate?.applyButtonTapped(with: self.gifticonId, categoryImage: data.gifticonInfo.standardImageName, completion: { status in
-                    if status {
-                        self.cardView.update(buttonTitle: "응모 완료", backgroundColor: .secondarySkyblue200)
-                        self.cardView.disableButton()
-                        // TODO: 전체 카드뷰 reload 필요. 응모자 수 등..
-                    }
-                })
-            }.disposed(by: disposeBag)
-        
+        cardView.update(viewerCount: data.numberOfParticipants)        
         updateApplyButton(isApplied: data.isParticipating)
     }
 }
