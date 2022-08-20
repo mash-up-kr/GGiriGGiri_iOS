@@ -31,7 +31,8 @@ extension Target {
                 .external(name: "PinLayout"),
                 .external(name: "FlexLayout"),
                 .external(name: "Lottie"),
-                .external(name: "SnapKit")
+                .external(name: "SnapKit"),
+                .external(name: "SwiftyGif")
                ],
                settings: .appTarget)
     }
