@@ -8,8 +8,9 @@
 import ProjectDescription
 
 extension Target {
+    static let AppName = "DDip"
     public static func appTarget(name: String) -> Target {
-        Target(name: name,
+        Target(name: AppName,
                platform: .iOS,
                product: .app,
                bundleId: "com.sz.mashup.\(name)",
