@@ -31,8 +31,7 @@ protocol MainViewModelProtocol {
     var deadlineListUpdated: PublishRelay<Void> { get }
     var categoryListUpdated: PublishRelay<Void> { get }
     var gifticonListUpdated: PublishRelay<Void> { get }
-    
-    var isDeadlineDataExist: Bool { get }
+    var isDeadlineDataExist: BehaviorRelay<Bool> { get }
 
     func presentPhotoPicker()
     func reload()
@@ -92,8 +91,7 @@ final class MainViewModel: MainViewModelProtocol {
     var deadlineListUpdated = PublishRelay<Void>()
     var categoryListUpdated = PublishRelay<Void>()
     var gifticonListUpdated = PublishRelay<Void>()
-    
-    var isDeadlineDataExist: Bool
+    var isDeadlineDataExist = BehaviorRelay<Bool>(value: false)
     
     init(
         network: Networking,
@@ -104,7 +102,7 @@ final class MainViewModel: MainViewModelProtocol {
         self.gifticonService = GifticonService(network: network)
         self.categoryRepository = repository
         self.OCRRepository = OCRRepository
-        self.isDeadlineDataExist = deadlineDataExist
+        self.isDeadlineDataExist.accept(deadlineDataExist)
         
         deadlineInfo()
         category()
@@ -139,6 +137,7 @@ extension MainViewModel {
                 let entity = GifticonEntity.init(responseModel)
                 self?.mainDataSource.updateDeadLineData(entity.gifticonList)
                 self?.deadlineListUpdated.accept(Void())
+                self?.isDeadlineDataExist.accept(!entity.gifticonList.isEmpty)
             } onFailure: { error in
                 print(error.localizedDescription)
             }

@@ -65,7 +65,7 @@ final class MyBoxListCollectionViewCell: UICollectionViewCell {
         if category == .applied {
             // 응모가 진행 중일 경우
             if data.drawStatus == .progress {
-                listCardView.setApplyViewType(status: .complete, leftTime: data.sprinkleTime.fullStringDate())
+                listCardView.setAppliedStatusViewType(status: .inprogress, applyDate: data.participateDate?.fullStringDate() ?? Date())
                 return
             }
             

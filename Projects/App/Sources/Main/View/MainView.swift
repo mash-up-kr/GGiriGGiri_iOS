@@ -8,11 +8,15 @@
 
 import UIKit
 
+import RxRelay
+import RxSwift
 import SnapKit
 
 final class MainView: BaseView {
     
-    var isDeadlineDataExist: Bool = false
+    var isDeadlineDataExist = BehaviorRelay<Bool>(value: false)
+    
+    private let disposeBag = DisposeBag()
     
     override func setLayout() {
         super.setLayout()
@@ -28,6 +32,12 @@ final class MainView: BaseView {
         super.configure()
         
         backgroundColor = .clear
+        
+        isDeadlineDataExist
+            .subscribe(onNext: { [weak self] _ in
+                self?.reloadCollectionViewSection(.deadLine)
+            })
+            .disposed(by: disposeBag)
     }
     
     private lazy var collectionView: UICollectionView = {
@@ -58,7 +68,7 @@ final class MainView: BaseView {
             let sectionLayoutKind = MainSection.allCases[sectionIndex]
             switch sectionLayoutKind {
             case .deadLine:
-                if self.isDeadlineDataExist {
+                if self.isDeadlineDataExist.value {
                     return self.generateDeadlineSection()
                 } else {
                     return self.generateEmptySection()
