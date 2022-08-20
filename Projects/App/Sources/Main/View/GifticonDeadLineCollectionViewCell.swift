@@ -85,7 +85,7 @@ final class GifticonDeadLineCollectionViewCell: UICollectionViewCell {
                 brand: data.gifticonInfo.brand,
                 name: data.gifticonInfo.name,
                 expirationDate: data.gifticonInfo.expirationDate,
-                iconImage: data.gifticonInfo.category.assetName
+                iconImage: data.gifticonInfo.category.gifName
             )
         )
         
