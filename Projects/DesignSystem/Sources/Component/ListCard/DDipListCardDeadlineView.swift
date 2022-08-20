@@ -38,8 +38,17 @@ public class DDipListCardDeadlineView: DDipListCardApplyBaseView {
     }
     
     public func setDrawLabel(title: String, leftTime: Date) {
-        let fullText = "\(title)까지 \(leftTime.hourString())시간 남았어요!"
-        let leftTimeText = "\(leftTime.hourString())시간"
+        var fullText: String
+        var leftTimeText: String
+
+        if leftTime.hourString() == "00" {
+            fullText = "\(title)까지 \(leftTime.minuteString())분 남았어요!"
+            leftTimeText = "\(leftTime.minuteString())"
+        } else {
+            fullText = "\(title)까지 \(leftTime.hourString())시간 남았어요!"
+            leftTimeText = "\(leftTime.hourString())"
+        }
+
         let resultTitle = "\(title)"
         let attributedString = NSMutableAttributedString(string: fullText)
 
@@ -52,17 +61,18 @@ public class DDipListCardDeadlineView: DDipListCardApplyBaseView {
 
         attributedString.setAttributes(
             [
+                .font: UIFont.designSystem(.pretendard, family: .bold, size: ._14)
+            ],
+            range: NSString(string: fullText).range(of: resultTitle)
+        )
+
+        attributedString.setAttributes(
+            [
                 .foregroundColor: UIColor.designSystem(.secondaryBlue),
                 .font: UIFont.designSystem(.pretendard, family: .bold, size: ._14)
             ],
             range: NSString(string: fullText).range(of: leftTimeText)
         )
-
-        attributedString.setAttributes(
-            [
-                .font: UIFont.designSystem(.pretendard, family: .bold, size: ._14)
-            ],
-            range: NSString(string: fullText).range(of: resultTitle))
 
         drawLabel.attributedText = attributedString
     }

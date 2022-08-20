@@ -24,6 +24,12 @@ extension Date {
         return dateString
     }
 
+    func minuteString() -> String {
+        Formatter.shared.dateFormat = "mm"
+        guard let dateString = Formatter.shared.string(for: self) else { return "" }
+        return dateString
+    }
+
     func fullDateString(_ type: FormatType) -> String {
         Formatter.shared.dateFormat = type.displayName
         guard let dateString = Formatter.shared.string(for: self) else { return "" }
