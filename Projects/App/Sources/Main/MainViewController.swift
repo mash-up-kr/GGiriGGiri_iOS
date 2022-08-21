@@ -218,6 +218,7 @@ extension MainViewController {
     private func showToastView() {
         setToastView()
         activityIndicator.startAnimating()
+        self.view.isUserInteractionEnabled = false
     }
 
     private func setToastView() {
@@ -240,6 +241,7 @@ extension MainViewController {
 
     private func dismissActivityIndicator() {
         activityIndicator.stopAnimating()
+        self.view.isUserInteractionEnabled = true
         couponIndicatorToastView.removeFromSuperview()
     }
 
