@@ -76,7 +76,7 @@ final class ResultViewController: BaseViewController<ResultViewModelProtocol> {
                                                 Gifticon(id: 0,
                                                          brand: entity.brandName,
                                                          name: entity.merchandiseName,
-                                                         expirationDate: entity.expiredAt.format(.yearMonthDay),
+                                                         expirationDate: entity.expiredAt.format(.dotYearMonthDay),
                                                          category: Category(rawValue: entity.category) ?? .all
                                                         ))
                 self?.resultView.imageUrl = entity.imageURL
