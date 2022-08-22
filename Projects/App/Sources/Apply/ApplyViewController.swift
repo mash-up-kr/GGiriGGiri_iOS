@@ -96,7 +96,7 @@ final class ApplyViewController: BaseViewController<ApplyViewModelProtocol> {
                 self?.applyGifticonView.setCategory(name: entity?.category ?? "")
                 self?.applyGifticonView.setProductName(name: entity?.merchandiseName ?? "")
                 self?.applyGifticonView.setExpirationDate(name: entity?.expiredAt ?? "")
-                self?.applyGifticonView.setImageIcon(imageName: entity?.imageName)
+                self?.applyGifticonView.setImageIcon(imageName: entity?.gifName)
                 self?.applyGifticonView.setCountdownDate(date: entity?.sprinkleAt.fullStringDate())
 
                 if entity?.participateIn == true {
