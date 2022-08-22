@@ -51,11 +51,19 @@ extension String {
 
     public func format(_ type: FormatType) -> String {
         let dateData = fullStringDate(type)
-
         Formatter.shared.dateFormat = type.displayName
         let dateString = Formatter.shared.string(from: dateData)
-
         return dateString
+    }
+
+    public func inputDateString() -> String {
+        Formatter.shared.dateFormat = "yyyyMMdd"
+        guard let date = Formatter.shared.date(from: self) else {
+            return ""
+        }
+        Formatter.shared.dateFormat = "YYYY-MM-dd"
+
+        return Formatter.shared.string(from: date)
     }
 
     public func fullStringDate(_ type: FormatType = .yearMonthDay) -> Date {

@@ -31,10 +31,10 @@ struct SprinkleInformation {
         self.productName = productName
         self.expirationDate = expirationDate
     }
-    
-    mutating
-    func requestable() -> SprinkleInformation {
-        self.expirationDate = expirationDate?.format(.dashYearMonthDay)
+
+    mutating func requestable() -> SprinkleInformation {
+        self.expirationDate = expirationDate?.inputDateString()
+
         return self
     }
     
