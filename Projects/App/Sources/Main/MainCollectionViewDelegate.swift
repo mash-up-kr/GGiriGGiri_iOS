@@ -39,6 +39,7 @@ final class MainCollectionViewDelegate: NSObject, UICollectionViewDelegate {
             // 셀 선택 상태 변경
             cell.updateButton(isSelected: true)
             
+            guard selectedCategoryIndexPath != indexPath else { return }
             selectedCategoryIndexPath = indexPath
             collectionViewCellDelegate?.categoryCellTapped(indexPath: indexPath)
         case .gifticonList:
