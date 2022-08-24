@@ -88,6 +88,7 @@ final class MyBoxViewController: BaseViewController<MyBoxViewModelProtocol> {
         }).disposed(by: disposeBag)
         
         myBoxView.pageRelay
+            .distinctUntilChanged()
             .subscribe(onNext: { [weak self] in
                 if $0 == 1 {
                     self?.categoryTapView.tapRightButton()
