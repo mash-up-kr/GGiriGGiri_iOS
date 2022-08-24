@@ -34,6 +34,8 @@ final class MainView: BaseView {
         backgroundColor = .clear
         
         isDeadlineDataExist
+            .skip(1)
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
                 self?.reloadCollectionViewSection(.deadLine)
             })

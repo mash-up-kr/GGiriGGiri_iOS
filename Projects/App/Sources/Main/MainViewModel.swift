@@ -96,17 +96,13 @@ final class MainViewModel: MainViewModelProtocol {
     init(
         network: Networking,
         repository: CategoryRepositoryLogic,
-        OCRRepository: OCRRepositoryLogic,
-        deadlineDataExist: Bool
+        OCRRepository: OCRRepositoryLogic
     ) {
         self.gifticonService = GifticonService(network: network)
         self.categoryRepository = repository
         self.OCRRepository = OCRRepository
-        self.isDeadlineDataExist.accept(deadlineDataExist)
         
-        deadlineInfo()
         category()
-        gifticonList()
         bind()
     }
     

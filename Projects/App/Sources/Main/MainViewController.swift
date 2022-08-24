@@ -144,8 +144,6 @@ final class MainViewController: BaseViewController<MainViewModelProtocol> {
         mainView.configureDataSource(viewModel.mainDataSource)
         mainView.configureDelegate(viewModel.mainDelegate)
         
-        mainView.isDeadlineDataExist.accept(viewModel.isDeadlineDataExist.value)
-        
         view.addSubview(mainView)
         mainView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
