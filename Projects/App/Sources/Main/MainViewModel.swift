@@ -191,7 +191,10 @@ extension MainViewModel {
             })
             .disposed(by: disposeBag)
         
+        // 마감 시간이 지나고 바로 리스트 재요청 시 그대로 남아있는 이슈가 있음
+        // 따라서 delay 500ms를 추가함
         mainDataSource.didDeadLineCountdownTimeOver
+            .delay(.milliseconds(500), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
                 self?.reload()
             })
