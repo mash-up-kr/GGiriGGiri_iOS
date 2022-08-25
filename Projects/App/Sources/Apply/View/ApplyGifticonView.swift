@@ -33,7 +33,7 @@ final class ApplyGifticonView: BaseView {
     
     private let noticeLabel: UILabel = {
         let label = UILabel()
-        label.text = "결과 정보는 마감 후 바로 나옵니다."
+        label.text = "추첨 결과는 MY BOX에서 확인하세요!"
         label.textColor = .designSystem(.neutralBlack)
         label.font = .designSystem(.pretendard, family: .bold, size: ._16)
         label.textAlignment = .center
