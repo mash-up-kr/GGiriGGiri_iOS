@@ -24,7 +24,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     var didDeadLineCountdownTimeOver = PublishRelay<Void>()
     var selectedCategoryIndexPath: IndexPath? = nil
     
-    private let disposeBag = DisposeBag()
+    private var deadLineDisposeBag = DisposeBag()
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         // TODO: 마감임박 데이터 없을 때의 경우 처리 필요
@@ -67,7 +67,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             cell.gifticonApplyButtonDelegate = self
             cell.countdownTimeOver
                 .bind(to: didDeadLineCountdownTimeOver)
-                .disposed(by: disposeBag)
+                .disposed(by: deadLineDisposeBag)
             return cell
         case .category:
             guard let cell = collectionView.dequeReusableCell(CategoryCollectionViewCell.self,
@@ -112,6 +112,7 @@ final class MainCollectionViewDataSource: NSObject, UICollectionViewDataSource {
 extension MainCollectionViewDataSource {
     func updateDeadLineData(_ list: [GifticonCard]) {
         deadLineData = list
+        deadLineDisposeBag = DisposeBag()
     }
     
     func updateCategoryData(_ list: [Category]) {

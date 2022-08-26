@@ -44,19 +44,11 @@ final class SplashViewModel: SplashViewModelProtocol {
     }
     
     private func changeRootViewController(deadlineData: Int) {
-        
-        var isDeadlineDataExist = true
-        
-        if deadlineData == 0 {
-            isDeadlineDataExist = false
-        }
-        
         let rootViewController = MainViewController(
             MainViewModel(
                 network: Network(),
                 repository: CategoryRepository(CategoryService(network: Network())),
-                OCRRepository: OCRRepository(OCRService(network: Network())),
-                deadlineDataExist: isDeadlineDataExist
+                OCRRepository: OCRRepository(OCRService(network: Network()))
             ))
         
         let navigationController = UINavigationController(rootViewController: rootViewController)

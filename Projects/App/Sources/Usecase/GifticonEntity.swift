@@ -13,7 +13,9 @@ struct GifticonEntity {
     
     init(_ responseModel: [GifticonResponseModel] = []) {
         gifticonList = responseModel.compactMap({ model in
-            GifticonCard(
+            // 마감 시간이 지난 경우 리스트에 노출되지 않도록 방어
+            guard model.sprinkleAt.fullStringDate().compare(Date()) != .orderedAscending else { return nil }
+            return GifticonCard(
                 sprinkleTime: model.sprinkleAt,
                 gifticonInfo: Gifticon(
                     id: model.sprinkleID,
@@ -22,7 +24,8 @@ struct GifticonEntity {
                     expirationDate: model.expiredAt,
                     category: Category(rawValue: model.category) ?? .all),
                 numberOfParticipants: model.participants,
-                isParticipating: model.participateIn)
+                isParticipating: model.participateIn
+            )
         })
     }
 }
