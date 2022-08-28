@@ -31,15 +31,23 @@ final class SplashViewModel: SplashViewModelProtocol {
     private func deadlineInfo() {
         gifticonService.deadline(.init(orderBy: .deadLine, category: .all))
             .subscribe { [weak self] responseModel in
-                guard let responseModel = responseModel.data else {
-                    return
+                if responseModel.code == "S001" {
+                    // 성공
+                    guard let responseModel = responseModel.data else {
+                        return
+                    }
+                    let entity = GifticonEntity.init(responseModel)
+                    self?.deadlineDataCountUpdated.accept(entity.gifticonList.count)
+                    self?.changeRootViewController(deadlineData: entity.gifticonList.count)
+                } else {
+                    // 서버의 API 실패 처리 (S001이외의 에러)
+                    self?.deadlineDataCountUpdated.accept(.zero)
+                    self?.changeRootViewController(deadlineData: .zero)
                 }
-                let entity = GifticonEntity.init(responseModel)
-                self?.deadlineDataCountUpdated.accept(entity.gifticonList.count)
-                
-                self?.changeRootViewController(deadlineData: entity.gifticonList.count)
-            } onFailure: { error in
-                print(error.localizedDescription)
+            } onFailure: { [weak self] error in
+                // http 네트워크 에러
+                self?.deadlineDataCountUpdated.accept(.zero)
+                self?.changeRootViewController(deadlineData: .zero)
             }.disposed(by: disposeBag)
     }
     
