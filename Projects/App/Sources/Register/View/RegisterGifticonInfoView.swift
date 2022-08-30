@@ -54,10 +54,14 @@ final class RegisterGifticonInfoView: BaseView {
     private func generateCategorySection() -> NSCollectionLayoutSection {
         let item = CollectionViewLayoutManager.configureItem(
             with: CollectionViewConfigureSize(
-                widthDimension: .estimated(10),
+                widthDimension: .estimated(1),
                 heightDimension: .absolute(34)
             )
         )
+        item.edgeSpacing = .init(leading: .none,
+                                 top: .none,
+                                 trailing: .fixed(8),
+                                 bottom: .none)
         
         let group = CollectionViewLayoutManager.configureGroup(
             with: CollectionViewConfigureSize(
