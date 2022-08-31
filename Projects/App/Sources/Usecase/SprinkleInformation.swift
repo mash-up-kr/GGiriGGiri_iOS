@@ -54,8 +54,8 @@ struct SprinkleInformation {
     
     func intDeadLineMinute() -> Int {
         if let deadlineMinute = deadlineMinute, deadlineMinute.isEmpty == false {
-            // TODO: 분, 시간 -> 분으로 변경하는 로직 추가하기
-            return 30
+            guard let time = RegisterTime(rawValue: deadlineMinute)?.description else { return .zero }
+            return time
         }
         
         return .zero

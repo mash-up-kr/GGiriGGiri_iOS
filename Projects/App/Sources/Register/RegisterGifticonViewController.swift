@@ -252,9 +252,12 @@ extension RegisterGifticonViewController: UIScrollViewDelegate {
 
 extension RegisterGifticonViewController {
     private func showPicker() {
+        var times = [String]()
+        for time in RegisterTime.allCases {
+            times.append(time.rawValue)
+        }
         let pickerViewController = PickerViewController(PickerViewModel(dataSourceType: .title(
-            // TODO: - 임의로 넣은 피커 데이터. 확인 필요
-            ["30분", "1시간", "1시간30분", "2시간", "2시간 30분"]
+            times
         ), didSelectItem: { [weak self] time in
             guard let time = time as? String else { return }
             self?.registerGifticonView.updateTime(time)
