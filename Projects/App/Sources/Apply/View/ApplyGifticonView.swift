@@ -76,7 +76,8 @@ final class ApplyGifticonView: BaseView {
     }
     
     func setCountdownDate(date: Date?) {
-        guard let date = date else {
+        /// 현재시간과 비교해서 마감 시간이 현재시간보다 이전이면 Timer 시작하지 않도록 수정
+        guard let date = date, date.compare(Date()) != .orderedAscending else {
             return
         }
 
