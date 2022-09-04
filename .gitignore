@@ -95,3 +95,6 @@ iOSInjectionProject/
 *.xcodeproj
 *.xcworkspace
 **/Derived/
+
+# match
+*.swp
