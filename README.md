@@ -17,9 +17,9 @@ Mash-Up 12기 끼리끼리 iOS팀 DDip repository 입니다.
     </tr>
     <tr align="center">
         <td>
-            <img src="https://github.com/dvHuni.png?size=100">
+            <img src="https://github.com/szzang-kr.png?size=100">
             <br>
-            <a href="https://github.com/dvHuni"><I>dvHuni</I></a>
+            <a href="https://github.com/szzang-kr"><I>szzang-kr</I></a>
         </td>
         <td>
             <img src="https://github.com/kimkyunghun3.png?size=100">
